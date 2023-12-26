@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .back {
+            background-color : #9AA5C8;
+            width : 1000px;
+            height : 500px;
+            border-radius : 100px;
+        }
+        .custom-container {
+            padding-top: 25px;
+            padding-left: 100px;
+            display: flex;
+        }
+
+        .custom-button {
+            display: inline-flex;
+            justify-content: center;
+            color: black;
+            opacity: 0.2;
+        }
+
+        .custom-button:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .custom-button:not(:disabled):focus-visible:-moz-focusring {
+            box-shadow: 0 0 0 2px #3490dc;
+        }
+    </style>
+</head>
+<body>
+    <div class = "back">
+        <div class="custom-container">
+            <button class="custom-button">
+                Total
+            </button>
+            <button class="custom-button" id = "part-filed">
+                <span class="icon1">&#9650;</span>
+                조달관리
+            </button>
+            <button class="custom-button" id = "part-filed2">
+                <span class="icon2">&#9650;</span>
+                발주관리
+            </button>
+            <button class="custom-button" id = "part-filed3">
+                <span class="icon3">&#9650;</span>
+                자재관리
+            </button>
+        </div>
+    </div>
+
+    <script>
+        var state1 = 0;
+        var state2 = 0;
+        var state3 = 0;
+
+        document.getElementById("part-filed").addEventListener('click', function () {
+            resetStates();
+            state1 = 1;
+            updateButtonState("part-filed", state1);
+        });
+
+        document.getElementById("part-filed2").addEventListener('click', function () {
+            resetStates();
+            state2 = 2;
+            updateButtonState("part-filed2", state2);
+        });
+
+        document.getElementById("part-filed3").addEventListener('click', function () {
+            resetStates();
+            state3 = 3;
+            updateButtonState("part-filed3", state3);
+        });
+
+        function resetStates() {
+            state1 = 0;
+            state2 = 0;
+            state3 = 0;
+            updateButtonState("part-filed", state1);
+            updateButtonState("part-filed2", state2);
+            updateButtonState("part-filed3", state3);
+        }
+
+        function updateButtonState(buttonId, state) {
+            var button = document.getElementById(buttonId);
+            if (state === 1) {
+                button.style.opacity = '100';
+                button.innerHTML = `<span class="icon1">&#9660;</span> 조달관리`;
+            } else if(state === 2){
+                button.style.opacity = '100';
+                button.innerHTML = `<span class="icon2">&#9660;</span> 발주관리`;
+            } else if(state===3) {
+                button.style.opacity = '100';
+                button.innerHTML = `<span class="icon3">&#9660;</span> 자재관리`;
+            } else if(state===0){
+                button.style.opacity = '0.2';
+            }
+        }
+    </script>
+</body>
+</html>

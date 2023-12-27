@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Component Communication</title>
+</head>
+<body>
+
+<div id="parentComponent">
+    <p id="dataDisplay"></p>
+    <button onclick='sendDataToChild("이젠 됩니까?")'>Send Data to Child</button>
+    <script>
+        // 부모 컴포넌트
+        const parentComponent = document.getElementById('parentComponent');
+        const dataDisplay = document.getElementById('dataDisplay');
+
+        function sendDataToChild() {
+            const dataToSend = 'Hello from Parent';
+
+            // 자식 컴포넌트에 데이터 전달
+            childComponent.receiveData(dataToSend);
+        }
+
+        // 자식 컴포넌트
+        const childComponent = {
+            receiveData: function(data) {
+                // 받은 데이터를 처리하거나 표시
+                dataDisplay.textContent = data;
+            }
+        };
+    </script>
+</div>
+<h1>test html의 값을 가져오고 있는 중ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</h1>
+</body>
+</html>

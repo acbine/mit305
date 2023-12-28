@@ -316,7 +316,6 @@
                 }
             };
 
-
             function handle(data) {
                 console.log("data = ",data);
                 console.log(data.dataset.includePath)
@@ -328,26 +327,6 @@
                     });
                 })
             }
-
-            // function handle(data) {
-            //     console.log("data = ",data)
-            //     window.addEventListener('load', function() {
-            //         console.log("------------------------------------------");
-            //             var includePath = data.dataset.includePath;
-            //             console.log(includePath);
-            //             if (includePath) {
-            //                 var xhttp = new XMLHttpRequest();
-            //                 console.log(xhttp)
-            //                 xhttp.onreadystatechange = function () {
-            //                     if (this.readyState == 4 && this.status == 200) {
-            //                         data.outerHTML = this.responseText;
-            //                     }
-            //                 };
-            //                 xhttp.open('GET', includePath, true);
-            //                 xhttp.send();
-            //             }
-            //     });
-            // }
 
         </script>
     </div>

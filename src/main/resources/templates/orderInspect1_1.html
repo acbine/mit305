@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet">
+    <title>진척 검수</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            width: 796px;
+            font-size: 14px;
+            margin: 0 auto;
+        }
+
+        thead {
+            background-color: #ccc;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 12px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr>td[colspan="11"] {
+            text-align: left;
+        }
+
+        button {
+            padding: 2px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button.confirm {
+            background-color: orange;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>품목명</th>
+                <th>품목코드</th>
+                <th>수량</th>
+                <th>재고량</th>
+                <th>생산 예정일</th>
+                <th>L/T</th>
+                <th>발주일</th>
+                <th>규격</th>
+                <th>중량</th>
+                <th>재질</th>
+                <th>진척검수 확인</th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>나사</td>
+            <td>A</td>
+            <td>9</td>
+            <td>5</td>
+            <td>2023-12-26</td>
+            <td>10</td>
+            <td>2023-12-13</td>
+            <td>10mm</td>
+            <td>10kg</td>
+            <td>철</td>
+            <td>
+                <button class="confirm" onclick="showHiddenTable()">확인</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="11">발주서 발행일 : 2023-12-11</td>
+        </tr>
+        <tr>
+            <td colspan="11">업체명 : (유)길승산업</td>
+        </tr>
+        </tbody>
+    </table>
+    <table class="hidden" style="width: 660px; margin-left: 554px;">
+        <thead>
+            <tr>
+                <th>품목명</th>
+                <th>발주일</th>
+                <th>진척 검수 계획일</th>
+                <th>진척 검수 상태</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>나사</td>
+                <td>2023-12-13</td>
+                <td colspan="2"><a href="orderInspect1_2.html">(+)</a></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    function showHiddenTable(){
+        document.querySelector('.hidden').classList.remove('hidden');
+        document.querySelector('.confirm').classList.add('hidden');
+    }
+</script>
+</body>
+</html>

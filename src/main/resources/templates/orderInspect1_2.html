@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet">
+    <title>진척 검수</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+
+        table {
+            text-align: center;
+            border-collapse: collapse;
+            width: 796px;
+            font-size: 14px;
+            margin: 0 auto;
+        }
+
+        thead {
+            background-color: #ccc;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 12px;
+            text-align: center;
+        }
+
+        tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tbody tr>td[colspan="11"] {
+            text-align: left; /* colspan="11"을 갖는 tr의 td에 대해 왼쪽 정렬 */
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        button {
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+
+        button.inspect {
+            background-color: blue;
+        }
+
+        button.delete {
+            padding: 2px 12px;
+        }
+
+        button.delete, button.exit {
+            background-color: red;
+        }
+
+        textarea {
+            height: 100px;
+            resize: none;
+        }
+
+        textarea::placeholder {
+            color: red; /* 원하는 색상으로 설정 */
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    품목명
+                </th>
+                <th>
+                    품목코드
+                </th>
+                <th>
+                    수량
+                </th>
+                <th>
+                    재고량
+                </th>
+                <th>
+                    생산 예정일
+                </th>
+                <th>
+                    L/T
+                </th>
+                <th>
+                    발주일
+                </th>
+                <th>
+                    규격
+                </th>
+                <th>
+                    중량
+                </th>
+                <th>
+                    재질
+                </th>
+                <th>
+                    진척검수 확인
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>나사</td>
+            <td>A</td>
+            <td>9</td>
+            <td>5</td>
+            <td>2023-12-26</td>
+            <td>10</td>
+            <td>2023-12-13</td>
+            <td>10mm</td>
+            <td>10kg</td>
+            <td>철</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="11">
+                발주서 발행일 : 2023-12-11
+            </td>
+        </tr>
+        <tr>
+            <td colspan="11">
+                업체명 : (유)길승산업
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <table>
+        <thead>
+        <tr>
+            <th>품목명</th>
+            <th>발주일</th>
+            <th>진척 검수 계획일</th>
+            <th>진척 검수 상태</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td rowspan="2">나사</td>
+            <td rowspan="2">12/13</td>
+            <td><input type="date"></td>
+            <td style="color: red; font-weight: bold;" onclick="openPopup('popup')">[미검수]</td>
+            <td>
+                <button class="delete">삭제</button>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">(+)</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+    <div class="popup" id="popup">
+        <table style="width: 190px;">
+            <thead>
+            <tr>
+                <th colspan="2">품목수준평가</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>규격</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>중량</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>재질</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td>입고가능여부</td>
+                <td><input type="checkbox"></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <textarea placeholder="규격에 문제가 있으므로 체크처리를 보류하겠습니다."></textarea>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div style="text-align: center;">
+            <button class="inspect">등록</button>
+            <button class="exit" onclick="closePopup('popup')">닫기</button>
+        </div>
+    </div>
+    <script>
+        function openPopup(popupId) {
+            var popup = document.getElementById(popupId);
+            popup.style.display = "block";
+        }
+
+        function closePopup(popupId) {
+            var popup = document.getElementById(popupId);
+            popup.style.display = "none";
+        }
+    </script>
+</body>
+</html>

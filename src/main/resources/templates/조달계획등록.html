@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        /* Global Styles */
+        body {
+          font-family: 'Arial', sans-serif;
+          margin: 0;
+          padding: 0;
+        }
+
+        /* Component Styles */
+        .container {
+          background-color: #ffffff;
+          padding: 1.5rem;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+          border-radius: 0.5rem;
+        }
+
+        .flex {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        .title {
+          font-size: 1.25rem;
+          font-weight: bold;
+        }
+
+        .button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0.375rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          transition: background-color 0.2s, color 0.2s;
+          outline: none;
+          cursor: pointer;
+          height: 2.5rem;
+          padding: 0.5rem 1rem;
+        }
+
+        .button-red {
+          background-color: #e53e3e;
+          color: #ffffff;
+        }
+
+        .button-red:hover {
+          background-color: #c53030;
+        }
+
+        .section {
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1rem;
+        }
+
+        .state-choose {
+
+
+
+        }
+
+        .registration-section{
+          display: flex;
+          gap: 1rem;
+          margin-bottom: 1rem;
+          float: left;
+
+        }
+
+        .info-card {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          background-color: #bee3f8;
+          color: #2c5282;
+          padding: 1rem;
+          border-radius: 0.5rem;
+        }
+
+        .data-card {
+          background-color: #fbd38d;
+          color: #8c3f08;
+          padding: 1rem;
+          border-radius: 0.5rem;
+        }
+
+        .table-container {
+          background-color: #f0f4f8;
+          padding: 1rem;
+          border-radius: 0.5rem;
+        }
+
+        /* Table Styles */
+        .table {
+          width: 100%;
+          border-collapse: collapse;
+          caption-side: bottom;
+        }
+
+        .table th, .table td {
+          border-bottom: 1px solid #cbd5e0;
+          padding: 0.75rem;
+          text-align: left;
+        }
+
+        .table th {
+          font-weight: bold;
+        }
+
+        .table tbody tr:hover {
+          background-color: #edf2f7;
+        }
+
+        .table .data-selected-bg-muted[data-state="selected"] {
+          background-color: #edf2f7;
+        }
+
+        .table .border-input {
+          border-color: #cbd5e0;
+        }
+
+        .table .hover-bg-accent:hover {
+          background-color: #3182ce;
+          color: #ffffff;
+        }
+
+        .table .hover-text-accent-foreground:hover {
+          color: #ffffff;
+        }
+
+        .table .bg-accent {
+          background-color: #3182ce;
+          color: #ffffff;
+        }
+
+        .table .text-accent-foreground {
+          color: #3182ce;
+        }
+
+        .table .bg-destructive {
+          background-color: #e53e3e;
+          color: #ffffff;
+        }
+
+        .table .text-destructive-foreground {
+          color: #e53e3e;
+        }
+
+        .table .hover-bg-destructive-90:hover {
+          background-color: #c53030;
+        }
+
+        .actions {
+          display: flex;
+          gap: 0.5rem;
+        }
+
+        .action-button {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          border-radius: 0.375rem;
+          font-size: 0.875rem;
+          font-weight: 500;
+          transition: background-color 0.2s, color 0.2s;
+          outline: none;
+          cursor: pointer;
+          padding: 0.5rem 1rem;
+          border: 1px solid #cbd5e0;
+        }
+
+        .action-button-edit {
+          background-color: #ffffff;
+          color: #3182ce;
+        }
+
+        .action-button-registration {
+          background-color: #33CC33;
+          color: #ffffff;
+        }
+    </style>
+    <title>Your HTML Example</title>
+</head>
+<body>
+<!-- Your HTML content here -->
+<div class="container">
+
+<!--    <div class="close">-->
+<!--    조달 계획 등록 <button class="button button-red" id="close_btn"> X </button>-->
+<!--    </div>-->
+
+    <div class="data-card">
+        <h2 class="title">조달 계획 등록</h2>
+
+        <div class = "state-choose">
+            <select onChange="table_change(this.options[this.selectedIndex].value)">
+                <option value="before_proceeding">발주 전</option>
+                <option value="order_proceeding">발주 중</option>
+                <option value="order_completed">발주 완료</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+
+            <table class="table" id="table1" style="display:inline">
+                <thead>
+                <tr>
+                    <th>조달 품목명</th>
+                    <th>조달 품목 코드</th>
+                    <th>필요 수량</th>
+                    <th>조달 수량</th>
+                    <th>L/T</th>
+                    <th>제품 생산날짜</th>
+                    <th>조달 업체명</th>
+                    <th>현재 재고량</th>
+                    <th>발주일</th>
+                    <th>발주 상태</th>
+                    <th>계획 등록</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>나사</td>
+                        <td>A</td>
+                        <td>14</td>
+                        <td>9</td>
+                        <td>10일</td>
+                        <td>23/12/26</td>
+                        <td>길승산업</td>
+                        <td>5</td>
+                        <td>23/12/13</td>
+                        <td>발주 전</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
+                                <button id="deleteBtn1" class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>A품목</td>
+                        <td>ab42e</td>
+                        <td>12</td>
+                        <td>7</td>
+                        <td>8일</td>
+                        <td>23/12/27</td>
+                        <td>길승산업</td>
+                        <td>5</td>
+                        <td>23/12/18</td>
+                        <td>발주 전</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
+                                <button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>나사</td>
+                        <td>A</td>
+                        <td>16</td>
+                        <td>4</td>
+                        <td>5일</td>
+                        <td>24/01/23</td>
+                        <td>길승산업</td>
+                        <td>12</td>
+                        <td>24/01/15</td>
+                        <td>발주 전</td>
+                        <td>
+                            <div class="actions">
+                                <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
+                                <button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+            <table class="table" id="table2" style="display:none">
+
+                <thead>
+                <tr>
+                    <th>조달 품목명</th>
+                    <th>조달 품목 코드</th>
+                    <th>필요 수량</th>
+                    <th>조달 수량</th>
+                    <th>L/T</th>
+                    <th>제품 생산날짜</th>
+                    <th>조달 업체명</th>
+                    <th>현재 재고량</th>
+                    <th>발주일</th>
+                    <th>발주 상태</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>나사</td>
+                        <td>A</td>
+                        <td>14</td>
+                        <td>9</td>
+                        <td>10일</td>
+                        <td>23/12/26</td>
+                        <td>길승산업</td>
+                        <td>5</td>
+                        <td>23/12/13</td>
+                        <td>발주 중</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+            <table class="table" id="table3" style="display:none">
+
+                <thead>
+                <tr>
+                    <th>조달 품목명</th>
+                    <th>조달 품목 코드</th>
+                    <th>필요 수량</th>
+                    <th>조달 수량</th>
+                    <th>L/T</th>
+                    <th>제품 생산날짜</th>
+                    <th>조달 업체명</th>
+                    <th>현재 재고량</th>
+                    <th>발주일</th>
+                    <th>발주 상태</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>나사</td>
+                        <td>B</td>
+                        <td>14</td>
+                        <td>9</td>
+                        <td>10일</td>
+                        <td>23/12/15</td>
+                        <td>마텍스</td>
+                        <td>5</td>
+                        <td>23/12/3</td>
+                        <td>발주 완료</td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+
+    function modify_and_save(tag) {
+
+        const tr = tag.closest("tr");
+
+        const num = tr.children[3];
+        const date = tr.children[8];
+
+        const target = document.getElementById("deleteBtn1");
+        //const delete_btn_state = document.getElementsByClassName('action-button action-button-registration');
+
+        console.log(num, date);
+
+
+        if (num.contentEditable == "true") {
+
+            num.contentEditable = "false";
+            date.contentEditable = "false";
+
+
+            tag.innerText = "수정";
+            target.disabled = false;
+
+        //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
+        } else {
+
+            //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
+
+            num.contentEditable = "true";
+            date.contentEditable = "true";
+
+            target.disabled = true;
+            tag.innerText = "수정 완료";
+
+
+            //첫번째 셀에 포커스를 줘서 상태 변경에 대해 알림.
+            num.focus();
+
+        }
+    }
+
+    function registration_and_delete(tag) {
+
+        alert("등록 완료");
+
+        const tr = tag.closest("tr");
+        tr.remove();
+    }
+
+
+    function table_change(state) {
+
+        if(state == "before_proceeding") {
+
+            table1.style.display = "inline";
+            table2.style.display = "none";
+            table3.style.display = "none";
+
+        }
+
+        else if(state == "order_proceeding") {
+
+            table1.style.display = "none";
+            table2.style.display = "inline";
+            table3.style.display = "none";
+
+        }
+
+        else if(state == "order_completed") {
+
+            table1.style.display = "none";
+            table2.style.display = "none";
+            table3.style.display = "inline";
+
+        }
+
+
+    }
+
+
+</script>
+</body>
+</html>

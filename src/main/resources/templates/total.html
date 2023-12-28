@@ -2,9 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
-
-    <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
     <title>Title</title>
     <style>
         .back {
@@ -13,6 +10,7 @@
             height: 800px;
             border-radius: 100px;
         }
+
         .innerGroundShadow {
             background-color: #ffffff;
             margin-top: 10px;
@@ -86,12 +84,13 @@
             overflow: hidden;
         }
 
-        .tab_menu .list div {
+        .tab_menu .list li {
             float: left;
+            margin-right: 14px;
         }
 
         #tap1 {
-            background-color: #3498db;
+            background-color: #2ecc71;
             border-radius: 10px;
             height: 40px;
             width: 150px;
@@ -101,13 +100,7 @@
             float: left;
         }
 
-        .tabClass {
-            font-weight: bold;
-            color: #FFFFFF;
-        }
-
-
-        .tab_menu .list div.tabClass .btn {
+        .tapClass {
             background-color: #2ecc71;
             border-radius: 10px;
             height: 40px;
@@ -117,7 +110,14 @@
             float: left;
         }
 
+
+        .tab_menu .list li.is_on .btn {
+            font-weight: bold;
+            color: green;
+        }
+
         .tab_menu .list .btn {
+            margin-left: 35px;
             font-size: 13px;
         }
 
@@ -155,23 +155,50 @@
     </div>
     <div class="innerGround"></div>
     <div class="innerGroundShadow">
+
         <div class="tab_menu">
             <div class="list">
             </div>
+
             <div class="cont_area">
+                <div data-include-path="test.html"></div>
+                <script>
+                    window.addEventListener('load', function () {
+                        var allElements = document.getElementsByTagName('*');
+                        Array.prototype.forEach.call(allElements, function (el) {
+                            var includePath = el.dataset.includePath;
+                            if (includePath) {
+                                var xhttp = new XMLHttpRequest();
+                                xhttp.onreadystatechange = function () {
+                                    if (this.readyState == 4 && this.status == 200) {
+                                        el.outerHTML = this.responseText;
+                                    }
+                                };
+                                xhttp.open('GET', includePath, true);
+                                xhttp.send();
+                            }
+                        });
+                    });
+                </script>
+                <div id="tab2" class="cont">
+                    Tab Content2
+                </div>
+                <div id="tab3" class="cont">
+                    Tab Content3
+                </div>
             </div>
         </div>
 
         <script>
+
             var state1 = 0;
             var state2 = 0;
             var state3 = 0;
             var total = 0;
 
             var clickTapList = new Array();
-            const tabList = document.getElementsByClassName("list");
-            const contents = document.getElementsByClassName("cont")
-            const contentList = document.getElementsByClassName("cont_area")
+            const tabList = document.querySelectorAll('.tab_menu .list div');
+            const contents = document.querySelectorAll('.tab_menu .cont_area .cont')
             let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
 
             document.getElementById("part-filed").addEventListener('click', function () {
@@ -248,85 +275,73 @@
 
             function sendDateToChild(String) {
                 const data = document.getElementById(String).innerHTML.valueOf();
+                console.log(data)
                 childComponent.receiveData(data);
             }
 
             const childComponent = {
                 receiveData: function (data) {
                     clickTapList.push(data);
-
-                    const tabList3 = [];
-                    const contList = [];
-
-                    for (var i = 0; i < clickTapList.length; i++) {
-                        if (i === 0) {
-                            tabList3.push(`<div id = "tap1">
-                            <div class="tabClass" id="is_on">
-                                <div class="btn">${clickTapList[i]}</div>
-                            </div>
-                        </div>
-                        `)
-                            contList.push(`
-                              <div class="cont" data-include-path="test.html">testcont0</div>
-                            `)
-                        } else if (clickTapList[0] === clickTapList[i]) {
-                            tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}</div>
-                         </div>
-                        `)
-                            contList.push(`
-                              <div class="cont" data-include-path="test.html">testcont${i}</div>
-                            `)
-                        } else {
-                            tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}</div>
-                        </div>
-                        `)
-                            contList.push(`
-                              <div class="cont" data-include-path="existence.html">testcont${i}</div>
-                            `)
-                        }
+                    console.log(clickTapList.length)
+                    if (data === "test") {
+                        var newTap = document.querySelectorAll('.tab_menu .list div');
+                        newTap.forEach(value => console.log(value));
+                        newTap[0].innerHTML = `<div class="is_on" id="tap1">test</div>`
+                        clickTapList.forEach(value => console.log(value))
                     }
-                    tabList[tabList.length - 1].innerHTML = tabList3.join("");
-                    contentList[contentList.length - 1].innerHTML = contList.join("");
 
-                    var SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
+                    const tapList2 = document.getElementsByClassName("list");
+                    console.log("텝리스트2 내용 받아오기", tapList2);
+                    const tapList3 = [];
 
-                    for (let k = 0; k < tabList3.length; k++) {
-                        var clickEvent = document.getElementsByClassName("btn");
-                        clickEvent[k].addEventListener('click', function (e) {
-                            console.log("클릭되는 중입니다.")
-                            e.preventDefault();
-                            for (let j = 0; j < tabList3.length; j++) {
-                                SoYouCanSeeWhatWasPressed.classList.remove('tabClass')
-                                // 나머지 컨텐츠 display:none 처리
-                                contents[j].style.display = 'none';
+                    console.log("일단 출력은 되나?")
+
+                    clickTapList.forEach(value => {
+                        clickTapList.forEach(item => {
+                            if (item === value) {
+                                tapList3.push(`
+                        <div class = "tapClass">${value}</div>
+                        `);
+                                tapList3.pop(`
+                                 <div class = "tapClass" id = "tap1">${value}</div>
+                                `)
                             }
-                            SoYouCanSeeWhatWasPressed.classList.add('tabClass')
-                            // 버튼 클릭시 컨텐츠 전환
-                            activeCont = document.getElementsByClassName("cont");
-                            activeCont[k].style.display = 'block';
-                            console.log(contents[k]);
-                            handle(activeCont[k])
+                        })
+                        if (value === clickTapList[0]) {
+                            tapList3.push(`
+                        <div class = "tapClass" id = "tap1">${value}</div>
+                        `)
+                        } else {
+                            tapList3.push(`
+                        <div class = "tapClass">${value}</div>
+                        `)
+                        }
+                    })
 
-
-                        });
-                    }
+                    tapList2[tapList2.length - 1].innerHTML = tapList3.join("");
+                    dataDisplay.textContent = data;
                 }
             };
 
-            function handle(data) {
-                console.log("data = ",data);
-                console.log(data.dataset.includePath)
-                var include = data.dataset.includePath;
-                $(document).ready(function () {
-                    $(`.cont`).load(`${include}`, function () {
-                        //페이지 별로 다른 메뉴 css 적용도 가능
-                        document.getElementById("*");
-                    });
-                })
-            }
+            for (var i = 0; i < tabList.length; i++) {
+                tabList[i].querySelector('.btn').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    for (var j = 0; j < tabList.length; j++) {
+                        // 나머지 버튼 클래스 제거
+                        tabList[j].classList.remove('is_on');
 
+                        // 나머지 컨텐츠 display:none 처리
+                        contents[j].style.display = 'none';
+                    }
+
+                    // 버튼 관련 이벤트
+                    this.parentNode.classList.add('is_on');
+
+                    // 버튼 클릭시 컨텐츠 전환
+                    activeCont = this.getAttribute('href');
+                    document.querySelector(activeCont).style.display = 'block';
+                });
+            }
         </script>
     </div>
 

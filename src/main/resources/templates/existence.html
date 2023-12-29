@@ -4,7 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
 
   <style>
     .container {
@@ -56,6 +58,25 @@
       border-bottom: 1px solid #ccc;
     }
 
+    .action-button-registration {
+      background-color: #33CC33;
+      color: #ffffff;
+    }
+
+    .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 0.375rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: background-color 0.2s, color 0.2s;
+      outline: none;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border: 1px solid #cbd5e0;
+    }
+
   </style>
   <title>Your Page Title</title>
 </head>
@@ -97,29 +118,91 @@
             </tr>
           </thead>
           <tbody>
-          <tb>
-            <th class="table-body">나사</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-            <th class="table-body">asdew</th>
-          </tb>
+          <tr>
+            <td class="table-body">나사</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">80원</td>
+            <td class="table-body"><input style="width:25px" type="number" name="수정가능"></td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">133원</td>
+            <td class="table-body"><button class="action-button action-button-registration">확인</button></td>
+          </tr>
           </tbody>
         </table>
+
+        <button type="button" id="btn">버튼</button>
+
         <div class="flex justify-center items-center space-x-2 mb-4">
           <button class="button">Unit</button>
           <button class="button green-button">Assy</button>
           <button class="button">Part</button>
+          <div id="column_chart_div1" style="width: 900px; height: 500px;">
+          </div>
         </div>
-        <div class="w-1/3 pl-4">
-          <h2 class="text-xl font-bold mb-4">발주 현황 비율</h2>
-          <div id="donutchart" style="width: 100%; height: 600px;">그래프 안나올시 나오는 글씨</div>
-        </div>
+        <script>
+          google.charts.load('current', {packages: ['corechart']});
+
+          function columnChart1() {
+
+            var arr = [
+
+              ['품목명', '총금액'],
+
+              ['A품목', 400],
+
+              ['철', 460],
+
+              ['구리', 2820],
+
+              ['나사', 540]
+
+            ];
+
+
+            var dataTable = google.visualization.arrayToDataTable(arr);
+
+
+            var options = {
+
+              title: '현황 그래프',
+
+              hAxis: {
+
+                title: 'Assy',
+
+                titleTextStyle: {
+
+                  color: 'black'
+
+                }
+
+              }
+
+            };
+
+            var objDiv = document.getElementById('column_chart_div1');
+
+            var chart = new google.visualization.ColumnChart(objDiv);
+
+
+            chart.draw(dataTable, options);
+
+          }
+
+          $(document).ready(function(){
+
+            $('button').on('click', function(){
+
+              columnChart1();
+
+            });
+
+          });
+        </script>
       </div>
     </div>
   </div>

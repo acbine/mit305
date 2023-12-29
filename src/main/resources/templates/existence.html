@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
   <style>
     .container {
       margin: auto;
@@ -19,21 +22,6 @@
       cursor: pointer;
     }
 
-    .blue-button {
-      background-color: #3490dc;
-      color: #fff;
-    }
-
-    .destructive-button {
-      background-color: #e3342f;
-      color: #fff;
-    }
-    .select-category {
-      border: 1px solid #000;
-      height : 30px;
-      width : 50px;
-      background-color : #fff;
-    }
     .filter-button {
       border: 1px solid #000;
       background-color: #fff;
@@ -49,14 +37,6 @@
       color: #fff;
     }
 
-    .input {
-      height: 2.5rem;
-      width: 100%;
-      border: 1px solid #ccc;
-      border-radius: 0.25rem;
-      padding: 0.5rem;
-      font-size: 0.875rem;
-    }
 
     .table {
       width: 100%;
@@ -82,22 +62,13 @@
 <body>
   <div class="container">
     <div class="bg-white box-shadow rounded-lg p-6">
-      <div class="flex justify-between items-center mb-4">
-        <div class="flex space-x-2">
-          <button class="button blue-button">Total</button>
-          <button class="button">스케줄관리</button>
-          <button class="button">설문관리</button>
-          <button class="button">사용자관리</button>
-        </div>
-        <button class="button destructive-button">삭제된 항목 보기</button>
-      </div>
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <input class="input" placeholder="yyyy/MM/dd" />
-        <input class="input" placeholder="yyyy/MM/dd" />
+        <input type="date">
+        <input type="date">
         <div class="flex space-x-2">
-          <button class="button filter-button">입고된 품목 리스트</button>
+          <input class="button filter-button"/>
           <label>
-            <select class = "select-category">
+            <select>
               <option>품목명</option>
               <option style="font-size: 10px">품목코드</option>
             </select>
@@ -107,11 +78,6 @@
       </div>
       <div class="w-full h-[300px] mb-4">
         <div style="width: 100%; height: 100%;"></div>
-      </div>
-      <div class="flex justify-center items-center space-x-2 mb-4">
-        <button class="button">Unit</button>
-        <button class="button green-button">Assy</button>
-        <button class="button">Part</button>
       </div>
       <div class="relative w-full overflow-auto">
         <table class="table">
@@ -145,6 +111,15 @@
           </tb>
           </tbody>
         </table>
+        <div class="flex justify-center items-center space-x-2 mb-4">
+          <button class="button">Unit</button>
+          <button class="button green-button">Assy</button>
+          <button class="button">Part</button>
+        </div>
+        <div class="w-1/3 pl-4">
+          <h2 class="text-xl font-bold mb-4">발주 현황 비율</h2>
+          <div id="donutchart" style="width: 100%; height: 600px;">그래프 안나올시 나오는 글씨</div>
+        </div>
       </div>
     </div>
   </div>

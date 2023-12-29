@@ -305,7 +305,7 @@
                 </tbody>
             </table>
 
-            <button onclick='addRow()'> 품목 추가 </button>
+            <button onclick='addRow()'> + </button>
             <button class="action-button action-button-registration"> 등록 </button>
         </div>
     </div>
@@ -329,7 +329,7 @@
         const cell_8 = tr.children[8];
         const cell_9 = tr.children[9];
         const cell_10 = tr.children[10];
-
+        const cell_11 = tr.children[11];
 
         if (cell_0.contentEditable == "true") {
 
@@ -344,6 +344,8 @@
             cell_8.contentEditable = "false";
             cell_9.contentEditable = "false";
             cell_10.contentEditable = "false";
+            cell_11.contentEditable = "false";
+
 
             tag.innerText = "수정";
 
@@ -363,6 +365,8 @@
             cell_8.contentEditable = "true";
             cell_9.contentEditable = "true";
             cell_10.contentEditable = "true";
+            cell_11.contentEditable = "true";
+
 
             tag.innerText = "수정 완료";
 
@@ -380,37 +384,10 @@
     function addRow() {
 
         const table = document.getElementById('product');
-        const new_row = table.insertRow();
+        const newRow = table.insertRow();
 
-        const cell_length = table.rows[1].cells.length;
-
-        for(let i = 0; i < cell_length; i++) {
-            const new_cell = new_row.insertCell(i);
-            let temp_html = '';
-
-            if(i == 11) {
-
-                temp_html = '<td>계약 안됨</td>'
-
-
-            }
-
-            if(i == 12) {
-
-                temp_html =
-                    '<td>' +
-                        '<div class="actions">' +
-                            '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
-                            '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
-                        '</div>' +
-                    '</td>';
-            }
-
-             new_cell.insertAdjacentHTML('afterbegin', temp_html);
-
-        }
-
-
+        const newCell1 = newRow.insertCell(0);
+        const newCell2 = newRow.insertCell(1);
     }
 
 

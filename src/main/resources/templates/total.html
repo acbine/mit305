@@ -174,26 +174,6 @@
             const contentList = document.getElementsByClassName("cont_area")
             let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
 
-            function saveHTMLToLocalStorage() {
-                var savedHTML = document.body.innerHTML;
-                localStorage.setItem("savedHTML", savedHTML);
-            }
-
-            // 로컬 스토리지에서 HTML을 불러오는 함수
-            function loadHTMLFromLocalStorage() {
-                return localStorage.getItem("savedHTML");
-            }
-
-            // 페이지가 로드될 때 실행되는 함수
-            window.onload = function () {
-                var savedHTML = loadHTMLFromLocalStorage();
-                if (savedHTML) {
-                    // 저장된 HTML이 있다면 페이지에 설정
-                    document.body.innerHTML = savedHTML;
-                    initializeTabListeners(); // 탭 리스너 초기화
-                }
-            };
-
             // 탭 버튼 클릭 리스너 초기화 함수
             function initializeTabListeners() {
                 // "조달관리" 탭 버튼에 대한 클릭 이벤트 리스너
@@ -223,14 +203,6 @@
                     total = 4;
                     updateButtonState("total", total);
                 });
-            }
-
-            // HTML이 변경될 때 실행되는 함수 (예: 버튼을 클릭할 때)
-            function changeHTML() {
-                var newHTML = "변경된 HTML 내용";
-                document.body.innerHTML = newHTML;
-                saveHTMLToLocalStorage(); // 변경된 HTML을 로컬 스토리지에 저장
-                initializeTabListeners(); // 탭 리스너 초기화
             }
 
             document.getElementById("part-filed").addEventListener('click', function () {
@@ -312,12 +284,16 @@
 
             const childComponent = {
                 receiveData: function (data) {
+
                     clickTapList.push(data);
 
                     const tabList3 = [];
                     const contList = [];
 
+
+
                     for (var i = 0; i < clickTapList.length; i++) {
+
                         var currentPage;
 
                         if (clickTapList[i] === "품목정보등록") {
@@ -388,8 +364,10 @@
                             LoadHTMLOfThePage(activeCont[k])
                         });
                     }
+                    setCookie("clickTapList",clickTapList,7)
                 }
             };
+
 
             function LoadHTMLOfThePage(PageData) {
                 var include = PageData.dataset.includePath;
@@ -400,12 +378,71 @@
                 })
             }
 
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
+
+            // Function to get a cookie value by name
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            // Function to load clickTapList from a cookie
+            function loadClickTapListFromCookie() {
+                var clickTapListString = getCookie("clickTapList");
+                if (clickTapListString) {
+                    console.log("현재 저장된 clickTapListString으로 보여주기 : ",clickTapListString)
+                    return clickTapListString;
+                }
+            }
+
+
+            function checkCookieExistence() {
+                var cookies = document.cookie.split(';');
+                return !!cookies;
+                }
+
+            // Rest of your existing JavaScript code...
+
+            // Your existing window.onload function
+            window.onload = function () {
+                loadClickTapListFromCookie(); // Load clickTapList from cookie
+                initializeTabListeners();
+            };
+
+            // Your existing changeHTML function
+            function changeHTML() {
+                // Your existing code...
+            initializeTabListeners();
+            }
+
+            (function RetrieveClickTapListInformationFromCookie() {
+                if(checkCookieExistence()) {
+                    var cookieList = loadClickTapListFromCookie().split(",");
+                    for(let i=0; i<cookieList.length; i++) {
+                        childComponent.receiveData(cookieList[i]);
+                    }
+                }
+            })()
+
         </script>
     </div>
 
     <div class="side-category">
         <div class="procurement-management" id="procurement" style="display: none">
-            <u onclick='sendDateToChild("test")' id="test">test</u><br/>
             <u onclick='sendDateToChild("item")' id="item">품목정보등록</u><br/>
             <u onclick='sendDateToChild("contract")' id="contract">계약등록</u><br/>
             <u onclick='sendDateToChild("procurementPlan")' id="procurementPlan">조달계획등록</u>

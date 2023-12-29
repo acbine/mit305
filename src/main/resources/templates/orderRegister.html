@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet">
+    <title>구매 발주서 등록</title>
+</head>
+<style>
+    .container {
+        text-align: center;
+    }
+    table {
+        border-collapse: collapse;
+        width: 768px;
+        border: 1px solid black; /* 테이블 테두리 설정 */
+        margin: 0 auto;
+    }
+
+    th, td {
+        border: 1px solid black;
+        padding: 12px;
+        text-align: left;
+    }
+
+    th {
+        background-color: #ccc;
+    }
+
+    tbody tr:hover {
+        background-color: #f5f5f5;
+    }
+
+    .btn {
+        display: inline-flex;
+        items-align: center;
+        justify-content: center;
+        padding: 8px 16px;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .btn-primary {
+        background-color: #6aaa64;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: #579c58;
+    }
+
+    .select-container {
+        position: relative;
+        display: inline-block;
+    }
+
+    .select {
+        appearance: none;
+        padding: 8px 32px 8px 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 14px;
+        cursor: pointer;
+    }
+
+    .select-arrow {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        transform: translateY(-50%);
+        pointer-events: none;
+    }
+</style>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>품목명</th>
+                    <th>품목코드</th>
+                    <th>조달 수량</th>
+                    <th>현재 재고량</th>
+                    <th>제품 생산 예정 날짜</th>
+                    <th>발주일</th>
+                    <th>L/T</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 예시 시작 -->
+                <tr>
+                    <td>나사</td>
+                    <td>A</td>
+                    <td>9</td>
+                    <td>5</td>
+                    <td>2023-12-26</td>
+                    <td>2023-12-1</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>A품목</td>
+                    <td>AA</td>
+                    <td>23</td>
+                    <td>66</td>
+                    <td>2024-1-31</td>
+                    <td>2023-12-15</td>
+                    <td>5</td>
+                </tr>
+                <tr>
+                    <td>나사</td>
+                    <td>A</td>
+                    <td>5</td>
+                    <td>34</td>
+                    <td>2024-1-12</td>
+                    <td>2024-1-31</td>
+                    <td>10</td>
+                </tr>
+                <tr>
+                    <td>D품목</td>
+                    <td>DD</td>
+                    <td>42</td>
+                    <td>2</td>
+                    <td>2024-4-13</td>
+                    <td>2023-12-22</td>
+                    <td>3</td>
+                </tr>
+                <tr>
+                    <td>F품목</td>
+                    <td>FF</td>
+                    <td>11</td>
+                    <td>72</td>
+                    <td>2024-3-12</td>
+                    <td>2023-12-30</td>
+                    <td>22</td>
+                </tr>
+                <tr>
+                    <td>O품목</td>
+                    <td>OO</td>
+                    <td>34</td>
+                    <td>66</td>
+                    <td>2024-2-13</td>
+                    <td>2024-1-4</td>
+                    <td>31</td>
+                </tr>
+                <tr>
+                    <td>R품목</td>
+                    <td>RR</td>
+                    <td>92</td>
+                    <td>78</td>
+                    <td>2024-1-16</td>
+                    <td>2024-1-7</td>
+                    <td>1</td>
+                </tr>
+                <!-- 예시 종료 -->
+                <tr>
+                    <td style="text-align:center; background-color: #ccc;">업체명</td>
+                    <td colspan="6">
+                        <select>
+                            <option>(유)길승산업</option>
+                            <option>(주)마텍스</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align:center; background-color: #ccc;">이메일</td>
+                    <td colspan="6">abcde@gmail.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="btn-container">
+        <button class="btn btn-primary">등록</button>
+    </div>
+</body>
+</html>

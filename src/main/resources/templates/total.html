@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
+
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <title>Title</title>
+    <style>
+        .back {
+            background-color: #9AA5C8;
+            width: 1920px;
+            height: 1080px;
+            border-radius: 100px;
+        }
+
+        .innerGroundShadow {
+            background-color: #ffffff;
+            margin-top: 10px;
+            margin-left: 140px;
+            width: 1780px;
+            height: 1000px;
+            border-radius: 100px;
+            opacity: 0.5;
+            z-index: 1;
+            position: absolute;
+        }
+
+        .innerGround {
+            margin-top: 40px;
+            margin-right: 5px;
+            background-color: #ffffff;
+            width: 1800px;
+            height: 960px;
+            border-radius: 100px;
+            clear: both;
+            float: right;
+            z-index: 3;
+        }
+
+        .custom-container {
+            padding-top: 25px;
+            padding-left: 100px;
+            display: flex;
+        }
+
+        .custom-button {
+            display: inline-flex;
+            justify-content: center;
+            color: black;
+            background-color: #9AA5C8;
+            border-color: #9AA5C8;
+            opacity: 0.2;
+        }
+
+        .custom-button:disabled {
+            flex-basis: 100%;
+            opacity: 0.5;
+        }
+
+        .procurement-management {
+            display: inline-block;
+            margin-left: 15px;
+            margin-top: 50px;
+            z-index: 5;
+        }
+
+        .order-management {
+            display: inline-block;
+            margin-left: 25px;
+            margin-top: 50px;
+            z-index: 5;
+        }
+
+        .materials-management {
+            display: inline-block;
+            margin-left: 5px;
+            margin-top: 50px;
+            z-index: 5;
+        }
+
+        .tab_menu {
+            position: relative;
+        }
+
+        .tab_menu .list {
+            overflow: hidden;
+        }
+
+        .tab_menu .list div {
+            float: left;
+        }
+
+        #tap1 {
+            background-color: #3498db;
+            border-radius: 10px;
+            height: 40px;
+            width: 150px;
+            margin-left: 80px;
+            z-index: 2;
+            display: flex;
+            float: left;
+        }
+
+        .tabClass {
+            font-weight: bold;
+            color: #FFFFFF;
+        }
+
+        .tab_menu .list div.tabClass .btn {
+            background-color: #2ecc71;
+            border-radius: 10px;
+            height: 40px;
+            width: 150px;
+            z-index: 2;
+            display: flex;
+            float: left;
+        }
+
+        .tab_menu .list .btn {
+            font-size: 13px;
+        }
+
+        .tab_menu .cont_area .cont {
+            display: none;
+            color: #fff;
+            text-align: center;
+            width: 1800px;
+            height: 960px;
+            border-radius: 100px;
+            z-index: 5;
+        }
+    </style>
+
+</head>
+<body>
+<div class="back">
+    <div class="custom-container">
+        <button class="custom-button" id="total">
+            Total
+        </button>
+        <button class="custom-button" id="part-filed">
+            <span class="icon1">&#9650;</span>
+            조달관리
+        </button>
+        <button class="custom-button" id="part-filed2">
+            <span class="icon2">&#9650;</span>
+            발주관리
+        </button>
+        <button class="custom-button" id="part-filed3">
+            <span class="icon3">&#9650;</span>
+            자재관리
+        </button>
+    </div>
+    <div class="innerGround"></div>
+    <div class="innerGroundShadow">
+        <div class="tab_menu">
+            <div class="list">
+            </div>
+            <div class="cont_area">
+            </div>
+        </div>
+
+        <script>
+            var state1 = 0;
+            var state2 = 0;
+            var state3 = 0;
+            var total = 0;
+
+            var clickTapList = new Array();
+            const tabList = document.getElementsByClassName("list");
+            const contents = document.getElementsByClassName("cont")
+            const contentList = document.getElementsByClassName("cont_area")
+            let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+
+            // 탭 버튼 클릭 리스너 초기화 함수
+            function initializeTabListeners() {
+                // "조달관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                document.getElementById("part-filed").addEventListener('click', function () {
+                    resetStates();
+                    state1 = 1;
+                    updateButtonState("part-filed", state1);
+                });
+
+                // "발주관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                document.getElementById("part-filed2").addEventListener('click', function () {
+                    resetStates();
+                    state2 = 2;
+                    updateButtonState("part-filed2", state2);
+                });
+
+                // "자재관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                document.getElementById("part-filed3").addEventListener('click', function () {
+                    resetStates();
+                    state3 = 3;
+                    updateButtonState("part-filed3", state3);
+                });
+
+                // "Total" 탭 버튼에 대한 클릭 이벤트 리스너
+                document.getElementById("total").addEventListener('click', function () {
+                    resetStates();
+                    total = 4;
+                    updateButtonState("total", total);
+                });
+            }
+
+            document.getElementById("part-filed").addEventListener('click', function () {
+                resetStates();
+                state1 = 1;
+                updateButtonState("part-filed", state1);
+            });
+
+            document.getElementById("part-filed2").addEventListener('click', function () {
+                resetStates();
+                state2 = 2;
+                updateButtonState("part-filed2", state2);
+            });
+
+            document.getElementById("part-filed3").addEventListener('click', function () {
+                resetStates();
+                state3 = 3;
+                updateButtonState("part-filed3", state3);
+            });
+
+            document.getElementById("total").addEventListener('click', function () {
+                resetStates();
+                total = 4;
+                updateButtonState("total", total);
+            });
+
+            function resetStates() {
+                state1 = 0;
+                state2 = 0;
+                state3 = 0;
+                total = 0;
+                updateButtonState("part-filed", state1);
+                updateButtonState("part-filed2", state2);
+                updateButtonState("part-filed3", state3);
+                updateButtonState("total", total);
+            }
+
+            function updateButtonState(buttonId, state) {
+                var button = document.getElementById(buttonId);
+                if (state === 1) {
+                    button.style.opacity = '100';
+                    button.innerHTML = `<span class="icon1">&#9660;</span> <strong>조달관리</strong>`;
+                    document.getElementById("procurement").style.display = "";
+                    document.getElementById("order").style.display = "none";
+                    document.getElementById("materials").style.display = "none";
+                } else if (state === 2) {
+                    button.style.opacity = '100';
+                    button.innerHTML = `<span class="icon2">&#9660;</span> <strong>발주관리</strong>`;
+                    document.getElementById("procurement").style.display = "none";
+                    document.getElementById("order").style.display = "";
+                    document.getElementById("materials").style.display = "none";
+                } else if (state === 3) {
+                    button.style.opacity = '100';
+                    button.innerHTML = `<span class="icon3">&#9660;</span> <strong>자재관리</strong>`;
+                    document.getElementById("procurement").style.display = "none";
+                    document.getElementById("order").style.display = "none";
+                    document.getElementById("materials").style.display = "";
+                } else if (state === 0) {
+                    button.style.opacity = '0.2';
+                    document.getElementById("part-filed").innerHTML = `<span class="icon1">&#9650;</span> 조달관리`
+                    document.getElementById("part-filed2").innerHTML = `<span class="icon2">&#9650;</span> 발주관리`
+                    document.getElementById("part-filed3").innerHTML = `<span class="icon3">&#9650;</span> 자재관리`
+                    document.getElementById("procurement").style.display = "none";
+                    document.getElementById("order").style.display = "none";
+                    document.getElementById("materials").style.display = "none";
+                } else if (state === 4) {
+                    button.style.opacity = '100';
+                    document.getElementById("total").innerHTML = `<strong>Total</strong>`
+                    document.getElementById("procurement").style.display = "none";
+                    document.getElementById("order").style.display = "none";
+                    document.getElementById("materials").style.display = "none";
+                }
+            }
+
+            function sendDateToChild(String) {
+                const data = document.getElementById(String).innerHTML.valueOf();
+                childComponent.receiveData(data);
+            }
+
+            const childComponent = {
+                receiveData: function (data) {
+
+                    clickTapList.push(data);
+
+                    const tabList3 = [];
+                    const contList = [];
+
+
+
+                    for (var i = 0; i < clickTapList.length; i++) {
+
+                        var currentPage;
+
+                        if (clickTapList[i] === "품목정보등록") {
+                            currentPage = "품목정보등록.html"
+                        } else if (clickTapList[i] === "계약등록") {
+                            currentPage = "계약등록.html"
+                        } else if (clickTapList[i] === "조달계획등록") {
+                            currentPage = "조달계획등록.html"
+                        } else if (clickTapList[i] === "발주서목록") {
+                            currentPage = "orderList.html"
+                        } else if (clickTapList[i] === "발주서발행") {
+                            currentPage = "orderRegister.html"
+                        } else if (clickTapList[i] === "현황관리") {
+                            currentPage = "StatusManagementReport.html"
+                        } else if (clickTapList[i] === "입고처리") {
+                            currentPage = "ReceivingProcess.html"
+                        } else if (clickTapList[i] === "거래명세서") {
+                            currentPage = "TradingStatement.html"
+                        } else if (clickTapList[i] === "재고산출처리<br> 현황리포트") {
+                            currentPage = "existence.html"
+                        }
+
+                            if (i === 0) {
+                                tabList3.push(`<div id = "tap1">
+                            <div class="tabClass" id="is_on">
+                                <div class="btn">${clickTapList[i]}</div>
+                            </div>
+                        </div>
+                        `)
+                                contList.push(`
+                              <div class="cont" data-include-path='${currentPage}'>testcont0</div>
+                            `)
+                            } else if (clickTapList[0] === clickTapList[i]) {
+                                tabList3.push(`<div class="tabClass" id="is_on">
+                            <div class="btn">${clickTapList[i]}</div>
+                         </div>
+                        `)
+                                contList.push(`
+                              <div class="cont" data-include-path='${currentPage}'>testcont${i}</div>
+                            `)
+                            } else {
+                                tabList3.push(`<div class="tabClass" id="is_on">
+                            <div class="btn">${clickTapList[i]}</div>
+                        </div>
+                        `)
+                                contList.push(`
+                              <div class="cont" data-include-path='${currentPage}'>testcont${i}</div>
+                            `)
+                            }
+                    }
+                    tabList[tabList.length - 1].innerHTML = tabList3.join("");
+                    contentList[contentList.length - 1].innerHTML = contList.join("");
+
+                    var SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
+
+                    for (let k = 0; k < tabList3.length; k++) {
+                        var clickEvent = document.getElementsByClassName("btn");
+                        clickEvent[k].addEventListener('click', function (e) {
+                            e.preventDefault();
+                            for (let j = 0; j < tabList3.length; j++) {
+                                SoYouCanSeeWhatWasPressed.classList.remove('tabClass')
+                                contents[j].style.display = 'none';
+                            }
+                            SoYouCanSeeWhatWasPressed.classList.add('tabClass')
+                            activeCont = document.getElementsByClassName("cont");
+                            activeCont[k].style.display = 'block';
+                            console.log(contents[k]);
+                            LoadHTMLOfThePage(activeCont[k])
+                        });
+                    }
+                    setCookie("clickTapList",clickTapList,7)
+                }
+            };
+
+
+            function LoadHTMLOfThePage(PageData) {
+                var include = PageData.dataset.includePath;
+                 $(document).ready(function () {
+                    $(`.cont`).load(`${include}`, function () {
+                        //페이지 별로 다른 메뉴 css 적용도 가능
+                        document.getElementById("*");
+                    });
+                })
+            }
+
+            function setCookie(name, value, days) {
+                var expires = "";
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + value + expires + "; path=/";
+            }
+
+            // Function to get a cookie value by name
+            function getCookie(name) {
+                var nameEQ = name + "=";
+                var ca = document.cookie.split(';');
+                for (var i = 0; i < ca.length; i++) {
+                    var c = ca[i];
+                    while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+                }
+                return null;
+            }
+
+            // Function to load clickTapList from a cookie
+            function loadClickTapListFromCookie() {
+                var clickTapListString = getCookie("clickTapList");
+                if (clickTapListString) {
+                    console.log("현재 저장된 clickTapListString으로 보여주기 : ",clickTapListString)
+                    return clickTapListString;
+                }
+            }
+
+
+            function checkCookieExistence() {
+                var cookies = document.cookie.split(';');
+                return !!cookies;
+                }
+
+            // Rest of your existing JavaScript code...
+
+            // Your existing window.onload function
+            window.onload = function () {
+                loadClickTapListFromCookie(); // Load clickTapList from cookie
+                initializeTabListeners();
+            };
+
+            // Your existing changeHTML function
+            function changeHTML() {
+                // Your existing code...
+            initializeTabListeners();
+            }
+
+            (function RetrieveClickTapListInformationFromCookie() {
+                if(checkCookieExistence()) {
+                    var cookieList = loadClickTapListFromCookie().split(",");
+                    for(let i=0; i<cookieList.length; i++) {
+                        childComponent.receiveData(cookieList[i]);
+                    }
+                }
+            })()
+
+        </script>
+    </div>
+
+    <div class="side-category">
+        <div class="procurement-management" id="procurement" style="display: none">
+            <u onclick='sendDateToChild("item")' id="item">품목정보등록</u><br/>
+            <u onclick='sendDateToChild("contract")' id="contract">계약등록</u><br/>
+            <u onclick='sendDateToChild("procurementPlan")' id="procurementPlan">조달계획등록</u>
+        </div>
+        <div class="order-management" id="order" style="display: none">
+            <u onclick='sendDateToChild("orderList")' id="orderList">발주서목록</u><br>
+            <u onclick='sendDateToChild("orderPublish")' id="orderPublish">발주서발행</u><br>
+            <u onclick='sendDateToChild("current")' id="current">현황관리</u>
+        </div>
+        <div class="materials-management" id="materials" style="display: none">
+            <u onclick='sendDateToChild("materialsProcess")' id="materialsProcess">입고처리</u><br>
+            <u onclick='sendDateToChild("TradingStatement")' id="TradingStatement">거래명세서</u><br>
+            <u onclick='sendDateToChild("InventoryCalculation")' id="InventoryCalculation">재고산출처리<br/> 현황리포트</u>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

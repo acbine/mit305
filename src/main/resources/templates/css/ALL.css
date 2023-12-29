@@ -92,7 +92,7 @@
     padding: 20px;
     border-radius: 10px;
     width: 1100px;  /*모달의 가로 크기 */
-    height: 430px;
+    height: 460px;
 }
 
 .close { /* 모달내용창의 닫기버튼 */

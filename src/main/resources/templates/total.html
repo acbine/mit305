@@ -171,32 +171,32 @@
             const tabList = document.getElementsByClassName("list");
             const contents = document.getElementsByClassName("cont")
             const contentList = document.getElementsByClassName("cont_area")
-            let activeCont = ''; // 현재 활성화 된 컨텐츠 (기본:#tab1 활성화)
+            let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
-            // 탭 버튼 클릭 리스너 초기화 함수
+            /*탭 버튼 클릭 리스너 초기화 함수*/
             function initializeTabListeners() {
-                // "조달관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                /*"조달관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
                 document.getElementById("part-filed").addEventListener('click', function () {
                     resetStates();
                     state1 = 1;
                     updateButtonState("part-filed", state1);
                 });
 
-                // "발주관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                /*"발주관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
                 document.getElementById("part-filed2").addEventListener('click', function () {
                     resetStates();
                     state2 = 2;
                     updateButtonState("part-filed2", state2);
                 });
 
-                // "자재관리" 탭 버튼에 대한 클릭 이벤트 리스너
+                /*"자재관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
                 document.getElementById("part-filed3").addEventListener('click', function () {
                     resetStates();
                     state3 = 3;
                     updateButtonState("part-filed3", state3);
                 });
 
-                // "Total" 탭 버튼에 대한 클릭 이벤트 리스너
+                /*"Total" 탭 버튼에 대한 클릭 이벤트 리스너*/
                 document.getElementById("total").addEventListener('click', function () {
                     resetStates();
                     total = 4;
@@ -372,7 +372,7 @@
                 var include = PageData.dataset.includePath;
                  $(document).ready(function () {
                     $(`.cont`).load(`${include}`, function () {
-                        //페이지 별로 다른 메뉴 css 적용도 가능
+                        /*페이지 별로 다른 메뉴 css 적용도 가능*/
                         document.getElementById("*");
                     });
                 })
@@ -400,7 +400,6 @@
                 return null;
             }
 
-            // Function to load clickTapList from a cookie
             function loadClickTapListFromCookie() {
                 var clickTapListString = getCookie("clickTapList");
                 if (clickTapListString) {
@@ -415,19 +414,12 @@
                 return !!cookies;
                 }
 
-            // Rest of your existing JavaScript code...
 
-            // Your existing window.onload function
             window.onload = function () {
-                loadClickTapListFromCookie(); // Load clickTapList from cookie
+                loadClickTapListFromCookie();
                 initializeTabListeners();
             };
 
-            // Your existing changeHTML function
-            function changeHTML() {
-                // Your existing code...
-            initializeTabListeners();
-            }
 
             (function RetrieveClickTapListInformationFromCookie() {
                 if(checkCookieExistence()) {

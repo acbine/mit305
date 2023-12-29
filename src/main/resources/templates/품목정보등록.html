@@ -192,6 +192,11 @@
           color: #ffffff;
         }
 
+        .action-button-add {
+          background-color: #FF9900;
+          color: #ffffff;
+        }
+
 
     </style>
     <title>Your HTML Example</title>
@@ -223,7 +228,7 @@
                     <th>소분류</th>
                     <th>사진</th>
                     <th>계약 여부</th>
-                    <th>품목 수정</th>
+                    <th>품목 처리</th>
                 </tr>
                 </thead>
 
@@ -305,8 +310,10 @@
                 </tbody>
             </table>
 
-            <button onclick='addRow()'> + </button>
+            <button class="action-button action-button-add " onclick='addRow()'>( + )</button>
             <button class="action-button action-button-registration"> 등록 </button>
+
+
         </div>
     </div>
 </div>
@@ -328,8 +335,7 @@
         const cell_7 = tr.children[7];
         const cell_8 = tr.children[8];
         const cell_9 = tr.children[9];
-        const cell_10 = tr.children[10];
-        const cell_11 = tr.children[11];
+
 
         if (cell_0.contentEditable == "true") {
 
@@ -343,9 +349,6 @@
             cell_7.contentEditable = "false";
             cell_8.contentEditable = "false";
             cell_9.contentEditable = "false";
-            cell_10.contentEditable = "false";
-            cell_11.contentEditable = "false";
-
 
             tag.innerText = "수정";
 
@@ -364,13 +367,10 @@
             cell_7.contentEditable = "true";
             cell_8.contentEditable = "true";
             cell_9.contentEditable = "true";
-            cell_10.contentEditable = "true";
-            cell_11.contentEditable = "true";
-
 
             tag.innerText = "수정 완료";
 
-
+            cell_0.focus();
         }
     }
 
@@ -384,10 +384,41 @@
     function addRow() {
 
         const table = document.getElementById('product');
-        const newRow = table.insertRow();
+        const new_row = table.insertRow();
 
-        const newCell1 = newRow.insertCell(0);
-        const newCell2 = newRow.insertCell(1);
+        const cell_length = table.rows[1].cells.length;
+
+        for(let i = 0; i < cell_length; i++) {
+            const new_cell = new_row.insertCell(i);
+            let temp_html = '';
+
+
+            if(i == 10) {
+
+                temp_html = '<td><button>사진 업로드</button></td>';
+            }
+
+            if(i == 11) {
+
+                temp_html = '<td>계약 안됨</td>'
+            }
+
+            if(i == 12) {
+
+                temp_html =
+                    '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                            '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
+                        '</div>' +
+                    '</td>';
+            }
+
+             new_cell.insertAdjacentHTML('afterbegin', temp_html);
+
+        }
+
+
     }
 
 

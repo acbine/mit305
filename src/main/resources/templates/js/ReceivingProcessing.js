@@ -1,14 +1,14 @@
 
 
-$(function(){  //모달 관련 js
+$(function ReceivingProcessing(){  //모달 관련 js
     $("#modalBTN").on("click",function(){
         console.log("모달 버튼 클릭됨");
-        $("#myModal").css('display','block');     
+        $("#myModal").css('display','block');
     });
 
     $(".button-style").on("click",function(){
         console.log("모달 닫기 클릭됨");
-        $("#myModal").css('display','none');      
+        $("#myModal").css('display','none');
     });
 
 
@@ -28,10 +28,9 @@ $(function(){  //모달 관련 js
 
     $(".table-container").on("scroll",function(){
         console.log("테이블콘테이너 스크로됨");
-        
+
 
     });
-    
 });
 
  

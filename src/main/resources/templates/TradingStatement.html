@@ -58,8 +58,8 @@
                     <td class="table-data">(유)길승산업</td>
                     <td class="table-data">1245133198</td>
                     <td class="table-data">0</td>
-                    <td id="show" class="table-data">🔍</td>
-                    <td class="table-data" id="printTradingStatement">🖨</td>
+                    <td id="show" class="table-data" onclick="OpenTradingMy()">🔍</td>
+                    <td class="table-data" id="printTradingStatement" onclick="printTradingStatement()">🖨</td>
                 </tr>
             </tbody>
         </table>  
@@ -67,7 +67,7 @@
     </div>
 
 
-        <div id="myModal" class="TradingmyModal"> <!--모달창 백그라운드-->
+        <div id="myModal" class="TradingmyModal" onclick="CloseTradingMy()"> <!--모달창 백그라운드-->
             <div class="Tradingmodal-content"> <!--모달창 내용-->
                 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
                 <HTML>

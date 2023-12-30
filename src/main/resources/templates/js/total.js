@@ -1,4 +1,4 @@
-/*--------------------입고 처리--------------------*/
+/*--------------------발주 목록(orderList)--------------------*/
 function openPopup(popupId) {
     var popup = document.getElementById(popupId);
     popup.style.display = "block";
@@ -8,11 +8,11 @@ function closePopup(popupId) {
     var popup = document.getElementById(popupId);
     popup.style.display = "none";
 }
+/*------------------현황관리-------------------------------------*/
 
 
-/*----------------------발주 목록------------------*/
+/*----------------------입고 처리(ReceivingProcessing)------------------*/
 function openModal() {
-    console.log("눌리는거 확인")
     var modal =  document.getElementById("myModal");
     modal.style.display="block";
 }
@@ -21,8 +21,41 @@ function closeModal() {
     var modal =  document.getElementById("myModal");
     modal.style.display="none";
 }
+function sendToDataInModal() {
+    console.log("모달창 안에서 데이터 전송함");
+    document.getElementById("myModal").style.display="none"
+
+}
+
+$(function ReceivingProcessing(){
+    const table = $('.table-style');
+    const headerRow = table.find('thead tr');
+
+
+    $(".table-container").on("scroll",function(){
+        console.log("테이블콘테이너 스크로됨");
+
+
+    });
+});
+/*---------------------거래명세서-------------------*/
+function OpenTradingMy() {
+    console.log("버튼은 눌리는 중인가?")
+    $(".TradingmyModal").css('display','block');
+}
+function CloseTradingMy() {
+    $(".TradingmyModal").css('display','none');
+}
+
+function printTradingStatement() {
+    console.log("이거 실행된느건가?")
+    $(".TradingmyModal").css('display','block');
+    window.print();
+    $(".TradingmyModal").css('display','none');
+}
 
 /*---------------------계약등록-------------------*/
+
 function modify_and_save(tag) {
 
     const tr = tag.closest("tr");
@@ -55,7 +88,6 @@ function modify_and_save(tag) {
     }
 }
 
-
 function registration_and_delete(tag) {
 
     const tr = tag.closest("tr");
@@ -71,6 +103,7 @@ function b_code_value(b_code) {
 
     console.log(b_code);
 }
+
 
 function addRow() {
 
@@ -135,164 +168,173 @@ function addRow() {
 
 }
 
-
-function modify_and_save(tag) {
-
-    const tr = tag.closest("tr");
-
-    const num = tr.children[3];
-    const date = tr.children[8];
-
-    const target = document.getElementById("deleteBtn1");
-    //const delete_btn_state = document.getElementsByClassName('action-button action-button-registration');
-
-    console.log(num, date);
-
-
-    if (num.contentEditable == "true") {
-
-        num.contentEditable = "false";
-        date.contentEditable = "false";
-
-
-        tag.innerText = "수정";
-        target.disabled = false;
-
-        //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
-    } else {
-
-        //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
-
-        num.contentEditable = "true";
-        date.contentEditable = "true";
-
-        target.disabled = true;
-        tag.innerText = "수정 완료";
-
-
-        //첫번째 셀에 포커스를 줘서 상태 변경에 대해 알림.
-        num.focus();
-
-    }
-}
-
-function registration_and_delete(tag) {
-
-    alert("등록 완료");
-
-    const tr = tag.closest("tr");
-    tr.remove();
-}
-
-
-function table_change(state) {
-
-    if(state == "before_proceeding") {
-
-        table1.style.display = "inline";
-        table2.style.display = "none";
-        table3.style.display = "none";
-
-    }
-
-    else if(state == "order_proceeding") {
-
-        table1.style.display = "none";
-        table2.style.display = "inline";
-        table3.style.display = "none";
-
-    }
-
-    else if(state == "order_completed") {
-
-        table1.style.display = "none";
-        table2.style.display = "none";
-        table3.style.display = "inline";
-
-    }
-
-
-}
-
 /*---------조달계획등록--------------*/
 function modify_and_save(tag) {
 
     const tr = tag.closest("tr");
 
-    const num = tr.children[3];
-    const date = tr.children[8];
-
-    const target = document.getElementById("deleteBtn1");
-    //const delete_btn_state = document.getElementsByClassName('action-button action-button-registration');
-
-    console.log(num, date);
+    const cell_0 = tr.children[0];
+    const cell_5 = tr.children[5];
+    const cell_6 = tr.children[6];
 
 
-    if (num.contentEditable == "true") {
+    if (cell_0.contentEditable == "true") {
 
-        num.contentEditable = "false";
-        date.contentEditable = "false";
-
+        cell_0.contentEditable = "false";
+        cell_5.contentEditable = "false";
+        cell_6.contentEditable = "false";
 
         tag.innerText = "수정";
-        target.disabled = false;
 
         //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
     } else {
 
         //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
 
-        num.contentEditable = "true";
-        date.contentEditable = "true";
+        cell_0.contentEditable = "true";
+        cell_5.contentEditable = "true";
+        cell_6.contentEditable = "true";
 
-        target.disabled = true;
         tag.innerText = "수정 완료";
 
-
-        //첫번째 셀에 포커스를 줘서 상태 변경에 대해 알림.
-        num.focus();
-
+        cell_0.focus();
     }
 }
 
 function registration_and_delete(tag) {
 
-    alert("등록 완료");
-
     const tr = tag.closest("tr");
     tr.remove();
 }
 
+function p_code_value(p_code) {
 
-function table_change(state) {
+    console.log(p_code);
+}
 
-    if(state == "before_proceeding") {
+function b_code_value(b_code) {
 
-        table1.style.display = "inline";
-        table2.style.display = "none";
-        table3.style.display = "none";
+    console.log(b_code);
+}
 
-    }
 
-    else if(state == "order_proceeding") {
+function addRow() {
 
-        table1.style.display = "none";
-        table2.style.display = "inline";
-        table3.style.display = "none";
+    const table = document.getElementById('product');
+    const new_row = table.insertRow();
 
-    }
+    const cell_length = table.rows[0].cells.length;
 
-    else if(state == "order_completed") {
+    for(let i = 0; i < cell_length; i++) {
+        const new_cell = new_row.insertCell(i);
+        let temp_html = '';
 
-        table1.style.display = "none";
-        table2.style.display = "none";
-        table3.style.display = "inline";
+        if(i == 1) {
+
+            temp_html =
+                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
+                '<option value="p_code1">A</option>' +
+                '<option value="p_code2">ab42e</option>' +
+                '<option value="p_code3">B</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+        }
+
+        if(i == 3) {
+
+            temp_html =
+                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
+                '<option value="b_code1">사업자 번호1</option>' +
+                '<option value="b_code2">사업자 번호2</option>' +
+                '<option value="b_code3">사업자 번호3</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+        }
+
+        if(i == 7) {
+
+            temp_html = '<td><button>계약서 업로드</button></td>';
+        }
+
+        if(i == 8) {
+
+            temp_html =
+                '<td>' +
+                '<div class="actions">' +
+                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
+                '</div>' +
+                '</td>';
+        }
+
+        new_cell.insertAdjacentHTML('afterbegin', temp_html);
 
     }
 
 
 }
+/*-------------------------------산출 관리 리포트--------------------------------------*/
 
+
+function columnChart1() {
+    var arr = [
+
+        ['품목명', '총금액'],
+
+        ['A품목', 400],
+
+        ['철', 460],
+
+        ['구리', 2820],
+
+        ['나사', 540]
+
+    ];
+
+
+    var dataTable = google.visualization.arrayToDataTable(arr);
+
+
+    var options = {
+
+        title: '현황 그래프',
+
+        hAxis: {
+
+            title: 'Assy',
+
+            titleTextStyle: {
+
+                color: 'black'
+
+            }
+
+        }
+
+    };
+
+    var objDiv = document.getElementById('column_chart_div1');
+
+    var chart = new google.visualization.ColumnChart(objDiv);
+
+
+    chart.draw(dataTable, options);
+
+}
+
+$(document).ready(function(){
+
+    $('button').on('click', function(){
+
+        columnChart1();
+
+    });
+
+});
 
 
 /*------------------total-------------------------------*/
@@ -366,7 +408,9 @@ function resetStates() {
     state1 = 0;
     state2 = 0;
     state3 = 0;
+
     total = 0;
+
     updateButtonState("part-filed", state1);
     updateButtonState("part-filed2", state2);
     updateButtonState("part-filed3", state3);
@@ -538,8 +582,8 @@ function getCookie(name) {
     var ca = document.cookie.split(';');
     for (var i = 0; i < ca.length; i++) {
         var c = ca[i];
-        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
     }
     return null;
 }
@@ -547,7 +591,6 @@ function getCookie(name) {
 function loadClickTapListFromCookie() {
     var clickTapListString = getCookie("clickTapList");
     if (clickTapListString) {
-        console.log("현재 저장된 clickTapListString으로 보여주기 : ",clickTapListString)
         return clickTapListString;
     }
 }

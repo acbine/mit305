@@ -1,5 +1,4 @@
 
-
 $(function Tradingmy(){  //모달창열기
     $("#show").on("click",function(){
         console.log("트레딩모달 버튼 클릭됨");

@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
-
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-    <title>Title</title>
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <title>프로세스</title>
     <style>
         .back {
             background-color: #9AA5C8;
@@ -150,6 +150,7 @@
             자재관리
         </button>
     </div>
+
     <div class="innerGround"></div>
     <div class="innerGroundShadow">
         <div class="tab_menu">
@@ -174,12 +175,11 @@
         <div class="materials-management" id="materials" style="display: none">
             <u onclick='sendDateToChild("materialsProcess")' id="materialsProcess">입고처리</u><br>
             <u onclick='sendDateToChild("TradingStatement")' id="TradingStatement">거래명세서</u><br>
-            <u onclick='sendDateToChild("InventoryCalculation")' id="InventoryCalculation">재고산출처리<br/> 현황리포트</u>
+            <u onclick='sendDateToChild("InventoryCalculation")' id="InventoryCalculation">재고산출처리</u>
+            <u onclick='sendDateToChild("StatusManagement")' id="StatusManagement">현황리포트</u>
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="./js/total.js"></script>
 </body>
 </html>

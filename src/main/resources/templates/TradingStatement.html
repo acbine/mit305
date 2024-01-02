@@ -10,8 +10,8 @@
 <body>
 <h1 class="text-xl font-bold">거래명세서</h1>
     <div class="bg-white p-4 shadow rounded-lg">         
-        <div id="datesearch">
-            <form action="">
+        <div id="datesearch"> <!--거래명세서의 검색창 보여주는 테이블 시작-->
+            <form action=""> <!--테이블 검색 데이터 보내는구간 시작-->
                 <table border="1">
                     <tr>
                         <td><input type="text" name="보내는칸"></td>
@@ -24,13 +24,12 @@
                         </td>
                         <td><input id="serchbutton"  type="submit" value="검색"></td>
                     </tr>
-                </table> 
+                </table>
 
-                
-            </form>
-        </div>
+            </form>         <!--테이블 검색 데이터 보내는구간 끝-->
+        </div>                <!--거래명세서의 검색창 보여주는 테이블 끝-->
                       
-        <table class="table-style">
+        <table class="table-style"> <!--거래명세서 보여주는 테이블 시작-->
             <thead>
                 <tr>
                     <th class="table-header">발주코드</th>
@@ -54,16 +53,17 @@
                     <td id="show" class="table-data" onclick="OpenTradingMy()">🔍</td>
                 </tr>
             </tbody>
-        </table>  
+        </table> <!--거래명세서 보여주는 테이블 끝-->
 
     </div>
 
 
         <div id="myModal" class="TradingmyModal" onclick="CloseTradingMy()"> <!--모달창 백그라운드-->
             <div class="Tradingmodal-content"> <!--모달창 내용-->
+
                 <iframe src="TradingStatementModal" width="100%" height="99%" frameborder="0"></iframe>
+
             </div><!--모달창 내용끝-->
-            
         </div> <!--모달창 백그라운드?-->
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/js/TradingStatement.js"></script>

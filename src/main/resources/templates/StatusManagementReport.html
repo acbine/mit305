@@ -32,7 +32,9 @@
                                             <option value="마감">마감</option>
                                         </select>
                                     </td>
-                                    <td><input id="serchbutton"  type="submit" value="검색" onclick="drawChart()"></td>
+                                    <td><!--<input id="serchbutton"  type="submit" value="검색"> 원래는 submit 으로해야됨  -->
+                                        <button type="button" id="serchbutton" onclick="drawChart()" >검색</button><!--발표떄 검색을 누르면 그래프와 리스트가 동시에 나오는것을 하기위해 임시로 만든 버튼 -->
+                                    </td>
                                 </tr>
                             </table>
 
@@ -110,10 +112,9 @@
                 </div>
 
             </div>
-            <div class="w-1/3 pl-4">
-                <h2 class="text-xl font-bold mb-4">분류별 현황</h2>
-                <div id="donutchart" style="width: 100%; height: 600px;" >그래프 안나올시 나오는 글씨</div>
-            </div>
+            <div class="w-1/3 pl-4"> <!--차트그려주는 구간 시작-->
+                <div id="donutchart" style="width: 100%; height: 600px;" >test</div>
+            </div>                   <!--차트그려주는 구간 끝-->
         </div>
     </div>
 </body>

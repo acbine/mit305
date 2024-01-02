@@ -1,0 +1,116 @@
+/* 화면 전체 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    background-color: #ffffff;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 0.5rem;
+ }
+
+.flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+     font-size: 1.25rem;
+     font-weight: bold;
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+    outline: none;
+    cursor: pointer;
+    height: 2.5rem;
+    padding: 0.5rem 1rem;
+}
+
+.data-card {
+     background-color: #fbd38d;
+     color: #8c3f08;
+     padding: 1rem;
+     border-radius: 0.5rem;
+}
+
+/* 테이블의 스타일 */
+.table-container {
+     background-color: #f0f4f8;
+     padding: 1rem;
+     border-radius: 0.5rem;
+}
+
+.table {
+     width: 100%;
+     border-collapse: collapse;
+     caption-side: bottom;
+}
+
+.table th, .table td {
+    border-bottom: 1px solid #cbd5e0;
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.table th {
+    font-weight: bold;
+}
+
+.actions {
+     display: flex;
+     gap: 0.5rem;
+}
+
+.action-button {
+       display: inline-flex;
+       align-items: center;
+       justify-content: center;
+       border-radius: 0.375rem;
+       font-size: 0.875rem;
+       font-weight: 500;
+       transition: background-color 0.2s, color 0.2s;
+       outline: none;
+       cursor: pointer;
+       padding: 0.5rem 1rem;
+       border: 1px solid #cbd5e0;
+}
+
+.action-button-edit {
+      background-color: #ffffff;
+      color: #3182ce;
+}
+
+.action-button-delete {
+      background-color: #FF3333;
+      color: #ffffff;
+}
+
+.action-button-registration {
+      background-color: #33CC33;
+      color: #ffffff;
+}
+
+.action-button-check {
+      background-color: #FF9900;
+      color: #ffffff;
+}
+
+.action-button-add {
+      background-color: #FF9900;
+      color: #ffffff;
+}
+
+
+
+

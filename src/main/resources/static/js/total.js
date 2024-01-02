@@ -551,7 +551,7 @@ const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
-var htmlData;
+
 /*탭 버튼 클릭 리스너 초기화 함수*/
 function initializeTabListeners() {
     /*"조달관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
@@ -702,27 +702,18 @@ const childComponent = {
                             <div class="tabClass" id="is_on">
                                 <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
                             </div>
-                        </div>
-                        `)
-                contList.push(`
-                              <div class="cont" data-include-path='${currentPage}'>testcont0</div>
-                            `)
+                        </div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont0</div>`)
             } else if (clickTapList[0] === clickTapList[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
                             <div class="btn">${clickTapList[i]}<div style="redcolor: red">X</div></div>
-                         </div>
-                        `)
-                contList.push(`
-                              <div class="cont" data-include-path='${currentPage}'>testcont${i}</div>
-                            `)
+                         </div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont${i}</div>`)
             } else {
                 tabList3.push(`<div class="tabClass" id="is_on">
                             <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
-                        </div>
-                        `)
-                contList.push(`
-                              <div class="cont" data-include-path='${currentPage}'>testcont${i}</div>
-                            `)
+                            </div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont${i}</div>`)
             }
         }
         tabList[tabList.length - 1].innerHTML = tabList3.join("");
@@ -740,20 +731,14 @@ const childComponent = {
                 }
                 SoYouCanSeeWhatWasPressed.classList.add('tabClass')
                 contents[k].style.display = 'block';
-                htmlData = contents[k];
-                LoadHTMLOfThePage(htmlData);
+                LoadHTMLOfThePage(contents[k])
             });
         }
         setCookie("clickTapList", clickTapList, 7)
     }
 };
 
-console.log(htmlData)
-
-
 function LoadHTMLOfThePage(PageData) {
-    var allElements = document.getElementsByTagName("*");
-    Array.prototype.forEach.call(allElements, function () {
         var includePath = PageData.dataset.includePath;
         if (includePath) {
             var xhttp = new XMLHttpRequest();
@@ -764,9 +749,7 @@ function LoadHTMLOfThePage(PageData) {
             };
             xhttp.open('GET', includePath, true);
             xhttp.send();
-        }
-    });
-
+        };
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/

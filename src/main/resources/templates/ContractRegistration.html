@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--    <style>-->
+<!--        /* Global Styles */-->
+<!--        body {-->
+<!--          font-family: 'Arial', sans-serif;-->
+<!--          margin: 0;-->
+<!--          padding: 0;-->
+<!--        }-->
+
+<!--        /* Component Styles */-->
+<!--        .container {-->
+<!--          background-color: #ffffff;-->
+<!--          padding: 1.5rem;-->
+<!--          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);-->
+<!--          border-radius: 0.5rem;-->
+<!--        }-->
+
+<!--        .flex {-->
+<!--          display: flex;-->
+<!--          justify-content: space-between;-->
+<!--          align-items: center;-->
+<!--        }-->
+
+<!--        .title {-->
+<!--          font-size: 1.25rem;-->
+<!--          font-weight: bold;-->
+<!--        }-->
+
+<!--        .button {-->
+<!--          display: inline-flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          border-radius: 0.375rem;-->
+<!--          font-size: 0.875rem;-->
+<!--          font-weight: 500;-->
+<!--          transition: background-color 0.2s, color 0.2s;-->
+<!--          outline: none;-->
+<!--          cursor: pointer;-->
+<!--          height: 2.5rem;-->
+<!--          padding: 0.5rem 1rem;-->
+<!--        }-->
+
+<!--        .button-red {-->
+<!--          background-color: #e53e3e;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .button-red:hover {-->
+<!--          background-color: #c53030;-->
+<!--        }-->
+
+<!--        .section {-->
+<!--          display: flex;-->
+<!--          gap: 1rem;-->
+<!--          margin-bottom: 1rem;-->
+<!--        }-->
+
+<!--        .state-choose {-->
+
+
+
+<!--        }-->
+
+<!--        .registration-section{-->
+<!--          display: flex;-->
+<!--          gap: 1rem;-->
+<!--          margin-bottom: 1rem;-->
+<!--          float: left;-->
+
+<!--        }-->
+
+<!--        .info-card {-->
+<!--          flex: 1;-->
+<!--          display: flex;-->
+<!--          flex-direction: column;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          background-color: #bee3f8;-->
+<!--          color: #2c5282;-->
+<!--          padding: 1rem;-->
+<!--          border-radius: 0.5rem;-->
+<!--        }-->
+
+<!--        .data-card {-->
+<!--          background-color: #fbd38d;-->
+<!--          color: #8c3f08;-->
+<!--          padding: 1rem;-->
+<!--          border-radius: 0.5rem;-->
+<!--        }-->
+
+<!--        .table-container {-->
+<!--          background-color: #f0f4f8;-->
+<!--          padding: 1rem;-->
+<!--          border-radius: 0.5rem;-->
+<!--        }-->
+
+<!--        /* Table Styles */-->
+<!--        .table {-->
+<!--          width: 100%;-->
+<!--          border-collapse: collapse;-->
+<!--          caption-side: bottom;-->
+<!--        }-->
+
+<!--        .table th, .table td {-->
+<!--          border-bottom: 1px solid #cbd5e0;-->
+<!--          padding: 0.75rem;-->
+<!--          text-align: left;-->
+<!--        }-->
+
+<!--        .table th {-->
+<!--          font-weight: bold;-->
+<!--        }-->
+
+<!--        .table tbody tr:hover {-->
+<!--          background-color: #edf2f7;-->
+<!--        }-->
+
+<!--        .table .data-selected-bg-muted[data-state="selected"] {-->
+<!--          background-color: #edf2f7;-->
+<!--        }-->
+
+<!--        .table .border-input {-->
+<!--          border-color: #cbd5e0;-->
+<!--        }-->
+
+<!--        .table .hover-bg-accent:hover {-->
+<!--          background-color: #3182ce;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .table .hover-text-accent-foreground:hover {-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .table .bg-accent {-->
+<!--          background-color: #3182ce;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .table .text-accent-foreground {-->
+<!--          color: #3182ce;-->
+<!--        }-->
+
+<!--        .table .bg-destructive {-->
+<!--          background-color: #e53e3e;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .table .text-destructive-foreground {-->
+<!--          color: #e53e3e;-->
+<!--        }-->
+
+<!--        .table .hover-bg-destructive-90:hover {-->
+<!--          background-color: #c53030;-->
+<!--        }-->
+
+<!--        .actions {-->
+<!--          display: flex;-->
+<!--          gap: 0.5rem;-->
+<!--        }-->
+
+<!--        .action-button {-->
+<!--          display: inline-flex;-->
+<!--          align-items: center;-->
+<!--          justify-content: center;-->
+<!--          border-radius: 0.375rem;-->
+<!--          font-size: 0.875rem;-->
+<!--          font-weight: 500;-->
+<!--          transition: background-color 0.2s, color 0.2s;-->
+<!--          outline: none;-->
+<!--          cursor: pointer;-->
+<!--          padding: 0.5rem 1rem;-->
+<!--          border: 1px solid #cbd5e0;-->
+<!--        }-->
+
+<!--        .action-button-edit {-->
+<!--          background-color: #ffffff;-->
+<!--          color: #3182ce;-->
+<!--        }-->
+
+<!--        .action-button-delete {-->
+<!--          background-color: #FF3333;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .action-button-registration {-->
+<!--          background-color: #33CC33;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+<!--        .action-button-check {-->
+<!--          background-color: #FF9900;-->
+<!--          color: #ffffff;-->
+<!--        }-->
+
+
+<!--    </style>-->
+    <title>Your HTML Example</title>
+</head>
+<body>
+<!-- Your HTML content here -->
+<div class="container">
+
+    <!--    <div class="close">-->
+    <!--    조달 계획 등록 <button class="button button-red" id="close_btn"> X </button>-->
+    <!--    </div>-->
+
+    <div class="data-card">
+        <h2 class="title">계약 등록</h2>
+
+        <div class="table-container">
+            <table class="table" id="product" border="1">
+                <thead>
+                <tr>
+                    <th>계약 코드</th>
+                    <th>품목 코드</th>
+                    <th>품목명</th>
+                    <th>사업자 등록 번호</th>
+                    <th>거래처 기업명</th>
+                    <th>L/T</th>
+                    <th>단가</th>
+                    <th>계약서 이미지</th>
+                    <th>계약 처리</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                </tbody>
+            </table>
+
+            <button onclick='addRow()'> 계약 추가 </button>
+            <button class="action-button action-button-registration" onClick="window.location.reload()"> 등록 </button> <br>
+
+
+
+        </div>
+    </div>
+</div>
+<script src="http://code.jquery.com/jquery-latest.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script th:inline="javascript">
+
+    function modify_and_save(tag) {
+
+        const tr = tag.closest("tr");
+
+        const cell_0 = tr.children[0];
+        const cell_5 = tr.children[5];
+        const cell_6 = tr.children[6];
+
+
+        if (cell_0.contentEditable == "true") {
+
+            cell_0.contentEditable = "false";
+            cell_5.contentEditable = "false";
+            cell_6.contentEditable = "false";
+
+            tag.innerText = "수정";
+
+        //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
+        } else {
+
+            //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
+
+            cell_0.contentEditable = "true";
+            cell_5.contentEditable = "true";
+            cell_6.contentEditable = "true";
+
+            tag.innerText = "수정 완료";
+
+            cell_0.focus();
+        }
+    }
+
+    function registration_and_delete(tag) {
+
+        const tr = tag.closest("tr");
+        tr.remove();
+    }
+
+    function p_code_value(p_code) {
+
+        console.log(p_code);
+    }
+
+    function b_code_value(b_code) {
+
+        console.log(b_code);
+    }
+
+    function add_product(tag) {
+
+        $(document).ready(function() {
+    	    $("button").on("click", function() {
+                var index = $(this).parent().parent().index();
+                console.log("index : "+ index);
+            });
+        });
+
+
+        const table = document.getElementById('product');
+
+        const newRow = table.insertRow(2);
+
+        for(let i = 0; i < 9; i++) {
+            const new_cell = newRow.insertCell(i);
+            let temp_html = '';
+
+            if(i == 1) {
+
+                temp_html =
+                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
+                    '<option value="p_code1">A</option>' +
+                    '<option value="p_code2">ab42e</option>' +
+                    '<option value="p_code3">B</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+            }
+
+            if(i == 8) {
+
+                temp_html =
+                    '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                            '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
+                        '</div>' +
+                    '</td>';
+            }
+
+
+            new_cell.insertAdjacentHTML('afterbegin', temp_html);
+        }
+
+
+
+    }
+
+
+    function addRow() {
+
+        const table = document.getElementById('product');
+        const new_row = table.insertRow();
+
+        const cell_length = table.rows[0].cells.length;
+
+        for(let i = 0; i < cell_length; i++) {
+            const new_cell = new_row.insertCell(i);
+            let temp_html = '';
+
+            if(i == 1) {
+
+                temp_html =
+                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
+                    '<option value="p_code1">A</option>' +
+                    '<option value="p_code2">ab42e</option>' +
+                    '<option value="p_code3">B</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+            }
+
+             if(i == 3) {
+
+                temp_html =
+                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
+                    '<option value="b_code1">사업자 번호1</option>' +
+                    '<option value="b_code2">사업자 번호2</option>' +
+                    '<option value="b_code3">사업자 번호3</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+            }
+
+
+
+
+            if(i == 7) {
+
+                    temp_html = '<td>'+
+                               '<input type="file" accept="image/png, image/jpg">' +
+                               '</td>';
+            }
+
+            if(i == 8) {
+
+                temp_html =
+                    '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-check" onclick="add_product(this)"> 계약 품목 추가 </button>' +
+                            '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                            '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
+                        '</div>' +
+                    '</td>';
+            }
+
+             new_cell.insertAdjacentHTML('afterbegin', temp_html);
+
+        }
+
+
+    }
+
+
+</script>
+</body>
+</html>

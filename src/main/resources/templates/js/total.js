@@ -8,50 +8,78 @@ function closePopup(popupId) {
     var popup = document.getElementById(popupId);
     popup.style.display = "none";
 }
+
 /*------------------현황관리-------------------------------------*/
 
+google.charts.load("current", {packages: ["corechart"]});
+
+google.charts.setOnLoadCallback(drawChart);
+
+function drawChart() {
+    var data = google.visualization.arrayToDataTable([
+        ['Task', 'Hours per Day'],
+        ['미검수', 1,],
+        ['검수진행중', 1],
+        ['검수완료', 1],
+        ['마감', 1]
+    ]);
+
+    var options = {
+        pieHole: 0.45,
+        colors: ['#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
+
+
+    };
+
+
+    var chart = new google.visualization.PieChart(document.getElementById("donutchart"));
+
+    chart.draw(data, options);
+}
 
 /*----------------------입고 처리(ReceivingProcessing)------------------*/
 function openModal() {
-    var modal =  document.getElementById("myModal");
-    modal.style.display="block";
+    var modal = document.getElementById("myModal");
+    modal.style.display = "block";
 }
 
 function closeModal() {
-    var modal =  document.getElementById("myModal");
-    modal.style.display="none";
+    var modal = document.getElementById("myModal");
+    modal.style.display = "none";
 }
+
 function sendToDataInModal() {
     console.log("모달창 안에서 데이터 전송함");
-    document.getElementById("myModal").style.display="none"
+    document.getElementById("myModal").style.display = "none"
 
 }
 
-$(function ReceivingProcessing(){
+$(function ReceivingProcessing() {
     const table = $('.table-style');
     const headerRow = table.find('thead tr');
 
 
-    $(".table-container").on("scroll",function(){
+    $(".table-container").on("scroll", function () {
         console.log("테이블콘테이너 스크로됨");
 
 
     });
 });
+
 /*---------------------거래명세서-------------------*/
 function OpenTradingMy() {
-    console.log("버튼은 눌리는 중인가?")
-    $(".TradingmyModal").css('display','block');
+    $(".TradingmyModal").css('display', 'block');
 }
+
 function CloseTradingMy() {
-    $(".TradingmyModal").css('display','none');
+    $(".TradingmyModal").css('display', 'none');
 }
 
 function printTradingStatement() {
     console.log("이거 실행된느건가?")
-    $(".TradingmyModal").css('display','block');
+    $(".TradingmyModal").css('display', 'block');
     window.print();
-    $(".TradingmyModal").css('display','none');
+    $(".TradingmyModal").css('display', 'none');
 }
 
 /*---------------------계약등록-------------------*/
@@ -112,11 +140,11 @@ function addRow() {
 
     const cell_length = table.rows[0].cells.length;
 
-    for(let i = 0; i < cell_length; i++) {
+    for (let i = 0; i < cell_length; i++) {
         const new_cell = new_row.insertCell(i);
         let temp_html = '';
 
-        if(i == 1) {
+        if (i == 1) {
 
             temp_html =
                 '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
@@ -129,7 +157,7 @@ function addRow() {
 
         }
 
-        if(i == 3) {
+        if (i == 3) {
 
             temp_html =
                 '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
@@ -143,14 +171,12 @@ function addRow() {
         }
 
 
-
-
-        if(i == 7) {
+        if (i == 7) {
 
             temp_html = '<td><button>계약서 업로드</button></td>';
         }
 
-        if(i == 8) {
+        if (i == 8) {
 
             temp_html =
                 '<td>' +
@@ -225,11 +251,11 @@ function addRow() {
 
     const cell_length = table.rows[0].cells.length;
 
-    for(let i = 0; i < cell_length; i++) {
+    for (let i = 0; i < cell_length; i++) {
         const new_cell = new_row.insertCell(i);
         let temp_html = '';
 
-        if(i == 1) {
+        if (i == 1) {
 
             temp_html =
                 '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
@@ -242,7 +268,7 @@ function addRow() {
 
         }
 
-        if(i == 3) {
+        if (i == 3) {
 
             temp_html =
                 '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
@@ -255,12 +281,12 @@ function addRow() {
 
         }
 
-        if(i == 7) {
+        if (i == 7) {
 
             temp_html = '<td><button>계약서 업로드</button></td>';
         }
 
-        if(i == 8) {
+        if (i == 8) {
 
             temp_html =
                 '<td>' +
@@ -277,10 +303,14 @@ function addRow() {
 
 
 }
-/*-------------------------------산출 관리 리포트--------------------------------------*/
 
+/*-------------------------------산출 관리 리포트--------------------------------------*/
+src = "https://www.gstatic.com/charts/loader.js";
+
+google.charts.load('current', {packages: ['corechart']});
 
 function columnChart1() {
+
     var arr = [
 
         ['품목명', '총금액'],
@@ -326,9 +356,9 @@ function columnChart1() {
 
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
 
-    $('button').on('click', function(){
+    $('button').on('click', function () {
 
         columnChart1();
 
@@ -436,7 +466,7 @@ function updateButtonState(buttonId, state) {
         button.innerHTML = `<span class="icon3">&#9660;</span> <strong>자재관리</strong>`;
         document.getElementById("procurement").style.display = "none";
         document.getElementById("order").style.display = "none";
-        document.getElementById("materials").style.display = "";
+        document.getElementById("materials").style.display = "block";
     } else if (state === 0) {
         button.style.opacity = '0.2';
         document.getElementById("part-filed").innerHTML = `<span class="icon1">&#9650;</span> 조달관리`
@@ -468,7 +498,6 @@ const childComponent = {
         const contList = [];
 
 
-
         for (var i = 0; i < clickTapList.length; i++) {
 
             var currentPage;
@@ -489,14 +518,16 @@ const childComponent = {
                 currentPage = "ReceivingProcess.html"
             } else if (clickTapList[i] === "거래명세서") {
                 currentPage = "TradingStatement.html"
-            } else if (clickTapList[i] === "재고산출처리<br> 현황리포트") {
+            } else if (clickTapList[i] === "재고산출처리") {
+                currentPage = "stockDelivery.html"
+            } else if(clickTapList[i]==="현황리포트") {
                 currentPage = "existence.html"
             }
 
             if (i === 0) {
                 tabList3.push(`<div id = "tap1">
                             <div class="tabClass" id="is_on">
-                                <div class="btn">${clickTapList[i]}</div>
+                                <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
                             </div>
                         </div>
                         `)
@@ -505,7 +536,7 @@ const childComponent = {
                             `)
             } else if (clickTapList[0] === clickTapList[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}</div>
+                            <div class="btn">${clickTapList[i]}<div style="redcolor: red">X</div></div>
                          </div>
                         `)
                 contList.push(`
@@ -513,7 +544,7 @@ const childComponent = {
                             `)
             } else {
                 tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}</div>
+                            <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
                         </div>
                         `)
                 contList.push(`
@@ -541,15 +572,15 @@ const childComponent = {
                 LoadHTMLOfThePage(activeCont[k])
             });
         }
-        setCookie("clickTapList",clickTapList,7)
+        setCookie("clickTapList", clickTapList, 7)
     }
 };
 
 
 function LoadHTMLOfThePage(PageData) {
     var allElements = document.getElementsByTagName("*");
-    Array.prototype.forEach.call(allElements, function() {
-        var includePath =PageData.dataset.includePath;
+    Array.prototype.forEach.call(allElements, function () {
+        var includePath = PageData.dataset.includePath;
         if (includePath) {
             var xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
@@ -558,7 +589,6 @@ function LoadHTMLOfThePage(PageData) {
                 }
             };
             xhttp.open('GET', includePath, true);
-            xhttp.overrideMimeType('mime');
             xhttp.send();
         }
     });
@@ -609,10 +639,14 @@ window.onload = function () {
 
 
 (function RetrieveClickTapListInformationFromCookie() {
-    if(checkCookieExistence()) {
+    if (checkCookieExistence()) {
         var cookieList = loadClickTapListFromCookie().split(",");
-        for(let i=0; i<cookieList.length; i++) {
+        for (let i = 0; i < cookieList.length; i++) {
             childComponent.receiveData(cookieList[i]);
         }
     }
 })()
+
+function test() {
+    console.log("임의로 테스트 하는 함수");
+}

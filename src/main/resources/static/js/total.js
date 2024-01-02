@@ -670,10 +670,9 @@ const childComponent = {
         const tabList3 = [];
         const contList = [];
 
+        var currentPage;
 
         for (var i = 0; i < clickTapList.length; i++) {
-
-            var currentPage;
 
             if (clickTapList[i] === "품목정보등록") {
                 currentPage = "ProductInformationRegistration"
@@ -699,19 +698,19 @@ const childComponent = {
 
             if (i === 0) {
                 tabList3.push(`<div id = "tap1">
-                            <div class="tabClass" id="is_on">
-                                <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
+                            <div class="tabClass" id="is_on" data-include-path='${currentPage}'>
+                                <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
                             </div>
                         </div>`)
                 contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont0</div>`)
             } else if (clickTapList[0] === clickTapList[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}<div style="redcolor: red">X</div></div>
+                            <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
                          </div>`)
                 contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont${i}</div>`)
             } else {
-                tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}<div style="color: red">X</div></div>
+                tabList3.push(`<div class="tabClass" id="is_on" >
+                            <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
                             </div>`)
                 contList.push(`<div class="cont" data-include-path='${currentPage}'>testcont${i}</div>`)
             }
@@ -803,6 +802,19 @@ window.onload = function () {
         }
     }
 })()
+
+const closePage = (pageData,cnt) => {
+    console.log(pageData,cnt);
+    // let PressTheDeleteButtonClickTapList = clickTapList.filter(value=> value!==pageData);
+    // setCookie("clickTapList", PressTheDeleteButtonClickTapList, 7);
+    for(var k = 0; k<tabList.length; k++) {
+        console.log(tabList[k]);
+    }
+    console.log("탭리스트 Html정보 확인해보기 : ");
+    console.log("여기까지는 작동 중인지 확인해보기");
+    // contentList[cnt].innerHTML.style.display="none"
+};
+
 
 function test() {
     console.log("임의로 테스트 하는 함수");

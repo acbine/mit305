@@ -9,6 +9,10 @@ function closePopup(popupId) {
     popup.style.display = "none";
 }
 
+function showHiddenTable(){
+    document.querySelector('.hidden').classList.remove('hidden');
+    document.querySelector('.confirm').classList.add('hidden');
+}
 /*------------------현황관리-------------------------------------*/
 
 google.charts.load("current", {packages: ["corechart"]});
@@ -309,19 +313,20 @@ src = "https://www.gstatic.com/charts/loader.js";
 
 google.charts.load('current', {packages: ['corechart']});
 
+google.charts.load('current', {packages: ['corechart']});
+
 function columnChart1() {
 
     var arr = [
 
         ['품목명', '총금액'],
 
-        ['A품목', 400],
+        ['Unit', 740],
 
-        ['철', 460],
+        ['Assy', 460],
 
-        ['구리', 2820],
+        ['Part', 280],
 
-        ['나사', 540]
 
     ];
 
@@ -335,7 +340,7 @@ function columnChart1() {
 
         hAxis: {
 
-            title: 'Assy',
+            title: '현황 그래프',
 
             titleTextStyle: {
 
@@ -355,6 +360,16 @@ function columnChart1() {
     chart.draw(dataTable, options);
 
 }
+
+$(document).ready(function(){
+
+    $('button').on('click', function(){
+
+        columnChart1();
+
+    });
+
+});
 
 $(document).ready(function () {
 
@@ -378,7 +393,7 @@ const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
-
+var htmlData;
 /*탭 버튼 클릭 리스너 초기화 함수*/
 function initializeTabListeners() {
     /*"조달관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
@@ -503,25 +518,25 @@ const childComponent = {
             var currentPage;
 
             if (clickTapList[i] === "품목정보등록") {
-                currentPage = "품목정보등록.html"
+                currentPage = "ProductInformationRegistration"
             } else if (clickTapList[i] === "계약등록") {
-                currentPage = "계약등록.html"
+                currentPage = "ContractRegistration"
             } else if (clickTapList[i] === "조달계획등록") {
-                currentPage = "조달계획등록.html"
+                currentPage = "ProcurementPlanRegistration"
             } else if (clickTapList[i] === "발주서목록") {
-                currentPage = "orderList.html"
+                currentPage = "orderList"
             } else if (clickTapList[i] === "발주서발행") {
-                currentPage = "orderRegister.html"
+                currentPage = "orderRegister"
             } else if (clickTapList[i] === "현황관리") {
-                currentPage = "StatusManagementReport.html"
+                currentPage = "StatusManagementReport"
             } else if (clickTapList[i] === "입고처리") {
-                currentPage = "ReceivingProcess.html"
+                currentPage = "ReceivingProcess"
             } else if (clickTapList[i] === "거래명세서") {
-                currentPage = "TradingStatement.html"
+                currentPage = "TradingStatement"
             } else if (clickTapList[i] === "재고산출처리") {
-                currentPage = "stockDelivery.html"
+                currentPage = "stockDelivery"
             } else if(clickTapList[i]==="현황리포트") {
-                currentPage = "existence.html"
+                currentPage = "existence"
             }
 
             if (i === 0) {
@@ -555,7 +570,7 @@ const childComponent = {
         tabList[tabList.length - 1].innerHTML = tabList3.join("");
         contentList[contentList.length - 1].innerHTML = contList.join("");
 
-        var SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
+        let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
 
         for (let k = 0; k < tabList3.length; k++) {
             var clickEvent = document.getElementsByClassName("btn");
@@ -566,15 +581,16 @@ const childComponent = {
                     contents[j].style.display = 'none';
                 }
                 SoYouCanSeeWhatWasPressed.classList.add('tabClass')
-                activeCont = document.getElementsByClassName("cont");
-                activeCont[k].style.display = 'block';
-                console.log(contents[k]);
-                LoadHTMLOfThePage(activeCont[k])
+                contents[k].style.display = 'block';
+                htmlData = contents[k];
+                LoadHTMLOfThePage(htmlData);
             });
         }
         setCookie("clickTapList", clickTapList, 7)
     }
 };
+
+console.log(htmlData)
 
 
 function LoadHTMLOfThePage(PageData) {

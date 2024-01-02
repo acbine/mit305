@@ -82,7 +82,7 @@
         text-align: center;
     }
 
-    span {
+    .taf {
         display: inline-block;
         text-align: left;
         width: 360px;
@@ -93,7 +93,7 @@
     }
 
     button {
-        padding: 8px 16px;
+        /*padding: 8px 16px;   수정 요망 */
         border-radius: 4px;
         cursor: pointer;
         color: white;

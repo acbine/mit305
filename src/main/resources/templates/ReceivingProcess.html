@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link href="./css/ALL.css" rel="stylesheet"/>
+    <link href="/css/ALL.css" rel="stylesheet"/>
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
 </head>
@@ -88,158 +88,10 @@
 
     <div id="myModal" class="modal"> <!--모달창 백그라운드-->
         <div class="modal-content"> <!--모달창 내용-->
-            <!DOCTYPE html>
-            <html lang="en">
-            <head>
-                <meta charset="UTF-8">
-                <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                <title>Document</title>
-                <link href="./css/ALL.css" rel="stylesheet"/>
-                <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-            </head>
-            <body>
-                <h1>입고처리 모달창</h1>
-                            
-                
-                <div class="table-container" style="overflow-y: auto; max-height: 325px;"  >
-                    <table class="table-style">
-                        <thead id="tablehead">
-                            <tr id="RPModal">
-                                <th class="table-header-back">품목명</th>
-                                <th class="table-header-back">품목코드</th>
-                                <th class="table-header-back">발주 수량</th>
-                                <th class="table-header-back">입고수량</th>
-                                <th class="table-header-back">발주일</th>
-                                <th class="table-header-back">LT</th>
-                                <th class="table-header-back">입고상태</th>
-                                <th class="table-header-back">입고처리 확인버튼</th>
-                            </tr>
-                        </thead>   
-
-                        <tbody>
-                            <tr >
-                                <form action="">
-                                <td class="table-data">첫번쨰</td>
-                                <td class="table-data">1</td>
-                                <td class="table-data">1</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">10일</td>
-                                <td class="table-data">미완료</td>
-                                <td class="table-data">
-                                    <input class="submitBTN" type="submit" value="확인처리"  onclick="sendToDataInModal()" style="background-color: blue; color: white;">
-                                </td>
-                                </form>
-                            </tr>
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">나사</td>
-                                    <td class="table-data">12</td>
-                                    <td class="table-data">15</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">12/13</td>
-                                    <td class="table-data">19일</td>
-                                    <td class="table-data">미완료(DB)</td>
-                                    <td class="table-data">
-                                        <input class="submitBTN" type="submit" value="확인처리"  onclick="sendToDataInModal()" style="background-color: blue; color: white;">
-                                    </td>
-                                </form>
-                            </tr>
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">망치</td>
-                                    <td class="table-data">124</td>
-                                    <td class="table-data">023</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">11/12</td>
-                                    <td class="table-data">13일</td>
-                                    <td class="table-data">미완료(DB)</td>
-                                    <td class="table-data">
-                                        <input class="submitBTN" type="submit" value="확인처리" onclick="sendToDataInModal()" style="background-color: blue; color: white;">
-                                    </td>
-                                </form>
-                            </tr>
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">구리</td>
-                                    <td class="table-data">12</td>
-                                    <td class="table-data">12</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">11/13</td>
-                                    <td class="table-data">19일</td>
-                                    <td class="table-data">완료(DB)</td>
-                                    <td class="table-data"></td>
-                                </form>
-                            </tr>
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">철</td>
-                                    <td class="table-data">0</td>
-                                    <td class="table-data">0</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">11/13</td>
-                                    <td class="table-data">19일</td>
-                                    <td class="table-data">완료(DB)</td>
-                                    <td class="table-data"></td>
-                                </form>
-                            </tr>
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">더미데이터</td>
-                                    <td class="table-data">0</td>
-                                    <td class="table-data">0</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">11/13</td>
-                                    <td class="table-data">19일</td>
-                                    <td class="table-data">완료(DB)</td>
-                                    <td class="table-data">
-                                        <input class="submitBTN" type="submit" onclick="sendToDataInModal()" value="확인처리" style="background-color: blue; color: white;">
-                                    </td>
-                                </form>
-                            </tr>
-
-
-
-                            <tr >
-                                <form action="">
-                                    <td class="table-data">마지막</td>
-                                    <td class="table-data">n</td>
-                                    <td class="table-data">n</td>
-                                    <td class="table-data" style="width:150px;" ><input type="number" name="입고수량"></td>
-                                    <td class="table-data">12/13</td>
-                                    <td class="table-data">10일</td>
-                                    <td class="table-data">완료(DB)</td>
-                                    <td class="table-data">
-                                        <input class="submitBTN" type="submit" value="확인처리" onclick="sendToDataInModal()" style="background-color: blue; color: white;">
-                                    </td>
-                                </form>
-                            </tr>
-
-
-
-                        
-                            <tr style="position: sticky; bottom: 0px; height: 45px ;">
-                                <td id="tableend" class="table-data" style="background-color: white;" >
-                                    발주서발행일
-                                </td>
-                                <td class="table-data" colspan="7"  style="background-color: white;" >
-                                    2020년 12월 15일
-                                </td>
-                            </tr>                               
-                        </tbody>                         
-                    </table>
-                </div>
-                    
+            <iframe src="ReceivingProcessModal.html" width="100%" height="100%" frameborder="0"></iframe>
             <button class="button-style" onclick="closeModal()">취소</button>
-            </body>
-            </html>
         </div><!--모달창 내용끝-->
     </div> <!--모달창 백그라운드?-->
-    <script src="./js/ReceivingProcessing.js"></script>
+    <script src="/js/ReceivingProcessing.js"></script>
 </body>
 </html>

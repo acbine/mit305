@@ -15,7 +15,7 @@
         margin: 0 auto;
     }
 
-    thead, th {
+    .thead, th {
         background-color: #ccc;
     }
 
@@ -24,17 +24,17 @@
         text-decoration: none;
     }
 
-    th, td {
+    .th, td {
         border: 1px solid black;
         padding: 12px;
         text-align: center;
     }
 
-    tbody tr:nth-child(even) {
+    .tbody tr:nth-child(even) {
         background-color: #f9f9f9;
     }
 
-    tbody tr>td[colspan="11"] {
+    .tbody tr>td[colspan="11"] {
         text-align: left;
     }
 
@@ -92,34 +92,36 @@
         text-align: right;
     }
 
-    button {
+    .button {
         /*padding: 8px 16px;   수정 요망 */
         border-radius: 4px;
         cursor: pointer;
         color: white;
     }
 
-    button.confirm {
+    .button.confirm {
         background-color: orange;
     }
 
-    button.inspect, button.edit {
+    .button.inspect, button.edit {
         background-color: blue;
     }
 
-    button.confirm, button.edit, button.delete {
+    .button.confirm, button.edit, button.delete {
         padding: 2px 12px;
     }
 
-    textarea {
+    .textarea {
         height: 100px;
         resize: none;
     }
 
-    textarea::placeholder {
+    .textarea::placeholder {
         color: red;
     }
 
     .hidden {
         display: none;
+        width: 660px;
+        margin-left: 554px;
     }

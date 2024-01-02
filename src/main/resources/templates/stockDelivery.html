@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Page Title</title>
+    <style>
+        .container {
+            margin: auto;
+            max-width: 800px;
+        }
+
+        .button {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 0.25rem;
+            font-size: 0.875rem;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .filter-button {
+            border: 1px solid #000;
+            background-color: #fff;
+        }
+
+        .primary-button {
+            background-color: #4a5568;
+            color: #fff;
+        }
+
+        .green-button {
+            background-color: #38a169;
+            color: #fff;
+        }
+
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .table-header {
+            padding: 1rem;
+            text-align: left;
+            font-weight: bold;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .table td {
+            padding: 1rem;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .action-button-registration {
+            background-color: #33CC33;
+            color: #ffffff;
+        }
+
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.2s, color 0.2s;
+            outline: none;
+            cursor: pointer;
+            padding: 0.5rem 1rem;
+            border: 1px solid #cbd5e0;
+        }
+    </style>
+</head>
+<body>
+<div class="flex space-x-2">
+    <input class="button filter-button"/>
+    <label>
+        <select>
+            <option>품목명</option>
+            <option style="font-size: 10px">품목코드</option>
+        </select>
+    </label>
+    <button class="button primary-button">검색</button>
+</div>
+</div>
+<div class="w-full h-[300px] mb-4">
+    <div style="width: 50%; height: 50%;"></div>
+</div>
+<div class="relative w-full overflow-auto">
+    <table class="table">
+        <thead>
+        <tr>
+            <th class="table-header">품목명</th>
+            <th class="table-header">품목코드</th>
+            <th class="table-header">재질</th>
+            <th class="table-header">규격</th>
+            <th class="table-header">약칭</th>
+            <th class="table-header">공급가격</th>
+            <th class="table-header">출고</th>
+            <th class="table-header">입고</th>
+            <th class="table-header">재고</th>
+            <th class="table-header">총금액</th>
+            <th class="table-header"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td class="table-body">나사</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">80원</td>
+            <td class="table-body"><input style="width:80px" type="number" name="수정가능"></td>
+            <td class="table-body">asdew</td>
+            <td class="table-body"><input style="width:80px" type="number" name="수정가능"></td>
+            <td class="table-body">133원</td>
+            <td class="table-body"><button class="action-button action-button-registration">확인</button></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="button" id="btn">버튼</button>
+</div>
+</body>
+</html>

@@ -88,225 +88,256 @@ function printTradingStatement() {
 
 /*---------------------계약등록-------------------*/
 
-function modify_and_save(tag) {
+ function contract_modify_and_save(tag) {
 
-    const tr = tag.closest("tr");
+        const tr = tag.closest("tr");
 
-    const cell_0 = tr.children[0];
-    const cell_5 = tr.children[5];
-    const cell_6 = tr.children[6];
+        const cell_0 = tr.children[0];
+        const cell_5 = tr.children[5];
+        const cell_6 = tr.children[6];
 
 
-    if (cell_0.contentEditable == "true") {
+        if (cell_0.contentEditable == "true") {
 
-        cell_0.contentEditable = "false";
-        cell_5.contentEditable = "false";
-        cell_6.contentEditable = "false";
+            cell_0.contentEditable = "false";
+            cell_5.contentEditable = "false";
+            cell_6.contentEditable = "false";
 
-        tag.innerText = "수정";
+            tag.innerText = "수정";
 
         //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
-    } else {
+        } else {
 
-        //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
+            //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
 
-        cell_0.contentEditable = "true";
-        cell_5.contentEditable = "true";
-        cell_6.contentEditable = "true";
+            cell_0.contentEditable = "true";
+            cell_5.contentEditable = "true";
+            cell_6.contentEditable = "true";
 
-        tag.innerText = "수정 완료";
+            tag.innerText = "수정 완료";
 
-        cell_0.focus();
+            cell_0.focus();
+        }
     }
-}
 
-function registration_and_delete(tag) {
+    function contract_registration_and_delete(tag) {
 
-    const tr = tag.closest("tr");
-    tr.remove();
-}
+        const tr = tag.closest("tr");
+        tr.remove();
+    }
 
-function p_code_value(p_code) {
+    <!-- 선택한 품목코드로 품목명 검색-->
+    function p_code_value(p_code) {
 
-    console.log(p_code);
-}
+        console.log(p_code);
+    }
 
-function b_code_value(b_code) {
+    <!-- 선택한 사업자번호로 기업명 검색-->
+    function b_code_value(b_code) {
 
-    console.log(b_code);
-}
+        console.log(b_code);
+    }
 
+    function contract_add_product(tag) {
 
-function addRow() {
+        const table = document.getElementById('product');
 
-    const table = document.getElementById('product');
-    const new_row = table.insertRow();
+        const newRow = table.insertRow(2);
 
-    const cell_length = table.rows[0].cells.length;
+        for(let i = 0; i < 9; i++) {
+            const new_cell = newRow.insertCell(i);
+            let temp_html = '';
 
-    for (let i = 0; i < cell_length; i++) {
-        const new_cell = new_row.insertCell(i);
-        let temp_html = '';
+            if(i == 1) {
 
-        if (i == 1) {
-
-            temp_html =
+                temp_html =
                 '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
-                '<option value="p_code1">A</option>' +
-                '<option value="p_code2">ab42e</option>' +
-                '<option value="p_code3">B</option>' +
+                    '<option value="p_code1">A</option>' +
+                    '<option value="p_code2">ab42e</option>' +
+                    '<option value="p_code3">B</option>' +
                 '</select>' +
 
-                '<button>확인</button>';
+                '<button> 확인 </button>';
 
+            }
+
+            if(i == 8) {
+
+                temp_html =
+                    '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>' +
+                            '<button class="action-button action-button-delete" onclick="contract_registration_and_delete(this)">삭제</button>' +
+                        '</div>' +
+                    '</td>';
+            }
+
+
+            new_cell.insertAdjacentHTML('afterbegin', temp_html);
         }
 
-        if (i == 3) {
 
-            temp_html =
-                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
-                '<option value="b_code1">사업자 번호1</option>' +
-                '<option value="b_code2">사업자 번호2</option>' +
-                '<option value="b_code3">사업자 번호3</option>' +
-                '</select>' +
-
-                '<button>확인</button>';
-
-        }
-
-
-        if (i == 7) {
-
-            temp_html = '<td><button>계약서 업로드</button></td>';
-        }
-
-        if (i == 8) {
-
-            temp_html =
-                '<td>' +
-                '<div class="actions">' +
-                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
-                '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
-                '</div>' +
-                '</td>';
-        }
-
-        new_cell.insertAdjacentHTML('afterbegin', temp_html);
 
     }
 
 
-}
+    function contract_addRow() {
+
+        const table = document.getElementById('product');
+        const new_row = table.insertRow();
+
+        const cell_length = table.rows[0].cells.length;
+
+        for(let i = 0; i < cell_length; i++) {
+            const new_cell = new_row.insertCell(i);
+            let temp_html = '';
+
+            if(i == 1) {
+
+                temp_html =
+                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
+                    '<option value="p_code1">A</option>' +
+                    '<option value="p_code2">ab42e</option>' +
+                    '<option value="p_code3">B</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+            }
+
+             if(i == 3) {
+
+                temp_html =
+                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
+                    '<option value="b_code1">사업자 번호1</option>' +
+                    '<option value="b_code2">사업자 번호2</option>' +
+                    '<option value="b_code3">사업자 번호3</option>' +
+                '</select>' +
+
+                '<button>확인</button>';
+
+            }
+
+
+
+
+            if(i == 7) {
+
+                    temp_html = '<td>'+
+                               '<input type="file" accept="image/png, image/jpg">' +
+                               '</td>';
+            }
+
+            if(i == 8) {
+
+                temp_html =
+                    '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-check" onclick="contract_add_product(this)">계약 품목 추가</button>'+
+                            '<button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>'+
+                            '<button class="action-button action-button-delete" onclick="contract_registration_and_delete(this)">삭제</button>'+
+                        '</div>' +
+                    '</td>';
+            }
+
+             new_cell.insertAdjacentHTML('afterbegin', temp_html);
+
+        }
+
+
+    }
+
 
 /*---------조달계획등록--------------*/
 function modify_and_save(tag) {
 
-    const tr = tag.closest("tr");
+        const tr = tag.closest("tr");
 
-    const cell_0 = tr.children[0];
-    const cell_5 = tr.children[5];
-    const cell_6 = tr.children[6];
+        const num = tr.children[3];
+        const date = tr.children[8];
+
+        const target = document.getElementById("deleteBtn1");
+        //const delete_btn_state = document.getElementsByClassName('action-button action-button-registration');
+
+        console.log(num, date);
 
 
-    if (cell_0.contentEditable == "true") {
+        if (num.contentEditable == "true") {
 
-        cell_0.contentEditable = "false";
-        cell_5.contentEditable = "false";
-        cell_6.contentEditable = "false";
+            num.contentEditable = "false";
+            date.contentEditable = "false";
 
-        tag.innerText = "수정";
+
+            tag.innerText = "수정";
 
         //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
-    } else {
+        } else {
 
-        //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
+            //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
 
-        cell_0.contentEditable = "true";
-        cell_5.contentEditable = "true";
-        cell_6.contentEditable = "true";
+            num.contentEditable = "true";
+            date.contentEditable = "true";
 
-        tag.innerText = "수정 완료";
+            tag.innerText = "수정 완료";
 
-        cell_0.focus();
+
+            //첫번째 셀에 포커스를 줘서 상태 변경에 대해 알림.
+            num.focus();
+
+        }
     }
-}
 
-function registration_and_delete(tag) {
+    function registration_and_delete(tag) {
 
-    const tr = tag.closest("tr");
-    tr.remove();
-}
+        alert("등록 완료");
 
-function p_code_value(p_code) {
-
-    console.log(p_code);
-}
-
-function b_code_value(b_code) {
-
-    console.log(b_code);
-}
-
-
-function addRow() {
-
-    const table = document.getElementById('product');
-    const new_row = table.insertRow();
-
-    const cell_length = table.rows[0].cells.length;
-
-    for (let i = 0; i < cell_length; i++) {
-        const new_cell = new_row.insertCell(i);
-        let temp_html = '';
-
-        if (i == 1) {
-
-            temp_html =
-                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
-                '<option value="p_code1">A</option>' +
-                '<option value="p_code2">ab42e</option>' +
-                '<option value="p_code3">B</option>' +
-                '</select>' +
-
-                '<button>확인</button>';
-
-        }
-
-        if (i == 3) {
-
-            temp_html =
-                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
-                '<option value="b_code1">사업자 번호1</option>' +
-                '<option value="b_code2">사업자 번호2</option>' +
-                '<option value="b_code3">사업자 번호3</option>' +
-                '</select>' +
-
-                '<button>확인</button>';
-
-        }
-
-        if (i == 7) {
-
-            temp_html = '<td><button>계약서 업로드</button></td>';
-        }
-
-        if (i == 8) {
-
-            temp_html =
-                '<td>' +
-                '<div class="actions">' +
-                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
-                '<button class="action-button action-button-delete" onclick="registration_and_delete(this)">삭제</button>' +
-                '</div>' +
-                '</td>';
-        }
-
-        new_cell.insertAdjacentHTML('afterbegin', temp_html);
-
+        const tr = tag.closest("tr");
+        tr.remove();
     }
 
 
-}
+    function table_change(state) {
+
+         if(state == "need_plan") {
+
+            plan_table.style.display = "inline";
+            table1.style.display = "none";
+            table2.style.display = "none";
+            table3.style.display = "none";
+
+        }
+
+
+        if(state == "before_proceeding") {
+
+            plan_table.style.display = "none";
+            table1.style.display = "inline";
+            table2.style.display = "none";
+            table3.style.display = "none";
+
+        }
+
+        else if(state == "order_proceeding") {
+
+            plan_table.style.display = "none";
+            table1.style.display = "none";
+            table2.style.display = "inline";
+            table3.style.display = "none";
+
+        }
+
+        else if(state == "order_completed") {
+
+            plan_table.style.display = "none";
+            table1.style.display = "none";
+            table2.style.display = "none";
+            table3.style.display = "inline";
+
+        }
+
+
+    }
+
 
 /*-------------------------------산출 관리 리포트--------------------------------------*/
 src = "https://www.gstatic.com/charts/loader.js";

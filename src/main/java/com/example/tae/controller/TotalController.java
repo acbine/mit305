@@ -61,6 +61,11 @@ public class TotalController {
         return "ReceivingProcess";
     }
 
+    @GetMapping("ReceivingProcessModal")
+    public String ReceivingProcessModal() {
+        return "ReceivingProcessModal";
+    }
+
     @GetMapping("StatusManagementReport")
     public String StatusManagementReport() {
         return "StatusManagementReport";
@@ -74,5 +79,9 @@ public class TotalController {
     @GetMapping("TradingStatement")
     public String TradingStatement() {
         return "TradingStatement";
+    }
+    @GetMapping("TradingStatementModal")
+    public String TradingStatementModal() {
+        return "TradingStatementModal";
     }
 }

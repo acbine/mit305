@@ -1,0 +1,125 @@
+.back {
+    background-color: #9AA5C8;
+    width: 1920px;
+    height: 1080px;
+    border-radius: 100px;
+}
+
+.innerGroundShadow {
+    background-color: #ffffff;
+    margin-top: 10px;
+    margin-left: 140px;
+    width: 1780px;
+    height: 1000px;
+    border-radius: 100px;
+    opacity: 0.5;
+    z-index: 1;
+    position: absolute;
+}
+
+.innerGround {
+    margin-top: 40px;
+    margin-right: 5px;
+    background-color: #ffffff;
+    width: 1800px;
+    height: 960px;
+    border-radius: 100px;
+    clear: both;
+    float: right;
+    z-index: 3;
+}
+
+.custom-container {
+    padding-top: 25px;
+    padding-left: 100px;
+    display: flex;
+}
+
+.custom-button {
+    display: inline-flex;
+    justify-content: center;
+    color: black;
+    background-color: #9AA5C8;
+    border-color: #9AA5C8;
+    opacity: 0.2;
+}
+
+.custom-button:disabled {
+    flex-basis: 100%;
+    opacity: 0.5;
+}
+
+.procurement-management {
+    display: inline-block;
+    margin-left: 15px;
+    margin-top: 50px;
+    z-index: 5;
+}
+
+.order-management {
+    display: inline-block;
+    margin-left: 25px;
+    margin-top: 50px;
+    z-index: 5;
+}
+
+.materials-management {
+    display: inline-block;
+    margin-left: 5px;
+    margin-top: 50px;
+    z-index: 5;
+}
+
+.tab_menu {
+    position: relative;
+}
+
+.tab_menu .list {
+    overflow: hidden;
+}
+
+.tab_menu .list div {
+    float: left;
+}
+
+#tap1 {
+    background-color: #3498db;
+    border-radius: 10px;
+    height: 40px;
+    width: 150px;
+    margin-left: 80px;
+    z-index: 2;
+    display: flex;
+    float: left;
+}
+
+.tabClass {
+    font-weight: bold;
+}
+
+.tab_menu .list div.tabClass .btn {
+    background-color: #2ecc71;
+    border-radius: 10px;
+    height: 40px;
+    width: 150px;
+    z-index: 3;
+    display: flex;
+    float: left;
+}
+
+.tab_menu .list .btn {
+    font-size: 13px;
+}
+
+.tab_menu .cont_area .cont {
+    display: none;
+    text-align: center;
+    width: 1800px;
+    height: 960px;
+    border-radius: 100px;
+    z-index: 5;
+}
+
+#closeBTN {
+    color: red;
+}

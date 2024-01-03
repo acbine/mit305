@@ -39,11 +39,8 @@
       color: #fff;
     }
 
-
-    .table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 1rem;
+    .div {
+      background-color:red;
     }
 
     .table-header {
@@ -53,7 +50,7 @@
       border-bottom: 1px solid #ccc;
     }
 
-    .table td {
+    .table thead {
       padding: 1rem;
       border-bottom: 1px solid #ccc;
     }
@@ -82,23 +79,90 @@
 </head>
 <body>
   <div class="container">
-    <div class="bg-white box-shadow rounded-lg p-6">
+    <div class="bg-white box-shadow rounded-lg p-6" style="margin: auto">
       <div class="grid grid-cols-3 gap-4 mb-4">
-        <input type="date">
-        <input type="date">
+        수불기간<input type="date">부터<input type="date">까지
       </div>
       <div class="w-full h-[300px] mb-4">
         <div style="width: 100%; height: 100%;"></div>
       </div>
       <div class="relative w-full overflow-auto">
-
         <div class="flex justify-center items-center space-x-2 mb-4">
-          <button class="button" onclick="columnChart1()">Unit</button>
-          <button class="button green-button" onclick="columnChart1()">Assy</button>
-          <button class="button" onclick="columnChart1()">Part</button>
-          <div id="column_chart_div1" style="width: 900px; height: 500px;">
+          <input type="text" value="품목명 검색">
+          <button onclick="columnChart1()">검색</button>
+          정렬선택 : <select>
+            <option>대분류</option>
+            <option>중분류</option>
+            <option>소분류</option>
+          </select>
           </div>
         </div>
+      <table>
+        <thead>
+        <tr>
+          <th>품목명</th>
+          <th>품목코드</th>
+          <th>대분류</th>
+          <th>중분류</th>
+          <th>소분류</th>
+          <th>재고</th>
+          <th>공급 가격</th>
+          <th>재고 금액</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>나사</td>
+          <td>asaf</td>
+          <td>대분류</td>
+          <td>중분류</td>
+          <td>소분류</td>
+          <td>120</td>
+          <td>100</td>
+          <td>12000</td>
+        </tr>
+        <tr>
+          <td>A품목</td>
+          <td>asaf</td>
+          <td>대분류</td>
+          <td>중분류</td>
+          <td>소분류</td>
+          <td>120</td>
+          <td>100</td>
+          <td>12000</td>
+        </tr>
+        <tr>
+          <td>철</td>
+          <td>awqdsf</td>
+          <td>대분류</td>
+          <td>중분류</td>
+          <td>소분류</td>
+          <td>120</td>
+          <td>100</td>
+          <td>12000</td>
+        </tr>
+        <tr>
+          <td>B품목</td>
+          <td>asaf</td>
+          <td>대분류</td>
+          <td>중분류</td>
+          <td>소분류</td>
+          <td>120</td>
+          <td>100</td>
+          <td>12000</td>
+        </tr>
+        <tr>
+          <td>C품목</td>
+          <td>kwsf</td>
+          <td>대분류</td>
+          <td>중분류</td>
+          <td>소분류</td>
+          <td>120</td>
+          <td>100</td>
+          <td>12000</td>
+        </tr>
+        </tbody>
+      </table>
       </div>
     </div>
   </div>

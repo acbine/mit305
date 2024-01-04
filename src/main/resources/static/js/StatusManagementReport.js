@@ -5,15 +5,16 @@ google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Task', 'Hours per Day'],
-          ['미검수',     1,],
-          ['검수진행중',      1],
-          ['검수완료',  1],
-          ['마감', 1]
+          ['발주서 미발행',     2,],
+          ['발주서 발행 ',     3,],
+          ['발주서 검수 진행중 ',      5],
+          ['발주서 검수처리 완료',  4],
+          ['마감', 3]
         ]);
 
         var options = {
           pieHole: 0.45,
-          colors: ['#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
+          colors: ['#00FFFF','#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
 
 
         };
@@ -22,4 +23,6 @@ function drawChart() {
 
         chart.draw(data, options);
       }
+
+
 

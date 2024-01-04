@@ -139,6 +139,16 @@ function showHiddenTable(){
     document.querySelector('.hidden').classList.remove('hidden');
     document.querySelector('.confirm').classList.add('hidden');
 }
+
+const = () => toggleTables() {
+    var selectedOption = document.getElementById("companyDropdown").value;
+
+    document.getElementById("table1").classList.add("hidden");
+    document.getElementById("table2").classList.add("hidden");
+    document.getElementById("table3").classList.add("hidden");
+
+    document.getElementById(selectedOption).classList.remove("hidden");
+}
 /*------------------현황관리-------------------------------------*/
 
 google.charts.load("current", {packages: ["corechart"]});

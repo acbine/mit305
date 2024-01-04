@@ -34,7 +34,7 @@
                     <td>(유)길승산업</td>
                     <td>
                         <button onclick="registration_and_delete(this)">등록</button>
-                        <button onclick="deleteRow(this)">삭제</button>
+                        <button onclick="cancel(this)">취소</button>
                     </td>
                 </tr>
                 <tr>
@@ -48,7 +48,7 @@
                     <td>(주)마텍스</td>
                     <td>
                         <button onclick="registration_and_delete(this)">등록</button>
-                        <button onclick="deleteRow(this)">삭제</button>
+                        <button onclick="cancel(this)">취소</button>
                     </td>
                 </tr>
                 <tr>
@@ -62,7 +62,7 @@
                     <td>(주)마텍스</td>
                     <td>
                         <button onclick="registration_and_delete(this)">등록</button>
-                        <button onclick="deleteRow(this)">삭제</button>
+                        <button onclick="cancel(this)">취소</button>
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
                     <td>(주)마텍스</td>
                     <td>
                         <button onclick="registration_and_delete(this)">등록</button>
-                        <button onclick="deleteRow(this)">삭제</button>
+                        <button onclick="cancel(this)">취소</button>
                     </td>
                 </tr>
                 <tr>
@@ -90,7 +90,7 @@
                     <td>(유)길승산업</td>
                     <td>
                         <button onclick="registration_and_delete(this)">등록</button>
-                        <button onclick="deleteRow(this)">삭제</button>
+                        <button onclick="cancel(this)">취소</button>
                     </td>
                 </tr>
             </tbody>
@@ -99,11 +99,12 @@
     </div>
 <script>
     function registration_and_delete(tag){
-        alert("해당 품목이 선택 완료되었습니다.");
+        alert("등록되었습니다.\n해당 품목은 발주서 발행 페이지로 이동합니다.");
         tag.closest("tr").remove();
     }
 
-    function deleteRow(tag){
+    function cancel(tag){
+        alert("취소되었습니다.\n해당 품목은 조달 계획 페이지로 되돌아갑니다.");
         tag.closest("tr").remove();
     }
 </script>

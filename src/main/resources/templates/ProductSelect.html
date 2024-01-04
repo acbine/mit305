@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/order.css">
+    <title>품목 선택</title>
+</head>
+<body>
+    <div class="container">
+        <table>
+            <thead>
+                <tr>
+                    <th>품목명</th>
+                    <th>품목코드</th>
+                    <th>조달 수량</th>
+                    <th>현재 재고량</th>
+                    <th>제품 생산 예정 날짜</th>
+                    <th>발주일</th>
+                    <th>L/T</th>
+                    <th>업체명</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 예시 시작 -->
+                <tr>
+                    <td>나사</td>
+                    <td>A</td>
+                    <td>9</td>
+                    <td>5</td>
+                    <td>2023-12-26</td>
+                    <td>2023-12-1</td>
+                    <td>10</td>
+                    <td>(유)길승산업</td>
+                    <td>
+                        <button onclick="registration_and_delete(this)">등록</button>
+                        <button onclick="deleteRow(this)">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>A품목</td>
+                    <td>AA</td>
+                    <td>23</td>
+                    <td>66</td>
+                    <td>2024-1-31</td>
+                    <td>2023-12-15</td>
+                    <td>5</td>
+                    <td>(주)마텍스</td>
+                    <td>
+                        <button onclick="registration_and_delete(this)">등록</button>
+                        <button onclick="deleteRow(this)">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>나사</td>
+                    <td>A</td>
+                    <td>5</td>
+                    <td>34</td>
+                    <td>2024-1-12</td>
+                    <td>2024-1-31</td>
+                    <td>10</td>
+                    <td>(주)마텍스</td>
+                    <td>
+                        <button onclick="registration_and_delete(this)">등록</button>
+                        <button onclick="deleteRow(this)">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>D품목</td>
+                    <td>DD</td>
+                    <td>42</td>
+                    <td>2</td>
+                    <td>2024-4-13</td>
+                    <td>2023-12-22</td>
+                    <td>3</td>
+                    <td>(주)마텍스</td>
+                    <td>
+                        <button onclick="registration_and_delete(this)">등록</button>
+                        <button onclick="deleteRow(this)">삭제</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>F품목</td>
+                    <td>FF</td>
+                    <td>11</td>
+                    <td>72</td>
+                    <td>2024-3-12</td>
+                    <td>2023-12-30</td>
+                    <td>22</td>
+                    <td>(유)길승산업</td>
+                    <td>
+                        <button onclick="registration_and_delete(this)">등록</button>
+                        <button onclick="deleteRow(this)">삭제</button>
+                    </td>
+                </tr>
+            </tbody>
+            <!-- 예시 종료 -->
+        </table>
+    </div>
+<script>
+    function registration_and_delete(tag){
+        alert("해당 품목이 선택 완료되었습니다.");
+        tag.closest("tr").remove();
+    }
+
+    function deleteRow(tag){
+        tag.closest("tr").remove();
+    }
+</script>
+</body>
+</html>

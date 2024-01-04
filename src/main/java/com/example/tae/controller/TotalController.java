@@ -46,6 +46,9 @@ public class TotalController {
         return "orderRegister";
     }
 
+    @GetMapping("ProductSelect")
+    public String ProductSelect(){return "ProductSelect";}
+
     @GetMapping("ProcurementPlanRegistration")
     public String ProcurementPlanRegistration() {
         return "ProcurementPlanRegistration";

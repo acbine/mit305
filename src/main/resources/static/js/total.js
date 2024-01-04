@@ -140,7 +140,7 @@ function showHiddenTable(){
     document.querySelector('.confirm').classList.add('hidden');
 }
 
-const = () => toggleTables() {
+function toggleTables() {
     var selectedOption = document.getElementById("companyDropdown").value;
 
     document.getElementById("table1").classList.add("hidden");

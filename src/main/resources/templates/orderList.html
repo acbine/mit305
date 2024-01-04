@@ -13,7 +13,7 @@
                 <th>발주서 발행일</th>
                 <th>발주품목</th>
                 <th>업체명</th>
-                <th>발주상태</th>
+                <th>진척 검수 상태</th>
             </tr>
             </thead>
             <tbody>
@@ -21,28 +21,28 @@
                 <td>2023-12-10</td>
                 <td>나사</td>
                 <td>(유)길승산업</td>
-                <td style="color: red; font-weight: bold;"><a href="orderInspect1_1">[미검수]</a></td>
+                <td style="color: red; font-weight: bold;" onclick="childComponent.receiveData('진척검수등록')"><button>진척검수등록</button></td>
                 <td><b onclick="openPopup('popup')">🔍</b>🖨️️⬇️</td>
             </tr>
             <tr>
                 <td>2024-1-1</td>
                 <td>망치</td>
                 <td>(유)길승산업</td>
-                <td style="color: red; font-weight: bold;">[미검수]</td>
+                <td style="color: red; font-weight: bold;" onclick="childComponent.receiveData('진척검수등록')"><button>진척검수등록</button></td>
                 <td>🔍🖨️️⬇️</td>
             </tr>
             <tr>
                 <td>2023-12-13</td>
                 <td>나사, 망치</td>
                 <td>(유)길승산업</td>
-                <td style="color: orange; font-weight: bold;">[검수중]</td>
+                <td style="color: red; font-weight: bold;" onclick="childComponent.receiveData('진척검수등록')"><button>진척검수등록</button></td>
                 <td>🔍🖨️️⬇️</td>
             </tr>
             <tr>
                 <td>2023-12-16</td>
                 <td>나사</td>
                 <td>(주)마텍스</td>
-                <td style="color: orange; font-weight: bold;"><a href="orderInspect4">[검수중]</a></td>
+                <td style="color: red; font-weight: bold;" onclick="childComponent.receiveData('진척검수등록')"><button>진척검수등록</button></td>
                 <td>🔍🖨️️⬇️</td>
             </tr>
             <tr>
@@ -63,7 +63,7 @@
                 <td>2023-12-2</td>
                 <td>드릴, 망치, ...</td>
                 <td>(유)길승산업</td>
-                <td style="color: purple; font-weight: bold;">[마감]</td>
+                <td style="color: purple; font-weight: bold;">[입고마감]</td>
                 <td>🔍🖨️️⬇️</td>
             </tr>
             </tbody>

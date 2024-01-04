@@ -124,6 +124,16 @@
 
     }
 
+/*-------------------------발주 품목 선택----------------------*/
+function registration_and_delete(tag){
+    alert("해당 품목이 선택 완료되었습니다.");
+    tag.closest("tr").remove();
+}
+
+function deleteRow(tag){
+    tag.closest("tr").remove();
+}
+
 /*--------------------발주 목록(orderList)--------------------*/
 function openPopup(popupId) {
     var popup = document.getElementById(popupId);
@@ -148,6 +158,51 @@ function toggleTables() {
     document.getElementById("table3").classList.add("hidden");
 
     document.getElementById(selectedOption).classList.remove("hidden");
+}
+/*-------------------진척 검수 관리-------------------------------------------*/
+
+var ProgressInspectionState=0;
+
+function ProgressInspection() {
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+    if (ProgressInspectionState === 0) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+        }
+    } else if (ProgressInspectionState === 1) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td><button onclick="openPopup('popup')">진척검수실행</button></td>`
+        }
+    } else if (ProgressInspectionState === 2) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td>진척 검수 완료</td>`
+        }
+    }
+}
+function addProgressInspection() {
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+    classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
+                                                            <td>2023-12-13</td>
+                                                            <td>입력된날짜</td>
+                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+}
+
+function updateProgressInspection(info) {
+    console.log("함수작동 확인")
+    var updateDate = info.closest("tr");
+
+    var date =  updateDate.children[2];
+    date.innerHTML = `<input type="date">`
+    console.log(updateDate);
 }
 /*------------------현황관리-------------------------------------*/
 
@@ -216,7 +271,6 @@ function CloseTradingMy() {
 }
 
 function printTradingStatement() {
-    console.log("이거 실행된느건가?")
     $(".TradingmyModal").css('display', 'block');
     window.print();
     $(".TradingmyModal").css('display', 'none');
@@ -538,6 +592,10 @@ $(document).ready(function(){
     });
 
 });
+/*------------------재고산출관리--------------------------*/
+function table() {
+    var tableList = document.getElementsByClassName("table_body")
+    var inputHtml = [];
 
 $(document).ready(function () {
 
@@ -549,6 +607,25 @@ $(document).ready(function () {
 
 });
 
+    for(var i=0; i<tableList.length; i++) {
+        inputHtml.push(`<tr>
+            <td class="table-body">A품목</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">asdew</td>
+            <td class="table-body">80원</td>
+            <td class="table-body" id="inventory"><input style="width:80px" type="number" value="5"></td>
+            <td class="table-body">11</td>
+            <td class="table-body"><input style="width:80px" type="number" value="34"></td>
+            <td class="table-body">24324원</td>
+            <td class="table-body"><button class="action-button action-button-registration">확인</button></td>
+        </tr>`)
+    }
+
+    console.log(tableList);
+    tableList[tableList.length-1].innerHtml = inputHtml.join("");
+}
 
 /*------------------total-------------------------------*/
 var state1 = 0;
@@ -704,6 +781,10 @@ const childComponent = {
                 currentPage = "stockDelivery"
             } else if(clickTapList[i]==="현황리포트") {
                 currentPage = "existence"
+            } else if(clickTapList[i]==="발주품목선택") {
+                currentPage = "ProductSelect"
+            } else if(clickTapList[i]==="진척검수등록") {
+                currentPage = "orderInspect1_1"
             }
 
             if (i === 0) {

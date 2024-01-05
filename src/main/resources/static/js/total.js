@@ -390,6 +390,16 @@ function contract_addRow() {
     }
 }
 
+        // 계약서 모달창 호출
+    function OpenContract() {
+        $(".ContractModal").css('display', 'block');
+    }
+
+        // 계약서 모달창 닫기
+    function CloseContract() {
+        $(".ContractModal").css('display', 'none');
+    }
+
 
 /*---------조달계획등록--------------*/
 function modify_and_save(tag) {

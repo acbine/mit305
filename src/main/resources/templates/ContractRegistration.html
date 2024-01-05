@@ -13,6 +13,32 @@
             text-align: center;
         }
 
+        .ContractModal {
+            display: none; /* 계약서 모달 처음에는 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .ContractModal-content { /* 계약서 모달내용 창 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            /*max-width: 1000%; 모달의 최대 가로 크기 */
+            /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
+            overflow-y: auto;
+
+            width: 750px;  /*모달의 가로 크기 */
+            height: 925px;  /*모달의 세로 크기 */
+        }
+
     </style>
     <title>Your HTML Example</title>
 </head>
@@ -49,6 +75,9 @@
 
     <div class="data-card">
         <h2 class="title">계약 관리</h2>
+
+        <button>계약 불러오기</button>
+
 
         <div class="table-container">
             <table class="table" id="contract_info" border="1">
@@ -99,32 +128,31 @@
                 </tbody>
             </table>
 
-            <button>계약서 생성</button>
+            <button onclick="OpenContract()">계약서 생성</button>
 
-            <table class="table" border="1" id="plan_table" style="display:inline">
-                <thead>
-                <tr>
-                    <th>조달 품목명</th>
-                    <th>조달 품목 코드</th>
-                    <th>필요 수량</th>
-                    <th>조달 수량</th>
-                    <th>L/T</th>
-                    <th>제품 생산 날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
-                    <th>발주 상태</th>
-                </tr>
-                </thead>
-            </table>
+            <div id="myModal" class="ContractModal" onclick="CloseContract()"> <!--모달창 백그라운드-->
+                <div class="ContractModal-content"> <!--모달창 내용-->
+
+                    <iframe src="ContractRegistrationModal" width="100%" height="99%" frameborder="0"></iframe>
+
+                </div><!--모달창 내용끝-->
+            </div> <!--모달창 백그라운드?-->
+
         </div>
     </div>
 </div>
 
-
-
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script th:inline="javascript">
+
+    function OpenContract() {
+        $(".ContractModal").css('display', 'block');
+    }
+
+    function CloseContract() {
+        $(".ContractModal").css('display', 'none');
+    }
+
 
     function contract_modify_and_save(tag) {
 

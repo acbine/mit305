@@ -8,23 +8,23 @@
 </head>
 <body>
 <div class="container">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>품목명</th>
-                <th>품목코드</th>
-                <th>수량</th>
-                <th>재고량</th>
-                <th>생산 예정일</th>
-                <th>L/T</th>
-                <th>발주일</th>
-                <th>규격</th>
-                <th>중량</th>
-                <th>재질</th>
-                <th>진척검수 확인</th>
-            </tr>
+    <table class="tableContainer">
+        <thead class="theadContainer">
+        <tr>
+            <th class="thContainer">품목명</th>
+            <th class="thContainer">품목코드</th>
+            <th class="thContainer">수량</th>
+            <th class="thContainer">재고량</th>
+            <th class="thContainer">생산 예정일</th>
+            <th class="thContainer">L/T</th>
+            <th class="thContainer">발주일</th>
+            <th class="thContainer">규격</th>
+            <th class="thContainer">중량</th>
+            <th class="thContainer">재질</th>
+            <th class="thContainer">진척검수 확인</th>
+        </tr>
         </thead>
-        <tbody>
+        <tbody class="tbodyContainer">
         <tr>
             <td>나사</td>
             <td>A</td>
@@ -49,23 +49,84 @@
         </tbody>
     </table>
     <table class="hidden">
-        <thead>
-            <tr>
-                <th>품목명</th>
-                <th>발주일</th>
-                <th>진척 검수 계획일</th>
-                <th>진척 검수 상태</th>
-            </tr>
+        <thead class="theadContainer">
+        <tr>
+            <th class="thContainer">품목명</th>
+            <th class="thContainer">발주일</th>
+            <th class="thContainer">진척 검수 계획일</th>
+            <th class="thContainer"></th>
+        </tr>
         </thead>
-        <tbody>
-            <tr>
-                <td>나사</td>
-                <td>2023-12-13</td>
-                <td colspan="2"><a href="orderInspect1_2">(+)</a></td>
-            </tr>
+        <tbody class="tbodyContainer" id="progressInspection">
+        <tr>
+            <td>나사</td>
+            <td>2023-12-13</td>
+            <td><input type="date"></td>
+            <td id="buttonState">
+                <button id="addProgressInspection" onclick="addProgressInspection()">진척검수 일정 등록</button>
+            </td>
+        </tr>
         </tbody>
     </table>
 </div>
+<div class="popup" id="popup">
+    <table style="width: 190px;">
+        <thead>
+        <tr>
+            <th colspan="2">품목수준평가</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>규격</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>중량</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>재질</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td>입고가능여부</td>
+            <td><input type="checkbox"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <textarea placeholder="규격에 문제가 있으므로 체크처리를 보류하겠습니다."></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div style="text-align: center;">
+        <button class="inspect">등록</button>
+        <button class="exit" onclick="closePopup('popup')">닫기</button>
+    </div>
+</div>
+<script>
+    function addProgressInspection() {
+        var classTbodyContainerTr = document.getElementById("progressInspection");
+        var non;
+        var clickstate = 0;
+
+        if(clickstate===0) {
+            classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td><td>2023-12-13</td><td>입력된날짜</td><td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+            ++clickstate;
+        } else {
+            var addTable = classTbodyContainerTr.insertRow(1);
+            non = addTable.insertCell(0)
+            non = addTable.insertCell(1)
+            var progressInspectionDate = addTable.insertCell(2);
+            var registeredProgressInspection = addTable.insertCell(3);
+
+            non.innerHTML = `<td><td>`
+            progressInspectionDate.innerHTML = `<td>입력된 날짜</td>`;
+            registeredProgressInspection.innerHTML = `<td><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
+        }
+    }
+</script>
 <script src="/js/order.js"></script>
 </body>
 </html>

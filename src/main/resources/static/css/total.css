@@ -8,25 +8,25 @@
 .innerGroundShadow {
     background-color: #ffffff;
     margin-top: 10px;
-    margin-left: 140px;
-    width: 1780px;
+    margin-left: 150px;
+    width: 1580px;
     height: 1000px;
     border-radius: 100px;
-    opacity: 0.5;
     z-index: 1;
     position: absolute;
 }
 
 .innerGround {
     margin-top: 40px;
-    margin-right: 5px;
+    margin-left: 150px;
     background-color: #ffffff;
-    width: 1800px;
+    width: 1600px;
     height: 960px;
     border-radius: 100px;
     clear: both;
     float: right;
     z-index: 3;
+    opacity: 0.5;
 }
 
 .custom-container {
@@ -65,7 +65,7 @@
 
 .materials-management {
     display: inline-block;
-    margin-left: 5px;
+    margin-left: 25px;
     margin-top: 50px;
     z-index: 5;
 }
@@ -83,7 +83,6 @@
 }
 
 #tap1 {
-    background-color: #3498db;
     border-radius: 10px;
     height: 40px;
     width: 150px;
@@ -114,11 +113,12 @@
 .tab_menu .cont_area .cont {
     display: none;
     text-align: center;
-    width: 1800px;
+    width: 1700px;
     height: 960px;
     border-radius: 100px;
-    z-index: 5;
+    z-index: 3;
 }
+
 
 #closeBTN {
     color: red;

@@ -600,22 +600,7 @@
 </P>
 <BR><BR>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script>
-    const div = document.getElementById('printarea');
-    function convertToImage(){
-        html2canvas(document.getElementById('screenshotarea'),{scale:10}).then((canvas) => {
-            const imageDataURL = canvas.toDataURL("image/jpg");
-
-            const a = document.createElement("a");
-            a.href = imageDataURL;
-            a.download = "거래명세서.jpg";
-            a.click();
-        });
-
-    }
-
-
-</script>
+<script src="/js/TradingStatementModal.js"></script>
 
 </BODY>
 

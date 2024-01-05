@@ -1,4 +1,17 @@
 /*-------------------품목 정보(ProductInformationRegistration)-------------------------*/
+function info_show(get) {
+
+   document.getElementById('product_info').style.display = 'none';
+
+   console.log(get);
+
+   if(get == 'in') {
+
+       document.getElementById('product_info').style.display = 'inline-block';
+   }
+
+}
+
 function info_modify_and_save(tag) {
 
     const tr = tag.closest("tr");
@@ -28,10 +41,7 @@ function info_modify_and_save(tag) {
 
         tag.innerText = "수정";
 
-        //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
     } else {
-
-        //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
 
         cell_0.contentEditable = "true";
         cell_1.contentEditable = "true";
@@ -55,6 +65,11 @@ function info_registration_and_delete(tag) {
     tr.remove();
 }
 
+function info_delete(tag) {
+
+    const tr = tag.closest("tr");
+    tr.remove();
+}
 
 function info_addRow() {
 
@@ -107,12 +122,38 @@ function info_addRow() {
                 '</td>';
         }
 
+         if(i == 13) {
+
+             temp_html =
+                  '<td>' +
+                       '<div class="actions">' +
+                             '<button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>' +
+                             '<button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
+                       '</div>' +
+                  '</td>';
+
+         }
+
         new_cell.insertAdjacentHTML('afterbegin', temp_html);
 
     }
 }
 
 /*---------------------계약등록-------------------*/
+
+function contract_show(get) {
+
+    document.getElementById('contract_info').style.display = 'none';
+
+    console.log(get);
+
+    if(get == 'co') {
+
+        document.getElementById('contract_info').style.display = 'inline-block';
+    }
+}
+
+
 function contract_modify_and_save(tag) {
 
     const tr = tag.closest("tr");
@@ -234,6 +275,15 @@ function CloseContract() {
 }
 
 /*---------조달계획등록--------------*/
+function contract_show(get) {
+
+   if(get == 'co') {
+
+      document.getElementById('plan_table_info').style.display = 'inline-block';
+   }
+}
+
+
 function modify_and_save(tag) {
 
     const tr = tag.closest("tr");

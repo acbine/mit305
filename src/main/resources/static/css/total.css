@@ -111,7 +111,7 @@
 }
 
 .tab_menu .cont_area .cont {
-    display: none;
+    display: block;
     text-align: center;
     width: 1700px;
     height: 960px;

@@ -3,6 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        td {
+            text-align: center;
+        }
+
+    </style>
+
 <!--    <link href="/css/Registration.css" rel="stylesheet"/>-->
     <title>Your HTML Example</title>
 </head>
@@ -31,7 +39,7 @@
                     <th>소분류</th>
                     <th>사진</th>
 <!--                    <th>계약 여부</th>-->
-<!--                    <th>품목 처리</th>-->
+                    <th>등록 처리</th>
                 </tr>
                 </thead>
 
@@ -39,9 +47,7 @@
                 </tbody>
             </table>
 
-            <button class="action-button action-button-add " onclick='info_addRow()'>( + )</button>
-            <button class="action-button action-button-registration"> 등록 </button>
-
+            <button class="action-button action-button-add" style="position: absolute" onclick='info_addRow()'>( + )</button>
 
         </div>
     </div>
@@ -49,8 +55,10 @@
     <div class="data-card">
         <h2 class="title">품목 정보 관리</h2>
 
+        <button onclick="info_show('in')"> 품목 불러오기 </button>
+
         <div class="table-container">
-            <table class="table" id="product_info" border="1">
+            <table class="table" id="product_info" border="1" style="display:none">
                 <thead>
                 <tr>
                     <th>품목명</th>
@@ -106,23 +114,34 @@
                     <td>
                         <div class="actions">
                             <button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">삭제</button>
+                            <button class="action-button action-button-delete" onclick="info_delete(this)">삭제</button>
                         </div>
                     </td>
                 </tr>
 
                 </tbody>
             </table>
-
-
-
         </div>
+
     </div>
 
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
+
+    function info_show(get) {
+
+        document.getElementById('product_info').style.display = 'none';
+
+        console.log(get);
+
+        if(get == 'in') {
+
+                document.getElementById('product_info').style.display = 'inline-block';
+        }
+
+    }
 
     function info_modify_and_save(tag) {
 
@@ -176,10 +195,17 @@
 
     function info_registration_and_delete(tag) {
 
+        alert("품목 등록 완료");
+
         const tr = tag.closest("tr");
         tr.remove();
     }
 
+    function info_delete(tag) {
+
+        const tr = tag.closest("tr");
+        tr.remove();
+    }
 
     function info_addRow() {
 
@@ -230,6 +256,18 @@
                 temp_html = '<td>'+
                                '<input type="file" accept="image/png, image/jpg">' +
                                '</td>';
+            }
+
+            if(i == 13) {
+
+                temp_html =
+                '<td>' +
+                        '<div class="actions">' +
+                            '<button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>' +
+                            '<button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
+                        '</div>' +
+                '</td>';
+
             }
 
              new_cell.insertAdjacentHTML('afterbegin', temp_html);

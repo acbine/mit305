@@ -58,9 +58,11 @@
     <div class="data-card">
         <h2 class="title">조달 계획 관리</h2>
 
+        <button onclick="contract_show('co')"> 조달 계획 불러오기 </button>
+
         <div class="table-container">
 
-            <table class="table" border="1" id="plan_table_info">
+            <table class="table" border="1" id="plan_table_info" style="display:none">
                 <thead>
                 <tr>
                     <th>조달 품목명</th>
@@ -103,6 +105,15 @@
 
 <script src="http://code.jquery.com/jquery-latest.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 <script th:inline="javascript">
+
+    function contract_show(get) {
+
+        if(get == 'co') {
+
+                document.getElementById('plan_table_info').style.display = 'inline-block';
+        }
+    }
+
 
     function modify_and_save(tag) {
 

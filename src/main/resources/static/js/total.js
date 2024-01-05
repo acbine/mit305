@@ -929,7 +929,7 @@ const childComponent = {
 };
 
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
-    console.log(clickData, contCnt);
+    console.log("보내주는 데이터 값 확인하기",clickData,contCnt)
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
 
@@ -938,7 +938,6 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
         contList[i].style.display = "none";
     }
     selectCont.style.display = "block";
-    console.log("맞는건가 확인", selectCont)
 
     var includePath = LoadForHtml.dataset.includePath;
     if (includePath) {
@@ -955,6 +954,7 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
 }
 
 function LoadHTMLOfThePage(PageData) {
+    console.log("보내주는 데이터 값 확인하기",PageData)
     var includePath = PageData.dataset.includePath;
     if (includePath) {
         var xhttp = new XMLHttpRequest();

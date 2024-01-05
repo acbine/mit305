@@ -16,6 +16,12 @@ public class TotalController {
         return "ContractRegistration";
     }
 
+    // 계약서 모달창 요청 매핑
+    @GetMapping("ContractRegistrationModal")
+    public String ContractRegistrationModal() {
+        return "ContractRegistrationModal";
+    }
+
     @GetMapping("existence")
     public String existence() {
         return "existence";
@@ -65,9 +71,7 @@ public class TotalController {
     }
 
     @GetMapping("ReceivingProcessModal")
-    public String ReceivingProcessModal() {
-        return "ReceivingProcessModal";
-    }
+    public String ReceivingProcessModal() { return "ReceivingProcessModal"; }
 
     @GetMapping("StatusManagementReport")
     public String StatusManagementReport() {

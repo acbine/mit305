@@ -105,28 +105,6 @@
         <button class="exit" onclick="closePopup('popup')">닫기</button>
     </div>
 </div>
-<script>
-    function addProgressInspection() {
-        var classTbodyContainerTr = document.getElementById("progressInspection");
-        var non;
-        var clickstate = 0;
-
-        if(clickstate===0) {
-            classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td><td>2023-12-13</td><td>입력된날짜</td><td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
-            ++clickstate;
-        } else {
-            var addTable = classTbodyContainerTr.insertRow(1);
-            non = addTable.insertCell(0)
-            non = addTable.insertCell(1)
-            var progressInspectionDate = addTable.insertCell(2);
-            var registeredProgressInspection = addTable.insertCell(3);
-
-            non.innerHTML = `<td><td>`
-            progressInspectionDate.innerHTML = `<td>입력된 날짜</td>`;
-            registeredProgressInspection.innerHTML = `<td><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
-        }
-    }
-</script>
 <script src="/js/order.js"></script>
 </body>
 </html>

@@ -214,6 +214,7 @@ function updateConfirm(info) {
     var updateConfirm = update.children[3];
     updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
 }
+
 /*------------------현황관리-------------------------------------*/
 
 google.charts.load("current", {packages: ["corechart"]});

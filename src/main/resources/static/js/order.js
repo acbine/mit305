@@ -1,3 +1,4 @@
+/*--------------------발주 목록(orderList)--------------------*/
 function openPopup(popupId) {
     document.getElementById(popupId).style.display = "block";
 }
@@ -11,7 +12,9 @@ function showHiddenTable(){
     document.querySelector('.confirm').classList.add('hidden');
 }
 
-var ProgressInspectionState=0;
+/*-------------------진척 검수 관리-------------------------------------------*/
+
+var ProgressInspectionState = 0;
 
 function ProgressInspection() {
     var classTbodyContainerTr = document.getElementById("progressInspection");
@@ -38,6 +41,7 @@ function ProgressInspection() {
         }
     }
 }
+
 function addProgressInspection() {
     var classTbodyContainerTr = document.getElementById("progressInspection");
     classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
@@ -49,7 +53,7 @@ function addProgressInspection() {
 function updateProgressInspection(info) {
     var updateDate = info.closest("tr");
 
-    var date =  updateDate.children[2];
+    var date = updateDate.children[2];
     var updateButton = updateDate.children[3];
     updateButton.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateConfirm(this)">등록</button><button>삭제</button></td>`;
     date.innerHTML = `<input type="date">`;
@@ -64,3 +68,23 @@ function updateConfirm(info) {
     var updateConfirm = update.children[3];
     updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
 }
+
+function registration_and_delete(tag) {
+    tag.closest("tr").remove();
+}
+
+function deleteRow(tag) {
+    tag.closest("tr").remove();
+}
+
+function toggleTables() {
+    var selectedOption = document.getElementById("companyDropdown").value;
+
+    document.getElementById("table1").classList.add("hidden");
+    document.getElementById("table2").classList.add("hidden");
+    document.getElementById("table3").classList.add("hidden");
+
+    document.getElementById(selectedOption).classList.remove("hidden");
+}
+
+

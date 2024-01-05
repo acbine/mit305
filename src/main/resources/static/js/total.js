@@ -197,13 +197,24 @@ function addProgressInspection() {
 }
 
 function updateProgressInspection(info) {
-    console.log("함수작동 확인")
     var updateDate = info.closest("tr");
 
     var date =  updateDate.children[2];
-    date.innerHTML = `<input type="date">`
+    var updateButton = updateDate.children[3];
+    updateButton.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateConfirm(this)">등록</button><button>삭제</button></td>`;
+    date.innerHTML = `<input type="date">`;
     console.log(updateDate);
 }
+
+function updateConfirm(info) {
+    var update = info.closest("tr");
+
+    var updateDateConfirm = update.children[2];
+    updateDateConfirm.innerHTML = `<td>입력된날짜</td>`;
+    var updateConfirm = update.children[3];
+    updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
+}
+
 /*------------------현황관리-------------------------------------*/
 
 google.charts.load("current", {packages: ["corechart"]});

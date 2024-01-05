@@ -10,3 +10,57 @@ function showHiddenTable(){
     document.querySelector('.hidden').classList.remove('hidden');
     document.querySelector('.confirm').classList.add('hidden');
 }
+
+var ProgressInspectionState=0;
+
+function ProgressInspection() {
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+    if (ProgressInspectionState === 0) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+        }
+    } else if (ProgressInspectionState === 1) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td><button onclick="openPopup('popup')">진척검수실행</button></td>`
+        }
+    } else if (ProgressInspectionState === 2) {
+        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
+            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
+                                                <td>2023-12-13</td>
+                                                <td>입력된날짜</td>
+                                                <td>진척 검수 완료</td>`
+        }
+    }
+}
+function addProgressInspection() {
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+    classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
+                                                            <td>2023-12-13</td>
+                                                            <td>입력된날짜</td>
+                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+}
+
+function updateProgressInspection(info) {
+    var updateDate = info.closest("tr");
+
+    var date =  updateDate.children[2];
+    var updateButton = updateDate.children[3];
+    updateButton.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateConfirm(this)">등록</button><button>삭제</button></td>`;
+    date.innerHTML = `<input type="date">`;
+    console.log(updateDate);
+}
+
+function updateConfirm(info) {
+    var update = info.closest("tr");
+
+    var updateDateConfirm = update.children[2];
+    updateDateConfirm.innerHTML = `<td>입력된날짜</td>`;
+    var updateConfirm = update.children[3];
+    updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
+}

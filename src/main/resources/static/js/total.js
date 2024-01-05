@@ -736,6 +736,7 @@ const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
+
 /*탭 버튼 클릭 리스너 초기화 함수*/
 function initializeTabListeners() {
     /*"조달관리" 탭 버튼에 대한 클릭 이벤트 리스너*/
@@ -842,74 +843,105 @@ function updateButtonState(buttonId, state) {
 }
 
 function sendDateToChild(String) {
-    const data = document.getElementById(String).innerHTML.valueOf();
+    var data;
+
+    console.log("처음 정보 확인 ",String);
+    if (String === "item") {
+        data = "품목정보등록"
+    } else if (String === "contract") {
+        data = "계약등록"
+    } else if (String === "procurementPlan") {
+        data = "조달계획등록"
+    } else if (String === "orderList") {
+        data = "발주서목록"
+    } else if (String === "orderPublish") {
+        data = "발주서발행"
+    } else if (String === "current") {
+        data = "현황관리"
+    } else if (String === "materialsProcess") {
+        data = "입고처리"
+    } else if (String === "TradingStatement") {
+        data = "거래명세서"
+    } else if (String === "InventoryCalculation") {
+        data = "재고산출처리"
+    } else if (String === "StatusManagement") {
+        data = "현황리포트"
+    } else if (String === "ProductSelect") {
+        data = "발주품목선택"
+    } else if (String === "진척검수등록") {
+        data = "orderInspect1_1"
+    }
+
     childComponent.receiveData(data);
 }
 
 const childComponent = {
     receiveData: function (data) {
-
         clickTapList.push(data);
+        var SetClickTapList = new Set(clickTapList);
+
+        var arrayClick = Array.from(SetClickTapList);
+
 
         const tabList3 = [];
         const contList = [];
 
         var currentPage;
+        
+        for (var i=0; i<arrayClick.length; i++) {
 
-        for (var i = 0; i < clickTapList.length; i++) {
-
-            if (clickTapList[i] === "품목정보등록") {
+            if (arrayClick[i] === "품목정보등록") {
                 currentPage = "ProductInformationRegistration"
-            } else if (clickTapList[i] === "계약등록") {
+            } else if (arrayClick[i] === "계약등록") {
                 currentPage = "ContractRegistration"
-            } else if (clickTapList[i] === "조달계획등록") {
+            } else if (arrayClick[i] === "조달계획등록") {
                 currentPage = "ProcurementPlanRegistration"
-            } else if (clickTapList[i] === "발주서목록") {
+            } else if (arrayClick[i] === "발주서목록") {
                 currentPage = "orderList"
-            } else if (clickTapList[i] === "발주서발행") {
+            } else if (arrayClick[i] === "발주서발행") {
                 currentPage = "orderRegister"
-            } else if (clickTapList[i] === "현황관리") {
+            } else if (arrayClick[i] === "현황관리") {
                 currentPage = "StatusManagementReport"
-            } else if (clickTapList[i] === "입고처리") {
+            } else if (arrayClick[i] === "입고처리") {
                 currentPage = "ReceivingProcess"
-            } else if (clickTapList[i] === "거래명세서") {
+            } else if (arrayClick[i] === "거래명세서") {
                 currentPage = "TradingStatement"
-            } else if (clickTapList[i] === "재고산출처리") {
+            } else if (arrayClick[i] === "재고산출처리") {
                 currentPage = "stockDelivery"
-            } else if (clickTapList[i] === "현황리포트") {
+            } else if (arrayClick[i] === "현황리포트") {
                 currentPage = "existence"
-            } else if (clickTapList[i] === "발주품목선택") {
+            } else if (arrayClick[i] === "발주품목선택") {
                 currentPage = "ProductSelect"
-            } else if (clickTapList[i] === "진척검수등록") {
+            } else if (arrayClick[i] === "진척검수등록") {
                 currentPage = "orderInspect1_1"
             }
 
-
-            if (i === 0) {
+            if (i===0) {
                 tabList3.push(`<div id = "tap1">
                             <div class="tabClass" id="is_on" data-include-path='${currentPage}'>
-                                <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
+                                <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
                         </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont0</div>`)
-            } else if (clickTapList[0] === clickTapList[i]) {
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+            } else if (arrayClick[0] === arrayClick[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
-                            <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
+                            <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                          </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont${i}</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
             } else {
                 tabList3.push(`<div class="tabClass" id="is_on" >
-                            <div class="btn">${clickTapList[i]}<div onclick="closePage('${clickTapList[i]}','${i}')">❌</div></div>
+                            <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                             </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont${i}</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
             }
+
         }
         tabList[tabList.length - 1].innerHTML = tabList3.join("");
         contentList[contentList.length - 1].innerHTML = contList.join("");
 
-        let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
-
         LoadHTMLOfThePageWithClickedPageData(currentPage, i);
+
+        let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
 
         for (let k = 0; k < tabList3.length; k++) {
             var clickEvent = document.getElementsByClassName("btn");
@@ -924,12 +956,11 @@ const childComponent = {
                 LoadHTMLOfThePage(contents[k])
             });
         }
-        setCookie("clickTapList", clickTapList, 7)
+        setCookie("clickTapList", arrayClick, 7)
     }
 };
 
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
-    console.log("보내주는 데이터 값 확인하기",clickData,contCnt)
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
 
@@ -954,7 +985,7 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
 }
 
 function LoadHTMLOfThePage(PageData) {
-    console.log("보내주는 데이터 값 확인하기",PageData)
+
     var includePath = PageData.dataset.includePath;
     if (includePath) {
         var xhttp = new XMLHttpRequest();
@@ -998,6 +1029,12 @@ function loadClickTapListFromCookie() {
         return clickTapListString;
     }
 }
+function loadCurrnetPageFromCookie() {
+    var currentPage = getCookie("currnetPageInfo");
+    if(currentPage) {
+        return currentPage;
+    }
+}
 
 
 function checkCookieExistence() {
@@ -1018,6 +1055,7 @@ window.onload = function () {
         for (let i = 0; i < cookieList.length; i++) {
             childComponent.receiveData(cookieList[i]);
         }
+        var page = loadCurrnetPageFromCookie();
     }
 })()
 

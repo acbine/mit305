@@ -5,12 +5,29 @@ body {
     padding: 0;
 }
 
-.container {
+ .product_container {
+     background-color: #ffffff;
+     padding: 1.5rem;
+     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+     border-radius: 0.5rem;
+     width: 1300px;
+  }
+
+.contract_container {
     background-color: #ffffff;
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
+    width: 800px;
  }
+
+  .plan_container {
+      background-color: #ffffff;
+      padding: 1.5rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 0.5rem;
+      width: 870px;
+   }
 
 .flex {
     display: flex;
@@ -36,6 +53,11 @@ body {
     height: 2.5rem;
     padding: 0.5rem 1rem;
 }
+
+td {
+    text-align: center;
+}
+
 
 .data-card {
      background-color: #fbd38d;
@@ -110,6 +132,7 @@ body {
       background-color: #FF9900;
       color: #ffffff;
 }
+
 
 
 

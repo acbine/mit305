@@ -3,27 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .plan_container {
+                  width: 870px;
+        }
+
+        td {
+            text-align: center;
+        }
+
+    </style>
+
     <title>Your HTML Example</title>
 </head>
 <body>
 <!-- Your HTML content here -->
-<div class="container">
+<div class="plan_container">
 
     <div class="data-card">
         <h2 class="title">조달 계획 등록</h2>
 
-        <div class = "state-choose">
-            <select onChange="table_change(this.options[this.selectedIndex].value)">
-                <option value="need_plan">조달 계획 필요</option>
-                <option value="before_proceeding">발주 전</option>
-                <option value="order_proceeding">발주 중</option>
-                <option value="order_completed">발주 완료</option>
-            </select>
-        </div>
+        <td><input type="date" name="startDate"></td>
+        <td>~</td>
+        <td><input type="date" name="endDate"></td>
+
+        <button type="button" id="date_search" onclick="select_row()">검색</button>
 
         <div class="table-container">
 
-            <table class="table" border="1" id="plan_table" style="display:inline">
+            <table class="table" border="1" id="plan_table">
                 <thead>
                 <tr>
                     <th>조달 품목명</th>
@@ -35,184 +43,56 @@
                     <th>조달 업체명</th>
                     <th>현재 재고량</th>
                     <th>발주일</th>
-                    <th>발주 상태</th>
                     <th>계획 등록</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>14</td>
-                    <td>9</td>
-                    <td>10일</td>
-                    <td>23/12/26</td>
-                    <td>길승산업</td>
-                    <td>5</td>
-                    <td>23/12/13</td>
-                    <td>조달 계획 필요</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
-                        </div>
-                    </td>
-                </tr>
+                </tbody>
+            </table>
 
-                <tr>
-                    <td>A품목</td>
-                    <td>ab42e</td>
-                    <td>12</td>
-                    <td>7</td>
-                    <td>8일</td>
-                    <td>23/12/27</td>
-                    <td>길승산업</td>
-                    <td>5</td>
-                    <td>23/12/18</td>
-                    <td>조달 계획 필요</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
-                        </div>
-                    </td>
-                </tr>
+        </div>
+    </div>
 
+
+    <div class="data-card">
+        <h2 class="title">조달 계획 관리</h2>
+
+        <div class="table-container">
+
+            <table class="table" border="1" id="plan_table_info">
+                <thead>
+                <tr>
+                    <th>조달 품목명</th>
+                    <th>조달 품목 코드</th>
+                    <th>필요 수량</th>
+                    <th>조달 수량</th>
+                    <th>L/T</th>
+                    <th>제품 생산 날짜</th>
+                    <th>조달 업체명</th>
+                    <th>현재 재고량</th>
+                    <th>발주일</th>
+                    <th>계획 관리</th>
+                </tr>
+                </thead>
+
+                <tbody>
                 <tr>
                     <td>나사</td>
                     <td>A</td>
                     <td>16</td>
                     <td>4</td>
                     <td>5일</td>
-                    <td>24/01/23</td>
+                    <td>24/01/16</td>
                     <td>길승산업</td>
                     <td>12</td>
-                    <td>24/01/15</td>
-                    <td>조달 계획 필요</td>
+                    <td>24/01/10</td>
                     <td>
                         <div class="actions">
-                            <button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>
+                            <button class="action-button action-button-edit" onclick="td_delete(this)">삭제</button>
                         </div>
                     </td>
                 </tr>
-                </tbody>
-            </table>
-
-
-
-            <table class="table" border="1" id="table1" style="display:none">
-                <thead>
-                <tr>
-                    <th>조달 품목명</th>
-                    <th>조달 품목 코드</th>
-                    <th>필요 수량</th>
-                    <th>조달 수량</th>
-                    <th>L/T</th>
-                    <th>제품 생산날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
-                    <th>발주 상태</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>나사</td>
-                        <td>A</td>
-                        <td>14</td>
-                        <td>9</td>
-                        <td>10일</td>
-                        <td>23/12/26</td>
-                        <td>길승산업</td>
-                        <td>5</td>
-                        <td>23/12/13</td>
-                        <td>발주 전</td>
-                    </tr>
-
-                    <tr>
-                        <td>A품목</td>
-                        <td>ab42e</td>
-                        <td>12</td>
-                        <td>7</td>
-                        <td>8일</td>
-                        <td>23/12/27</td>
-                        <td>길승산업</td>
-                        <td>5</td>
-                        <td>23/12/18</td>
-                        <td>발주 전</td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-
-            <table class="table" border="1" id="table2" style="display:none">
-
-                <thead>
-                <tr>
-                    <th>조달 품목명</th>
-                    <th>조달 품목 코드</th>
-                    <th>필요 수량</th>
-                    <th>조달 수량</th>
-                    <th>L/T</th>
-                    <th>제품 생산날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
-                    <th>발주 상태</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>나사</td>
-                        <td>A</td>
-                        <td>14</td>
-                        <td>9</td>
-                        <td>10일</td>
-                        <td>23/12/26</td>
-                        <td>길승산업</td>
-                        <td>5</td>
-                        <td>23/12/13</td>
-                        <td>발주 중</td>
-                    </tr>
-
-                </tbody>
-            </table>
-
-            <table class="table" border="1" id="table3" style="display:none">
-
-                <thead>
-                <tr>
-                    <th>조달 품목명</th>
-                    <th>조달 품목 코드</th>
-                    <th>필요 수량</th>
-                    <th>조달 수량</th>
-                    <th>L/T</th>
-                    <th>제품 생산날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
-                    <th>발주 상태</th>
-                </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td>나사</td>
-                        <td>B</td>
-                        <td>14</td>
-                        <td>9</td>
-                        <td>10일</td>
-                        <td>23/12/15</td>
-                        <td>마텍스</td>
-                        <td>5</td>
-                        <td>23/12/3</td>
-                        <td>발주 완료</td>
-                    </tr>
 
                 </tbody>
             </table>
@@ -270,49 +150,182 @@
         tr.remove();
     }
 
+    function td_delete(tag) {
 
-    function table_change(state) {
-
-         if(state == "need_plan") {
-
-            plan_table.style.display = "inline";
-            table1.style.display = "none";
-            table2.style.display = "none";
-            table3.style.display = "none";
-
-        }
-
-
-        if(state == "before_proceeding") {
-
-            plan_table.style.display = "none";
-            table1.style.display = "inline";
-            table2.style.display = "none";
-            table3.style.display = "none";
-
-        }
-
-        else if(state == "order_proceeding") {
-
-            plan_table.style.display = "none";
-            table1.style.display = "none";
-            table2.style.display = "inline";
-            table3.style.display = "none";
-
-        }
-
-        else if(state == "order_completed") {
-
-            plan_table.style.display = "none";
-            table1.style.display = "none";
-            table2.style.display = "none";
-            table3.style.display = "inline";
-
-        }
-
-
+        const tr = tag.closest("tr");
+        tr.remove();
     }
 
+    function select_row() {
+
+        const table = document.getElementById('plan_table');
+
+        const cell_length = table.rows[0].cells.length;
+
+        const num = 3;
+
+        for(let i = 1; i <= num; i++) {
+
+            const new_row = table.insertRow(i);
+
+            for(let j = 0; j < cell_length; j++) {
+                let temp_html = '';
+                const new_cell = new_row.insertCell(j);
+
+                if(i==1) {
+
+                    if(j==0) {
+                        temp_html = '<td>나사</td>';
+                    }
+
+                    if(j==1) {
+                        temp_html = '<td>A</td>';
+                    }
+
+                    if(j==2) {
+                        temp_html = '<td>16</td>';
+                    }
+
+                    if(j==3) {
+                        temp_html = '<td>4</td>';
+                    }
+
+                    if(j==4) {
+                        temp_html = '<td>5일</td>';
+                    }
+
+                    if(j==5) {
+                        temp_html = '<td>24/01/16</td>';
+                    }
+
+                    if(j==6) {
+                        temp_html = '<td>길승산업</td>';
+                    }
+
+                    if(j==7) {
+                        temp_html = '<td>12</td>';
+                    }
+
+                    if(j==8) {
+                        temp_html = '<td>24/01/10</td>';
+                    }
+
+                    if(j==9) {
+                        temp_html =
+                        '<td>' +
+                            '<div class="actions">' +
+                                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                                '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                            '</div>'+
+                        '</td>';
+                    }
+
+                }
+
+                if(i==2) {
+
+                    if(j==0) {
+                        temp_html = '<td>A품목</td>';
+                    }
+
+                    if(j==1) {
+                        temp_html = '<td>B</td>';
+                    }
+
+                    if(j==2) {
+                        temp_html = '<td>12</td>';
+                    }
+
+                    if(j==3) {
+                        temp_html = '<td>7</td>';
+                    }
+
+                    if(j==4) {
+                        temp_html = '<td>8일</td>';
+                    }
+
+                    if(j==5) {
+                        temp_html = '<td>24/01/23</td>';
+                    }
+
+                    if(j==6) {
+                        temp_html = '<td>길승산업</td>';
+                    }
+
+                    if(j==7) {
+                        temp_html = '<td>5</td>';
+                    }
+
+                    if(j==8) {
+                        temp_html = '<td>24/01/15</td>';
+                    }
+
+                    if(j==9) {
+                        temp_html =
+                        '<td>' +
+                            '<div class="actions">' +
+                                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                                '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                            '</div>'+
+                        '</td>';
+                    }
+
+                }
+
+                if(i==3) {
+
+                    if(j==0) {
+                        temp_html = '<td>망치</td>';
+                    }
+
+                    if(j==1) {
+                        temp_html = '<td>C</td>';
+                    }
+
+                    if(j==2) {
+                        temp_html = '<td>20</td>';
+                    }
+
+                    if(j==3) {
+                        temp_html = '<td>8</td>';
+                    }
+
+                    if(j==4) {
+                        temp_html = '<td>8일</td>';
+                    }
+
+                    if(j==5) {
+                        temp_html = '<td>24/02/13</td>';
+                    }
+
+                    if(j==6) {
+                        temp_html = '<td>길승산업</td>';
+                    }
+
+                    if(j==7) {
+                        temp_html = '<td>12</td>';
+                    }
+
+                    if(j==8) {
+                        temp_html = '<td>24/02/03</td>';
+                    }
+
+                    if(j==9) {
+                        temp_html =
+                        '<td>' +
+                            '<div class="actions">' +
+                                '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                                '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                            '</div>'+
+                        '</td>';
+                    }
+
+                }
+
+                new_cell.insertAdjacentHTML('afterbegin', temp_html);
+            }
+        }
+    }
 
 </script>
 </body>

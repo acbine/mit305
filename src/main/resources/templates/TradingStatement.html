@@ -17,8 +17,8 @@
                         <td><input type="text" name="보내는칸"></td>
                         <td>
                             <select name="검색종류">
-                                <option value="품목명">추가로 적어야됨</option>
-                                <option value="납기일">납기일</option>
+                                <option value="품목명">발주서발행일</option>
+                                <option value="납기일">발주서 마감일</option>
                                 <option value="업체명">업체명</option>
                             </select>
                         </td>
@@ -30,8 +30,8 @@
         </div>                <!--거래명세서의 검색창 보여주는 테이블 끝-->
                       
         <table class="table-style"> <!--거래명세서 보여주는 테이블 시작-->
-            <thead>
-                <tr>
+            <thead style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+                <tr >
                     <th class="table-header">발주서 발행일</th>
                     <th class="table-header">발주서마감일</th>
                     <th class="table-header">업체명</th>

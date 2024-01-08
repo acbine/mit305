@@ -8,6 +8,8 @@ var clickTapList = new Array();
 const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
+var OpenPageState;
+
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
 
@@ -214,6 +216,14 @@ const childComponent = {
 
         LoadHTMLOfThePageWithClickedPageData(currentPage, i);
 
+        var transFromITOStringI = String(i);
+
+        console.log(transFromITOStringI);
+
+        var currentPageInfoOfDirectClick = [currentPage,transFromITOStringI]
+
+        setCookie("currentPageInfoOfDirectClick",currentPageInfoOfDirectClick,7)
+
         let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
 
         for (let k = 0; k < tabList3.length; k++) {
@@ -226,18 +236,27 @@ const childComponent = {
                 }
                 SoYouCanSeeWhatWasPressed.classList.add('is_on')
                 contents[k].style.display = 'block';
-                LoadHTMLOfThePage(contents[k])
+
+                var pageInfoToString = String(k);
+
+                LoadHTMLOfThePage(k);
+
+                console.log("쿠키에 저장되는 값 확인하기", pageInfoToString);
+
+                setCookie("currentPageInfoOfTapListClick",pageInfoToString,7);
             });
         }
         setCookie("clickTapList", arrayClick, 7)
     }
 };
 
+
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
+    setCookie("openInfo","Direct",7);
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
-
     var selectCont = contList[contCnt - 1];
+
     for (var i = 0; i < contList.length; i++) {
         contList[i].style.display = "none";
     }
@@ -257,7 +276,11 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
     ;
 }
 
-function LoadHTMLOfThePage(PageData) {
+function LoadHTMLOfThePage(cnt) {
+    var PageData =  contents[cnt];
+    setCookie("openInfo","Tap",7);
+
+    console.log("넘어오는 페이지 데이터 내용확인 : ",cnt)
 
     var includePath = PageData.dataset.includePath;
     if (includePath) {
@@ -269,8 +292,7 @@ function LoadHTMLOfThePage(PageData) {
         };
         xhttp.open('GET', includePath, true);
         xhttp.send();
-    }
-    ;
+    };
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/
@@ -302,13 +324,27 @@ function loadClickTapListFromCookie() {
         return clickTapListString;
     }
 }
-function loadCurrentPageFromCookie() {
-    var currentPage = getCookie("currentPageInfo");
-    if(currentPage) {
-        return currentPage;
+
+function loadCurrentPageWithDirectClickFromCookie() {
+    var currentPageInfoOfDirectClick = getCookie("currentPageInfoOfDirectClick");
+    if(currentPageInfoOfDirectClick) {
+        return currentPageInfoOfDirectClick;
     }
 }
 
+function loadCurrentPageWithTapListClickFromCookie() {
+    var currentPageInfoOfTapListClick = getCookie("currentPageInfoOfTapListClick");
+    if(currentPageInfoOfTapListClick) {
+        return currentPageInfoOfTapListClick;
+    }
+}
+
+function checkingState() {
+    var openInfo = getCookie("openInfo");
+    if(openInfo) {
+        return openInfo;
+    }
+}
 
 function checkCookieExistence() {
     var cookies = document.cookie.split(';');
@@ -317,6 +353,9 @@ function checkCookieExistence() {
 
 
 window.onload = function () {
+    checkingState();
+    loadCurrentPageWithDirectClickFromCookie();
+    loadCurrentPageWithTapListClickFromCookie();
     loadClickTapListFromCookie();
     initializeTabListeners();
 };
@@ -324,9 +363,20 @@ window.onload = function () {
 
 (function RetrieveClickTapListInformationFromCookie() {
     if (checkCookieExistence()) {
+        console.log("함수가 실행 중인가?")
         var cookieList = loadClickTapListFromCookie().split(",");
+        var State = checkingState();
+        console.log("State 값 확인해보기 :", State)
         for (let i = 0; i < cookieList.length; i++) {
+            console.log(cookieList[i]);
             childComponent.receiveData(cookieList[i]);
+        }
+        if(State==="Direct"){
+            console.log("다이렉트는 실행 됨")
+            LoadHTMLOfThePageWithClickedPageData(loadCurrentPageWithDirectClickFromCookie());
+        } else if(State==="Tap"){
+            console.log("탭도 실행됨")
+            LoadHTMLOfThePage(parseInt(loadCurrentPageWithTapListClickFromCookie()));
         }
     }
 })()

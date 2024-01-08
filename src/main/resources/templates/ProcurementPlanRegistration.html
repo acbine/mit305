@@ -91,6 +91,7 @@
                     <td>24/01/10</td>
                     <td>
                         <div class="actions">
+                            <button class="action-button action-button-edit" onclick="td_regOrder(this)">발주등록</button>
                             <button class="action-button action-button-edit" onclick="td_delete(this)">삭제</button>
                         </div>
                     </td>
@@ -157,6 +158,12 @@
 
         alert("등록 완료");
 
+        const tr = tag.closest("tr");
+        tr.remove();
+    }
+
+    function td_regOrder(tag) {
+        alert("등록 완료\n등록된 품목은 구매 발주서 발행 페이지에서 확인하실 수 있습니다.");
         const tr = tag.closest("tr");
         tr.remove();
     }

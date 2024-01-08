@@ -1,10 +1,6 @@
 /*-------------------품목 정보(ProductInformationRegistration)-------------------------*/
 function info_show(get) {
 
-   document.getElementById('product_info').style.display = 'none';
-
-   console.log(get);
-
    if(get == 'in') {
 
        document.getElementById('product_info').style.display = 'inline-block';
@@ -143,10 +139,6 @@ function info_addRow() {
 
 function contract_show(get) {
 
-    document.getElementById('contract_info').style.display = 'none';
-
-    console.log(get);
-
     if(get == 'co') {
 
         document.getElementById('contract_info').style.display = 'inline-block';
@@ -275,7 +267,7 @@ function CloseContract() {
 }
 
 /*---------조달계획등록--------------*/
-function contract_show(get) {
+function plan_show(get) {
 
    if(get == 'co') {
 
@@ -325,6 +317,13 @@ function modify_and_save(tag) {
 function registration_and_delete(tag) {
 
     alert("등록 완료");
+
+    const tr = tag.closest("tr");
+    tr.remove();
+}
+
+function td_regOrder(tag) {
+    alert("등록 완료\n등록된 품목은 구매 발주서 발행 페이지에서 확인하실 수 있습니다.");
 
     const tr = tag.closest("tr");
     tr.remove();

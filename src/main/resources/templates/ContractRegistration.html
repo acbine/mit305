@@ -59,6 +59,7 @@
                     <th>거래처 기업명</th>
                     <th>L/T</th>
                     <th>단가</th>
+                    <th>대금 지급 수단</th>
                     <th>등록 처리</th>
                 </tr>
                 </thead>
@@ -88,6 +89,7 @@
                     <th>거래처 기업명</th>
                     <th>L/T</th>
                     <th>단가</th>
+                    <th>대금 지급 수단</th>
                     <th>사업자 이메일</th>
                     <th>계약 처리</th>
 
@@ -97,15 +99,17 @@
                 <tbody>
                 <tr>
                     <td>나사</td>
-                    <th>A</th>
-                    <th>Xxx-xxx-xxxxx</th>
-                    <th>길승 산업</th>
-                    <th>10</th>
-                    <th>250</th>
-                    <th>abcde@gmail.com</th>
+                    <td>A</td>
+                    <td>Xxx-xxx-xxxxx</td>
+                    <td>길승 산업</td>
+                    <td>10</td>
+                    <td>250</td>
+                    <td>현금 입금</td>
+                    <td>abcde@gmail.com</td>
                     <td>
                         <div class="actions">
                             <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
+                            <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
                             <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
                         </div>
                     </td>
@@ -113,15 +117,17 @@
 
                 <tr>
                     <td>A품목</td>
-                    <th>B</th>
-                    <th>Xxx-xxx-xxxxx</th>
-                    <th>길승 산업</th>
-                    <th>8</th>
-                    <th>200</th>
-                    <th>abcde@gmail.com</th>
+                    <td>B</td>
+                    <td>Xxx-xxx-xxxxx</td>
+                    <td>길승 산업</td>
+                    <td>8</td>
+                    <td>200</td>
+                    <td>현금 입금</td>
+                    <td>abcde@gmail.com</td>
                     <td>
                         <div class="actions">
                             <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
+                            <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
                             <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
                         </div>
                     </td>
@@ -262,6 +268,15 @@
             }
 
             if(i == 6) {
+
+                temp_html =
+                '<select onChange="payment(this.options[this.selectedIndex].value)">' +
+                    '<option value="cash">현금 입금</option>' +
+                    '<option value="check">수표</option>' +
+                '</select>'
+            }
+
+            if(i == 7) {
 
                 temp_html =
                     '<td>' +

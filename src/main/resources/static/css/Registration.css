@@ -10,7 +10,7 @@ body {
      padding: 1.5rem;
      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
      border-radius: 0.5rem;
-     /*width: 1400px;*/
+
   }
 
 .contract_container {
@@ -18,7 +18,7 @@ body {
     padding: 1.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 0.5rem;
-    /*width: 1400px;*/
+
  }
 
   .plan_container {
@@ -26,7 +26,7 @@ body {
       padding: 1.5rem;
       box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       border-radius: 0.5rem;
-      /*width: 1400px;*/
+
    }
 
 .flex {
@@ -155,7 +155,7 @@ td {
     /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
     overflow-y: auto;
 
-    width: 750px;  /*모달의 가로 크기 */
+    width: 900px;  /*모달의 가로 크기 */
     height: 925px;  /*모달의 세로 크기 */
 }
 

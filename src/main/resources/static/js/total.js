@@ -8,6 +8,8 @@ var clickTapList = new Array();
 const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
+var OpenPageState;
+
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
 
@@ -212,7 +214,16 @@ const childComponent = {
         tabList[tabList.length - 1].innerHTML = tabList3.join("");
         contentList[contentList.length - 1].innerHTML = contList.join("");
 
+
+        console.log("실행순서 확인 : 여기는 리스트로 불러온 다이랙트")
         LoadHTMLOfThePageWithClickedPageData(currentPage, i);
+
+        var transFromITOStringI = String(i);
+        
+
+        var currentPageInfoOfDirectClick = [currentPage,transFromITOStringI]
+
+        setCookie("currentPageInfoOfDirectClick",currentPageInfoOfDirectClick,7)
 
         let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
 
@@ -226,21 +237,35 @@ const childComponent = {
                 }
                 SoYouCanSeeWhatWasPressed.classList.add('is_on')
                 contents[k].style.display = 'block';
-                LoadHTMLOfThePage(contents[k])
+
+                var pageInfoToString = String(k);
+
+                console.log("실행순서 확인 : 여기는 리스트로 불러온 탭")
+                LoadHTMLOfThePage(k);
+
+                console.log("쿠키에 저장되는 값 확인하기", pageInfoToString);
+
+                setCookie("currentPageInfoOfTapListClick",pageInfoToString,7);
             });
         }
         setCookie("clickTapList", arrayClick, 7)
     }
 };
 
+
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
+    console.log("넘어온 click Data 확인 : ",clickData,"넘어온 contCnt 값 확인",contCnt);
+    setCookie("openInfo","Direct",7);
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
 
-    var selectCont = contList[contCnt - 1];
-    for (var i = 0; i < contList.length; i++) {
-        contList[i].style.display = "none";
+
+    for(var j = 0; j<contents.length; j++) {
+        contents[j].style.display = "none";
     }
+
+    var selectCont = contList[contCnt - 1];
+
     selectCont.style.display = "block";
 
     var includePath = LoadForHtml.dataset.includePath;
@@ -257,20 +282,27 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
     ;
 }
 
-function LoadHTMLOfThePage(PageData) {
+function LoadHTMLOfThePage(cnt) {
+    var PageData =  contents[cnt];
+    console.log("tap 페이지 불러오기 실행 (넘어온 데이터) : ", cnt)
+    setCookie("openInfo","Tap",7);
+
+    for(var j = 0; j<contents.length; j++) {
+        contents[j].style.display = "none";
+    }
 
     var includePath = PageData.dataset.includePath;
     if (includePath) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
+                PageData.style.display = "block";
                 PageData.innerHTML = this.responseText;
             }
         };
         xhttp.open('GET', includePath, true);
         xhttp.send();
-    }
-    ;
+    };
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/
@@ -302,13 +334,27 @@ function loadClickTapListFromCookie() {
         return clickTapListString;
     }
 }
-function loadCurrentPageFromCookie() {
-    var currentPage = getCookie("currentPageInfo");
-    if(currentPage) {
-        return currentPage;
+
+function loadCurrentPageWithDirectClickFromCookie() {
+    var currentPageInfoOfDirectClick = getCookie("currentPageInfoOfDirectClick");
+    if(currentPageInfoOfDirectClick) {
+        return currentPageInfoOfDirectClick;
     }
 }
 
+function loadCurrentPageWithTapListClickFromCookie() {
+    var currentPageInfoOfTapListClick = getCookie("currentPageInfoOfTapListClick");
+    if(currentPageInfoOfTapListClick) {
+        return currentPageInfoOfTapListClick;
+    }
+}
+
+function checkingState() {
+    var openInfo = getCookie("openInfo");
+    if(openInfo) {
+        return openInfo;
+    }
+}
 
 function checkCookieExistence() {
     var cookies = document.cookie.split(';');
@@ -317,6 +363,9 @@ function checkCookieExistence() {
 
 
 window.onload = function () {
+    checkingState();
+    loadCurrentPageWithDirectClickFromCookie();
+    loadCurrentPageWithTapListClickFromCookie();
     loadClickTapListFromCookie();
     initializeTabListeners();
 };
@@ -324,9 +373,27 @@ window.onload = function () {
 
 (function RetrieveClickTapListInformationFromCookie() {
     if (checkCookieExistence()) {
+        console.log("함수가 실행 중인가?")
         var cookieList = loadClickTapListFromCookie().split(",");
+        var State = checkingState();
+        console.log("State 값 확인해보기 :", State)
         for (let i = 0; i < cookieList.length; i++) {
+            console.log(cookieList[i]);
             childComponent.receiveData(cookieList[i]);
+        }
+        if(State==="Direct"){
+            console.log("다이렉트는 실행 됨")
+            console.log("실행순서 확인 : 여기는 다이랙트")
+            var directInfo =  loadCurrentPageWithDirectClickFromCookie().split(",")
+            LoadHTMLOfThePageWithClickedPageData(directInfo[0],parseInt(directInfo[1]));
+            console.log("이 밑으로는 실행 중이가?")
+
+        } else if(State==="Tap"){
+            console.log("탭도 실행됨")
+            console.log("실행순서 확인 : 여기는 탭")
+            var data = parseInt(loadCurrentPageWithTapListClickFromCookie())
+            console.log("데이터 값 확인해보기",data)
+            LoadHTMLOfThePage(data);
         }
     }
 })()

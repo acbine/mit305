@@ -136,7 +136,6 @@ function info_addRow() {
 }
 
 /*---------------------계약등록-------------------*/
-
 function contract_show(get) {
 
     if(get == 'co') {
@@ -240,7 +239,16 @@ function contract_addRow() {
 
         }
 
-        if (i == 6) {
+        if(i == 6) {
+
+                temp_html =
+                '<select onChange="payment(this.options[this.selectedIndex].value)">' +
+                    '<option value="cash">현금 입금</option>' +
+                    '<option value="check">수표</option>' +
+                '</select>'
+        }
+
+        if (i == 7) {
 
             temp_html =
                 '<td>' +
@@ -265,6 +273,67 @@ function OpenContract() {
 function CloseContract() {
     $(".ContractModal").css('display', 'none');
 }
+
+
+/*---------계약서 모달창--------------*/
+// 계약서 작성일 구하기
+Contrac_date = new Date();
+Contrac_year = Contrac_date.getFullYear();
+Contrac_month = Contrac_date.getMonth() + 1;
+Contrac_day = Contrac_date.getDate();
+
+document.getElementById("year").innerHTML = Contrac_year + '년';
+document.getElementById("month").innerHTML = Contrac_month + '월';
+document.getElementById("day").innerHTML = Contrac_day + '일';
+
+var n;
+
+function name_value(value) {
+
+    if(value == 'n1') {
+
+        n = '길승산업';
+    }
+
+    if(value == 'n2') {
+
+        n = '마텍스';
+    }
+}
+
+function contract_select() {
+
+    document.getElementById("text").innerHTML = 'TAE 와 ' + n + ' 은 계약서를 기준으로 다음과 같이 상품을 공급한다.';
+
+
+    if (n == '길승산업') {
+
+            document.getElementById("company_num").innerHTML = 'Xxx-xxx-xxxxx';
+            document.getElementById("company_name").innerHTML = n;
+            document.getElementById("company_email").innerHTML = 'abcde@gmail.com';
+    }
+
+    else {
+
+            document.getElementById("company_num").innerHTML = '사업자번호1';
+            document.getElementById("company_name").innerHTML = n;
+            document.getElementById("company_email").innerHTML = 'aaaa@gmail.com';
+    }
+}
+
+function contract_convertToImage(){
+
+    html2canvas(document.getElementById('screen_area')).then((canvas) => {
+        const imageDataURL = canvas.toDataURL("image/jpg");
+
+        const a = document.createElement("a");
+        a.href = imageDataURL;
+        a.download = "계약서.jpg";
+        a.click();
+    });
+
+}
+
 
 /*---------조달계획등록--------------*/
 function plan_show(get) {
@@ -322,8 +391,8 @@ function registration_and_delete(tag) {
     tr.remove();
 }
 
-function td_regOrder(tag) {
-    alert("등록 완료\n등록된 품목은 구매 발주서 발행 페이지에서 확인하실 수 있습니다.");
+function td_regOrder(tag) { // 발주 등록 js
+    alert("등록 완료. \n등록된 품목은 구매 발주서 발행 페이지에서 확인하실 수 있습니다.");
 
     const tr = tag.closest("tr");
     tr.remove();

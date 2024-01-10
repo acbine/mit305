@@ -59,6 +59,7 @@
                     <th>거래처 기업명</th>
                     <th>L/T</th>
                     <th>단가</th>
+                    <th>계약 기간</th>
                     <th>대금 지급 수단</th>
                     <th>등록 처리</th>
                 </tr>
@@ -89,8 +90,8 @@
                     <th>거래처 기업명</th>
                     <th>L/T</th>
                     <th>단가</th>
+                    <th>계약 기간</th>
                     <th>대금 지급 수단</th>
-                    <th>사업자 이메일</th>
                     <th>계약 처리</th>
 
                 </tr>
@@ -104,12 +105,12 @@
                     <td>길승 산업</td>
                     <td>10</td>
                     <td>250</td>
-                    <td>현금 입금</td>
-                    <td>abcde@gmail.com</td>
+                    <td>24/01/10 ~ 24/01/20</td>
+                    <td>현금 지불</td>
                     <td>
                         <div class="actions">
-                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
                             <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
+                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
                             <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
                         </div>
                     </td>
@@ -122,12 +123,12 @@
                     <td>길승 산업</td>
                     <td>8</td>
                     <td>200</td>
-                    <td>현금 입금</td>
-                    <td>abcde@gmail.com</td>
+                    <td>24/01/20 ~ 24/02/03</td>
+                    <td>현금 지불</td>
                     <td>
                         <div class="actions">
-                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
                             <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
+                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
                             <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
                         </div>
                     </td>
@@ -243,45 +244,60 @@
             if(i == 0) {
 
                 temp_html =
-                '<select onChange="p_code_value(this.options[this.selectedIndex].value)">' +
-                    '<option value="p_code1">나사(길승산업)</option>' +
-                    '<option value="p_code2">A품목(마텍스)</option>' +
-                    '<option value="p_code3">망치(길승산업)</option>' +
-                    '<option value="p_code4">나사(마텍스)</option>' +
-                '</select>' +
+                 '<input type="text" style="width:70px; height:25px; font-size:15px; text-align:center;">' +
 
                 '<button>확인</button>';
 
             }
 
-             if(i == 2) {
+<!--             if(i == 2) {-->
 
-                temp_html =
-                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +
-                    '<option value="b_code1">Xxx-xxx-xxxxx</option>' +
-                    '<option value="b_code2">사업자 번호1</option>' +
-                    '<option value="b_code3">사업자 번호2</option>' +
-                '</select>' +
+<!--                temp_html =-->
+<!--                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +-->
+<!--                    '<option value="b_code1">Xxx-xxx-xxxxx</option>' +-->
+<!--                    '<option value="b_code2">사업자 번호1</option>' +-->
+<!--                    '<option value="b_code3">사업자 번호2</option>' +-->
+<!--                '</select>' +-->
 
-                '<button>확인</button>';
+<!--                '<button>확인</button>';-->
 
+<!--            }-->
+
+            if(i == 4) {
+
+                temp_html = '<input type="text" style="width:50px; height:25px; font-size:15px; text-align:center;">';
             }
+
+            if(i == 5) {
+
+                temp_html = '<input type="text" style="width:50px; height:25px; font-size:15px; text-align:center;">';
+            }
+
 
             if(i == 6) {
 
                 temp_html =
-                '<select onChange="payment(this.options[this.selectedIndex].value)">' +
-                    '<option value="cash">현금 입금</option>' +
-                    '<option value="check">수표</option>' +
-                '</select>'
+                    '<td><input id="cs_date" type="date" name="startDate"></td>' +
+                    '<td>~</td>' +
+                    '<td><input id="ce_date" type="date" name="endDate"></td>';
             }
 
             if(i == 7) {
 
                 temp_html =
+
+                    '<select id="payment_select" onChange="name_value(this.options[this.selectedIndex].value)">' +
+                        '<option value="none">=== 선택 ===</option>' +
+                        '<option value="n1">현금 지불</option>' +
+                        '<option value="n2">수표</option>' +
+                    '</select>';
+            }
+
+            if(i == 8) {
+
+                temp_html =
                     '<td>' +
                         '<div class="actions">' +
-                            '<button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>' +
                             '<button class="action-button action-button-delete" onclick="contract_registration_and_delete(this)">등록</button>' +
                         '</div>' +
                     '</td>';

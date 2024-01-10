@@ -22,6 +22,8 @@ repositories {
 }
 
 dependencies {
+    implementation 'com.sun.mail:javax.mail:1.6.2' // JavaMail 라이브러리 (메일전송시 필요)
+
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.boot:spring-boot-starter-web-services'

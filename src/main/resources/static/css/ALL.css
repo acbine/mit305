@@ -35,10 +35,6 @@
     
 }
 
-#RPModal{
-    position: sticky;
-    top: 0px;
-}
 
 .table-header { /*공통 테이블 (제목?) */
     padding: 1rem;

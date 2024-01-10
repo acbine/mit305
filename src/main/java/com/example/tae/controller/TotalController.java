@@ -48,9 +48,7 @@ public class TotalController {
     }
 
     @GetMapping("orderRegister")
-    public String orderRegister() {
-        return "orderRegister";
-    }
+    public String orderRegister() {return "orderRegister";}
 
     @GetMapping("ProductSelect")
     public String ProductSelect(){return "ProductSelect";}

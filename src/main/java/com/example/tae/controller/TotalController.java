@@ -64,7 +64,7 @@ public class TotalController {
     public String ProductInformationRegistration(){
         return "ProductInformationRegistration";
     }
-
+/*
     @GetMapping("ReceivingProcess")
     public String ReceivingProcess() {
         return "ReceivingProcess";
@@ -77,12 +77,12 @@ public class TotalController {
     public String StatusManagementReport() {
         return "StatusManagementReport";
     }
-
+*/
     @GetMapping("stockDelivery")
     public String stockDelivery() {
         return "stockDelivery";
     }
-
+/*
     @GetMapping("TradingStatement")
     public String TradingStatement() {
         return "TradingStatement";
@@ -91,4 +91,5 @@ public class TotalController {
     public String TradingStatementModal() {
         return "TradingStatementModal";
     }
+*/
 }

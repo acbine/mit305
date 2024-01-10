@@ -23,11 +23,11 @@
     <div class="data-card">
         <h2 class="title">조달 계획 등록</h2>
 
-        <td><input type="date" name="startDate"></td>
+        <td><input id="s_date" type="date" name="startDate"></td>
         <td>~</td>
-        <td><input type="date" name="endDate"></td>
+        <td><input id="e_date" type="date" name="endDate"></td>
 
-        <button type="button" id="date_search" onclick="select_row()">검색</button>
+        <button type="submit" id="date_search" onclick="select_row()">검색</button>
 
         <div class="table-container">
 
@@ -175,6 +175,12 @@
     }
 
     function select_row() {
+
+        const start = document.querySelector("#s_date").value;
+        console.log(start);
+
+        const end = document.querySelector("#e_date").value;
+        console.log(end);
 
         const table = document.getElementById('plan_table');
 

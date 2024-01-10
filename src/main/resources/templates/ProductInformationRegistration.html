@@ -22,7 +22,7 @@
         <h2 class="title">품목 정보 등록</h2>
 
         <div class="table-container">
-            <table class="table" id="product" border="1">
+            <table class="table" id="product" border="1"">
                 <thead>
                 <tr>
                     <th>품목명</th>
@@ -218,6 +218,34 @@
             const new_cell = new_row.insertCell(i);
             let temp_html = '';
 
+            temp_html =
+
+                 '<input type="text" style="width:50px; height:25px; font-size:15px; text-align:center;">';
+
+            if(i == 1) {
+
+                temp_html =
+                    '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+            }
+
+            if(i == 4) {
+
+                temp_html =
+                    '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+            }
+
+            if(i == 5) {
+
+                temp_html =
+                    '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+            }
+
+            if(i == 6) {
+
+                temp_html =
+                    '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+            }
+
             if(i == 9) {
 
                 temp_html =
@@ -263,7 +291,6 @@
                 temp_html =
                 '<td>' +
                         '<div class="actions">' +
-                            '<button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>' +
                             '<button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
                         '</div>' +
                 '</td>';

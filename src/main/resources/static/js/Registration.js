@@ -74,61 +74,82 @@ function info_addRow() {
 
     const cell_length = table.rows[0].cells.length;
 
-    for (let i = 0; i < cell_length; i++) {
-        const new_cell = new_row.insertCell(i);
-        let temp_html = '';
+    for(let i = 0; i < cell_length; i++) {
+         const new_cell = new_row.insertCell(i);
+         let temp_html = '';
 
-        if (i == 9) {
+         temp_html = '<input type="text" style="width:50px; height:25px; font-size:15px; text-align:center;">';
+
+         if(i == 1) {
+
+            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+         }
+
+         if(i == 4) {
+
+            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+         }
+
+         if(i == 5) {
+
+            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+         }
+
+         if(i == 6) {
+
+             temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
+         }
+
+         if(i == 9) {
 
             temp_html =
                 '<td>' +
-                '<select name="state">' +
-                '<option value="first">대분류 1</option>' +
-                '<option value="second">대분류 2</option>' +
-                '</select>' +
+                    '<select name="state">' +
+                        '<option value="first">대분류 1</option>' +
+                        '<option value="second">대분류 2</option>' +
+                    '</select>' +
                 '</td>';
-        }
+         }
 
-        if (i == 10) {
+         if(i == 10) {
+
+            temp_html =
+                 '<td>' +
+                     '<select name="state">' +
+                        '<option value="first">중분류 1</option>' +
+                        '<option value="second">중분류 2</option>' +
+                    '</select>' +
+                '</td>';
+         }
+
+         if(i == 11) {
 
             temp_html =
                 '<td>' +
-                '<select name="state">' +
-                '<option value="first">중분류 1</option>' +
-                '<option value="second">중분류 2</option>' +
-                '</select>' +
+                    '<select name="state">' +
+                        '<option value="first">소분류 1</option>' +
+                        '<option value="second">소분류 2</option>' +
+                    '</select>' +
                 '</td>';
-        }
+         }
 
-        if (i == 11) {
+        if(i == 12) {
 
-            temp_html =
-                '<td>' +
-                '<select name="state">' +
-                '<option value="first">소분류 1</option>' +
-                '<option value="second">소분류 2</option>' +
-                '</select>' +
-                '</td>';
-        }
-
-        if (i == 12) {
-
-            temp_html = '<td>' +
+            temp_html = '<td>'+
                 '<input type="file" accept="image/png, image/jpg">' +
                 '</td>';
         }
 
-         if(i == 13) {
+        if(i == 13) {
 
-             temp_html =
-                  '<td>' +
-                       '<div class="actions">' +
-                             '<button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>' +
-                             '<button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
-                       '</div>' +
-                  '</td>';
+            temp_html =
+            '<td>' +
+                '<div class="actions">' +
+                        <button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
+                '</div>' +
+            '</td>';
 
-         }
+        }
 
         new_cell.insertAdjacentHTML('afterbegin', temp_html);
 
@@ -322,6 +343,14 @@ function contract_select() {
 }
 
 function contract_convertToImage(){
+
+    const h1 = document.getElementById('name_select');
+    const h2 = document.getElementById('select_contract');
+    const h3 = document.getElementById('save');
+
+    h1.style.display = 'none';
+    h2.style.display = 'none';
+    h3.style.display = 'none';
 
     html2canvas(document.getElementById('screen_area')).then((canvas) => {
         const imageDataURL = canvas.toDataURL("image/jpg");

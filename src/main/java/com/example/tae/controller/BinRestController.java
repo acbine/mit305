@@ -34,8 +34,8 @@ public class BinRestController {
             e.printStackTrace();
         }////////////////URL을 이미지로 변환
 
-        final String user_email= "ghostjaewoongp@gmail.com"; // 구글 이메일
-        final String user_pw = "rxks poyq biif qcfq"; //구글 앱 비밀번호
+        final String user_email= ""; // 구글 이메일
+        final String user_pw = ""; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
         final int smtp_port = 465;  // TLS : 587, SSL : 465
 

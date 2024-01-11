@@ -62,6 +62,7 @@ public class TotalController {
     public String ProductInformationRegistration(){
         return "ProductInformationRegistration";
     }
+
 /*
     @GetMapping("ReceivingProcess")
     public String ReceivingProcess() {

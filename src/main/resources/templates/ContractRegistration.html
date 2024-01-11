@@ -53,15 +53,15 @@
             <table class="table" id="contract" border="1">
                 <thead>
                 <tr>
-                    <th>품목명</th>
-                    <th>품목 코드</th>
-                    <th>사업자 등록 번호</th>
-                    <th>거래처 기업명</th>
-                    <th>L/T</th>
-                    <th>단가</th>
-                    <th>계약 기간</th>
-                    <th>대금 지급 수단</th>
-                    <th>등록 처리</th>
+                    <th width="124.67" height="25">품목명</th>
+                    <th width="80.63" height="25">품목 코드</th>
+                    <th width="130.67" height="25">거래처 기업명</th>
+                    <th width="128.25" height="25">사업자 등록 번호</th>
+                    <th width="65.25" height="25">L/T</th>
+                    <th width="65.25" height="25">단가</th>
+                    <th width="244.88" height="25">계약 기간</th>
+                    <th width="111.25" height="25">대금 지급 수단</th>
+                    <th width="70.63" height="25">등록 처리</th>
                 </tr>
                 </thead>
 
@@ -86,8 +86,8 @@
                 <tr>
                     <th>품목명</th>
                     <th>품목 코드</th>
-                    <th>사업자 등록 번호</th>
                     <th>거래처 기업명</th>
+                    <th>사업자 등록 번호</th>
                     <th>L/T</th>
                     <th>단가</th>
                     <th>계약 기간</th>
@@ -101,8 +101,8 @@
                 <tr>
                     <td>나사</td>
                     <td>A</td>
-                    <td>Xxx-xxx-xxxxx</td>
                     <td>길승 산업</td>
+                    <td>Xxx-xxx-xxxxx</td>
                     <td>10</td>
                     <td>250</td>
                     <td>24/01/10 ~ 24/01/20</td>
@@ -119,8 +119,8 @@
                 <tr>
                     <td>A품목</td>
                     <td>B</td>
-                    <td>Xxx-xxx-xxxxx</td>
                     <td>길승 산업</td>
+                    <td>Xxx-xxx-xxxxx</td>
                     <td>8</td>
                     <td>200</td>
                     <td>24/01/20 ~ 24/02/03</td>
@@ -246,22 +246,18 @@
                 temp_html =
                  '<input type="text" style="width:70px; height:25px; font-size:15px; text-align:center;">' +
 
-                '<button>확인</button>';
+                '<button onclick="get_pname()">확인</button>';
 
             }
 
-<!--             if(i == 2) {-->
+            if(i == 2) {
 
-<!--                temp_html =-->
-<!--                '<select onChange="b_code_value(this.options[this.selectedIndex].value)">' +-->
-<!--                    '<option value="b_code1">Xxx-xxx-xxxxx</option>' +-->
-<!--                    '<option value="b_code2">사업자 번호1</option>' +-->
-<!--                    '<option value="b_code3">사업자 번호2</option>' +-->
-<!--                '</select>' +-->
+                temp_html =
+                 '<input type="text" style="width:70px; height:25px; font-size:15px; text-align:center;">' +
 
-<!--                '<button>확인</button>';-->
+                '<button onclick="get_cname()">확인</button>';
 
-<!--            }-->
+            }
 
             if(i == 4) {
 
@@ -298,7 +294,7 @@
                 temp_html =
                     '<td>' +
                         '<div class="actions">' +
-                            '<button class="action-button action-button-delete" onclick="contract_registration_and_delete(this)">등록</button>' +
+                            '<button class="action-button action-button-delete" onclick="contract_registration_and_delete(this)" width = "74px" height = "35[x">등록</button>' +
                         '</div>' +
                     '</td>';
             }

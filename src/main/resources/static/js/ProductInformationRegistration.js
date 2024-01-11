@@ -20,7 +20,7 @@ function info_modify_and_save(tag) {
     const cell_6 = tr.children[6];
     const cell_7 = tr.children[7];
     const cell_8 = tr.children[8];
-
+    const cell_9 = tr.children[9];
 
     if (cell_0.contentEditable == "true") {
 
@@ -33,6 +33,7 @@ function info_modify_and_save(tag) {
         cell_6.contentEditable = "false";
         cell_7.contentEditable = "false";
         cell_8.contentEditable = "false";
+        cell_9.contentEditable = "false";
 
         tag.innerText = "수정";
 
@@ -47,6 +48,7 @@ function info_modify_and_save(tag) {
         cell_6.contentEditable = "true";
         cell_7.contentEditable = "true";
         cell_8.contentEditable = "true";
+        cell_9.contentEditable = "true";
 
         tag.innerText = "수정 완료";
 
@@ -66,95 +68,7 @@ function info_delete(tag) {
     tr.remove();
 }
 
-function info_addRow() {
-
-    const table = document.getElementById('product');
-    const new_row = table.insertRow();
-
-    const cell_length = table.rows[0].cells.length;
-
-    for(let i = 0; i < cell_length; i++) {
-        const new_cell = new_row.insertCell(i);
-        let temp_html = '';
-
-        temp_html = '<input type="text" style="width:50px; height:25px; font-size:15px; text-align:center;">';
-
-        if(i == 1) {
-
-            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if(i == 4) {
-
-            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if(i == 5) {
-
-            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if(i == 6) {
-
-            temp_html = '<input type="text" style="width:73px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if(i == 9) {
-
-            temp_html =
-                '<td>' +
-                '<select name="state">' +
-                '<option value="first">대분류 1</option>' +
-                '<option value="second">대분류 2</option>' +
-                '</select>' +
-                '</td>';
-        }
-
-        if(i == 10) {
-
-            temp_html =
-                '<td>' +
-                '<select name="state">' +
-                '<option value="first">중분류 1</option>' +
-                '<option value="second">중분류 2</option>' +
-                '</select>' +
-                '</td>';
-        }
-
-        if(i == 11) {
-
-            temp_html =
-                '<td>' +
-                '<select name="state">' +
-                '<option value="first">소분류 1</option>' +
-                '<option value="second">소분류 2</option>' +
-                '</select>' +
-                '</td>';
-        }
-
-        if(i == 12) {
-
-            temp_html = '<td>'+
-                '<input type="file" accept="image/png, image/jpg">' +
-                '</td>';
-        }
-
-        if(i == 13) {
-
-            temp_html =
-                '<td>' +
-                '<div class="actions">' +
-                '<button class="action-button action-button-delete" onclick="info_registration_and_delete(this)">등록</button>' +
-                '</div>' +
-                '</td>';
-
-        }
-
-        new_cell.insertAdjacentHTML('afterbegin', temp_html);
-
-    }
-}
-
+document.write(`<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>`)
 document.write(`<script th:inline="javascript">
 
     function info_show(get) {
@@ -282,7 +196,7 @@ document.write(`<script th:inline="javascript">
                     '<input type="text" class = "cnt" style="width:73px; height:25px; font-size:15px; text-align:center;">';
             }
 
-            if(i == 8) {
+            if(i == 9) {
 
                 temp_html =
                     '<td>' +
@@ -293,7 +207,7 @@ document.write(`<script th:inline="javascript">
                     '</td>';
             }
 
-            if(i == 9) {
+            if(i == 10) {
 
                 temp_html =
                     '<td>' +
@@ -304,7 +218,7 @@ document.write(`<script th:inline="javascript">
                     '</td>';
             }
 
-            if(i == 10) {
+            if(i == 11) {
 
                 temp_html =
                     '<td>' +
@@ -315,14 +229,14 @@ document.write(`<script th:inline="javascript">
                     '</td>';
             }
 
-            if(i == 11) {
+            if(i == 12) {
 
                 temp_html = '<td>'+
                                '<input type="file" accept="image/png, image/jpg">' +
                                '</td>';
             }
 
-            if(i == 12) {
+            if(i == 13) {
 
                 temp_html =
                 '<td>' +

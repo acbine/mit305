@@ -6,10 +6,10 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
+//거래명세서
 @RestController
 @AllArgsConstructor
-public class TradingStatementRestController {
+public class BinRestController {
     private TradingStatementService binService;
     @PostMapping("imageURl")
     public ImageDTO imageUpload( @RequestBody ImageDTO imageDTO){

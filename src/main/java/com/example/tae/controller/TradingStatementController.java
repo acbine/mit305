@@ -8,16 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TradingStatementController {
 
-    @GetMapping("ReceivingProcess")
-    public String ReceivingProcess() {
-        return "ReceivingProcess";
-    }
-
-    @GetMapping("StatusManagementReport")
-    public String StatusManagementReport() {
-        return "StatusManagementReport";
-    }
-
     @GetMapping("TradingStatement")
     public String TradingStatement() {
         return "TradingStatement";

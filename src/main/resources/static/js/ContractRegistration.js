@@ -136,10 +136,6 @@ function CloseContract() {
     $(".ContractModal").css('display', 'none');
 }
 
-
-
-document.write(`<script src="http://code.jquery.com/jquery-latest.min.js"></script>`)
-document.write(`<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>`)
 document.write(`<script th:inline="javascript">
 
     function contract_show(get) {

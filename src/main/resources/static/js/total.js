@@ -153,6 +153,11 @@ function sendDateToChild(String) {
 
 const childComponent = {
     receiveData: function (data) {
+        // for(var check =0; check<clickTapList.length; check++) {
+        //     if(clickTapList[check]!==data) {
+        //         clickTapList.push(data);
+        //     }
+        // }
         clickTapList.push(data);
         var SetClickTapList = new Set(clickTapList);
 
@@ -416,4 +421,4 @@ document.write(`<script src="/js/order.js"></script>`)
 document.write(`<script src="/js/StatusManagementReport.js"></script>`)
 document.write(`<script src="/js/ProductInformationRegistration.js"></script>`)
 document.write(`<script src="/js/ProcurementPlanRegistration.js"></script>`)
-document.write(`<script src="/js/ContractRegistrationModal.js"></script>`)
+document.write(`<script src="/js/ContractRegistration.js"></script>`)

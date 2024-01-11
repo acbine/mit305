@@ -108,6 +108,7 @@
         </tr>
         </thead>
         <tbody class="table_body">
+        <form action="/release" method="post">
         <tr>
             <td class="table-body">나사</td>
             <td class="table-body">asdew</td>
@@ -116,14 +117,15 @@
             <td class="table-body">asdew</td>
             <td class="table-body">asdew</td>
             <td class="table-body" id="supplyPrice">80원</td>
-            <td class="table-body"><input style="width:80px" type="number" value="23"></td>
+            <td class="table-body"><input style="width:80px" type="number" value="23" name="release"></td>
             <td class="table-body">12</td>
-            <td class="table-body"><input style="width:80px" type="number" value="19"></td>
+            <td class="table-body">19</td>
             <td class="table-body"></td>
             <td class="table-body">
-                <button class="action-button action-button-registration">확인</button>
+                <button class="action-button action-button-registration" type="submit">확인</button>
             </td>
         </tr>
+            </form>
         <tr>
             <td class="table-body">품목B</td>
             <td class="table-body">sdfgg</td>
@@ -141,32 +143,6 @@
         </tbody>
     </table>
 </div>
-<script>
-    function table() {
-        var tableList = document.getElementsByClassName("table_body")
-        var inputHtml = [];
-
-        for(var i=0; i<tableList.length; i++) {
-            inputHtml.push(`<tr>
-            <td class="table-body">A품목</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">2024-01-09</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">80원</td>
-            <td class="table-body" id="inventory"><input style="width:80px" type="number" value="5"></td>
-            <td class="table-body">11</td>
-            <td class="table-body"><input style="width:80px" type="number" value="34"></td>
-            <td class="table-body">24324원</td>
-            <td class="table-body"><button class="action-button action-button-registration">확인</button></td>
-        </tr>`)
-        }
-
-        console.log(tableList.innerHtml);
-        tableList[tableList.length-1].innerHtml = inputHtml.join("");
-    }
-</script>
 <script src="/js/stockDelivery.js"></script>
 </body>
 </html>

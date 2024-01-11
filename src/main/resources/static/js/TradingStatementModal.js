@@ -17,18 +17,9 @@ function convertToImage(){
                  method: 'post',
                  headers: {
                      "Content-Type": 'application/json',
-
                  },
                  body: JSON.stringify(imageJson),
              })
-                 .then(response => response.json())
-                 .then(data => {
-                     console.log('서버로부터의 응답:', data);
-                 })
-                 .catch(error => {
-                     console.error('오류 발생:', error);
-                 });
-
         });
 
     }

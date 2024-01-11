@@ -1,18 +1,20 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.dto.ImageDTO;
-import com.example.tae.service.TradingStatementService;
+import com.example.tae.service.TradingStatementServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-//거래명세서
+
 @RestController
 @AllArgsConstructor
 public class BinRestController {
-    private TradingStatementService binService;
+    private TradingStatementServiceImpl binService;
+
+    /*-------------------------------거래명세서----------------------------*/
     @PostMapping("imageURl")
-    public ImageDTO imageUpload( @RequestBody ImageDTO imageDTO){
-       return binService.imageUpload(imageDTO);
+    public void imageUpload(@RequestBody ImageDTO imageDTO){
+       binService.imageUpload(imageDTO);
     }
 }

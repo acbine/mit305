@@ -17,6 +17,7 @@ function table() {
         inputHtml.push(`<tr>
             <td class="table-body">A품목</td>
             <td class="table-body">asdew</td>
+            <td class="table-body">2024-01-09</td>
             <td class="table-body">asdew</td>
             <td class="table-body">asdew</td>
             <td class="table-body">asdew</td>
@@ -29,6 +30,5 @@ function table() {
         </tr>`)
     }
 
-    console.log(tableList);
     tableList[tableList.length - 1].innerHtml = inputHtml.join("");
 }

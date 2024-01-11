@@ -8,7 +8,8 @@ var clickTapList = new Array();
 const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
-var OpenPageState;
+
+var arrayClick =[]
 
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
@@ -155,7 +156,7 @@ const childComponent = {
         clickTapList.push(data);
         var SetClickTapList = new Set(clickTapList);
 
-        var arrayClick = Array.from(SetClickTapList);
+        arrayClick = Array.from(SetClickTapList);
 
 
         const tabList3 = [];
@@ -214,15 +215,10 @@ const childComponent = {
         tabList[tabList.length - 1].innerHTML = tabList3.join("");
         contentList[contentList.length - 1].innerHTML = contList.join("");
 
-
-        console.log("실행순서 확인 : 여기는 리스트로 불러온 다이랙트")
         LoadHTMLOfThePageWithClickedPageData(currentPage, i);
 
         var transFromITOStringI = String(i);
-        
-
         var currentPageInfoOfDirectClick = [currentPage,transFromITOStringI]
-
         setCookie("currentPageInfoOfDirectClick",currentPageInfoOfDirectClick,7)
 
         let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
@@ -240,10 +236,7 @@ const childComponent = {
 
                 var pageInfoToString = String(k);
 
-                console.log("실행순서 확인 : 여기는 리스트로 불러온 탭")
                 LoadHTMLOfThePage(k);
-
-                console.log("쿠키에 저장되는 값 확인하기", pageInfoToString);
 
                 setCookie("currentPageInfoOfTapListClick",pageInfoToString,7);
             });
@@ -254,7 +247,7 @@ const childComponent = {
 
 
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
-    console.log("넘어온 click Data 확인 : ",clickData,"넘어온 contCnt 값 확인",contCnt);
+
     setCookie("openInfo","Direct",7);
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
@@ -284,7 +277,7 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
 
 function LoadHTMLOfThePage(cnt) {
     var PageData =  contents[cnt];
-    console.log("tap 페이지 불러오기 실행 (넘어온 데이터) : ", cnt)
+
     setCookie("openInfo","Tap",7);
 
     for(var j = 0; j<contents.length; j++) {
@@ -373,49 +366,45 @@ window.onload = function () {
 
 (function RetrieveClickTapListInformationFromCookie() {
     if (checkCookieExistence()) {
-        console.log("함수가 실행 중인가?")
+
         var cookieList = loadClickTapListFromCookie().split(",");
         var State = checkingState();
-        console.log("State 값 확인해보기 :", State)
+
         for (let i = 0; i < cookieList.length; i++) {
-            console.log(cookieList[i]);
             childComponent.receiveData(cookieList[i]);
         }
         if(State==="Direct"){
-            console.log("다이렉트는 실행 됨")
-            console.log("실행순서 확인 : 여기는 다이랙트")
             var directInfo =  loadCurrentPageWithDirectClickFromCookie().split(",")
             LoadHTMLOfThePageWithClickedPageData(directInfo[0],parseInt(directInfo[1]));
-            console.log("이 밑으로는 실행 중이가?")
-
         } else if(State==="Tap"){
-            console.log("탭도 실행됨")
-            console.log("실행순서 확인 : 여기는 탭")
             var data = parseInt(loadCurrentPageWithTapListClickFromCookie())
-            console.log("데이터 값 확인해보기",data)
             LoadHTMLOfThePage(data);
         }
     }
 })()
 
 function closePage(pageData, cnt) {
+    var taps = document.getElementsByClassName("tabClass");
+
+    arrayClick.splice(arrayClick.indexOf(pageData),1);
+
+
+    setCookie("clickTapList", arrayClick,7)
     console.log(pageData, cnt);
-    // let PressTheDeleteButtonClickTapList = clickTapList.filter(value=> value!==pageData);
-    // setCookie("clickTapList", PressTheDeleteButtonClickTapList, 7);
-    for (var k = 0; k < tabList.length; k++) {
-        console.log(tabList[k]);
-    }
-    console.log("탭리스트 Html정보 확인해보기 : ");
-    console.log("여기까지는 작동 중인지 확인해보기");
-    // contentList[cnt].innerHTML.style.display="none"
+
+    var second = taps[1];
+
+    second.classList.remove("is_on")
+    second.classList.add("tap1")
+    console.log("맞게 가져오는지 확인",second)
+    taps[cnt].style.display="none";
+
 };
 
 
 function test() {
     console.log("임의로 테스트 하는 함수");
 }
-
-
 
 document.write(`<script src="/js/existence.js"></script>`)
 document.write(`<script src="/js/stockDelivery.js"></script>`)
@@ -425,3 +414,6 @@ document.write(`<script src="/js/ReceivingProcessing.js"></script>`)
 document.write(`<script src="/js/TradingStatement.js"></script>`)
 document.write(`<script src="/js/order.js"></script>`)
 document.write(`<script src="/js/StatusManagementReport.js"></script>`)
+document.write(`<script src="/js/ProductInformationRegistration.js"></script>`)
+document.write(`<script src="/js/ProcurementPlanRegistration.js"></script>`)
+document.write(`<script src="/js/ContractRegistrationModal.js"></script>`)

@@ -1,10 +1,9 @@
-package com.example.tae.controller;
+package com.example.tae.service;
 
-import com.example.tae.dto.ImageDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import com.example.tae.entity.dto.ImageDTO;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -18,14 +17,13 @@ import java.nio.file.Paths;
 import java.util.Base64;
 import java.util.Properties;
 
-@RestController
-public class BinRestController {
-
-    @PostMapping("imageURl")
-    public ImageDTO imageupload( @RequestBody ImageDTO imageDTO){
+@Service
+@RequiredArgsConstructor
+public class TradingStatementService {
+    public ImageDTO imageUpload( @RequestBody ImageDTO imageDTO) {
         System.out.println("포스트요청 들어옴");
 
-        String folderPath="C:/Users/BIn/Desktop/이미지 테스트/거래명세서2/"; //폴더주소
+        String folderPath="../../Desktop/이미지 테스트/거래명세서4/"; //폴더주소
 
         try {
             createFolderAndDownloadBase64Image(folderPath,imageDTO);

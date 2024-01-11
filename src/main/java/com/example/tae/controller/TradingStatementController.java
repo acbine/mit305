@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 @Controller
-public class BinController {
+public class TradingStatementController {
 
     @GetMapping("ReceivingProcess")
     public String ReceivingProcess() {

@@ -237,7 +237,6 @@ function select_row() {
     }
 }
 
-document.write(`<script src="http://code.jquery.com/jquery-latest.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>`)
 document.write(`<script th:inline="javascript">
 
     function plan_show(get) {

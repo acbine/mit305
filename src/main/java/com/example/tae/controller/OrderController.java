@@ -28,4 +28,8 @@ public class OrderController {
     @GetMapping("orderRegister")
     public String orderRegister() {return "orderRegister";}
 
+    @GetMapping("orderListPopup")
+    public String orderListPopup() {
+        return "orderListPopup";
+    }
 }

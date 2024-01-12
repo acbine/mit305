@@ -67,8 +67,22 @@ tbody tr>td[colspan="11"] {
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     z-index: 1000;
-    width: 796px;
-    height: 776px;
+    width: 830px;
+    height: 843px;
+    text-align: center;
+}
+
+.popup-content {
+    position: absolute;
+    width: 804px;
+    height: 712px;
+}
+
+.popup-table td{
+    height: 18px;
+}
+
+.popup-center {
     text-align: center;
 }
 
@@ -116,5 +130,7 @@ textarea::placeholder {
         margin-bottom: 8mm;
     }
 
-
+    .btn-container2 {
+        display: none;
+    }
 }

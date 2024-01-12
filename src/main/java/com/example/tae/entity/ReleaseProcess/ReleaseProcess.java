@@ -1,11 +1,15 @@
 package com.example.tae.entity.ReleaseProcess;
 
+import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -18,6 +22,7 @@ public class ReleaseProcess extends TimeStamp {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "key", nullable = false)
     private int key;
+
 
     private int release;
 }

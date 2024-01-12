@@ -191,8 +191,6 @@ const childComponent = {
                 currentPage = "stockDelivery"
             } else if (arrayClick[i] === "현황리포트") {
                 currentPage = "existence"
-            } else if (arrayClick[i] === "발주품목선택") {
-                currentPage = "ProductSelect"
             } else if (arrayClick[i] === "진척검수등록") {
                 currentPage = "orderInspect1_1"
             }
@@ -411,15 +409,69 @@ function test() {
     console.log("임의로 테스트 하는 함수");
 }
 
-document.write(`<script src="/js/existence.js"></script>`)
-document.write(`<script src="/js/stockDelivery.js"></script>`)
-document.write(`<script src="/js/TradingStatementModal.js"></script>`)
-document.write(`<script src="/js/Registration.js"></script>`)
-document.write(`<script src="/js/ReceivingProcessing.js"></script>`)
-document.write(`<script src="/js/TradingStatement.js"></script>`)
-document.write(`<script src="/js/order.js"></script>`)
-document.write(`<script src="/js/StatusManagementReport.js"></script>`)
-document.write(`<script src="/js/ProductInformationRegistration.js"></script>`)
-document.write(`<script src="/js/ProcurementPlanRegistration.js"></script>`)
-document.write(`<script src="/js/ContractRegistration.js"></script>`)
-document.write(`<script src="/js/ContractRegistrationModal.js"></script>`)
+
+//stockDelivery.js
+var scriptElement1 = document.createElement("script");
+scriptElement1.async = true;
+scriptElement1.src = "/js/stockDelivery.js";
+document.head.appendChild(scriptElement1);
+
+// TradingStatementModal.js
+var script1 = document.createElement("script");
+script1.async = true;
+script1.src = "/js/TradingStatementModal.js";
+document.head.appendChild(script1);
+
+// Registration.js
+var script2 = document.createElement("script");
+script2.async = true;
+script2.src = "/js/Registration.js";
+document.head.appendChild(script2);
+
+// ReceivingProcessing.js
+var script3 = document.createElement("script");
+script3.async = true;
+script3.src = "/js/ReceivingProcessing.js";
+document.head.appendChild(script3);
+
+// TradingStatement.js
+var script4 = document.createElement("script");
+script4.async = true;
+script4.src = "/js/TradingStatement.js";
+document.head.appendChild(script4);
+
+// order.js
+var script5 = document.createElement("script");
+script5.async = true;
+script5.src = "/js/order.js";
+document.head.appendChild(script5);
+
+// StatusManagementReport.js
+var script6 = document.createElement("script");
+script6.async = true;
+script6.src = "/js/StatusManagementReport.js";
+document.head.appendChild(script6);
+
+// ProductInformationRegistration.js
+var script7 = document.createElement("script");
+script7.async = true;
+script7.src = "/js/ProductInformationRegistration.js";
+document.head.appendChild(script7);
+
+// ProcurementPlanRegistration.js
+var script8 = document.createElement("script");
+script8.async = true;
+script8.src = "/js/ProcurementPlanRegistration.js";
+document.head.appendChild(script8);
+
+// ContractRegistration.js
+var script9 = document.createElement("script");
+script9.async = true;
+script9.src = "/js/ContractRegistration.js";
+document.head.appendChild(script9);
+
+// ContractRegistrationModal.js
+var script10 = document.createElement("script");
+script10.async = true;
+script10.src = "/js/ContractRegistrationModal.js";
+document.head.appendChild(script10);

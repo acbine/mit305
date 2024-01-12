@@ -237,8 +237,6 @@ function select_row() {
     }
 }
 
-document.write(`<script th:inline="javascript">
-
     function plan_show(get) {
 
         if(get == 'co') {
@@ -482,5 +480,3 @@ document.write(`<script th:inline="javascript">
             }
         }
     }
-
-</script>`)

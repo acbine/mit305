@@ -76,14 +76,14 @@
 </head>
 <body>
 <div class="flex space-x-2">
-    <input class="button filter-button"/>
+    <input class="button filter-button" id="searchWord"/>
     <label>
-        <select>
-            <option>품목명</option>
-            <option style="font-size: 10px">품목코드</option>
+        <select id="searchNameOrCode">
+            <option value="ProductName">품목명</option>
+            <option style="font-size: 10px" value="ProductCode">품목코드</option>
         </select>
     </label>
-    <button class="button primary-button" onclick="table()">검색</button>
+    <button class="button primary-button" onclick="findRelease()">검색</button>
 </div>
 </div>
 <div class="w-full h-[300px] mb-4">
@@ -108,7 +108,6 @@
         </tr>
         </thead>
         <tbody class="table_body">
-        <form action="/release" method="post">
         <tr>
             <td class="table-body">나사</td>
             <td class="table-body">asdew</td>
@@ -117,15 +116,16 @@
             <td class="table-body">asdew</td>
             <td class="table-body">asdew</td>
             <td class="table-body" id="supplyPrice">80원</td>
-            <td class="table-body"><input style="width:80px" type="number" value="23" name="release"></td>
+            <td class="table-body"><input style="width:80px" type="number" value="23" id="release"></td>
             <td class="table-body">12</td>
             <td class="table-body">19</td>
             <td class="table-body"></td>
             <td class="table-body">
-                <button class="action-button action-button-registration" type="submit">확인</button>
+                <form action="total/release" method="post">
+                <button class="action-button action-button-registration" onclick="submitToRelease()">확인</button>
+                </form>
             </td>
         </tr>
-            </form>
         <tr>
             <td class="table-body">품목B</td>
             <td class="table-body">sdfgg</td>

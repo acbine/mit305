@@ -4,7 +4,7 @@ var data = [
     ["A품목", "8", 200, "24/01/21", "24/02/03", "현금 지불"]
 ];
 
-document.write(`<script th:inline="javascript">
+
 
 var n;
 
@@ -125,4 +125,4 @@ function contract_convertToImage() {
     });
 
 }
-            </script>`)
+

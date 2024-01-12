@@ -1,10 +1,10 @@
 /*--------------------발주 목록(orderList)--------------------*/
-function openPopup(popupId) {
-    document.getElementById(popupId).style.display = "block";
+function openPopup() {
+    $(".Popup").css('display','block');
 }
 
-function closePopup(popupId) {
-    document.getElementById(popupId).style.display = "none";
+function closePopup() {
+    $(".Popup").css('display','none');
 }
 
 function showHiddenTable(){

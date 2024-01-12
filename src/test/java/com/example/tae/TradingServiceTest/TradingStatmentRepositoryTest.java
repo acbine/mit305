@@ -1,7 +1,7 @@
 package com.example.tae.TradingServiceTest;
 
 import com.example.tae.entity.TradingStatement.TradingStatement;
-import com.example.tae.entity.TradingStatmentRepository;
+import com.example.tae.repository.TradingStatmentRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

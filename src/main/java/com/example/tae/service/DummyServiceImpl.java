@@ -1,6 +1,8 @@
 package com.example.tae.service;
 
 import ch.qos.logback.core.boolex.EvaluationException;
+import com.example.tae.entity.DummyData.Classification.Assy;
+import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Classification.Unit;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.DummyData.DTO.CompanyDTO;
@@ -469,21 +471,6 @@ public class DummyServiceImpl implements DummyService {
                 "A109-81-68586",
         };
 
-
-        //회사 정보 데이터
-        for (int value = 0; value < companyBusinessNumberList.length; value++) {
-            CompanyDTO companyDTO = CompanyDTO.builder()
-                    .businessNumber(companyBusinessNumberList[value])
-                    .businessName(nameData[value])
-                    .departName(companyNameData[value])
-                    .businessEmail(value + "@naver.com")
-                    .businessTel(value + "-" + value + "-" + value)
-                    .fax(value + "")
-                    .build();
-            Company company = companyDTO.com();
-            companyRepository.save(company);
-        }
-
         //프로젝트 더미 데이터
         Project project = new Project("iphone");
         projectRepository.save(project);
@@ -503,12 +490,109 @@ public class DummyServiceImpl implements DummyService {
                 "충전부"
         ));
 
+        ArrayList<String> assyData = new ArrayList<String>(Arrays.asList(
+                "감지기",
+                "고정대",
+                "제어판 이슈",
+                "MOTOR",
+                "구동축",
+                "실린더CYLINDER",
+                "LASER",
+                "SERVOMOTOR",
+                "PUMP",
+                "전자저울WEIGHIGINDICATOR",
+                "커넥터",
+                "투영기",
+                "iNDEXUNiTDRiVE",
+                "여과장치",
+                "TOUTCHSCREEN",
+                "이동 컨베이어",
+                "PULLEY",
+                "VSCONTROLLER",
+                "컴퓨터COMPUTER",
+                "Heater",
+                "robot arm",
+                "POWERSUPPLY",
+                "CableHeader접속부포함",
+                "PUSHER"
+        ));
 
+        ArrayList<String> partData = new ArrayList<String>(Arrays.asList(
+                "SENSOR",
+                "BRACKET",
+                "릴레이Relay",
+                "GEAR",
+                "솔레노이드밸브SolenoidValve",
+                "FLASHLAMP",
+                "PLC",
+                "SERVOCONTROLLER",
+                "엔코더Encoder",
+                "BEARiNG",
+                "CABLE",
+                "Transmission변감속기",
+                "JIG",
+                "BOLTNUT",
+                "FITTING류",
+                "HOSE",
+                "CHAiN",
+                "BELT",
+                "CLUTCHBRAKE",
+                "GUIDE",
+                "STOPPER",
+                "진공밸부VacuumValve",
+                "FILTERHOUSING",
+                "퓨즈Fuse",
+                "SHAFT",
+                "CUTTER",
+                "COUPLiNG",
+                "PiN",
+                "TRAY",
+                "GRIPPER",
+                "VACUUMPAD",
+                "NOZZLE",
+                "FLOATiNGJOiNT"
+                ));
+
+
+            /*중복 데이터 필터기 */
+//        List<String> newList = partData.stream().distinct().collect(Collectors.toList());
+//        newList.forEach(System.out::println);
+
+
+        /*-------------대중소 테이블 저장--------------------*/
         for(String data : unitData) {
             Unit unit = Unit.builder()
                     .unit(data)
                     .build();
             unitRepository.save(unit);
+        }
+
+        for(String data : assyData) {
+            Assy assy = Assy.builder()
+                    .assy(data)
+                    .build();
+            assyRepository.save(assy);
+        }
+
+        for(String data : partData) {
+            Part part = Part.builder()
+                    .part(data)
+                    .build();
+            partRepository.save(part);
+        }
+
+        //회사 정보 데이터
+        for (int value = 0; value < companyBusinessNumberList.length; value++) {
+            CompanyDTO companyDTO = CompanyDTO.builder()
+                    .businessNumber(companyBusinessNumberList[value])
+                    .businessName(nameData[value])
+                    .departName(companyNameData[value])
+                    .businessEmail(value + "@naver.com")
+                    .businessTel(value + "-" + value + "-" + value)
+                    .fax(value + "")
+                    .build();
+            Company company = companyDTO.com();
+            companyRepository.save(company);
         }
 
     }

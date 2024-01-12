@@ -20,9 +20,10 @@ import java.util.List;
 public class ReleaseProcess extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "key", nullable = false)
-    private int key;
+    @Column(name = "id", nullable = false)
+    private int id;
 
-
+    @Column
     private int release;
+
 }

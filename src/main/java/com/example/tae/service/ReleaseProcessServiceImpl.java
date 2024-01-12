@@ -10,6 +10,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
     @Override
     public ReleaseProcess release(int release) {
         return ReleaseProcess.builder()
+                .id(2)
                 .release(release)
                 .build();
     }

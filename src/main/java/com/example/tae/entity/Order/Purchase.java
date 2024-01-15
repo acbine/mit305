@@ -15,6 +15,6 @@ public class Purchase extends TimeStamp {
     @GeneratedValue(strategy = GenerationType.UUID)
     private String ordercode;
 
-    /*@ManyToOne
+    /*@OneToMany
     private List<ProcurementPlan> procurementPlan;*/
 }

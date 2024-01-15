@@ -24,7 +24,7 @@
                     </td>
 
                     <td>
-                        <select name="입고 처리 상태">
+                        <select name="입고처리상태">
                             <option value="전체">전체</option>
                             <option value="검수완료">검수완료</option>
                             <option value="마감">마감</option>
@@ -58,63 +58,23 @@
 
             <tbody>
                 <tr>
-                    <form action="">
-                        <td class="table-data"><input type="text" name="품목코드" value="A" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="품목명" value="나사" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="업체명" value="길승산업" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="사업자번호" value="Xxx-xxx-xxxxx" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주서 발행일" value="2023/12/13" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주일" value="2023/12/15" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고 예정일" value="2023/12/20" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고일" value="" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="number" name="조달예정수량" value="4" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
+                    <form action="ReceivingProcessStore">
+                        <td class="table-data"><input class="input-form-style" type="text" name="품목코드" value="A" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="품목명" value="나사" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="업체명" value="길승산업" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="사업자번호" value="Xxx-xxx-xxxxx" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="발주서발행일" value="2023/12/13" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="발주일" value="2023/12/15" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="입고예정일" value="2023/12/20" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="입고일" value="" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="number" name="조달예정수량" value=1 readonly></td>
                         <td class="table-data" style="width:100;" ><input type="number" name="입고수량" style="text-align: center; width:100px"></td>
-                        <td class="table-data"><input type="text" name="품목처리상태" value="검수완료" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="품목처리상태" value="검수완료" readonly></td>
                         <td class="table-data">
                             <input type="submit" value="입고처리"   style="background-color: blue; color: white;">
                         </td>
                     </form>
                 </tr>
-
-                <tr>
-                    <form action="">
-                        <td class="table-data"><input type="text" name="품목코드" value="B" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="품목명" value="고무" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="업체명" value="우리산업" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="사업자번호" value="Xxx-xxx-xxxxx" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주서 발행일" value="2023/12/15" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주일" value="2023/12/118" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고 예정일" value="2023/12/23" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고일" value="" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="number" name="조달예정수량" value="10" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data" style="width:100;" ><input type="number" name="입고수량" style="text-align: center; width:100px"></td>
-                        <td class="table-data"><input type="text" name="품목처리상태" value="검수완료" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data">
-                            <input type="submit" value="입고처리"   style="background-color: blue; color: white;">
-                        </td>
-                    </form>
-                </tr>
-
-                <tr>
-                    <form action="">
-                        <td class="table-data"><input type="text" name="품목코드" value="A" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="품목명" value="나사" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="업체명" value="길승산업" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="사업자번호" value="Xxx-xxx-xxxxx" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주서 발행일" value="2023/12/13" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="발주일" value="2023/12/15" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고 예정일" value="2023/12/20" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="text" name="입고일" value="2023/12/19" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data"><input type="number" name="조달예정수량" value="4" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data" style="width:100;" ><input type="number" value="4" readonly name="입고수량" style="border:none; outline:none; text-align: center; width:100px"></td>
-                        <td class="table-data"><input type="text" name="품목처리상태" value="마감" style="border:none; outline:none; text-align: center; width:80px; " readonly></td>
-                        <td class="table-data">
-                            <input hidden="hidden" type="submit" value="입고처리"   style="background-color: blue; color: white;">
-                        </td>
-                    </form>
-                </tr>
-
-
 
             </tbody>
         </table>

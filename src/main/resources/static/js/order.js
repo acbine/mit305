@@ -1,6 +1,7 @@
 /*--------------------발주 목록(orderList)--------------------*/
-function openPopup() {
+function openPopup(ordercode) {
     $(".popup").css('display','block');
+    $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + ordercode);
 }
 
 function closePopup() {
@@ -10,6 +11,17 @@ function closePopup() {
 function showHiddenTable(){
     document.querySelector('.hidden').classList.remove('hidden');
     document.querySelector('.confirm').classList.add('hidden');
+}
+
+/*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
+function downloadImage(){
+    /*html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
+        const imageDataURL = canvas.toDataURL("image/jpg");
+
+        const a = document.createElement("a");
+        a.href = imageDataURL;
+        a.download = "발주서.jpg";
+    }*/
 }
 
 /*-------------------진척 검수 관리-------------------------------------------*/

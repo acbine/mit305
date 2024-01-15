@@ -1,7 +1,7 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Order.Purchase;
-import com.example.tae.entity.OrderRepository;
+import com.example.tae.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

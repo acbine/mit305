@@ -1,8 +1,16 @@
 package com.example.tae.entity.Order;
 
 import jakarta.persistence.*;
+import lombok.*;
+
 import java.util.Date;
 
+@Entity
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Data
+@Getter
 public class ProgressInspection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -11,6 +19,6 @@ public class ProgressInspection {
     private Date progressInspectionPlan;
     private boolean progressInspectionStatus;
 
-    @OneToMany
+    @ManyToOne
     private Purchase purchase;
 }

@@ -2,8 +2,8 @@
 function findRelease() {
     var selectData = document.getElementById("searchNameOrCode");
     var select = selectData.options[selectData.selectedIndex].value
-    var data = document.getElementById("searchWord");
-    var constraints = data.value;
+    var searchData = document.getElementById("searchWord");
+    var constraints = searchData.value;
     var state;
 
 
@@ -12,27 +12,30 @@ function findRelease() {
         state = 0;
         var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url:'/total/release',
+            url:'/total/stockDelivery',
             type : 'get',
             contentType : 'application/json',
             data:JSON.stringify(formData),
             success:function (){
-                console.log("성공")
+                console.log("성공");
+                console.log("보내고 있는 데이터 확인하기 : ", data);
             },
             error:function () {
-                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData)
+                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData);
+                console.log("보내고 있는 데이터 확인하기 : ", data);
             }
         });
     } else if(select==="ProductCode") {
         state = 1;
         var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url:'/total/release',
+            url:'/total/stockDelivery',
             type : 'get',
             contentType : 'application/json',
             data:JSON.stringify(formData),
             success:function (){
                 console.log("성공")
+                console.log("보내고 있는 데이터 확인해보기 : ",data)
             },
             error:function () {
                 console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData)
@@ -47,7 +50,7 @@ function findRelease() {
 
     for (var i = 0; i < tableList.length; i++) {
         inputHtml.push(`
-             <form method="post" action="/release">
+             <form method="post" action="total/stockDelivery">
             <tr>
             <td class="table-body">A품목</td>
             <td class="table-body">asdew</td>
@@ -71,19 +74,21 @@ function findRelease() {
 }
 
 function submitToRelease() {
-    var data = document.getElementById("release").value;
-    var formData = {"release": data}
+    var releaseData = document.getElementById("release").value;
+    var formData = {"release": releaseData}
 
     $.ajax({
-    url:'/total/release',
+    url:'/total/stockDelivery',
         type : 'post',
         contentType : 'application/json',
         data:JSON.stringify(formData),
         success:function (){
-        console.log("성공")
+        console.log("받아온 데이터 값 확인하기 : ")
+        console.log("성공");
+        console.log("보내고 있는 데이터 확인하기 : ", JSON.stringify(formData))
         },
         error:function () {
-        console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData)
+        console.log("에러 보내고 있는 데이터 형식 확인하기 : ",JSON.stringify(formData))
         }
     });
     return false;

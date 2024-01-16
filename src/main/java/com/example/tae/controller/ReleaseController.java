@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @AllArgsConstructor
@@ -23,13 +24,14 @@ public class ReleaseController {
         return "existence";
     }
 
-    @PostMapping("total/release")
-    public String release(@RequestBody ReleaseDto releaseDto,Model model) {
+    @PostMapping("/total/stockDelivery")
+    public String release(@RequestBody ReleaseDto releaseDto, Model model) {
         log.info("해당 release 메소드가 실행되는지 작동확인");
         log.info(releaseDto.getRelease()+"받는 값 확인");
         ReleaseProcess releaseProcess = releaseProcessService.release(releaseDto.getRelease());
         model.addAttribute("releaseProcess",releaseProcess);
-        return "existence";
+        log.info("여기까지 실행 중인지 확인");
+        return "total";
     }
 
 

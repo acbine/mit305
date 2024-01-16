@@ -1,6 +1,6 @@
 package com.example.tae.injectInfo;
 
-import com.example.tae.service.DummyServiceImpl;
+import com.example.tae.service.dummyService.DummyServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

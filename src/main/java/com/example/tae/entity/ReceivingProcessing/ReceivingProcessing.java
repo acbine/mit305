@@ -1,6 +1,5 @@
-package com.example.tae.entity.TradingStatement;
+package com.example.tae.entity.ReceivingProcessing;
 
-import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -17,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-public class TradingStatement extends TimeStamp {
+public class ReceivingProcessing extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

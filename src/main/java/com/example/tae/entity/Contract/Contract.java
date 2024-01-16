@@ -2,7 +2,6 @@ package com.example.tae.entity.Contract;
 
 
 import com.example.tae.entity.DummyData.Company;
-import com.example.tae.entity.Product.Product;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

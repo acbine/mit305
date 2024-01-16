@@ -20,7 +20,7 @@ public class ProcurementPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int plan_code; // 조달 계획 코드
+    private int procurementplan_code; // 조달 계획 코드
 
     // 생산 계획 키값
     @ManyToOne(fetch = FetchType.LAZY)
@@ -33,7 +33,6 @@ public class ProcurementPlan {
 
     private Date order_date;
 
-    // 품목 발주 상태?
-
+    // 품목 발주 상태
     private String order_state;
 }

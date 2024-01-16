@@ -24,7 +24,7 @@ public class ProductRepositoryTest {
     public void ProductTest () throws ParseException {
         //제품 DB 안에 제품명 넣기
         Product product = Product.builder().productName("스마트폰").build();
-        productRepository.save(product);
+        //productRepository.save(product);
 
 
         String dateString = "2024-01-15";

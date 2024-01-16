@@ -11,4 +11,8 @@ public class ProductInformationRegistrationController {
     }
 
 
+    @GetMapping("ProductContractModal")
+    public String ProductContractModal(){
+        return "ProductContractModal";
+    }
 }

@@ -1,3 +1,25 @@
+/*------------품목의 계약 정보 모달창 관련한 js 코드------------*/
+function select_pname(get_name) {
+
+    const pname_tr = get_name.closest("tr");
+
+    const name_cell = pname_tr.children[1]; // 버튼 눌린 행의 품목 코드
+
+}
+
+
+
+function OpenProductContract() {
+
+    $(".Product_Contract_Modal").css('display', 'block');
+}
+
+function CloseProductContract() {
+
+    $(".Product_Contract_Modal").css('display', 'none');
+}
+
+/*------------품목 등록 관련한 js 코드------------*/
 function info_show(get) {
 
     if (get == 'in') {
@@ -72,8 +94,6 @@ function info_delete(tag) {
 function info_show(get) {
 
     document.getElementById('product_info').style.display = 'none';
-
-    console.log(get);
 
     if (get == 'in') {
 

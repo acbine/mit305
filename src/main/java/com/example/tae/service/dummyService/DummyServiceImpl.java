@@ -1,22 +1,19 @@
-package com.example.tae.service;
+package com.example.tae.service.dummyService;
 
-import ch.qos.logback.core.boolex.EvaluationException;
 import com.example.tae.entity.DummyData.Classification.Assy;
 import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Classification.Unit;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.DummyData.DTO.CompanyDTO;
-import com.example.tae.entity.DummyData.Project;
+import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.repository.DummyRepository.*;
+import com.example.tae.repository.ProductRepository.ProjectRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -470,10 +467,6 @@ public class DummyServiceImpl implements DummyService {
                 "A140-04-16303",
                 "A109-81-68586",
         };
-
-        //프로젝트 더미 데이터
-        Project project = new Project("iphone");
-        projectRepository.save(project);
 
         ArrayList<String> unitData = new ArrayList<String>(Arrays.asList(
                 "장착부",

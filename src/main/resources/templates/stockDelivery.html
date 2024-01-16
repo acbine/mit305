@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -121,9 +121,7 @@
             <td class="table-body">19</td>
             <td class="table-body"></td>
             <td class="table-body">
-                <form action="total/release" method="post">
                 <button class="action-button action-button-registration" onclick="submitToRelease()">확인</button>
-                </form>
             </td>
         </tr>
         <tr>
@@ -141,6 +139,7 @@
             <td class="table-body"><button class="action-button action-button-registration">확인</button></td>
         </tr>
         </tbody>
+        <div th:text="releaseProcess">${releaseProcess}</div>
     </table>
 </div>
 <script src="/js/stockDelivery.js"></script>

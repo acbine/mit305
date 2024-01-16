@@ -1,10 +1,7 @@
-package com.example.tae.entity.Product;
+package com.example.tae.entity.DummyData.Product;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
@@ -15,17 +12,17 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class ProductProductonPlan {
+@Getter
+public class ProjectPlan {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private int OutputeNum;
+    private int outPuteNum;
 
-    private Date ProjectOutputDate;
+    private Date projectOutputDate;
 
     @ManyToOne
-    Product product;
+    Project product;
 }

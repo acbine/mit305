@@ -1,8 +1,7 @@
 package com.example.tae.entity.ProcurementPlan;
 
 import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.Product.Product;
-import com.example.tae.entity.Product.ProductProductonPlan;
+import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,7 +24,7 @@ public class ProcurementPlan {
 
     // 생산 계획 키값
     @ManyToOne(fetch = FetchType.LAZY)
-    ProductProductonPlan productProductonPlan;
+    ProjectPlan projectPlan;
 
     @ManyToOne(fetch = FetchType.LAZY)
     Contract contract; // 계약

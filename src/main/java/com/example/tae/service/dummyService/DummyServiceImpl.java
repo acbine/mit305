@@ -7,6 +7,7 @@ import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.DummyData.DTO.CompanyDTO;
 import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.repository.DummyRepository.*;
+import com.example.tae.repository.ProductRepository.ProjectRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -466,10 +467,6 @@ public class DummyServiceImpl implements DummyService {
                 "A140-04-16303",
                 "A109-81-68586",
         };
-
-        //프로젝트 더미 데이터
-        Project project = Project.builder().productName("아무거나").build();
-        projectRepository.save(project);
 
         ArrayList<String> unitData = new ArrayList<String>(Arrays.asList(
                 "장착부",

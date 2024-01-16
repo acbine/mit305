@@ -10,6 +10,31 @@
             text-align: center;
         }
 
+        .Product_Contract_Modal {
+            display: none; /* 계약서 모달 처음에는 숨김 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .ContractModal-content { /* 계약서 모달내용 창 */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            /*max-width: 1000%; 모달의 최대 가로 크기 */
+            /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
+            overflow-y: auto;
+
+            width: 750px;  /*모달의 가로 크기 */
+            height: 925px;  /*모달의 세로 크기 */
+        }
     </style>
 
     <!--    <link href="/css/Registration.css" rel="stylesheet"/>-->
@@ -109,8 +134,10 @@
                         </select>
                     </td>
                     <td>사진1.png</td>
-                    <td>계약 안됨</td>
-
+                    <td>
+                        계약 안됨
+                        <button data-target="#myModal" data-id="전달할 값" onclick = 'select_pname(this); OpenProductContract();'>계약 상세</button>
+                    </td>
                     <td>
                         <div class="actions">
                             <button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>
@@ -121,6 +148,15 @@
 
                 </tbody>
             </table>
+
+            <div id="myModal" class="Product_Contract_Modal" onclick="CloseProductContract()"> <!--모달창 백그라운드-->
+                <div class="ContractModal-content"> <!--모달창 내용-->
+
+                    <iframe src="ProductContractModal" width="60%" height="79%" frameborder="0"></iframe>
+
+                </div><!--모달창 내용끝-->
+            </div> <!--모달창 백그라운드-->
+
         </div>
 
     </div>

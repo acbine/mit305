@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @MappedSuperclass
@@ -16,9 +17,9 @@ import java.util.Date;
 public class TimeStamp {
     @CreatedDate
     @Column(name = "regDate",updatable = false)
-    private Date regDate;
+    private LocalDateTime regDate;
 
     @LastModifiedDate
     @Column(name = "modDate")
-    private Date modDate;
+    private LocalDateTime modDate;
 }

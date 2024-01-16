@@ -1,11 +1,8 @@
-package com.example.tae.entity.Product;
+package com.example.tae.entity.DummyData.Product;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * 제품 엔티티
@@ -15,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class Product {
+@Getter
+public class Project {
     @Id
     String productName;
 }

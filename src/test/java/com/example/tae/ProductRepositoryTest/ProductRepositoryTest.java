@@ -1,7 +1,7 @@
 package com.example.tae.ProductRepositoryTest;
 
-import com.example.tae.entity.Product.Product;
-import com.example.tae.entity.Product.ProductProductonPlan;
+import com.example.tae.entity.DummyData.Product.Project;
+import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.repository.ProductRepository.ProductProudctionPlanRepository;
 import com.example.tae.repository.ProductRepository.ProductRepository;
 import org.junit.jupiter.api.Test;
@@ -23,7 +23,7 @@ public class ProductRepositoryTest {
     @Test
     public void ProductTest () throws ParseException {
         //제품 DB 안에 제품명 넣기
-        Product product = Product.builder().productName("스마트폰").build();
+        Project product = Project.builder().productName("스마트폰").build();
         productRepository.save(product);
 
 
@@ -36,7 +36,7 @@ public class ProductRepositoryTest {
 
 
         //제품명을 기반으로 생산계획
-        ProductProductonPlan productProductonPlan = ProductProductonPlan.builder().OutputeNum(11).ProjectOutputDate(date).product(product).build();
+        ProjectPlan productProductonPlan = ProjectPlan.builder().outPuteNum(11).ProjectOutputDate(date).product(product).build();
         productProudctionPlanRepository.save(productProductonPlan);
 
         System.out.println("데이터 DB에 들어감");

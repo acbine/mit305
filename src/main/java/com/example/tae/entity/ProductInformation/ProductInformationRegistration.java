@@ -1,7 +1,7 @@
 package com.example.tae.entity.ProductInformation;
 
 import com.example.tae.entity.DummyData.Classification.Part;
-import com.example.tae.entity.Product.Product;
+import com.example.tae.entity.DummyData.Product.Project;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,7 +23,7 @@ public class ProductInformationRegistration {
     Part part;
 
     @ManyToOne // 제품명
-    Product product;
+    Project project;
 
     private String product_name;
 

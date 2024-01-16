@@ -17,4 +17,9 @@ public class ContractController {
     public String ContractRegistrationModal() {
         return "ContractRegistrationModal";
     }
+
+
+
+
+
 }

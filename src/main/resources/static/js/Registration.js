@@ -1,13 +1,4 @@
 /*---------계약서 모달창--------------*/
-// 계약서 작성일 구하기
-Contrac_date = new Date();
-Contrac_year = Contrac_date.getFullYear();
-Contrac_month = Contrac_date.getMonth() + 1;
-Contrac_day = Contrac_date.getDate();
-
-document.getElementById("year").innerHTML = Contrac_year + '년';
-document.getElementById("month").innerHTML = Contrac_month + '월';
-document.getElementById("day").innerHTML = Contrac_day + '일';
 
 var n;
 
@@ -25,6 +16,16 @@ function name_value(value) {
 }
 
 function contract_select() {
+
+    // 계약서 작성일 구하기
+    Contrac_date = new Date();
+    Contrac_year = Contrac_date.getFullYear();
+    Contrac_month = Contrac_date.getMonth() + 1;
+    Contrac_day = Contrac_date.getDate();
+
+    document.getElementById("year").innerHTML = Contrac_year + '년';
+    document.getElementById("month").innerHTML = Contrac_month + '월';
+    document.getElementById("day").innerHTML = Contrac_day + '일';
 
     document.getElementById("text").innerHTML = 'TAE 와 ' + n + ' 은 계약서를 기준으로 다음과 같이 상품을 공급한다.';
 

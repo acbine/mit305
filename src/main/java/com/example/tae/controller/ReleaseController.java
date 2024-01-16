@@ -17,22 +17,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @AllArgsConstructor
 @Slf4j
 public class ReleaseController {
-    private ReleaseProcessServiceImpl releaseProcessService;
 
     @GetMapping("existence")
     public String existence() {
         return "existence";
     }
 
-    @PostMapping("/total/stockDelivery")
-    public String release(@RequestBody ReleaseDto releaseDto, Model model) {
-        log.info("해당 release 메소드가 실행되는지 작동확인");
-        log.info(releaseDto.getRelease()+"받는 값 확인");
-        ReleaseProcess releaseProcess = releaseProcessService.release(releaseDto.getRelease());
-        model.addAttribute("releaseProcess",releaseProcess);
-        log.info("여기까지 실행 중인지 확인");
-        return "total";
-    }
 
 
 

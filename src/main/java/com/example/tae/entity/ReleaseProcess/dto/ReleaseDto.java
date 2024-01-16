@@ -17,7 +17,7 @@ public class ReleaseDto {
     public ReleaseProcess releaseProcess(int id, int release) {
         return ReleaseProcess.builder()
                 .id(id)
-                .release(release)
+                .releaseCNT(release)
                 .build();
     }
 }

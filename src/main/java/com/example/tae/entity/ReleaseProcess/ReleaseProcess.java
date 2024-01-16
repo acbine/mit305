@@ -2,10 +2,7 @@ package com.example.tae.entity.ReleaseProcess;
 
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Entity
@@ -13,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Getter
+@ToString
 public class ReleaseProcess extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,6 +18,6 @@ public class ReleaseProcess extends TimeStamp {
     private int id;
 
     @Column
-    private int release;
+    private int releaseCNT;
 
 }

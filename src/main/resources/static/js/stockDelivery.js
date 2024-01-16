@@ -47,7 +47,6 @@ function findRelease() {
     var inputHtml = [];
 
 
-
     for (var i = 0; i < tableList.length; i++) {
         inputHtml.push(`
              <form method="post" action="total/stockDelivery">
@@ -82,8 +81,8 @@ function submitToRelease() {
         type : 'post',
         contentType : 'application/json',
         data:JSON.stringify(formData),
-        success:function (){
-        console.log("받아온 데이터 값 확인하기 : ")
+        success:function(data){
+        console.log(data)
         console.log("성공");
         console.log("보내고 있는 데이터 확인하기 : ", JSON.stringify(formData))
         },
@@ -93,5 +92,6 @@ function submitToRelease() {
     });
     return false;
 }
+
 
 

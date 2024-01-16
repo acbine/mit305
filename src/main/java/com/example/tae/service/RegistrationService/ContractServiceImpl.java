@@ -5,7 +5,11 @@ import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-//@Service
-//public class ContractServiceImpl implements ContractService {
-//
-//}
+@Service
+public class ContractServiceImpl implements ContractService {
+    @Override
+    public void insert_contract() {
+
+    }
+
+}

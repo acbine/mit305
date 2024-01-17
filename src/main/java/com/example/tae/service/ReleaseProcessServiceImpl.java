@@ -20,9 +20,10 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
     public ReleaseProcess release(int release) {
         log.info("서비스단으로 넘어온 정보확인 : "+ release);
         ReleaseProcess releaseP = ReleaseProcess.builder()
-                .release(release)
+                .releaseCNT(release)
                 .build();
-        releaseRepository.save(releaseP);
+//        releaseRepository.save(releaseP);
+        log.info("만들어진 재고값 보기 : "+releaseP);
         return releaseP;
     }
 

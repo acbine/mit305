@@ -25,4 +25,7 @@ public class ReleaseProcess extends TimeStamp {
     @Column
     private int releaseCNT;
 
+    @ManyToOne
+    private ProcurementPlan procurementPlan;
+
 }

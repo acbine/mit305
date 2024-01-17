@@ -17,19 +17,16 @@ public class ProductInformationRegistration {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int product_code;
+    private int product_code; //품목코드
 
     @ManyToOne(fetch = FetchType.LAZY) // 소분류
     Part part;
 
-    @ManyToOne // 제품명
-    Project project;
+    private String product_name; //품목명
 
-    private String product_name;
+    private char product_abbreviation; //약칭
 
-    private char product_abbreviation;
-
-    private String texture;
+    private String texture; //재질
 
     private int width;
     private int length;

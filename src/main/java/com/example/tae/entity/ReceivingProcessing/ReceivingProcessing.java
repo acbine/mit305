@@ -1,5 +1,6 @@
 package com.example.tae.entity.ReceivingProcessing;
 
+import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,8 @@ public class ReceivingProcessing extends TimeStamp {
 
     @Column
     private int store;
-    /*
+
     @ManyToOne
     private ProcurementPlan procurementPlan;
-     */
+
 }

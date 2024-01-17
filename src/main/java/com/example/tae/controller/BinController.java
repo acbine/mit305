@@ -36,4 +36,5 @@ public class BinController {
     public String StatusManagementReport() {
         return "StatusManagementReport";
     }
+
 }

@@ -2,6 +2,8 @@ package com.example.tae.entity.ProcurementPlan;
 
 import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Product.ProjectPlan;
+import com.example.tae.entity.Order.Purchase;
+import com.example.tae.entity.ProductForProject.ProductForProject;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,12 +29,17 @@ public class ProcurementPlan {
     ProjectPlan projectPlan;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    Contract contract; // 계약
+    Contract contract; // 계약(계약코드)
 
-    private int product_amount;
+    @ManyToOne //발주서 코드
+    Purchase purchase;
 
-    private Date order_date;
+    @ManyToOne
+    ProductForProject productForProject;//제품에대한 품목수량  ID:
 
-    // 품목 발주 상태
-    private String order_state;
+    private int SupportProductAmount; //조달수량
+
+    private Date order_date; //발주일
+    
+    private String order_state; //품목에 대한 발주상태
 }

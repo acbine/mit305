@@ -5,6 +5,7 @@ import com.example.tae.service.TradingStatementServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -17,4 +18,5 @@ public class BinRestController {
     public void imageUpload(@RequestBody ImageDTO imageDTO){
        binService.imageUpload(imageDTO);
     }
+
 }

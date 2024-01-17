@@ -1,13 +1,16 @@
 package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
+import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.ReleaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +18,8 @@ import java.util.List;
 public class ReleaseProcessServiceImpl implements ReleaseProcessService{
 
     private ReleaseRepository releaseRepository;
+    private ReceivingProcessingRepository receivingProcessingRepository;
+
 
     @Override
     public ReleaseProcess release(int release) {
@@ -35,5 +40,11 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
 
         }
         return null;
+    }
+
+    @Override
+    public int existence(int release) {
+        Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findDistinctFirstBy();
+        return receivingProcessing.map(processing -> processing.getStore() - release).orElseGet(() -> receivingProcessing.get().getStore());
     }
 }

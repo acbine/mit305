@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.Optional;
 
 @SpringBootTest
 public class ContractRepositoryTest {
@@ -35,17 +36,40 @@ public class ContractRepositoryTest {
         //가존에있던 회사 정보를 불러옴
         Company company =companyRepository.findById("A403-81-80895").get();
 
-        //품목코드 정보 넣는것
-        ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().product_code(9).build();
-
-        //productInfomationRepository.findById(5).get();
-
         Contract contract = Contract.builder().productInformationRegistration(productInfomationRepository.findById(1).get())
                 .company(company).payment_method("현금지불").product_price(100).lead_time(10)
                 .start_date(date1).end_date(date2).contract_date(date3).tf(false).build();
 
-
-
         contractRepository.save(contract);
     }
+
+    @Test
+    public void ProductInfoTest() {
+
+        Optional<ProductInformationRegistration> productList = productInfomationRepository.findById(1);
+
+        ProductInformationRegistration productInformationRegistration = productList.get();
+
+
+        System.out.print("품목 정보 : " +productInformationRegistration);
+    }
+
+    @Test
+    public void CompanyTest() {
+
+        Optional<Company> companyList = companyRepository.findById("A403-81-80895");
+
+        Company company = companyList.get();
+
+
+        System.out.print("사업자 정보: " + company);
+
+    }
+
+    @Test
+    public void delete() {
+
+
+    }
+
 }

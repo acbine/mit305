@@ -2,6 +2,7 @@ package com.example.tae.entity.ProductInformation;
 
 import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Product.Project;
+import com.example.tae.entity.ProductForProject.ProductForProject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,8 +18,11 @@ public class ProductInformationRegistration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int product_code; //품목코드
 
-    @ManyToOne // 소분류
+    @ManyToOne(fetch = FetchType.LAZY) // 소분류
     Part part;
+
+    @ManyToOne(fetch = FetchType.LAZY) // 제품명
+    Project project;
 
     private String product_name; //품목명
 

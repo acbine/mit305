@@ -29,22 +29,22 @@ public class ProcurementPlanRepositoryTest {
 
     @Test
     public void Test1() {
-//
-//        // 생산계획 아이디
-//        ProjectPlan projectPlan = projectPlanRepository.findById(2).get();
-//
-//        // 계약 코드
-//        Contract contract = contractRepository.findById(2).get();
-//
-//        ProcurementPlan procurementPlan = ProcurementPlan.builder()
-//                .projectPlan(projectPlan)
-//                .contract(contract)
-//                .product_amount(8)
-//                .order_date(date1)
-//                .order_state("발주 안됨")
-//                .build();
-//
-//        procurementPlanRepository.save(procurementPlan);
+
+        // 생산계획 아이디
+        ProjectPlan projectPlan = projectPlanRepository.findById(1).get();
+
+        // 계약 코드
+        Contract contract = contractRepository.findById(1).get();
+
+        ProcurementPlan procurementPlan = ProcurementPlan.builder()
+                .projectPlan(projectPlan)
+                .contract(contract)
+                .SupportProductAmount(8)
+                .order_date(date1)
+                .order_state("발주 안됨")
+                .build();
+
+        procurementPlanRepository.save(procurementPlan);
 
     }
 }

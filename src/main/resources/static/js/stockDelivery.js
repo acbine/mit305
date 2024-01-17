@@ -73,6 +73,7 @@ function findRelease() {
 }
 
 function submitToRelease() {
+    var releaseHTML = document.getElementById("release");
     var releaseData = document.getElementById("release").value;
     var formData = {"release": releaseData}
 
@@ -82,15 +83,29 @@ function submitToRelease() {
         contentType : 'application/json',
         data:JSON.stringify(formData),
         success:function(data){
-        console.log(data)
+        addTable(releaseHTML,data)
         console.log("성공");
-        console.log("보내고 있는 데이터 확인하기 : ", JSON.stringify(formData))
         },
         error:function () {
-        console.log("에러 보내고 있는 데이터 형식 확인하기 : ",JSON.stringify(formData))
+            console.log("실패");
         }
     });
+
     return false;
+}
+
+function addTable(releaseHTML,data) {
+    var table = document.getElementsByClassName("table-body");
+    console.log("table정보 확인하기 : ", table[0].innerHTML);
+    console.log("받아온 html정보 확인하기 : ",releaseHTML);
+    console.log("받아온 데이터 형태확인하기 : ", data);
+    var releaseCNT = data.ReleaseProcess.releaseCNT;
+    var existence = data.existence;
+    var releaseProcess = data.ReleaseProcess;
+    console.log("releaseCNT정보 확인 , : ",releaseCNT+"existence 정보확인 : " + existence);
+
+    releaseHTML.innerHTML = `<td class="table-body" id="inventory"><input style="width:80px" type="number" value="${releaseCNT}" name="release"></td>`
+    table[9].innerHTML = `<td class="table-body">${existence}</td>`
 }
 
 

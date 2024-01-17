@@ -5,10 +5,7 @@ import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.ProductForProject.ProductForProject;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 import java.util.SimpleTimeZone;
@@ -17,7 +14,7 @@ import java.util.SimpleTimeZone;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
+@Getter
 public class ProcurementPlan {
 
     @Id

@@ -8,5 +8,7 @@ import java.util.List;
 public interface ReleaseProcessService {
         ReleaseProcess release(int release);
 
+        int existence(int release);
+
         List<ProcurementPlan> findProcurementPlans(int state, String constraints);
 }

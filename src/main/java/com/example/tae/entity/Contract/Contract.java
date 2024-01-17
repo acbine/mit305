@@ -4,10 +4,7 @@ package com.example.tae.entity.Contract;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.Date;
 
@@ -15,6 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @ToString
 public class Contract {
 

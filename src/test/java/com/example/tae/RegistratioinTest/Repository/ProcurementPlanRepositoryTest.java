@@ -1,9 +1,6 @@
 package com.example.tae.RegistratioinTest.Repository;
 
-import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.DummyData.Product.ProjectPlan;
-import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.repository.ProductRepository.ProjectPlanRepository;
+import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import org.junit.jupiter.api.Test;

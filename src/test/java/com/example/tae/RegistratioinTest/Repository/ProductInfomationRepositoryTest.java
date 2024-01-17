@@ -8,8 +8,8 @@ import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.AssyRepository;
 import com.example.tae.repository.DummyRepository.PartRepository;
 import com.example.tae.repository.DummyRepository.UnitRepository;
-import com.example.tae.repository.ProductRepository.ProjectRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInfomationRepository;
+import com.example.tae.repository.ProjectRepository.ProjectRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 public class ProductInfomationRepositoryTest {
 
     @Autowired
-    ProductInfomationRepository productInfomationRepository;
+    ProductInformationRepository productInfomationRepository;
     @Autowired
     UnitRepository unitRepository; // 대분류
     @Autowired
@@ -49,7 +49,7 @@ public class ProductInfomationRepositoryTest {
 
         ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().
                 product_name("나사").product_code(9999).product_abbreviation('E').texture("철").width(1).length(2).height(3).weight(4).
-                part(part).project(project).build();
+                part(part).build();
 
         productInfomationRepository.save(productInformationRegistration);
 

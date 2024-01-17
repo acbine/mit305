@@ -1,13 +1,17 @@
 package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
+import com.example.tae.entity.dto.ExistenceDTO;
+import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.ReleaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -15,6 +19,7 @@ import java.util.List;
 public class ReleaseProcessServiceImpl implements ReleaseProcessService{
 
     private ReleaseRepository releaseRepository;
+    private ReceivingProcessingRepository receivingProcessingRepository;
 
     @Override
     public ReleaseProcess release(int release) {
@@ -25,6 +30,15 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
 //        releaseRepository.save(releaseP);
         log.info("만들어진 재고값 보기 : "+releaseP);
         return releaseP;
+    }
+
+    @Override
+    public int existence(int release) {
+
+        Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc();
+
+        ExistenceDTO existenceDTO = new ExistenceDTO();
+        return receivingProcessing.map(processing -> existenceDTO.existence(release, processing)).orElse(release);
     }
 
     @Override

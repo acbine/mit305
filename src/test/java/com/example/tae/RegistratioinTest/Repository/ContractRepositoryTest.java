@@ -4,7 +4,7 @@ import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInfomationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,7 +18,7 @@ public class ContractRepositoryTest {
     CompanyRepository companyRepository;
 
     @Autowired // 품목 정보
-    ProductInfomationRepository productInfomationRepository;
+    ProductInformationRepository productInfomationRepository;
 
     @Autowired // 계약
     ContractRepository contractRepository;

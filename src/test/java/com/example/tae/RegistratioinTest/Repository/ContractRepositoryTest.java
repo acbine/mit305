@@ -2,6 +2,7 @@ package com.example.tae.RegistratioinTest.Repository;
 
 import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Company;
+import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInfomationRepository;
@@ -35,7 +36,7 @@ public class ContractRepositoryTest {
         Company company =companyRepository.findById("A403-81-80895").get();
 
         //품목코드 정보 넣는것
-        //ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().product_code(9).build();
+        ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().product_code(9).build();
 
         //productInfomationRepository.findById(5).get();
 

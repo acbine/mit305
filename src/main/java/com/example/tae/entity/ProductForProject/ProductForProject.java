@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 
 @Entity
 @Builder
@@ -16,11 +17,11 @@ import lombok.NoArgsConstructor;
 @IdClass(ProductForProjectEmbeddable.class)
 public class ProductForProject {
     @Id
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private ProductInformationRegistration productCode; //품목코드
 
     @Id
-    @ManyToOne
+    @ManyToOne(cascade=CascadeType.MERGE)
     private Project projectID; //제품명
 
     private int productCodeCount; //품목수량

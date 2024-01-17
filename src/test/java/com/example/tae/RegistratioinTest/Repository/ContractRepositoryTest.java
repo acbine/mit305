@@ -24,6 +24,8 @@ public class ContractRepositoryTest {
     @Autowired // 계약
     ContractRepository contractRepository;
 
+
+
     Date date1 = new Date(2024,01,18);
     Date date2 = new Date(2024,01,28);
 
@@ -36,15 +38,11 @@ public class ContractRepositoryTest {
         Company company =companyRepository.findById("A403-81-80895").get();
 
         //품목코드 정보 넣는것
-        ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().product_code(9).build();
+        ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(1).get();
 
-        //productInfomationRepository.findById(5).get();
-
-        Contract contract = Contract.builder().productInformationRegistration(productInfomationRepository.findById(1).get())
+        Contract contract = Contract.builder().productInformationRegistration(productInformationRegistration)
                 .company(company).payment_method("현금지불").product_price(100).lead_time(10)
                 .start_date(date1).end_date(date2).contract_date(date3).tf(false).build();
-
-
 
         contractRepository.save(contract);
     }

@@ -2,9 +2,8 @@ package com.example.tae.entity.ProductForProject;
 
 import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import jakarta.persistence.Embeddable;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,6 +13,7 @@ import java.io.Serializable;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class ProductForProjectEmbeddable implements Serializable  {
 
 
@@ -22,3 +22,4 @@ public class ProductForProjectEmbeddable implements Serializable  {
 
     private Project projectID; //제품명
 }
+

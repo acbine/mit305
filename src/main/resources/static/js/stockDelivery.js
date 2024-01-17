@@ -1,6 +1,4 @@
 /*------------------재고산출관리--------------------------*/
-var releaseCount;
-
 function findRelease() {
     var selectData = document.getElementById("searchNameOrCode");
     var select = selectData.options[selectData.selectedIndex].value
@@ -9,37 +7,38 @@ function findRelease() {
     var state;
 
 
-    if (select === "ProductName") {
+
+    if(select==="ProductName") {
         state = 0;
-        var formData = {"state": state, "constraints": constraints}
+        var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url: '/total/searchStockDelivery',
-            type: 'get',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-            success: function () {
+            url:'/total/stockDelivery',
+            type : 'get',
+            contentType : 'application/json',
+            data:JSON.stringify(formData),
+            success:function (){
                 console.log("성공");
                 console.log("보내고 있는 데이터 확인하기 : ", data);
             },
-            error: function () {
-                console.log("에러 보내고 있는 데이터 형식 확인하기 : ", formData);
+            error:function () {
+                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData);
                 console.log("보내고 있는 데이터 확인하기 : ", data);
             }
         });
-    } else if (select === "ProductCode") {
+    } else if(select==="ProductCode") {
         state = 1;
-        var formData = {"state": state, "constraints": constraints}
+        var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url: '/total/searchStockDelivery',
-            type: 'get',
-            contentType: 'application/json',
-            data: JSON.stringify(formData),
-            success: function () {
+            url:'/total/stockDelivery',
+            type : 'get',
+            contentType : 'application/json',
+            data:JSON.stringify(formData),
+            success:function (){
                 console.log("성공")
-                console.log("보내고 있는 데이터 확인해보기 : ", data)
+                console.log("보내고 있는 데이터 확인해보기 : ",data)
             },
-            error: function () {
-                console.log("에러 보내고 있는 데이터 형식 확인하기 : ", formData)
+            error:function () {
+                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData)
             }
         });
 
@@ -50,6 +49,7 @@ function findRelease() {
 
     for (var i = 0; i < tableList.length; i++) {
         inputHtml.push(`
+             <form method="post" action="total/stockDelivery">
             <tr>
             <td class="table-body">A품목</td>
             <td class="table-body">asdew</td>
@@ -58,50 +58,40 @@ function findRelease() {
             <td class="table-body">asdew</td>
             <td class="table-body">asdew</td>
             <td class="table-body">80원</td>
-            <td class="table-body" id="inventory"><input style="width:80px" type="number" name="release">${releaseCount}</td>
+            <td class="table-body" id="inventory"><input style="width:80px" type="number" value="5" name="release"></td>
             <td class="table-body">11</td>
             <td class="table-body"><input style="width:80px" type="number" value="34"></td>
             <td class="table-body">24324원</td>
            <td class="table-body">
                 <button class="action-button action-button-registration" type="submit">확인</button>
             </td>
-        </tr>`)
+        </tr>
+    </form>`)
     }
+
     tableList[tableList.length - 1].innerHtml = inputHtml.join("");
 }
 
 function submitToRelease() {
-    var releasehtml = document.getElementById("release");
-    var releaseData = releasehtml.value;
+    var releaseData = document.getElementById("release").value;
     var formData = {"release": releaseData}
-    var releaseNum = 0;
-
 
     $.ajax({
-        url: '/total/stockDelivery',
-        type: 'post',
-        contentType: 'application/json',
-        data: JSON.stringify(formData),
-        success: function (data) {
-            console.log("받아오는 데이터 형식 확인 : ",data)
-            // addReleaseTable(releasehtml,data.releaseCNT)
-            console.log("성공");
-            console.log("보내고 있는 데이터 확인하기 : ", JSON.stringify(formData))
+    url:'/total/stockDelivery',
+        type : 'post',
+        contentType : 'application/json',
+        data:JSON.stringify(formData),
+        success:function(data){
+        console.log(data)
+        console.log("성공");
+        console.log("보내고 있는 데이터 확인하기 : ", JSON.stringify(formData))
         },
-        error: function () {
-            console.log("에러 보내고 있는 데이터 형식 확인하기 : ", JSON.stringify(formData))
+        error:function () {
+        console.log("에러 보내고 있는 데이터 형식 확인하기 : ",JSON.stringify(formData))
         }
     });
-
     return false;
 }
 
-function addReleaseTable(htmldata, releaseNum) {
-    var table = document.getElementById("release");
-    console.log("받아온 데이터 확인",htmldata);
-    console.log("가져온 테이블 정보가 맞는지 확인", table);
-    table = `<td class="table-body" id="inventory"><input style="width:80px" type="number" name="release" value="${releaseNum}"></td>`;
-
-}
 
 

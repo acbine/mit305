@@ -21,9 +21,6 @@ public class ProductInformationRegistration {
     @ManyToOne(fetch = FetchType.LAZY) // 소분류
     Part part;
 
-    @ManyToOne(fetch = FetchType.LAZY) // 제품명
-    Project project;
-
     private String product_name; //품목명
 
     private char product_abbreviation; //약칭

@@ -24,8 +24,6 @@ public class ProductInformationRegistrationDto {
     @Builder.Default
     List<Part> partList = new ArrayList<>();
 
-    private Project project;
-
     private String product_name;
 
     private char product_abbreviation;
@@ -42,7 +40,6 @@ public class ProductInformationRegistrationDto {
         return ProductInformationRegistration.builder()
                 .product_code(product_code)
                 .part((Part) partList)
-                .project(project)
                 .product_name(product_name)
                 .product_abbreviation(product_abbreviation)
                 .texture(texture)

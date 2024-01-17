@@ -45,7 +45,7 @@ public class ProductInfomationRepositoryTest {
 
         ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().
                 product_name("나사").product_abbreviation('E').texture("철").width(1).length(2).height(3).weight(4).
-                part(part).project(project).build();
+                part(part).build();
 
         productInfomationRepository.save(productInformationRegistration);
 

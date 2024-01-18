@@ -10,6 +10,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @ToString
 @Getter
 public class ProductInformationRegistration {

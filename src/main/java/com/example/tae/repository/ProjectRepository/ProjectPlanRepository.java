@@ -1,4 +1,4 @@
-package com.example.tae.repository.ProductRepository;
+package com.example.tae.repository.ProjectRepository;
 
 import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import org.springframework.data.jpa.repository.JpaRepository;

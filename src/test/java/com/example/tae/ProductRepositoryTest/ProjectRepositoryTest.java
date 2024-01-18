@@ -2,8 +2,8 @@ package com.example.tae.ProductRepositoryTest;
 
 import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.DummyData.Product.ProjectPlan;
-import com.example.tae.repository.ProductRepository.ProjectPlanRepository;
-import com.example.tae.repository.ProductRepository.ProjectRepository;
+import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
+import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

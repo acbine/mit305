@@ -12,6 +12,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
 @ToString
 @Getter
 public class Contract {

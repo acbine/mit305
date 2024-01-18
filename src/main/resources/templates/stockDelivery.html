@@ -4,75 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Page Title</title>
-    <style>
-        .container {
-            margin: auto;
-            max-width: 800px;
-        }
-
-        .button {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 0.25rem;
-            font-size: 0.875rem;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-        }
-
-        .filter-button {
-            border: 1px solid #000;
-            background-color: #fff;
-        }
-
-        .primary-button {
-            background-color: #4a5568;
-            color: #fff;
-        }
-
-        .green-button {
-            background-color: #38a169;
-            color: #fff;
-        }
-
-
-        .table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 1rem;
-        }
-
-        .table-header {
-            padding: 1rem;
-            text-align: left;
-            font-weight: bold;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .table td {
-            padding: 1rem;
-            border-bottom: 1px solid #ccc;
-        }
-
-        .action-button-registration {
-            background-color: #33CC33;
-            color: #ffffff;
-        }
-
-        .action-button {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            transition: background-color 0.2s, color 0.2s;
-            outline: none;
-            cursor: pointer;
-            padding: 0.5rem 1rem;
-            border: 1px solid #cbd5e0;
-        }
-    </style>
+    <link href="/css/stockDelivery.css" rel="stylesheet"/>
 </head>
 <body>
 <div class="flex space-x-2">
@@ -97,8 +29,9 @@
             <th class="table-header">품목코드</th>
             <th class="table-header">출고 날짜</th>
             <th class="table-header">재질</th>
-            <th class="table-header">규격</th>
-            <th class="table-header">약칭</th>
+            <th class="table-header">높이</th>
+            <th class="table-header">길이</th>
+            <th class="table-header">너비</th>
             <th class="table-header">공급가격</th>
             <th class="table-header">출고</th>
             <th class="table-header">입고</th>
@@ -108,18 +41,19 @@
         </tr>
         </thead>
         <tbody class="table_body">
-        <tr th:each="procurementPlan : ${procurementPlanList}">
-            <td class="table-body"></td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">2024-01-09</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body" id="supplyPrice">80원</td>
-            <td class="table-body"><input style="width:80px" type="number" value="23" id="release"></td>
-            <td class="table-body">12</td>
-            <td class="table-body">19</td>
-            <td class="table-body"></td>
+        <tr th:each="release : ${releaseInfo}">
+            <td class="table-body" th:text="${release.productName}"></td>
+            <td class="table-body" th:text="${release.product_code}"></td>
+            <td class="table-body" th:text="${release.departureDate}"></td>
+            <td class="table-body" th:text="${release.texture}"></td>
+            <td class="table-body" th:text="${release.height}"></td>
+            <td class="table-body" th:text="${release.length}"></td>
+            <td class="table-body" th:text="${release.weight}"></td>
+            <td class="table-body" id="supplyPrice" th:text="${release.contract_pay}"></td>
+            <td class="table-body"><input style="width:80px" type="number" th:value="${release.release}" id="release"></td>
+            <td class="table-body" th:text="${release.store}"></td>
+            <td class="table-body" th:text="${release.existence}"></td>
+            <td class="table-body" th:text="${release.existence_price}"></td>
             <td class="table-body">
                 <button class="action-button action-button-registration" onclick="submitToRelease()">확인</button>
             </td>

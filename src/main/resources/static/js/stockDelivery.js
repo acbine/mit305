@@ -1,4 +1,5 @@
 /*------------------재고산출관리--------------------------*/
+
 function findRelease() {
     var selectData = document.getElementById("searchNameOrCode");
     var select = selectData.options[selectData.selectedIndex].value
@@ -6,70 +7,41 @@ function findRelease() {
     var constraints = searchData.value;
     var state;
 
-
-
     if(select==="ProductName") {
         state = 0;
         var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url:'/total/stockDelivery',
+            url:'searchStockDelivery?&state='+state+'&constraints='+constraints,
             type : 'get',
-            contentType : 'application/json',
-            data:JSON.stringify(formData),
-            success:function (){
+            data: {},
+            success:function (info){
                 console.log("성공");
-                console.log("보내고 있는 데이터 확인하기 : ", data);
+                console.log("데이터 정보 확인 : ",info)
+                uploadHtml(info);
+                console.log("함수가 다 실행되면 이 함수 실행");
             },
-            error:function () {
-                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData);
-                console.log("보내고 있는 데이터 확인하기 : ", data);
+            error:function (info) {
+                console.log("에러 받아오는 데이터 확인하기 : ", info);
             }
         });
     } else if(select==="ProductCode") {
         state = 1;
-        var formData = {"state": state,"constraints" : constraints}
         $.ajax({
-            url:'/total/stockDelivery',
+            url:'searchStockDelivery?&state='+state+'&constraints='+constraints,
             type : 'get',
-            contentType : 'application/json',
-            data:JSON.stringify(formData),
-            success:function (){
-                console.log("성공")
-                console.log("보내고 있는 데이터 확인해보기 : ",data)
+            data: {},
+            success:function (info){
+                console.log("성공");
+                console.log("데이터 정보 확인 : ",info)
+                uploadHtml(info);
+                console.log("함수가 다 실행되면 이 함수 실행");
             },
-            error:function () {
-                console.log("에러 보내고 있는 데이터 형식 확인하기 : ",formData)
+            error:function (info) {
+                console.log("에러 받아오는 데이터 확인하기 : ", info);
             }
         });
 
     }
-    var tableList = document.getElementsByClassName("table_body")
-    var inputHtml = [];
-
-
-    for (var i = 0; i < tableList.length; i++) {
-        inputHtml.push(`
-             <form method="post" action="total/stockDelivery">
-            <tr>
-            <td class="table-body">A품목</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">2024-01-09</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">asdew</td>
-            <td class="table-body">80원</td>
-            <td class="table-body" id="inventory"><input style="width:80px" type="number" value="5" name="release"></td>
-            <td class="table-body">11</td>
-            <td class="table-body"><input style="width:80px" type="number" value="34"></td>
-            <td class="table-body">24324원</td>
-           <td class="table-body">
-                <button class="action-button action-button-registration" type="submit">확인</button>
-            </td>
-        </tr>
-    </form>`)
-    }
-
-    tableList[tableList.length - 1].innerHtml = inputHtml.join("");
 }
 
 function submitToRelease() {
@@ -108,5 +80,35 @@ function addTable(releaseHTML,data) {
     table[9].innerHTML = `<td class="table-body">${existence}</td>`
 }
 
-
-
+function uploadHtml(data) {
+    var table = document.getElementsByClassName("table_body");
+    console.log("바뀌기 전 table 정보 확인하기 : ",table[0]);
+    var inputHtml = [];
+    var releaseInfo = data.releaseInfo;
+    console.log(releaseInfo.length)
+    for(var i=0; i<releaseInfo.length;i++){
+        inputHtml.push(`
+        <tr>
+            <td class="table-body">${releaseInfo[i].productName}</td>
+            <td class="table-body">${releaseInfo[i].product_code}</td>
+            <td class="table-body">${releaseInfo[i].departureDate}</td>
+            <td class="table-body">${releaseInfo[i].texture}</td>
+            <td class="table-body">${releaseInfo[i].height}</td>
+            <td class="table-body">${releaseInfo[i].length}</td>
+            <td class="table-body">${releaseInfo[i].weight}</td>
+            <td class="table-body" id="supplyPrice">${releaseInfo[i].contract_pay}</td>
+            <td class="table-body"><input style="width:80px" type="number" value="${releaseInfo[i].release}" id="release"></td>
+            <td class="table-body">${releaseInfo[i].store}</td>
+            <td class="table-body">${releaseInfo[i].existence}</td>
+            <td class="table-body">${releaseInfo[i].existence_price}</td>
+            <td class="table-body">
+                <button class="action-button action-button-registration" onclick="submitToRelease()">확인</button>
+            </td>
+        </tr>`);
+    }
+    for (var j = 0; j<inputHtml.length;j++) {
+        console.log(inputHtml[j])
+    }
+    table[table.length-1].innerHTML = inputHtml.join("");
+    console.log("변경된 html 정보보기 : ",table[0]);
+}

@@ -2,6 +2,7 @@ package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
+import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 
 import java.util.List;
 
@@ -10,5 +11,8 @@ public interface ReleaseProcessService {
 
         int existence(int release);
 
-        List<ProcurementPlan> findProcurementPlans(int state, String constraints);
+        List<ReleaseDto> getStockDeliver();
+
+        List<ReleaseDto> getStockDeliver(int state, String constraints);
+
 }

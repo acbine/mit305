@@ -2,6 +2,7 @@ package com.example.tae.entity.ProductInformation;
 
 import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Product.Project;
+import com.example.tae.entity.ProductForProject.ProductForProject;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -31,5 +32,5 @@ public class ProductInformationRegistration {
     private int height;
     private int weight;
 
-//    private String product_image;
+//    private String product_imageURL;
 }

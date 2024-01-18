@@ -106,9 +106,7 @@ function uploadHtml(data) {
             </td>
         </tr>`);
     }
-    for (var j = 0; j<inputHtml.length;j++) {
-        console.log(inputHtml[j])
-    }
+
     table[table.length-1].innerHTML = inputHtml.join("");
     console.log("변경된 html 정보보기 : ",table[0]);
 }

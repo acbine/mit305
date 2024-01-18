@@ -66,11 +66,11 @@
                         <td class="table-data"><input class="input-form-style" type="text" name="DateOfOrder" th:value="${list.DateOfOrder}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="OrderDate" th:value="${list.OrderDate}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="Arrival" value="" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="number" name="SupportProductAmount" th:value=${list.SupportProductAmount} readonly></td>
-                        <td class="table-data" style="width:100;" ><input type="number" name="store" style="text-align: center; width:100px"></td>
+                        <td class="table-data"><input class="input-form-style" type="number" name="SupportProductAmount" th:value="${list.SupportProductAmount}" readonly></td>
+                        <td class="table-data" style="width:100px;" ><input type="number" name="store" style="text-align: center; width:100px"></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="orderState" th:value="${list.orderState}" readonly></td>
                         <td class="table-data">
-                            <input type="submit" value="입고처리"   style="background-color: blue; color: white;">
+                            <input type="submit" style="background-color: blue; color: white;" value="입고처리" onclick="console.log('버튼 작동 확인')"/>
                         </td>
                     </form>
                 </tr>

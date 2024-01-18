@@ -14,6 +14,7 @@ import java.util.SimpleTimeZone;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Getter
 public class ProcurementPlan {
 

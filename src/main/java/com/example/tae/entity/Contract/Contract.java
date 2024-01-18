@@ -14,16 +14,17 @@ import java.util.Date;
 @AllArgsConstructor
 @Getter
 @ToString
+@Getter
 public class Contract {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contract_code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     ProductInformationRegistration productInformationRegistration;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     Company company;
 
     String payment_method;

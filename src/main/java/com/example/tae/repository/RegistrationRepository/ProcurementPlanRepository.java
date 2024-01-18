@@ -8,6 +8,7 @@ import java.util.List;
 
 
 public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan, Integer> {
+
     List<ProcurementPlan> findAllByProjectPlan_Id(int prjId);
 
 

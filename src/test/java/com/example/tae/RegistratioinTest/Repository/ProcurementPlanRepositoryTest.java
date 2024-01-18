@@ -57,7 +57,7 @@ public class ProcurementPlanRepositoryTest {
 
         // 계약 코드
         Contract contract = contractRepository.findById(1).get();
-        
+
         //발주서 코드
         Purchase purchase = Purchase.builder().build();
         orderRepository.save(purchase);
@@ -67,18 +67,18 @@ public class ProcurementPlanRepositoryTest {
         ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(1).get();
         ProductForProjectEmbeddable productForProjectEmbeddable = new ProductForProjectEmbeddable(productInformationRegistration, project);
         ProductForProject productForProject = productForProjectRepository.findById(productForProjectEmbeddable).get();
-        
+
 
         ProcurementPlan procurementPlan = ProcurementPlan.builder()
                 .projectPlan(projectPlan)//생산계획
                 .contract(contract)//계약코드
                 .purchase(purchase)//발주서코드
-                
+
                 .productForProject(productForProject) //제품에대한 품목의수량
-                
-                .SupportProductAmount(8)//조달수량
+
+                .SupportProductAmount(5)//조달수량
                 .order_date(date1)//발주일
-                .order_state("발주 전")
+                .order_state("ㅎㅇㄶㄹㄴ 전")
                 .build();
 
         procurementPlanRepository.save(procurementPlan);

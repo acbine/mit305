@@ -20,10 +20,10 @@ public class Contract {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int contract_code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     ProductInformationRegistration productInformationRegistration;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     Company company;
 
     String payment_method;

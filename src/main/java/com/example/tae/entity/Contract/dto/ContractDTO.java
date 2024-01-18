@@ -26,11 +26,11 @@ public class ContractDTO {
     private int product_price;
     private int lead_time;
 
-    @Builder.Default
-    private List<ProductInformationRegistrationDto> productInformationRegistrationDtoList = new ArrayList<>();
-
-    @Builder.Default
-    private List<CompanyDTO> companyDTOList = new ArrayList<>();
+//    @Builder.Default
+//    private List<ProductInformationRegistrationDto> productInformationRegistrationDtoList = new ArrayList<>();
+//
+//    @Builder.Default
+//    private List<CompanyDTO> companyDTOList = new ArrayList<>();
 
     private Date start_date;
     private Date end_date;
@@ -38,18 +38,18 @@ public class ContractDTO {
 
     private boolean tf;
 
-    public Contract contract() {
-
-        return Contract.builder()
-                .contract_code(contract_code)
-                .payment_method(payment_method)
-                .lead_time(lead_time)
-                .productInformationRegistration((ProductInformationRegistration) productInformationRegistrationDtoList)
-                .company((Company) companyDTOList)
-                .start_date(start_date)
-                .end_date(end_date)
-                .contract_date(contract_date)
-                .tf(tf)
-                .build();
-    }
+//    public Contract contract() {
+//
+//        return Contract.builder()
+//                .contract_code(contract_code)
+//                .payment_method(payment_method)
+//                .lead_time(lead_time)
+//                .productInformationRegistration((ProductInformationRegistration) productInformationRegistrationDtoList)
+//                .company((Company) companyDTOList)
+//                .start_date(start_date)
+//                .end_date(end_date)
+//                .contract_date(contract_date)
+//                .tf(tf)
+//                .build();
+//    }
 }

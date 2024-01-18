@@ -36,9 +36,9 @@ public class ContractRepositoryTest {
         //가존에있던 회사 정보를 불러옴
         Company company =companyRepository.findById("A403-81-80895").get();
 
-        Contract contract = Contract.builder().productInformationRegistration(productInfomationRepository.findById(1).get())
+//        Contract contract = Contract.builder().productInformationRegistration(productInfomationRepository.findById(1).get());
         //품목코드 정보 넣는것
-        ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(1).get();
+        ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(2).get();
 
         Contract contract1 = Contract.builder().productInformationRegistration(productInformationRegistration)
                 .company(company).payment_method("현금지불").product_price(100).lead_time(10)
@@ -52,10 +52,10 @@ public class ContractRepositoryTest {
 
         Optional<ProductInformationRegistration> productList = productInfomationRepository.findById(1);
 
-        ProductInformationRegistration productInformationRegistration = productList.get();
+//        ProductInformationRegistration info = productList.get().getProduct_name();
+        String info = productList.get().getProduct_name();
 
-
-        System.out.print("품목 정보 : " +productInformationRegistration);
+        System.out.print("품목 정보 : " + info);
     }
 
     @Test

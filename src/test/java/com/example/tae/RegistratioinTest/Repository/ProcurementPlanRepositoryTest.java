@@ -76,9 +76,9 @@ public class ProcurementPlanRepositoryTest {
 
                 .productForProject(productForProject) //제품에대한 품목의수량
 
-                .SupportProductAmount(8)//조달수량
+                .SupportProductAmount(5)//조달수량
                 .order_date(date1)//발주일
-                .order_state("발주 전")
+                .order_state("ㅎㅇㄶㄹㄴ 전")
                 .build();
 
         procurementPlanRepository.save(procurementPlan);

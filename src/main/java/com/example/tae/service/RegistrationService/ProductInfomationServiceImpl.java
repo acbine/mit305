@@ -1,23 +1,26 @@
 package com.example.tae.service.RegistrationService;
 
-import com.example.tae.entity.DummyData.Classification.Assy;
+import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Classification.Part;
-import com.example.tae.entity.DummyData.Classification.Unit;
-//import com.example.tae.entity.Product.Product;
+import com.example.tae.entity.DummyData.DTO.PartDTO;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import com.example.tae.repository.DummyRepository.AssyRepository;
-import com.example.tae.repository.DummyRepository.PartRepository;
-import com.example.tae.repository.DummyRepository.UnitRepository;
-//import com.example.tae.repository.ProductRepository.ProductRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInfomationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.tae.entity.ProductInformation.dto.ProductInformationRegistrationDto;
 import org.springframework.stereotype.Service;
 
-//@Service
-//public class ProductInfomationServiceImpl implements ProductInfomationService {
-//
-//    @Override
-//    public void insert_info() {
-//
-//    }
-//}
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class ProductInfomationServiceImpl implements ProductInfomationService {
+
+
+    @Override
+    public void insert_info() {
+
+    }
+
+    @Override
+    public List<ContractDTO> getListOfProductContract(int product_code) {
+        return null;
+    }
+}

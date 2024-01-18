@@ -29,10 +29,10 @@ public class ProcurementPlan {
     @ManyToOne(fetch = FetchType.LAZY)
     Contract contract; // 계약(계약코드)
 
-    @ManyToOne //발주서 코드
+    @ManyToOne(fetch = FetchType.LAZY) //발주서 코드
     Purchase purchase;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     ProductForProject productForProject;//제품에대한 품목수량  ID:
 
     private int SupportProductAmount; //조달수량

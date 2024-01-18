@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,26 +13,26 @@
     <div id="searcharea">
         <form action="">
             <table border="1">
-                <tr>
-                    <td><input type="text" name="보내는칸"></td>
-                    <td>
-                        <select name="검색종류">
-                            <option value="품목명">품목명</option>
-                            <option value="납기일">납기일</option>
-                            <option value="업체명">업체명</option>
-                        </select>
-                    </td>
+<!--                <tr>-->
+<!--                    <td><input type="text" name="보내는칸"></td>-->
+<!--                    <td>-->
+<!--                        <select name="검색종류">-->
+<!--                            <option value="searchProductName">품목명</option>-->
+<!--                            <option value="납기일">납기일</option>-->
+<!--                            <option value="searchDepartNameName">업체명</option>-->
+<!--                        </select>-->
+<!--                    </td>-->
 
-                    <td>
-                        <select name="입고처리상태">
-                            <option value="전체">전체</option>
-                            <option value="검수완료">검수완료</option>
-                            <option value="마감">마감</option>
-                            
-                        </select>
-                    </td>
-                    <td><input id="serchbutton"  type="submit" value="검색"></td>
-                </tr>
+<!--                    <td>-->
+<!--                        <select name="입고처리상태">-->
+<!--                            <option value="전체">전체</option>-->
+<!--                            <option value="검수완료">검수완료</option>-->
+<!--                            <option value="마감">마감</option>-->
+<!--                            -->
+<!--                        </select>-->
+<!--                    </td>-->
+<!--                    <td><input id="serchbutton"  type="submit" value="검색"></td>-->
+<!--                </tr>-->
             </table> 
         </form>
     </div>
@@ -47,7 +47,6 @@
                     <th class="table-header">사업자번호</th>
                     <th class="table-header">발주서 발행일</th>
                     <th class="table-header">발주일</th>
-                    <th class="table-header">입고 예정일</th>
                     <th class="table-header">입고일</th>
                     <th class="table-header">조달예정수량</th>
                     <th class="table-header">입고수량</th>
@@ -57,25 +56,24 @@
             </thead>
 
             <tbody>
-                <tr>
+                <tr th:each="list : ${procumentList}">
                     <form action="ReceivingProcessStore">
-                        <td class="table-data"><input class="input-form-style" type="text" name="품목코드" value="A" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="품목명" value="나사" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="업체명" value="길승산업" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="사업자번호" value="Xxx-xxx-xxxxx" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="발주서발행일" value="2023/12/13" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="발주일" value="2023/12/15" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="입고예정일" value="2023/12/20" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="입고일" value="" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="number" name="조달예정수량" value=1 readonly></td>
-                        <td class="table-data" style="width:100;" ><input type="number" name="입고수량" style="text-align: center; width:100px"></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="품목처리상태" value="검수완료" readonly></td>
+                        <td class="table-data" hidden="hidden"><input class="input-form-style" type="text" name="procurementplan_code" th:value="${list.procurementplan_code}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="productcode" th:value="${list.productcode}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="productname" th:value="${list.productname}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="departName" th:value="${list.departName}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="businessNumber" th:value="${list.businessNumber}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="DateOfOrder" th:value="${list.DateOfOrder}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="OrderDate" th:value="${list.OrderDate}" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="Arrival" value="" readonly></td>
+                        <td class="table-data"><input class="input-form-style" type="number" name="SupportProductAmount" th:value=${list.SupportProductAmount} readonly></td>
+                        <td class="table-data" style="width:100;" ><input type="number" name="store" style="text-align: center; width:100px"></td>
+                        <td class="table-data"><input class="input-form-style" type="text" name="orderState" th:value="${list.orderState}" readonly></td>
                         <td class="table-data">
                             <input type="submit" value="입고처리"   style="background-color: blue; color: white;">
                         </td>
                     </form>
                 </tr>
-
             </tbody>
         </table>
     </div>

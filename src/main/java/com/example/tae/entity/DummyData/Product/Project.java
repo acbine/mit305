@@ -13,6 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@ToString
 public class Project {
     @Id
     String productName;

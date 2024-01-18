@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString
 public class ReleaseProcess extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +20,7 @@ public class ReleaseProcess extends TimeStamp {
     @Column
     private int releaseCNT;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private ProcurementPlan procurementPlan;
 
 }

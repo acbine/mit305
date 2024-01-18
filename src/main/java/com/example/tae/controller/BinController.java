@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -26,16 +27,17 @@ public class BinController {
     @GetMapping("ReceivingProcessSearch")
     public String ReceivingProcessSearch() {
         System.out.println("입고처리의 검색요청들어옴");
+
         return "ReceivingProcess";
     }
     
     
     @GetMapping("ReceivingProcessStore")
-    public String ReceivingProcessStore (int procurementplan_code,int store){
+    public String ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code, @RequestParam("store") String store){
         System.out.println("입고처리 form 형태의 입고처리요청들어옴");
         System.out.println("조달계획번호-------"+procurementplan_code+"입고수량"+store);
-        binService.ReceivingProcessStore(procurementplan_code,store);
-        return "redirect:ReceivingProcess";
+       // binService.ReceivingProcessStore(procurementplan_code,store);
+        return "redirect:total";
     }
     /*------------------------ --------------------현황관리 -----------------------------------*/
     @GetMapping("StatusManagementReport")

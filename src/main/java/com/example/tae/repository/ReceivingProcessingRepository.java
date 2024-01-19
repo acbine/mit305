@@ -13,30 +13,36 @@ import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
 
 public interface ReceivingProcessingRepository extends JpaRepository<ReceivingProcessing,Integer> {
 
+    @Query("select r from ReceivingProcessing r " +
+            "where r.procurementPlan = :pcmPlanCode " +
+            "order by r.modDate DESC limit 1")
+    Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc(@Param("pcmPlanCode") int pcmPlanCode);
+
+    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='발주 전' ")
+            //" INNER JOIN pp.contract c")
+    List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //발주전 불러오기
+
+    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end ")
+    List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //현황 관리의 검색기간 불러오기
 
 
-        @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end ")
-        List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //현황 관리의 검색기간 불러오기
+    @Query("SELECT pp FROM ProcurementPlan pp where pp.procurementplan_code=:ppcode ")
+    ProcurementPlan productplane (@Param("ppcode") int pp);
 
-        @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='발주 전' ")
-                //" INNER JOIN pp.contract c")
-        List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //발주전 불러오기
+    @Modifying
+    @Query("UPDATE ProcurementPlan pp SET pp.order_state='마감' WHERE pp.procurementplan_code=:ppcode ")
+    int updateProcumentPlan (@Param("ppcode") int pp); //발주전을 마감으로
 
-        @Query("SELECT pp FROM ProcurementPlan pp where pp.procurementplan_code=:ppcode ")
-        ProcurementPlan productplane (@Param("ppcode") int pp); //조달계획코드로 조달계획불러오는것
+    @Query("SELECT rp FROM ReceivingProcessing rp where rp.procurementPlan.procurementplan_code=:ppcode ")
+    ReceivingProcessing findByProcumentPlanCode (@Param("ppcode") int pp);
 
-
-        @Modifying
-        @Query("UPDATE ProcurementPlan pp SET pp.order_state='마감' WHERE pp.procurementplan_code=:ppcode ")
-        int updateProcumentPlan (@Param("ppcode") int pp); //발주전을 마감으로
-
-        @Query("SELECT rp FROM ReceivingProcessing rp where rp.procurementPlan.procurementplan_code=:ppcode ")
-        ReceivingProcessing findByProcumentPlanCode (@Param("ppcode") int pp); //입고처리 DB에서 조달계획으로 입고날짜 찾는 것
 
 //        @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state=:searchState and pp.contract.company.businessName = :inputData ")
 ////                ("CASE WHEN :searchData = 'searchDepartName' then pp.contract.company.businessName = :inputData"))

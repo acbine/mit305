@@ -11,9 +11,9 @@ import com.example.tae.repository.DummyRepository.AssyRepository;
 import com.example.tae.repository.DummyRepository.PartRepository;
 import com.example.tae.repository.DummyRepository.UnitRepository;
 import com.example.tae.repository.ProductForProjectRepository;
-import com.example.tae.repository.ProductRepository.ProjectRepository;
+import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInfomationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class ProductInfomationRepositoryTest {
 
     @Autowired
-    ProductInfomationRepository productInfomationRepository;
+    ProductInformationRepository productInfomationRepository;
     @Autowired
     UnitRepository unitRepository; // 대분류
     @Autowired

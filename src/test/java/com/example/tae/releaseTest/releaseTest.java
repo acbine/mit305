@@ -4,6 +4,7 @@ import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 
+import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.repository.ReleaseRepository;
@@ -28,7 +29,7 @@ public class releaseTest {
     @Test
     public void entityCreateTest() {
         IntStream.rangeClosed(1,50).forEach(value -> {
-            ReleaseProcess releaseProcess = releaseProcessService.release(value);
+            ReleaseDto releaseProcess = releaseProcessService.release(value,value);
             System.out.println(releaseProcess);
         });
     }

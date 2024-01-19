@@ -20,7 +20,7 @@
                 <td>(유)길승산업</td>
                 <td style="text-align: left;">이메일 : abcde@gmail.com</td>
                 <th colspan="2">발주서 발행일</th>
-                <td colspan="2" th:text="${#dates.format(purchase.regDate, 'yyyy-MM-dd')}"></td>
+                <td colspan="2" th:text="${#temporals.format(purchase.regDate, 'yyyy-MM-dd')}"></td>
             </tr>
         </table>
         <table class="popup-table">
@@ -48,17 +48,7 @@
                     <td></td>
                 </tr>
                 <tr>
-                    <td th:text="${ordercode}"></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
                     <td></td>
                     <td></td>
                     <td></td>
@@ -89,6 +79,16 @@
                 </tr>
                 <tr>
                     <td> </td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td></td>
                     <td></td>
                     <td></td>
                     <td></td>

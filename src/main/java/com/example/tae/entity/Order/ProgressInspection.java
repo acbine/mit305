@@ -14,11 +14,11 @@ import java.util.Date;
 public class ProgressInspection {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int progressInspectionNum;
+    private int progressInspectionNum;          // 진척 검수 순번
 
-    private Date progressInspectionPlan;
-    private boolean progressInspectionStatus;
+    private Date progressInspectionPlan;        // 진척 검수 계획
+    private boolean progressInspectionStatus;   // 진척 검수 상태
 
     @ManyToOne
-    private Purchase purchase;
+    private Purchase purchase;                  // 발주서
 }

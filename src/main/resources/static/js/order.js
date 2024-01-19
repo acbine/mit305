@@ -1,7 +1,10 @@
 /*--------------------발주 목록(orderList)--------------------*/
 function openPopup(ordercode) {
-    $(".popup").css('display','block');
-    $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + ordercode);
+    if (ordercode) {
+        $(".popup").css('display', 'block');
+        $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + encodeURIComponent(ordercode));
+    }else
+        console.error("유효하지 않은 ordercode입니다.");
 }
 
 function closePopup() {

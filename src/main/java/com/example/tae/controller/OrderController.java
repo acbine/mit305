@@ -1,53 +1,54 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Order.Purchase;
-import com.example.tae.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.tae.service.PurchaseService.OrderRegisterService;
+import com.example.tae.service.PurchaseService.OrderService;
+import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
+@AllArgsConstructor
 public class OrderController {
-    private final OrderRepository orderRepository;
+    private final OrderService orderService;
+    private final OrderRegisterService orderRegisterService;
 
-    @Autowired
-    public OrderController(OrderRepository orderRepository){
-        this.orderRepository = orderRepository;
-    }
+//    @PostMapping("/sad")
+//    @ResponseBody
+//    public ResponseEntity<?> res() {
+//        return ResponseEntity.status(HttpStatus.OK).body();
+//    }
 
-    @GetMapping("orderInspect1_1")
-    public String orderInspect1_1() {
-        return "orderInspect1_1";
-    }
-
-    @GetMapping("orderInspect1_2")
-    public String orderInspect1_2() {
-        return "orderInspect1_2";
-    }
-
-    @GetMapping("orderInspect4")
-    public String orderInspect4() {
-        return "orderInspect4";
-    }
-
-    @GetMapping("orderList")
+    @GetMapping("/orderList")
     public String orderList(Model model) {
-        List<Purchase> purchaseList = orderRepository.findAll();
-        model.addAttribute("pList", purchaseList);
-
+        model.addAttribute("oList", orderService.getAllOrders());
         return "orderList";
     }
 
-    @GetMapping("orderRegister")
-    public String orderRegister() {return "orderRegister";}
-
     @GetMapping("orderListPopup")
     public String orderListPopup(@RequestParam("ordercode") String ordercode, Model model) {
-        //Purchase purchase =
+        model.addAttribute("orderPopupDto", orderService.getOrderPopupData(ordercode));
         return "orderListPopup";
+    }
+
+    @GetMapping("/orderRegister")
+    public String orderRegister(Model model, @RequestParam(required = false) String departName) {
+        model.addAttribute("oList", orderRegisterService.getProcurementPlansWithNullPurchase(departName));
+        return "orderRegister";
+    }
+
+    @GetMapping("/api/orderRegister/count")
+    @ResponseBody
+    public long getProcurementPlanCountWithNullPurchase(@RequestParam(required = false) String departName) {
+        return orderRegisterService.countProcurementPlansWithNullPurchase(departName);
+    }
+
+    @DeleteMapping("/api/cancelOrder/{procurementplan_code}")
+    @ResponseBody
+    public ResponseEntity<Void> cancelOrder(@PathVariable int procurementplan_code) {
+        orderRegisterService.cancelProcurementPlan(procurementplan_code);
+        return ResponseEntity.noContent().build();
     }
 }

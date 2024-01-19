@@ -1,6 +1,7 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.StatusManagement.StatusManagementDTO;
 import com.example.tae.service.BinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -55,40 +57,67 @@ public class BinController {
         return "StatusManagementReport";
     }
 
-    @GetMapping("total/StatusManagementReportSearch")
+    @GetMapping("StatusManagementReportSearch")
     @ResponseBody
-    public ResponseEntity<?> StatusManagementReportSearch(String startDate, String endDate) {
-        System.out.println("기간 검색들어옴");
-        System.out.println("-----------------------" + startDate + endDate + "--------------------------");
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    public ResponseEntity<?> StatusManagementReportSearch(@RequestParam("startDate")String startDate,@RequestParam("endDate")String endDate, Model model) {
+        System.out.println("--발주관리 리포트에서 검색들어옴--------------------");
+        //       System.out.println("-----------------------시작날짜-----"+startDate+"끝날짜------"+endDate + "--------------------------");
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         List<ReceivingProcessingDTO> statementDTOList = null;
-        try {
-            Date startLocalDate; //시작 날짜
-            Date endLocalDate; //끝날자
-            if (startDate.isEmpty()) {
-                System.out.println("시작 날짜 없음-----------------");
+        List<StatusManagementDTO> statGroupby=null;
 
-                startLocalDate = sdf.parse("1000-12-31");
+        try {
+            Date changedStartDate; //Date 타입 시작 날짜
+            Date changedEndDate; //Date 타입 끝날자
+            if (startDate.isEmpty()) {
+                changedStartDate = sdf.parse("1000-12-31");
             } else {
-                startLocalDate = sdf.parse(startDate);
+                changedStartDate = sdf.parse(startDate);
             }
             if (endDate.isEmpty()) {
-                endLocalDate = sdf.parse("5000-12-31");
+                changedEndDate = sdf.parse("5000-12-31");
             } else {
-                endLocalDate = sdf.parse(endDate);
+                changedEndDate = sdf.parse(endDate);
             }
-            System.out.println("--------------------" + "데이트 타임으로 변환 된것 최종 시작:" + startLocalDate + "------끝-----" + endLocalDate);
-            statementDTOList = binService.procurementPlanListbyStatement(startLocalDate, endLocalDate);
-            m.addAttribute("stateMentList", statementDTOList);
-
+            System.out.println("--------------------데이트 타임으로 변환 된것 시작날짜:" + changedStartDate + "------끝날짜:" + changedEndDate);
+            statementDTOList = binService.procurementPlanListbyStatement(changedStartDate, changedEndDate);
+            statGroupby = binService.statusManagementDTOList(changedStartDate,changedEndDate);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("statementDTOList", statementDTOList));
+    }
+
+    @GetMapping("groupby")
+    @ResponseBody
+    public ResponseEntity<?> groupByOrderState(@RequestParam("startDate")String startDate,@RequestParam("endDate")String endDate, Model model) {
+        System.out.println("--발주관리 리포트에서 검색들어옴--------------------");
+        //       System.out.println("-----------------------시작날짜-----"+startDate+"끝날짜------"+endDate + "--------------------------");
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        List<StatusManagementDTO> statGroupby=null;
+
+        try {
+            Date changedStartDate; //Date 타입 시작 날짜
+            Date changedEndDate; //Date 타입 끝날자
+            if (startDate.isEmpty()) {
+                changedStartDate = sdf.parse("1000-12-31");
+            } else {
+                changedStartDate = sdf.parse(startDate);
+            }
+            if (endDate.isEmpty()) {
+                changedEndDate = sdf.parse("5000-12-31");
+            } else {
+                changedEndDate = sdf.parse(endDate);
+            }
+            System.out.println("--------------------데이트 타임으로 변환 된것 시작날짜:" + changedStartDate + "------끝날짜:" + changedEndDate);
+            statGroupby = binService.statusManagementDTOList(changedStartDate,changedEndDate);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("statGroupby", statGroupby));
     }
 
 }

@@ -4,6 +4,7 @@ import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 
 import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.StatusManagement.StatusManagementDTO;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import jakarta.transaction.Transactional;
@@ -16,6 +17,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -55,6 +57,19 @@ public class BinServiceImpl implements BinService{
 
         return receivingProcessingDTOList;
 
+    }
+
+    @Override
+    @Transactional
+    public List<StatusManagementDTO> statusManagementDTOList(Date start, Date end) {
+        List<Object[]> ObjectList=receivingProcessingRepository.groupByOrderState(start,end);
+        List<StatusManagementDTO> StatusManagementDTOList= new ArrayList<>();
+        for (Object[] asd : ObjectList){
+            StatusManagementDTO dto = StatusManagementDTO.builder().orderStateForSMString((String) asd[0]).count((Long) asd[1]).build();
+            System.out.println("--------들어간 목록 종류"+(String) asd[0]+"-----------들어간 숫자--------------------"+(Long) asd[1]);
+            StatusManagementDTOList.add(dto);
+        }
+        return StatusManagementDTOList;
     }
 
     @Override

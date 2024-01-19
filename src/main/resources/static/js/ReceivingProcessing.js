@@ -32,7 +32,6 @@ $(function ReceivingProcessing(){  //모달 관련 js
 
     });
 });
-var =
 
  function sendData(procurementplanCode){
 

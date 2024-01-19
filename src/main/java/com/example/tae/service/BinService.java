@@ -2,6 +2,7 @@ package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.StatusManagement.StatusManagementDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -13,10 +14,9 @@ public interface BinService {
     //----------------------------------현황관리------------------------------------------
     //현황관리 리포트 날짜 요청을 받으면 리스트
     List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start ,Date end);
-
-
-
-
+    
+    //날짜별로 발주상태로 묶어 각각  몇개인지
+    List<StatusManagementDTO> statusManagementDTOList(Date start , Date end);
 
     //----------------------------------입고처리---------------------------------------------
     //입고처리 홈페이지 요청시 조달계획의 품목 리스트 불러오기

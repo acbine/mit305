@@ -3,10 +3,7 @@ package com.example.tae.entity.ProductForProject;
 import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.context.annotation.Lazy;
 
 @Entity
@@ -15,6 +12,7 @@ import org.springframework.context.annotation.Lazy;
 @NoArgsConstructor
 @Getter
 @IdClass(ProductForProjectEmbeddable.class)
+@ToString
 public class ProductForProject {
     @Id
     @ManyToOne(cascade=CascadeType.MERGE)

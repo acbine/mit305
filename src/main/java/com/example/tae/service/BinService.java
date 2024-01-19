@@ -2,7 +2,9 @@ package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.StatusManagement.StatusManagementDTO;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -10,17 +12,20 @@ import java.util.List;
  */
 public interface BinService {
     //----------------------------------현황관리------------------------------------------
-
-
-
-
+    //현황관리 리포트 날짜 요청을 받으면 리스트
+    List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start ,Date end);
+    
+    //날짜별로 발주상태로 묶어 각각  몇개인지
+    List<StatusManagementDTO> statusManagementDTOList(Date start , Date end);
 
     //----------------------------------입고처리---------------------------------------------
     //입고처리 홈페이지 요청시 조달계획의 품목 리스트 불러오기
     List<ReceivingProcessingDTO> procurementPlanList();
 
     //입고처리 홈페이지에서 검색 요청시 검색된 조달계획의 품목 리스트 불러오기
-    //List<ProcurementPlan> ProcumentPlanSearchList(String 보내는칸 , String 검색종류 , String 입고처리상태);
+//    List<ReceivingProcessingDTO> ProcumentPlanSearchPNOSList(String inputData , String searchState);//발주서 상태와 ,품목명
+//
+//    List<ReceivingProcessingDTO> ProcumentPlanSearchBNOSList(String inputData , String searchState);//발주서 상태와 ,회사명
 
     //해당 품목에대해 입고처리시 쿼리로 입고수량 데이터 베이스에 넣어어주는것 (각 품목에대한 조달계획이없어 일단 입고수량만 넣음)
     void ReceivingProcessStore(int procurementplan_code, int store);

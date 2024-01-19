@@ -1,19 +1,6 @@
 package com.example.tae.controller;
 
-import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
-import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
-import com.example.tae.entity.dto.ExistenceDTO;
-import com.example.tae.entity.dto.SearchDTO;
-import com.example.tae.repository.ReceivingProcessingRepository;
-import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
-import com.example.tae.repository.ReleaseRepository;
-import com.example.tae.service.ReleaseProcessService;
 import com.example.tae.service.ReleaseProcessServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -53,10 +40,9 @@ public class StockController {
     @PostMapping("total/stockDelivery")
     @ResponseBody
     public ResponseEntity<?> release(@RequestBody ReleaseDto releaseDto) {
+        int procurementPlan_code = releaseDto.getProcurementPlan_code();
         int release = releaseDto.getRelease();
-        ReleaseProcess releaseProcess = releaseProcessService.release(release);
-        ExistenceDTO existenceDTO = new ExistenceDTO();
-        int existence = releaseProcessService.existence(release);
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of("ReleaseProcess", releaseProcess,"existence", existence));
+        ReleaseDto releaseDto1 = releaseProcessService.release(release,procurementPlan_code);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("ReleaseInfo", releaseDto1));
     }
 }

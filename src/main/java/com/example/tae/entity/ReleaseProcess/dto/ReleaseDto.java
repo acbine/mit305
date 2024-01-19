@@ -26,9 +26,10 @@ public class ReleaseDto {
     private int store;
     private int existence;
     private int existence_price;
+    private int procurementPlan_code;
 
 
-    public ReleaseDto releaseProcessDTO(ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, String productName, int contract_pay, int store) {
+    public ReleaseDto releaseProcessDTO(ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, String productName, int contract_pay, int store, int procurementPlan_code) {
        int existence = store - releaseProcess.getReleaseCNT();
        int existence_price = existence * contract_pay;
         return ReleaseDto.builder()
@@ -44,6 +45,7 @@ public class ReleaseDto {
                 .store(store)
                 .existence(existence)
                 .existence_price(existence_price)
+                .procurementPlan_code(procurementPlan_code)
                 .build();
     }
 }

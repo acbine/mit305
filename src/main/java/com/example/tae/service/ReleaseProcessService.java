@@ -7,9 +7,9 @@ import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 import java.util.List;
 
 public interface ReleaseProcessService {
-        ReleaseProcess release(int release);
+        ReleaseDto release(int release,int procurementPlan_code);
 
-        int existence(int release);
+        int existence(int release,int procurementPlan_code);
 
         List<ReleaseDto> getStockDeliver();
 

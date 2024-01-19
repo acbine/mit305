@@ -12,7 +12,6 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @ToString
-@Getter
 public class ProductInformationRegistration {
 
     @Id

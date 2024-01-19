@@ -55,7 +55,10 @@
             </thead>
 
             <tbody>
+
                 <tr th:each="list : ${procumentList}">
+                    sss
+                    <form>
                         <td class="table-data" hidden="hidden"><input th:id="code+${list.procurementplan_code}" class="input-form-style" type="text" name="procurementplan_code" th:value="${list.procurementplan_code}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="productcode" th:value="${list.productcode}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="productname" th:value="${list.productname}" readonly></td>
@@ -63,14 +66,16 @@
                         <td class="table-data"><input class="input-form-style" type="text" name="businessNumber" th:value="${list.businessNumber}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="DateOfOrder" th:value="${list.DateOfOrder}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="OrderDate" th:value="${list.OrderDate}" readonly></td>
-                        <td class="table-data"><input th:unless="${list.Arrival} != '0001-01-01T00:00'" class="input-form-style" type="text" name="Arrival" th:value="${list.Arrival}" readonly></td>
+                        <td class="table-data"><input th:unless="${list.Arrival} != ${#dates.create(0001,01,01,00,00)}" class="input-form-style" type="text" name="Arrival" th:value="${list.Arrival}" readonly></td>
                         <td class="table-data"><input class="input-form-style" type="number" name="SupportProductAmount" th:value="${list.SupportProductAmount}" readonly></td>
                         <td class="table-data" style="width:100px;" ><input th:id="store+${list.procurementplan_code} " type="number" name="store" style="text-align: center; width:100px"></td>
                         <td class="table-data"><input class="input-form-style" type="text" name="orderState" th:value="${list.orderState}" readonly></td>
                         <td class="table-data">
-                            <button th:onclick="'sendData(\'' + ${list.procurementplan_code} + '\')'" style="background-color: blue; color: white;">입고처리</button>
+                            <button th:onclick="'sendData(\'' + ${list.procurementplan_code} + '\', getValueFromInput(\'' + ${list.procurementplan_code} + '\'))'" style="background-color: blue; color: white;">입고처리</button>
 
                         </td>
+                    </form>
+                    www
                 </tr>
             </tbody>
         </table>

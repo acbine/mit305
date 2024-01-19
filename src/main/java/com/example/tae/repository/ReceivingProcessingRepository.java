@@ -17,6 +17,12 @@ import java.util.Optional;
 import java.util.Optional;
 
 public interface ReceivingProcessingRepository extends JpaRepository<ReceivingProcessing,Integer> {
+
+
+
+        @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end ")
+        List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //현황 관리의 검색기간 불러오기
+
         @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='발주 전' ")
                 //" INNER JOIN pp.contract c")
         List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //발주전 불러오기
@@ -32,10 +38,14 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
         @Query("SELECT rp FROM ReceivingProcessing rp where rp.procurementPlan.procurementplan_code=:ppcode ")
         ReceivingProcessing findByProcumentPlanCode (@Param("ppcode") int pp); //입고처리 DB에서 조달계획으로 입고날짜 찾는 것
 
-        @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state=:searchState ")
-//                ("CASE WHEN :searchData = 'searchProductName' then pp.productForProject.productCode = :inputData ")+
-//                ("CASE WHEN :searchData = 'searchDepartName' then pp.contract.company.businessName = :inputData"))
-        List<ProcurementPlan> searchProcurementPlans(@Param("searchState")String searchState); //검색도된 정보로 불러오기
+//        @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state=:searchState and pp.contract.company.businessName = :inputData ")
+////                ("CASE WHEN :searchData = 'searchDepartName' then pp.contract.company.businessName = :inputData"))
+//        List<ProcurementPlan> searchProcurementPlansBNOS(@Param("searchState")String searchState,@Param("inputData") String inputData); //검색도된 정보로 불러오기 (발주서 와 업체명으로)
+
+//        @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state=:searchState and pp.contract.company.businessName = :inputData ")
+////                ("CASE WHEN :searchData = 'searchProductName' then pp.productForProject.productCode = :inputData ")+
+////                ("CASE WHEN :searchData = 'searchDepartName' then pp.contract.company.businessName = :inputData"))
+//        List<ProcurementPlan> searchProcurementPlansPNOS(@Param("searchState")String searchState,@Param("inputData") String inputData); //검색도된 정보로 불러오기 (발주서 와 업체명으로)
 
 
     Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc();

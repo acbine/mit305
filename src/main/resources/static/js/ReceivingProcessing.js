@@ -32,15 +32,10 @@ $(function ReceivingProcessing(){  //모달 관련 js
 
     });
 });
-//var name = [[${user.name}]]
+var =
 
- function sendData(procurementPlanCode){
-    //var procurementPlanCodeValue = document.getElementById('procurementPlanCode_' + procurementPlanCode).value;
-    //var storeValue = document.getElementById('storeInput_' + procurementPlanCode).value;
-    var itemCount = /*[[${procumentList.size()}]]*/3;
-    console.log(itemCount);
-    //console.log(procurementPlanCodeValue);
-    //console.log(storeValue);
+ function sendData(procurementplanCode){
+
 
     var form = document.createElement('form');
     form.action = 'ReceivingProcessStore';  // 폼이 전송될 URL
@@ -50,13 +45,13 @@ $(function ReceivingProcessing(){  //모달 관련 js
     var aa = document.createElement('input');
     aa.type = 'text';
     aa.name = 'procurementplan_code';  // 폼 데이터의 이름
-    aa.value = itemCount;  // 폼 데이터의 값
+    aa.value =procurementplanCode;  // 폼 데이터의 값
     form.appendChild(aa);
 
     var bb = document.createElement('input');
     bb.type = 'text';
     bb.name = 'store';  // 폼 데이터의 이름
-    bb.value =itemCount;  // 폼 데이터의 값s
+    bb.value = 9999;  // 폼 데이터의 값
     form.appendChild(bb);
 
     document.body.appendChild(form);

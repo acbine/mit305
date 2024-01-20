@@ -78,7 +78,7 @@ public class BinServiceImpl implements BinService{
         List<ProcurementPlan> procurementPlanList = receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST();
         List<ReceivingProcessingDTO> receivingProcessingDTOList = new ArrayList<>();
         for (int i=0; i<procurementPlanList.size(); i++) {
-            int aaa=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST().get(0).getProcurementplan_code();// 조달계획코드
+            int aaa=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST().get(i).getProcurementplan_code();// 조달계획코드
             ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 1 이고 등록된낮라
             LocalDateTime localDateTime;
             if ( receivingProcessing == null) {
@@ -154,14 +154,44 @@ public class BinServiceImpl implements BinService{
 
     @Override
     @Transactional
-    public void ReceivingProcessStore(int procurementplan_code, int store) {
+    public List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store) {
         ReceivingProcessing receivingProcessing = ReceivingProcessing.builder()
                 .procurementPlan(receivingProcessingRepository.productplane(procurementplan_code))
                 .store(store)
                 .build();
         receivingProcessingRepository.save(receivingProcessing); //입고처리 DB에 저장
+        receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
+//        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로
 
-        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로
+        List<ProcurementPlan> procurementPlanList = receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST(); //다시 조달계획을 그려주기위하여 받음
+        List<ReceivingProcessingDTO> receivingProcessingDTOList = new ArrayList<>();
+        for (int i=0; i<procurementPlanList.size(); i++) {
+            int aaa=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST().get(0).getProcurementplan_code();// 조달계획코드
+            ReceivingProcessing receivingProcessing2 = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 1 이고 등록된낮라
+            LocalDateTime localDateTime;
+            if ( receivingProcessing2 == null) {
+                localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
+            } else {
+                localDateTime = receivingProcessing2.getRegDate();
+            }
+            ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
+                    .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
+                    .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
+                    .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
+                    .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
+                    .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
+                    .DateOfOrder(procurementPlanList.get(i).getPurchase().getRegDate()) //발주서 발행일
+                    .OrderDate(procurementPlanList.get(i).getOrder_date())//발주일
+                    .Arrival(localDateTime) //입고처리된 날짜
+                    .SupportProductAmount(procurementPlanList.get(i).getSupportProductAmount()) //조달예정수량
+                    //.store(receivingProcessingRepository.findByProcumentPlanCode(aaa).getStore())
+                    .orderState(procurementPlanList.get(i).getOrder_state()) //품목상태
+                    .build();
+            receivingProcessingDTOList.add(receivingProcessingDTO);
+            System.out.println(localDateTime);
+        }
+
+        return receivingProcessingDTOList;
 
     }
 }

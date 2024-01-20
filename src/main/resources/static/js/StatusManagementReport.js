@@ -75,7 +75,7 @@ function sendSMRURL(){
                 var tableBody = document.getElementById('tableBody');//DOM 요소 가져와서
                 tableBody.innerHTML = '';//내부에 있는 내용을 비워주고
 
-                for (var i=0; i<statusManagementReportSearchData.statementDTOList.length; i++){
+                for (var i=0; i<statusManagementReportSearchData.statementDTOList.length; i++){ //리스트 크기만큼 반복
                     var tableBodyRow = document.createElement('tr');
 
                     var productcodeCell = document.createElement('td');

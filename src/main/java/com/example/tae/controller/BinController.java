@@ -28,7 +28,7 @@ public class BinController {
     /*--------------------------------------------------입고처리-------------------------------*/
     @GetMapping("ReceivingProcess")
     public String ReceivingProcess(Model model) {
-        System.out.println("입고처리 페이지여는 요청들어옴 발주전 태만 보여줘");
+        System.out.println("입고처리 페이지여는 요청들어옴 검수완료상태만 보여줌");
         List<ReceivingProcessingDTO> receivingProcessingDTOList = binService.procurementPlanList();
         //receivingProcessingDTOList.forEach(x-> System.out.println(x));
         model.addAttribute("procumentList",receivingProcessingDTOList);
@@ -36,19 +36,22 @@ public class BinController {
     }
 
     @GetMapping("ReceivingProcessSearch")
-    public String ReceivingProcessSearch() {
+    @ResponseBody
+    public ResponseEntity<?> ReceivingProcessSearch() {
         System.out.println("입고처리의 검색요청들어옴");
 
-        return "ReceivingProcess";
+        return null;
     }
     
     
     @GetMapping("ReceivingProcessStore")
-    public String ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code, @RequestParam("store") String store){
-        System.out.println("입고처리 form 형태의 입고처리요청들어옴");
-        System.out.println("조달계획번호-------"+procurementplan_code+"입고수량"+store);
-       // binService.ReceivingProcessStore(procurementplan_code,store);
-        return "total";
+    @ResponseBody
+    public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code, @RequestParam("store") String store){
+        System.out.println("-------- 입고처리요청들어옴---------------");
+        System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store);
+        binService.ReceivingProcessStore(Integer.parseInt(procurementplan_code),Integer.parseInt(store));
+        List<ReceivingProcessingDTO> receivingProcessingDTOList = binService.procurementPlanList();
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("receivingProcessingDTOList", receivingProcessingDTOList));
     }
     /*------------------------ --------------------현황관리 -----------------------------------*/
     @GetMapping("StatusManagementReport")

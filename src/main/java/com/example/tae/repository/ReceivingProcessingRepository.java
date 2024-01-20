@@ -27,13 +27,13 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
     @Query("SELECT pp.order_state , Count(pp) FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end GROUP BY pp.order_state ")
     List<Object[]> groupByOrderState(@Param("start") Date start, @Param("end") Date end); //발주현황관리의 조달계획리스트를 발주 상태별로 묶어서 각 발주 상태가 갯수가 얼마나되는지
 //----------------------------------------------------------입고처리------------------------------------------------------------------
-    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ")
-    List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //조달계획의 품목 상태가 발주전인 조달계획 리스트 불러오기(추후 검수완료로 수정해야함)
+    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ORDER BY pp.projectPlan.projectOutputDate ")
+    List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //조달계획의 품목 상태가 발주전인 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
     @Query("SELECT pp FROM ProcurementPlan pp where pp.procurementplan_code=:ppcode ")
     ProcurementPlan productplane (@Param("ppcode") int pp); //조달계획코드 값을 이용해 조달계획1개 불러오기
 
     @Modifying
-    @Query("UPDATE ProcurementPlan pp SET pp.order_state='검수처리완료' WHERE pp.procurementplan_code=:ppcode ")
+    @Query("UPDATE ProcurementPlan pp SET pp.order_state='마감' WHERE pp.procurementplan_code=:ppcode ")
     int updateProcumentPlan (@Param("ppcode") int pp); //발주전 상태값을 마감으로
 
     @Query("SELECT rp FROM ReceivingProcessing rp where rp.procurementPlan.procurementplan_code=:ppcode ")
@@ -48,6 +48,12 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
 ////                ("CASE WHEN :searchData = 'searchProductName' then pp.productForProject.productCode = :inputData ")+
 ////                ("CASE WHEN :searchData = 'searchDepartName' then pp.contract.company.businessName = :inputData"))
 //        List<ProcurementPlan> searchProcurementPlansPNOS(@Param("searchState")String searchState,@Param("inputData") String inputData); //검색도된 정보로 불러오기 (발주서 와 업체명으로)
+
+//    @Query("SELECT pp FROM ProcurementPlan pp " +
+//            "WHERE pp.order_state = :searchState " +
+//            "AND (:searchData = 'searchProductName' AND pp.productForProject.productCode = :inputData " +
+//            "     OR :searchData = 'searchDepartName' AND pp.contract.company.businessName = :inputData)")
+//        List<ProcurementPlan> searchProcurementPlansPNOS(@Param("searchState")String searchState,@Param("inputData") String inputData , @Param("searchData") String searchData); //검색도된 정보로 불러오기 (발주서 와 업체명으로)
 
 
     Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc();

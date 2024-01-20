@@ -28,5 +28,5 @@ public interface BinService {
 //    List<ReceivingProcessingDTO> ProcumentPlanSearchBNOSList(String inputData , String searchState);//발주서 상태와 ,회사명
 
     //해당 품목에대해 입고처리시 쿼리로 입고수량 데이터 베이스에 넣어어주는것 (각 품목에대한 조달계획이없어 일단 입고수량만 넣음)
-    void ReceivingProcessStore(int procurementplan_code, int store);
+    List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store);
 }

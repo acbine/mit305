@@ -35,12 +35,13 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
     @Override
     public ReleaseDto release(int release,int procurementPlan_code) {
         Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlan_code);
-        Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(procurementPlan_code);
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(procurementPlan_code);
         ReleaseProcess mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc();
-        int store = receivingProcessing.get().getStore();
+        Optional<ReceivingProcessing> mostRecentStoreData = receivingProcessingRepository.findTop1ByOrderByModDateDesc(procurementPlan_code);
 
-        log.info("서비스단으로 넘어온 정보확인 : "+ release);
+        log.info(mostRecentStoreData.toString());
+        int store = mostRecentStoreData.get().getStore();
+
         ReleaseProcess releaseP = ReleaseProcess.builder()
                 .procurementPlan(procurementPlan.get())
                 .releaseCNT(release)
@@ -74,11 +75,18 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
         List<ReleaseDto> releaseDtoList = new ArrayList<>();
         ReleaseProcess mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc();
         ReleaseDto releaseDto = new ReleaseDto();
-
-
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             int planId = procurementPlan.getProcurementplan_code();
-            Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId);
+
+            Optional<ReceivingProcessing> receivingProcessing = Optional.of(receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId)
+                    .orElseGet(() -> {
+                        ReceivingProcessing receivingProcessing1 = ReceivingProcessing.builder()
+                                .store(0)
+                                .procurementPlan(procurementPlan)
+                                .build();
+                        receivingProcessingRepository.save(receivingProcessing1);
+                        return receivingProcessing1;
+                    }));
             int store = receivingProcessing.get().getStore();
             Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(

@@ -44,9 +44,13 @@ function findRelease() {
     }
 }
 
-function submitToRelease(release,procurementPlan_code) {
+function submitToRelease(clickNum,procurementPlan_code) {
+    var tableData = document.getElementsByClassName("table_body");
+    console.log("받아온 값 확인해보기 : ", clickNum)
 
-    var releaseData = document.getElementById("release").value;
+    console.log("가져온 테이블 정보 확인해보기",tableData.innerHTML);
+
+    var releaseData = tableData.release;
     var formData = {"release": releaseData, "procurementPlan_code":procurementPlan_code}
 
     $.ajax({
@@ -55,7 +59,7 @@ function submitToRelease(release,procurementPlan_code) {
         contentType : 'application/json',
         data:JSON.stringify(formData),
         success:function(data){
-        addTable(data)
+        addTable(clickNum,data)
         console.log("성공");
         },
         error:function () {
@@ -66,9 +70,9 @@ function submitToRelease(release,procurementPlan_code) {
     return false;
 }
 
-function addTable(data) {
-    var table = document.getElementsByClassName("table-body");
-    console.log("받아온 데이터 정보 제대로 확인하기 : ", data);
+function addTable(clickNum,data) {
+    var table = document.getElementsByClassName("table_body");
+    console.log("받아온 데이터 정보 제대로 확인하기 ( data : ", data+", clickNum : "+ clickNum +")");
 
     var release = data.ReleaseInfo.release;
     var existence = data.ReleaseInfo.existence;
@@ -96,7 +100,7 @@ function uploadHtml(data) {
             <td class="table-body">${releaseInfo[i].length}</td>
             <td class="table-body">${releaseInfo[i].weight}</td>
             <td class="table-body" id="supplyPrice">${releaseInfo[i].contract_pay}</td>
-            <td class="table-body"><input style="width:80px" type="number" value="${releaseInfo[i].release}" id="release"></td>
+            <td class="table-body"><input style="width:80px" type="number" value="0" id="release"></td>
             <td class="table-body">${releaseInfo[i].store}</td>
             <td class="table-body">${releaseInfo[i].existence}</td>
             <td class="table-body">${releaseInfo[i].existence_price}</td>

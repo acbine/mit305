@@ -33,6 +33,10 @@ public class StockController {
     @ResponseBody
     @GetMapping("searchStockDelivery")
     public ResponseEntity<?> stockDelivery(@RequestParam("state") int state, @RequestParam("constraints") String constraints) {
+       if(constraints=="") {
+           List<ReleaseDto> releaseDtoList = releaseProcessService.getStockDeliver();
+           return ResponseEntity.status(HttpStatus.OK).body(Map.of("releaseInfo", releaseDtoList));
+       }
         List<ReleaseDto> releaseDtoList = releaseProcessService.getStockDeliver(state,constraints);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("releaseInfo", releaseDtoList));
     }

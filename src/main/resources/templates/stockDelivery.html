@@ -40,7 +40,7 @@
             <th class="table-header"></th>
         </tr>
         </thead>
-        <tbody class="table_body">
+        <tbody class="table_body" id="release_table">
         <tr th:each="release : ${releaseInfo}">
             <td class="table-body" th:text="${release.productName}"></td>
             <td class="table-body" th:text="${release.product_code}"></td>
@@ -50,7 +50,7 @@
             <td class="table-body" th:text="${release.length}"></td>
             <td class="table-body" th:text="${release.weight}"></td>
             <td class="table-body" id="supplyPrice" th:text="${release.contract_pay}"></td>
-            <td class="table-body"><input style="width:80px" type="number" value="0" id="release"></td>
+            <td class="table-body"><input style="width:80px" type="number" id="release"></td>
             <td class="table-body" th:text="${release.store}"></td>
             <td class="table-body" th:text="${release.existence}"></td>
             <td class="table-body" th:text="${release.existence_price}"></td>

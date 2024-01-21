@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class ReleaseProcessServiceImpl implements ReleaseProcessService{
+public class ReleaseProcessServiceImpl implements ReleaseProcessService {
 
     private ReleaseRepository releaseRepository;
     private ReceivingProcessingRepository receivingProcessingRepository;
@@ -33,13 +34,30 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
 
 
     @Override
-    public ReleaseDto release(int release,int procurementPlan_code) {
+    public ReleaseDto release(int release, int procurementPlan_code) {
         Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlan_code);
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(procurementPlan_code);
-        ReleaseProcess mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc();
-        Optional<ReceivingProcessing> mostRecentStoreData = receivingProcessingRepository.findTop1ByOrderByModDateDesc(procurementPlan_code);
+        Optional<ReleaseProcess> mostRecentShippingData = Optional.of(releaseRepository.findTop1ByOrderByModDateDesc(procurementPlan_code).orElseGet(
+                () -> {
+                    ReleaseProcess releaseProcess = ReleaseProcess.builder()
+                            .releaseCNT(0)
+                            .procurementPlan(procurementPlan.get())
+                            .build();
+                    releaseRepository.save(releaseProcess);
+                    return releaseProcess;
+                }
+        ));
+        Optional<ReceivingProcessing> mostRecentStoreData = Optional.of(receivingProcessingRepository.findTop1ByOrderByModDateDesc(procurementPlan_code).orElseGet(
+                () -> {
+                    ReceivingProcessing receivingProcessing = ReceivingProcessing.builder()
+                            .store(0)
+                            .procurementPlan(procurementPlan.get())
+                            .build();
+                    receivingProcessingRepository.save(receivingProcessing);
+                    return receivingProcessing;
+                }
+        ));
 
-        log.info(mostRecentStoreData.toString());
         int store = mostRecentStoreData.get().getStore();
 
         ReleaseProcess releaseP = ReleaseProcess.builder()
@@ -48,13 +66,11 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
                 .build();
         releaseRepository.save(releaseP);
 
-        log.info("만들어진 재고값 보기 : "+releaseP);
         return new ReleaseDto().releaseProcessDTO(
-                mostRecentShippingData,
+                mostRecentShippingData.get(),
                 productInformationRegistration.get(),
                 productInformationRegistration.get().getProduct_name(),
-                procurementPlan.get().getContract().
-                        getProduct_price(),
+                procurementPlan.get().getContract().getProduct_price(),
                 store,
                 procurementPlan_code
         );
@@ -73,11 +89,19 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
     public List<ReleaseDto> getStockDeliver() {
         List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findAllByProjectPlan_Id(1);
         List<ReleaseDto> releaseDtoList = new ArrayList<>();
-        ReleaseProcess mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc();
         ReleaseDto releaseDto = new ReleaseDto();
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             int planId = procurementPlan.getProcurementplan_code();
-
+            Optional<ReleaseProcess> mostRecentShippingData = Optional.of(releaseRepository.findTop1ByOrderByModDateDesc(planId).orElseGet(
+                    () -> {
+                        ReleaseProcess releaseProcess = ReleaseProcess.builder()
+                                .releaseCNT(0)
+                                .procurementPlan(procurementPlan)
+                                .build();
+                        releaseRepository.save(releaseProcess);
+                        return releaseProcess;
+                    }
+            ));
             Optional<ReceivingProcessing> receivingProcessing = Optional.of(receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId)
                     .orElseGet(() -> {
                         ReceivingProcessing receivingProcessing1 = ReceivingProcessing.builder()
@@ -90,7 +114,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
             int store = receivingProcessing.get().getStore();
             Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
-                    mostRecentShippingData,
+                    mostRecentShippingData.get(),
                     productInformationRegistration.get(),
                     productInformationRegistration.get().getProduct_name(),
                     procurementPlan.getContract().
@@ -108,54 +132,40 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService{
         List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findAllByProjectPlan_Id(1);
         ReleaseDto releaseDto = new ReleaseDto();
         List<ReleaseDto> releaseDtoList = new ArrayList<>();
-        ReleaseProcess mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc();
 
-        if (state == 0) {
-            for (ProcurementPlan procurementPlan : procurementPlanList) {
-                List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationName(constraints);
-                productInformationRegistrationList.forEach(productInformationRegistration -> {
-                    int planId = procurementPlan.getProcurementplan_code();
-                    Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId);
-                    int store = receivingProcessing.get().getStore();
-                    ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
-                            mostRecentShippingData,
-                            productInformationRegistration,
-                            productInformationRegistration.getProduct_name(),
-                            procurementPlan.getContract().
-                                    getProduct_price(),
-                            store,
-                            planId
-                    );
-                    releaseDtoList.add(releaseDto1);
-                });
-
-                return releaseDtoList;
-            }
-        } else if (state == 1) {
-            for (ProcurementPlan procurementPlan : procurementPlanList) {
-                List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
-                productInformationRegistrationList.forEach(productInformationRegistration -> {
-                    int planId = procurementPlan.getProcurementplan_code();
-                    Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId);
-                    int store = receivingProcessing.get().getStore();
-                    ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
-                            mostRecentShippingData,
-                            productInformationRegistration,
-                            productInformationRegistration.getProduct_name(),
-                            procurementPlan.getContract().
-                                    getProduct_price(),
-                            store,
-                            planId
-                    );
-                    releaseDtoList.add(releaseDto1);
-                });
-
-                return releaseDtoList;
-            }
+        if (state == 0) {/*품목 이름 검색*/
+            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationName(constraints);
+            releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
+            return releaseDtoList;
+        } else if (state == 1) {/*품목 코드 검색*/
+            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
+            releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
+            return releaseDtoList;
         }
-       return null;
+        return null;
     }
 
-
-
+    public List<ReleaseDto> changeReleaseDataToReleaseDTOFormat(List<ReleaseDto> releaseDtoList, ReleaseDto releaseDto, List<ProcurementPlan> procurementPlanList, List<ProductInformationRegistration> productInformationRegistrationList) {
+        for (ProcurementPlan procurementPlan : procurementPlanList) {
+            int planId = procurementPlan.getProcurementplan_code();
+            Optional<ReleaseProcess> mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc(planId);
+            Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId);
+            for(ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
+                if(productInformationRegistration.getProduct_code()==planId) {
+                    int store = receivingProcessing.get().getStore();
+                    ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
+                            mostRecentShippingData.get(),
+                            productInformationRegistration,
+                            productInformationRegistration.getProduct_name(),
+                            procurementPlan.getContract().
+                                    getProduct_price(),
+                            store,
+                            planId
+                    );
+                    releaseDtoList.add(releaseDto1);
+                }
+            }
+        }
+        return releaseDtoList;
+    }
 }

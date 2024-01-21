@@ -13,43 +13,27 @@ function drawChart() {
         type : 'get',
         success: function(groupByOrderState) {
 //                console.log("데이터 잘받음");
-
 //                console.log(groupByOrderState.statGroupby);
 
-                if (groupByOrderState.statGroupby.length === 0) {
-                    var data = google.visualization.arrayToDataTable([
-                        ['orderState', 'count'],
-                        ['미발행',     0],
-                        ['발행',       0],
-                        ['검수진행중',  0],
-                        ['검수처리완료',0],
-                        ['마감',       0]
-                    ]);
-                    var options = {
-                        pieHole: 0.45,
-                        colors: ['#00FFFF','#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
-                    };
+                var InputArray = [['orderState', 'count']]
+//                console.log(InputArray);
 
-                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-                    chart.draw(data, options);
-//                    console.log('배열이 비어 있습니다.');
-                } else {
-                    var data = google.visualization.arrayToDataTable([
-                        ['orderState', 'count'],
-                        ['미발행',     groupByOrderState.statGroupby[1].count],
-                        ['발행',       groupByOrderState.statGroupby[2].count],
-                        ['검수진행중',  groupByOrderState.statGroupby[3].count],
-                        ['검수처리완료',groupByOrderState.statGroupby[4].count],
-                        ['마감',       groupByOrderState.statGroupby[0].count]
-                    ]);
-                    var options = {
-                        pieHole: 0.45,
-                        colors: ['#00FFFF','#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
-                    };
+                groupByOrderState.statGroupby.forEach(item=>{
+                    const forEachArray = [item.orderStateForSMString,item.count];
+                    InputArray.push(forEachArray)
+                });
 
-                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-                    chart.draw(data, options);
-                }
+//                console.log(InputArray);
+
+                var data = google.visualization.arrayToDataTable(InputArray);
+                var options = {
+                    pieHole: 0.45,
+                    colors: ['#00FFFF','#F20505', '#F28749', '#03A64A', '#8268A6'] // 색상 변경
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                chart.draw(data, options);
+
             },
         error: function(error) {
             console.log("오류발생 0");
@@ -67,7 +51,7 @@ function sendSMRURL(){
         url:'StatusManagementReportSearch?startDate='+startDateInput.value+'&endDate='+endDateInput.value,
         type : 'get',
         success: function(statusManagementReportSearchData) {
-//                console.log("잘보냄");
+                console.log("잘보냄");
 //                console.log(statusManagementReportSearchData);
 
 //                console.log(statusManagementReportSearchData.statementDTOList.length) // 왜 이값이 비어있지?

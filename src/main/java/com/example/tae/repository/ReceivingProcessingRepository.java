@@ -21,14 +21,21 @@ import java.util.Optional;
 
 public interface ReceivingProcessingRepository extends JpaRepository<ReceivingProcessing,Integer> {
 //---------------------------------------------------------발주 현황괄리 리포트------------------------------------------------------
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end ")
-    List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //발주현황관리의 조달계획리스트를 검색 기간동안 불러오기
+      @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end ORDER BY pp.projectPlan.projectOutputDate ")
+      List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //발주현황관리의 조달계획리스트를 검색 기간동안 불러오기
 
-    @Query("SELECT pp.order_state , Count(pp) FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end GROUP BY pp.order_state ")
+//    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end")
+//    List<ProcurementPlan> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //발주현황관리의 조달계획리스트를 생산계획 테이블 안에있는 projectOutputDate 로 불러오기 검색 기간동안 불러오기
+
+    @Query("SELECT pp FROM ProcurementPlan pp ORDER BY pp.projectPlan.projectOutputDate ")
+    List<ProcurementPlan> statementAllSearch(); //조달계획의 품목  리스트 불러오기
+
+
+    @Query("SELECT pp.order_state , Count(pp) FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end GROUP BY pp.order_state ORDER BY pp.order_state ")
     List<Object[]> groupByOrderState(@Param("start") Date start, @Param("end") Date end); //발주현황관리의 조달계획리스트를 발주 상태별로 묶어서 각 발주 상태가 갯수가 얼마나되는지
 //----------------------------------------------------------입고처리------------------------------------------------------------------
     @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ORDER BY pp.projectPlan.projectOutputDate ")
-    List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //조달계획의 품목 상태가 발주전인 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
+    List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //조달계획의 품목 상태가 검수처리완료 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
     @Query("SELECT pp FROM ProcurementPlan pp where pp.procurementplan_code=:ppcode ")
     ProcurementPlan productplane (@Param("ppcode") int pp); //조달계획코드 값을 이용해 조달계획1개 불러오기
 
@@ -54,7 +61,21 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
 //            "AND (:searchData = 'searchProductName' AND pp.productForProject.productCode = :inputData " +
 //            "     OR :searchData = 'searchDepartName' AND pp.contract.company.businessName = :inputData)")
 //        List<ProcurementPlan> searchProcurementPlansPNOS(@Param("searchState")String searchState,@Param("inputData") String inputData , @Param("searchData") String searchData); //검색도된 정보로 불러오기 (발주서 와 업체명으로)
+//-----------------------------------------------------------거래명세서-----------------------------------------------------------------------------------------
+@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' And pp.purchase.ordercode=:od")
+List<ProcurementPlan> listByOrderCodestrard(@Param("od") String Ordercode); //조달계획의 품목 상태가 검수처리완료 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
 
+@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='마감' And pp.purchase.ordercode=:od")
+List<ProcurementPlan> listByOrderCodeend(@Param("od") String Ordercode); //조달계획의 품목 상태가 마감 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
+
+@Query("SELECT pp.purchase.ordercode , Count(pp)  FROM ProcurementPlan pp GROUP BY pp.purchase.ordercode ORDER BY pp.purchase.ordercode ")
+List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 묶어서  각 발주코드별 가 갯수가 얼마나되는지
+
+
+
+
+
+//------------------------------------------------------자재관리에서 사용하는 쿼리-----------------------------------------------------------------------------------
 
     Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc();
 

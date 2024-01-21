@@ -128,7 +128,7 @@
     /*max-width: 1000%; 모달의 최대 가로 크기 */
     /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
     overflow-y: auto;
-    
+
     width: 750px;  /*모달의 가로 크기 */
     height: 925px;  /*모달의 세로 크기 */
 }

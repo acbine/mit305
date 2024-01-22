@@ -574,18 +574,18 @@ public class DummyServiceImpl implements DummyService {
         }
 
         //회사 정보 데이터
-        for (int value = 0; value < companyBusinessNumberList.length; value++) {
-            CompanyDTO companyDTO = CompanyDTO.builder()
-                    .businessNumber(companyBusinessNumberList[value])
-                    .businessName(nameData[value])
-                    .departName(companyNameData[value])
-                    .businessEmail(value + "@naver.com")
-                    .businessTel(value + "-" + value + "-" + value)
-                    .fax(value + "")
-                    .build();
-            Company company = companyDTO.com();
-            companyRepository.save(company);
-        }
+//        for (int value = 0; value < companyBusinessNumberList.length; value++) {
+//            CompanyDTO companyDTO = CompanyDTO.builder()
+//                    .businessNumber(companyBusinessNumberList[value])
+//                    .businessName(nameData[value])
+//                    .departName(companyNameData[value])
+//                    .businessEmail(value + "@naver.com")
+//                    .businessTel(value + "-" + value + "-" + value)
+//                    .fax(value + "")
+//                    .build();
+//            Company company = companyDTO.com();
+//            companyRepository.save(company);
+//        }
 
     }
 }

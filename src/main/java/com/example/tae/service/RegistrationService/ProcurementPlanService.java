@@ -1,6 +1,10 @@
 package com.example.tae.service.RegistrationService;
 
+import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+
+import java.util.List;
+
 public interface ProcurementPlanService {
 
-//    void insert_plan();
+    List<ProcurementPlan> getAllPlan();
 }

@@ -25,6 +25,4 @@ public class ContractDTO {
     private Date end_date;
     private Date contract_date;
 
-    private boolean tf;
-
 }

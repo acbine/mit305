@@ -6,9 +6,6 @@
     <script src="http://code.jquery.com/jquery-latest.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/js/ProcurementPlanRegistration.js"></script>
     <style>
-        .plan_container {
-                  width: 1000px;
-        }
 
         td {
             text-align: center;
@@ -60,44 +57,28 @@
     <div class="data-card">
         <h2 class="title">조달 계획 관리</h2>
 
-        <button onclick="plan_show('co')"> 조달 계획 불러오기 </button>
+        <button onclick="ProcurementPlan_list()"> 조달 계획 불러오기 </button>
 
         <div class="table-container">
 
-            <table class="table" border="1" id="plan_table_info" style="display:none">
+            <table class="table" border="1" id="plan_table_info">
                 <thead>
                 <tr>
-                    <th>조달 품목명</th>
-                    <th>조달 품목 코드</th>
-                    <th>필요 수량</th>
-                    <th>조달 수량</th>
-                    <th>L/T</th>
-                    <th>제품 생산 날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
-                    <th>계획 관리</th>
+                    <th width="97.67" height="25">조달 제품명</th>
+                    <th width="97.67" height="25">조달 품목명</th>
+                    <th width="120.67" height="25">조달 품목 코드</th>
+                    <th width="86.67" height="25">필요 수량</th>
+                    <th width="86.67" height="25">조달 수량</th>
+                    <th width="57.67" height="25">L/T</th>
+                    <th width="104.42" height="25">조달 업체명</th>
+                    <th width="128.67" height="25">제품 생산 날짜</th>
+                    <th width="96.9" height="25">현재 재고량</th>
+                    <th width="105.32" height="25">발주일</th>
+                    <th width="112.7" height="25">계획 관리</th>
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>16</td>
-                    <td>4</td>
-                    <td>5일</td>
-                    <td>24/01/16</td>
-                    <td>길승산업</td>
-                    <td>12</td>
-                    <td>24/01/10</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-button action-button-edit" onclick="td_regOrder(this)">발주등록</button>
-                            <button class="action-button action-button-edit" onclick="td_delete(this)">삭제</button>
-                        </div>
-                    </td>
-                </tr>
 
                 </tbody>
             </table>

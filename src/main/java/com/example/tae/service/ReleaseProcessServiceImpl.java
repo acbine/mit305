@@ -1,6 +1,5 @@
 package com.example.tae.service;
 
-import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
@@ -9,14 +8,13 @@ import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 import com.example.tae.entity.dto.ExistenceDTO;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.repository.ReleaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,13 +28,13 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
     private ReleaseRepository releaseRepository;
     private ReceivingProcessingRepository receivingProcessingRepository;
     private ProcurementPlanRepository procurementPlanRepository;
-    private ProductInformationRepository productInformationRepository;
+    private ProductInformationRegistrationRepository productInformationRegistrationRepository;
 
 
     @Override
     public ReleaseDto release(int release, int procurementPlan_code) {
         Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlan_code);
-        Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(procurementPlan_code);
+        Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(procurementPlan_code);
         Optional<ReleaseProcess> mostRecentShippingData = Optional.of(releaseRepository.findTop1ByOrderByModDateDesc(procurementPlan_code).orElseGet(
                 () -> {
                     ReleaseProcess releaseProcess = ReleaseProcess.builder()
@@ -112,7 +110,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                         return receivingProcessing1;
                     }));
             int store = receivingProcessing.get().getStore();
-            Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
+            Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(planId);
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
                     mostRecentShippingData.get(),
                     productInformationRegistration.get(),
@@ -134,11 +132,11 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
         List<ReleaseDto> releaseDtoList = new ArrayList<>();
 
         if (state == 0) {/*품목 이름 검색*/
-            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationName(constraints);
+            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRegistrationRepository.findByProductInformationName(constraints);
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         } else if (state == 1) {/*품목 코드 검색*/
-            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
+            List<ProductInformationRegistration> productInformationRegistrationList = productInformationRegistrationRepository.findByProductInformationCode(constraints);
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         }

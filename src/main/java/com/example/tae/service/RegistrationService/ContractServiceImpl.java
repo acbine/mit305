@@ -1,8 +1,6 @@
 package com.example.tae.service.RegistrationService;
 
 import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.DummyData.Company;
-import com.example.tae.entity.DummyData.DTO.CompanyDTO;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import org.springframework.beans.factory.annotation.Autowired;

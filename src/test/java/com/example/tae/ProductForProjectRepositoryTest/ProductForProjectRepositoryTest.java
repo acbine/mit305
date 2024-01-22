@@ -6,7 +6,7 @@ import com.example.tae.entity.ProductForProject.ProductForProjectEmbeddable;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.ProductForProjectRepository;
 import com.example.tae.repository.ProjectRepository.ProjectRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,7 +16,7 @@ public class ProductForProjectRepositoryTest {
     @Autowired
     ProductForProjectRepository productForProjectRepository; //제품의 품목
     @Autowired
-    ProductInformationRepository productInfomationRepository;// 품목
+    ProductInformationRegistrationRepository productInfomationRepository;// 품목
     @Autowired
     ProjectRepository projectRepository;//제품
 

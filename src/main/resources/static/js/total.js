@@ -476,7 +476,8 @@ script10.async = true;
 script10.src = "/js/ContractRegistrationModal.js";
 document.head.appendChild(script10);
 
+// existence.js
 var script11 = document.createElement("script");
-script10.async = true;
-script10.src = "/js/existence.js";
+script11.async = true;
+script11.src = "/js/existence.js";
 document.head.appendChild(script11);

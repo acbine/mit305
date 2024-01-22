@@ -76,10 +76,6 @@ function addTable(clickNum,data) {
     var store = releaseProcess.store;
     var existence_price = releaseProcess.existence_price
 
-    console.log("release정보 확인 : ",release+ ", existence 정보확인 : " + existence , ", store 입고정보 확인 : ", store);
-
-    console.log("inputHTML 정보 확인 : ",inputHTML)
-
     inputHTML[9].innerHTML = ` <td class="table-body">${store}</td>`
     inputHTML[10].innerHTML= ` <td class="table-body">${existence}</td>`
     inputHTML[11].innerHTML= ` <td class="table-body">${existence_price}</td>`

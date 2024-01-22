@@ -1,14 +1,26 @@
 function searchProduct() {
     console.log("함수가 작동 되고 있는지 확인")
     var search = document.getElementById("search");
-    console.log("정보를 제대로 가져오는지 확인 : ",search);
+    var date1 = document.getElementById("date1").value;
+    var date2= document.getElementById("date2").value;
+    console.log("date1과 date2 정보 확인하기 date1 : ", date1, ", date2 : ", date2)
+    var product = search.value;
+
+    $.ajax({
+        url:'existenceDate?&date1='+date1+'&date2='+date2+'&product='+product,
+        type : 'get',
+        data: {},
+        success:function (info){
+            console.log("받아오는 데이터 정보 값이 다 잘들어왔는지 확인",info)
+            console.log("성공");
+            console.log("보내는 정보 보기 : ",product);
+        },
+        error:function (info) {
+            console.log("에러 받아오는 데이터 확인하기 : ", info);
+            console.log("보내는 정보 보기 : ",product);
+        }
+    });
 }
-
-var script = document.createElement("script");
-script.async = true;
-script.src = "https://www.gstatic.com/charts/loader.js";
-document.head.appendChild(script);
-
 
 google.charts.load('current', {packages: ['corechart']});
 
@@ -69,3 +81,8 @@ $(document).ready(function () {
     });
 
 });
+
+var script = document.createElement("script");
+script.async = true;
+script.src = "https://www.gstatic.com/charts/loader.js";
+document.head.appendChild(script);

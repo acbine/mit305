@@ -13,15 +13,15 @@
   <div class="container">
     <div class="bg-white box-shadow rounded-lg p-6" style="margin: auto">
       <div class="grid grid-cols-3 gap-4 mb-4">
-        수불기간<input type="date">부터<input type="date">까지
+        수불기간<input id = "date1" type="date">부터<input id = "date2" type="date">까지
       </div>
       <div class="w-full h-[300px] mb-4">
         <div style="width: 100%; height: 100%;"></div>
       </div>
       <div class="relative w-full overflow-auto">
         <div class="flex justify-center items-center space-x-2 mb-4">
-          <input type="text" value="품목명 검색">
-          <button onclick="searchProduct()" id ="search">검색</button>
+          <input type="text" id ="search" value="품목명 검색">
+          <button onclick="searchProduct()">검색</button>
           정렬선택 : <select>
             <option>전 체</option>
             <option>대분류</option>

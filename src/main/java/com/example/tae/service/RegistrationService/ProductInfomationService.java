@@ -2,13 +2,10 @@ package com.example.tae.service.RegistrationService;
 
 import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Classification.Part;
-import com.example.tae.entity.DummyData.Classification.Unit;
 import com.example.tae.entity.DummyData.DTO.PartDTO;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import com.example.tae.entity.ProductInformation.dto.ProductInformationRegistrationDto;
+import com.example.tae.entity.ProductInformation.dto.ProductInformationRegistrationDTO;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 // 품목 정보 서비스
 public interface ProductInfomationService {
@@ -20,7 +17,7 @@ public interface ProductInfomationService {
     // 중분류 리스트 검색
 
     // 소분류 리스트 검색
-    default PartDTO mapToDTO(Part part, List<ProductInformationRegistrationDto> productInfo) {
+    default PartDTO mapToDTO(Part part, List<ProductInformationRegistrationDTO> productInfo) {
 
 //        PartDTO partDTO = PartDTO.builder()
 //                .id(part.getId())
@@ -46,7 +43,7 @@ public interface ProductInfomationService {
 
 
     // 품목 정보 추가
-    void insert_info();
+    void insert_info(ProductInformationRegistrationDTO productInformationRegistrationDTO);
 
     // 선택한 품목의 계약 정보 리스트 검색
     List<ContractDTO> getListOfProductContract(int product_code);

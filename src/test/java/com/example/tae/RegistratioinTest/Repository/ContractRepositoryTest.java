@@ -5,7 +5,7 @@ import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,7 @@ public class ContractRepositoryTest {
     CompanyRepository companyRepository;
 
     @Autowired // 품목 정보
-    ProductInformationRepository productInfomationRepository;
+    ProductInformationRegistrationRepository productInfomationRepository;
 
     @Autowired // 계약
     ContractRepository contractRepository;
@@ -42,7 +42,7 @@ public class ContractRepositoryTest {
 
         Contract contract1 = Contract.builder().productInformationRegistration(productInformationRegistration)
                 .company(company).payment_method("현금지불").product_price(100).lead_time(10)
-                .start_date(date1).end_date(date2).contract_date(date3).tf(false).build();
+                .start_date(date1).end_date(date2).contract_date(date3).build();
 
         contractRepository.save(contract1);
     }

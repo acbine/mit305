@@ -90,15 +90,59 @@ function info_delete(tag) {
     tr.remove();
 }
 
+// 전체 품목 정보 검색
+function select_info() {
 
-function info_show(get) {
+    $.ajax({
 
-    document.getElementById('product_info').style.display = 'none';
+        url : '/search/product',
+        method : 'GET',
+        dataType : 'json',
 
-    if (get == 'in') {
+        success : function(data) {
+            console.log(data);
+            resultTable(data);
+        },
 
-        document.getElementById('product_info').style.display = 'inline-block';
-    }
+        erorr : function(error) {
+            console.error(error);
+        }
+
+    });
+}
+
+// 검색한 결과 테이블로 출력
+function resultTable(data_info) {
+
+    $.each(data_info, function(index, info) {
+
+        $('#product_info tbody')
+            .append(
+                '<tr>' +
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.product_name + '>' + '</td>' + // 품목명
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.product_code + '>' + '</td>' + // 품목 코드
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.product_abbreviation + '>' + '</td>' + // 약칭
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.texture + '>' + '</td>' + // 재질
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.width + '>' + '</td>' + // 가로
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.length + '>' + '</td>' + // 세로
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.height + '>' + '</td>' + // 높이
+                    '<td>' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_name value =' + info.weight + '>' + '</td>' + // 중량
+                    '<td>' + info.part.assy.unit.unit + '</td>' + // 대분류
+                    '<td>' + info.part.assy.assy + '</td>' + // 중분류
+                    '<td>' + info.part.part + '</td>' + // 소분류
+                    '<td>' + info.product_imageURL + '</td>' + // 사진 주소
+                    '<td>' +
+                        '계약 안됨 <button>계약 상세</button>' +
+                    '</td>' +
+                    '<td>' +
+                         '<div class="actions">' +
+                             '<button class="action-button action-button-edit" onclick="info_modify_and_save(this)">수정</button>' +
+                             '<button class="action-button action-button-delete" onclick="info_delete(this)">삭제</button>' +
+                         '</div>' +
+                    '</td>' +
+                '</tr>'
+            )
+    });
 
 }
 
@@ -190,13 +234,13 @@ function info_addRow() {
 
             '<input type="text" class = "cnt" style="width:50px; height:25px; font-size:15px; text-align:center;">';
 
-        if (i == 1) {
+        if (i == 0) {
 
             temp_html =
                 '<input type="text" class = "cnt" style="width:73px; height:25px; font-size:15px; text-align:center;">';
         }
 
-        if (i == 4) {
+        if (i == 3) {
 
             temp_html =
                 '<input type="text" class = "cnt" style="width:73px; height:25px; font-size:15px; text-align:center;">';
@@ -214,7 +258,7 @@ function info_addRow() {
                 '<input type="text" class = "cnt" style="width:73px; height:25px; font-size:15px; text-align:center;">';
         }
 
-        if (i == 9) {
+        if (i == 8) {
 
             temp_html =
                 '<td>' +
@@ -225,7 +269,7 @@ function info_addRow() {
                 '</td>';
         }
 
-        if (i == 10) {
+        if (i == 9) {
 
             temp_html =
                 '<td>' +
@@ -236,7 +280,7 @@ function info_addRow() {
                 '</td>';
         }
 
-        if (i == 11) {
+        if (i == 10) {
 
             temp_html =
                 '<td>' +
@@ -247,14 +291,14 @@ function info_addRow() {
                 '</td>';
         }
 
-        if (i == 12) {
+        if (i == 11) {
 
             temp_html = '<td>' +
                 '<input type="file" accept="image/png, image/jpg">' +
                 '</td>';
         }
 
-        if (i == 13) {
+        if (i == 12) {
 
             temp_html =
                 '<td>' +

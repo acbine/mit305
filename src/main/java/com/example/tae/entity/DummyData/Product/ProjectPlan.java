@@ -22,6 +22,7 @@ public class ProjectPlan {
 
     private int outPuteNum;
 
+    @Temporal(TemporalType.DATE)
     private Date projectOutputDate;
 
     @ManyToOne

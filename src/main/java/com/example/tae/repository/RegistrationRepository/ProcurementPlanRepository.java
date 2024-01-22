@@ -11,6 +11,4 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
 
     List<ProcurementPlan> findAllByProjectPlan_Id(int prjId);
 
-
-
 }

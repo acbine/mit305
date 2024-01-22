@@ -2,12 +2,16 @@ package com.example.tae.service;
 
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 
 import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.StatusManagement.StatusManagementDTO;
+import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +31,8 @@ public class BinServiceImpl implements BinService{
     private ReceivingProcessingRepository receivingProcessingRepository;
 
     private ProcurementPlanRepository procurementPlanRepository;
+    private ProductInformationRegistrationRepository productInformationRegistrationRepository;
+    private ExistenceRepository existenceRepository;
 
     @Override
     public List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start , Date end) {
@@ -138,6 +144,18 @@ public class BinServiceImpl implements BinService{
                 .procurementPlan(receivingProcessingRepository.productplane(procurementplan_code))
                 .store(store)
                 .build();
+        ProductInformationRegistration productInformationRegistration = receivingProcessing.getProcurementPlan().getContract().getProductInformationRegistration();
+        Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                ()->{
+                    Existence existence1 = Existence.builder()
+                            .productCode(productInformationRegistration)
+                            .releaseCNT(store)
+                            .build();
+                    existenceRepository.save(existence1);
+                    return existence1;
+                }
+        ));
+        existenceRepository.save(existence.get());
         receivingProcessingRepository.save(receivingProcessing); //입고처리 DB에 저장
         receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
 //        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로

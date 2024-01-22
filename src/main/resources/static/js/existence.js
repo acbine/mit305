@@ -13,6 +13,7 @@ function searchProduct() {
         success:function (info){
             console.log("받아오는 데이터 정보 값이 다 잘들어왔는지 확인",info)
             console.log("성공");
+            htmlLoad(info);
             console.log("보내는 정보 보기 : ",product);
         },
         error:function (info) {
@@ -20,7 +21,36 @@ function searchProduct() {
             console.log("보내는 정보 보기 : ",product);
         }
     });
+
 }
+
+function htmlLoad(data) {
+    var table = document.getElementsByClassName("existence_body");
+
+    var inputHtml = [];
+    var existence = data.existenceList;
+
+    for(var i=0; i<existence.length;i++){
+        inputHtml.push(`
+        <tr>
+            <td>${existence[i].productName}</td>
+            <td>${existence[i].product_code}</td>
+            <td>${existence[i].releaseDate}</td>
+            <td>${existence[i].length}</td>
+            <td>${existence[i].weight}</td>
+            <td>${existence[i].length}</td>
+            <td>${existence[i].unit.unit}</td>
+            <td>${existence[i].assy.assy}</td>
+            <td>${existence[i].part.part}</td>
+            <td>${existence[i].release}</td>
+            <td>${existence[i].existence}</td>
+            <td>${existence[i].existence_price}</td>
+        </tr>`);
+    }
+
+    table[table.length-1].innerHTML = inputHtml.join("");
+}
+
 
 google.charts.load('current', {packages: ['corechart']});
 

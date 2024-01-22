@@ -1,6 +1,7 @@
 package com.example.tae.entity.ReleaseProcess.dto;
 
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
+import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,8 +30,8 @@ public class ReleaseDto {
     private int procurementPlan_code;
 
 
-    public ReleaseDto releaseProcessDTO(ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, String productName, int contract_pay, int store, int procurementPlan_code) {
-       int existence = store - releaseProcess.getReleaseCNT();
+    public ReleaseDto releaseProcessDTO(ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, String productName, int contract_pay, Existence existenceInfo, int procurementPlan_code) {
+       int existence = existenceInfo.getReleaseCNT();
        int existence_price = existence * contract_pay;
         return ReleaseDto.builder()
                 .productName(productName)
@@ -42,7 +43,6 @@ public class ReleaseDto {
                 .length(productInformationRegistration.getLength())
                 .contract_pay(contract_pay)
                 .release(releaseProcess.getReleaseCNT())
-                .store(store)
                 .existence(existence)
                 .existence_price(existence_price)
                 .procurementPlan_code(procurementPlan_code)

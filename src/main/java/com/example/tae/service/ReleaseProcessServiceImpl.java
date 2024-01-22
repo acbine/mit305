@@ -3,9 +3,11 @@ package com.example.tae.service;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
+import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 
+import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
@@ -29,13 +31,25 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
     private ReceivingProcessingRepository receivingProcessingRepository;
     private ProcurementPlanRepository procurementPlanRepository;
     private ProductInformationRegistrationRepository productInformationRepository;
+    private ExistenceRepository existenceRepository;
 
 
     @Override
     public ReleaseDto release(int release, int procurementPlan_code) {
         Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlan_code);
-        Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(procurementPlan_code);
-        int store;
+        ProductInformationRegistration productInformationRegistration = procurementPlan.get().getContract().getProductInformationRegistration();
+        Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                ()->{
+                    Existence existence1 = Existence.builder()
+                            .productCode(procurementPlan.get().getContract().getProductInformationRegistration())
+                            .releaseCNT(release*-1)
+                            .build();
+                    existenceRepository.save(existence1);
+                    return existence1;
+                }
+        ));
+        existence.get().updateRelease(release*-1);
+        existenceRepository.save(existence.get());
         Optional<ReleaseProcess> mostRecentShippingData = Optional.of(releaseRepository.findTop1ByOrderByModDateDesc(procurementPlan_code).orElseGet(
                 () -> {
                     ReleaseProcess releaseProcess = ReleaseProcess.builder()
@@ -55,7 +69,6 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                 }
         ));
 
-        store = mostRecentStoreData.get().getStore();
 
         ReleaseProcess releaseP = ReleaseProcess.builder()
                 .procurementPlan(procurementPlan.get())
@@ -65,10 +78,10 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
 
         return new ReleaseDto().releaseProcessDTO(
                 mostRecentShippingData.get(),
-                productInformationRegistration.get(),
-                productInformationRegistration.get().getProduct_name(),
+                productInformationRegistration,
+                existence.get().getProductCode().getProduct_name(),
                 procurementPlan.get().getContract().getProduct_price(),
-                store,
+                existence.get(),
                 procurementPlan_code
         );
     }
@@ -81,6 +94,8 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
         ReleaseDto releaseDto = new ReleaseDto();
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             int planId = procurementPlan.getProcurementplan_code();
+            ProductInformationRegistration productInformationRegistration = procurementPlan.getContract().getProductInformationRegistration();
+
             Optional<ReleaseProcess> mostRecentShippingData = Optional.of(releaseRepository.findTop1ByOrderByModDateDesc(planId).orElseGet(
                     () -> {
                         ReleaseProcess releaseProcess = ReleaseProcess.builder()
@@ -91,22 +106,23 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                         return releaseProcess;
                     }
             ));
-            Optional<ReceivingProcessing> receivingProcessing = Optional.of(receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId)
-                    .orElseGet(() -> {
-                        return   ReceivingProcessing.builder()
-                                .store(0)
-                                .procurementPlan(procurementPlan)
+            Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                    ()->{
+                        Existence existence1 = Existence.builder()
+                                .productCode(productInformationRegistration)
+                                .releaseCNT(0)
                                 .build();
-                    }));
-            int store = receivingProcessing.get().getStore();
-            Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
+                        existenceRepository.save(existence1);
+                        return existence1;
+                    }
+            ));
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
                     mostRecentShippingData.get(),
-                    productInformationRegistration.get(),
-                    productInformationRegistration.get().getProduct_name(),
+                    productInformationRegistration,
+                    productInformationRegistration.getProduct_name(),
                     procurementPlan.getContract().
                             getProduct_price(),
-                    store,
+                    existence.get(),
                     planId
             );
             releaseDtoList.add(releaseDto1);
@@ -133,18 +149,21 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
     }
 
     public List<ReleaseDto> changeReleaseDataToReleaseDTOFormat(List<ReleaseDto> releaseDtoList, ReleaseDto releaseDto, List<ProcurementPlan> procurementPlanList, List<ProductInformationRegistration> productInformationRegistrationList) {
-        int store=0;
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             int planId = procurementPlan.getProcurementplan_code();
             Optional<ReleaseProcess> mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc(planId);
-            Optional<ReceivingProcessing> receivingProcessing = receivingProcessingRepository.findTop1ByOrderByModDateDesc(planId);
             for(ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
                 if(productInformationRegistration.getProduct_code()==planId) {
-                    if(receivingProcessing.isPresent()) {
-                        store=receivingProcessing.get().getStore();
-                    } else {
-                        store = 0;
-                    }
+                    Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                            ()->{
+                                Existence existence1 = Existence.builder()
+                                        .productCode(productInformationRegistration)
+                                        .releaseCNT(0)
+                                        .build();
+                                existenceRepository.save(existence1);
+                                return existence1;
+                            }
+                    ));
 
                     ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
                             mostRecentShippingData.get(),
@@ -152,7 +171,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                             productInformationRegistration.getProduct_name(),
                             procurementPlan.getContract().
                                     getProduct_price(),
-                            store,
+                            existence.get(),
                             planId
                     );
                     releaseDtoList.add(releaseDto1);

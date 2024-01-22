@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +20,7 @@
       </div>
       <div class="relative w-full overflow-auto">
         <div class="flex justify-center items-center space-x-2 mb-4">
-          <input type="text" id ="search" value="품목명 검색">
+          <input type="text" id ="search">
           <button onclick="searchProduct()">검색</button>
           정렬선택 : <select>
             <option>전 체</option>
@@ -35,6 +35,11 @@
         <tr>
           <th>품목명</th>
           <th>품목코드</th>
+          <th>출고가 있던 날</th>
+          <th>재질</th>
+          <th>높이</th>
+          <th>길이</th>
+          <th>너비</th>
           <th>대분류</th>
           <th>중분류</th>
           <th>소분류</th>
@@ -43,16 +48,22 @@
           <th>재고 금액</th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-          <td>나사</td>
-          <td>asaf</td>
-          <td>대분류</td>
-          <td>중분류</td>
-          <td>소분류</td>
-          <td>120</td>
-          <td>100</td>
-          <td>12000</td>
+        <tbody class="existence_body">
+        <tr th:each="existence: ${existenceList}">
+          <td th:text="${existence.productName}"></td>
+          <td th:text="${existence.product_code}"></td>
+          <td th:text="${existence.releaseDate}"></td>
+          <td th:text="${existence.height}"></td>
+          <td th:text="${existence.length}"></td>
+          <td th:text="${existence.weight}"></td>
+          <td th:text="${existence.unit.unit}"></td>
+          <td th:text="${existence.assy.assy}"></td>
+          <td th:text="${existence.unit.unit}"></td>
+          <td th:text="${existence.assy.assy}"></td>
+          <td th:text="${existence.part.part}"></td>
+          <td th:text="${existence.release}"></td>
+          <td th:text="${existence.existence}"></td>
+          <td th:text="${existence.existence_price}"></td>
         </tr>
         </tbody>
       </table>

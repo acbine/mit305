@@ -5,6 +5,7 @@ import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Classification.Unit;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
+import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import jakarta.persistence.Column;
 import lombok.*;
@@ -20,7 +21,7 @@ import java.time.LocalDateTime;
 public class ExistenceDTO {
     private String productName;
     private int product_code;
-    private LocalDateTime departureDate;
+    private LocalDateTime releaseDate;
     private String texture;
     private int weight;
     private int height;
@@ -34,20 +35,21 @@ public class ExistenceDTO {
     private Assy assy;
     private Part part;
 
-    public ExistenceDTO existence(ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, int contract_pay, int store) {
+    public ExistenceDTO existence(Existence existenceInfo,ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, int contract_pay) {
         if(productInformationRegistration.getPart()==null || productInformationRegistration.getPart().getAssy()==null || productInformationRegistration.getPart().getAssy().getUnit()==null) {
+            int existence = existenceInfo.getReleaseCNT();
+            int existence_price = existence * contract_pay;
             Part part1 = Part.builder().part(null).assy(null).build();
             return ExistenceDTO.builder()
                     .productName(productInformationRegistration.getProduct_name())
                     .product_code(productInformationRegistration.getProduct_code())
-                    .departureDate(departureDate)
                     .texture(productInformationRegistration.getTexture())
                     .weight(productInformationRegistration.getWeight())
                     .height(productInformationRegistration.getHeight())
                     .length(productInformationRegistration.getLength())
+                    .releaseDate(releaseProcess.getModDate())
                     .contract_pay(contract_pay)
                     .release(releaseProcess.getReleaseCNT())
-                    .store(store)
                     .existence(existence)
                     .existence_price(existence_price)
                     .product_code(productInformationRegistration.getProduct_code())
@@ -56,19 +58,18 @@ public class ExistenceDTO {
                     .part(part1)
                     .build();
         }
-        int existence = store - releaseProcess.getReleaseCNT();
+        int existence = existenceInfo.getReleaseCNT();
         int existence_price = existence * contract_pay;
         return ExistenceDTO.builder()
                 .productName(productInformationRegistration.getProduct_name())
                 .product_code(productInformationRegistration.getProduct_code())
-                .departureDate(departureDate)
                 .texture(productInformationRegistration.getTexture())
                 .weight(productInformationRegistration.getWeight())
                 .height(productInformationRegistration.getHeight())
                 .length(productInformationRegistration.getLength())
+                .releaseDate(releaseProcess.getModDate())
                 .contract_pay(contract_pay)
                 .release(releaseProcess.getReleaseCNT())
-                .store(store)
                 .existence(existence)
                 .existence_price(existence_price)
                 .product_code(productInformationRegistration.getProduct_code())

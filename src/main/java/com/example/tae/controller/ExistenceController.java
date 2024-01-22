@@ -3,8 +3,10 @@ package com.example.tae.controller;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
+import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import com.example.tae.entity.dto.ExistenceDTO;
+import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 
@@ -38,8 +40,8 @@ public class ExistenceController {
     private final ReleaseRepository releaseRepository;
 
     private final ProductInformationRegistrationRepository productInformationRepository;
-    private final ProcurementPlanRepository procurementPlanRepository;
-    private final ReceivingProcessingRepository receivingProcessingRepository;
+
+    private final ExistenceRepository existenceRepository;
 
     @GetMapping("existence")
     public String existence() {
@@ -48,8 +50,7 @@ public class ExistenceController {
 
     @GetMapping("existenceDate")
     @ResponseBody
-    public ResponseEntity<List<ExistenceDTO>> existence(@RequestParam("date1") String stringDate1, @RequestParam("date2") String stringDate2, @RequestParam("product") String product) throws Exception {
-        System.out.println("받아오는 데이터 정보 확인하기"+stringDate1+stringDate1+product);
+    public ResponseEntity<?> existence(@RequestParam("date1") String stringDate1, @RequestParam("date2") String stringDate2, @RequestParam("product") String product) throws Exception {
 
         List<ExistenceDTO> existenceDTOList = new ArrayList<>();
 
@@ -58,38 +59,56 @@ public class ExistenceController {
         LocalDateTime date1 = LocalDateTime.parse(stringDate1+ " 00:00", format);
         LocalDateTime date2 = LocalDateTime.parse(stringDate2+ " 00:00", format);
 
-        log.info("데이터 변환 확인 : ", date1, date2);
-        
+
         if(product.equals("")) {
             List<ReleaseProcess> releaseProcessList= releaseRepository.findByReleaseProcessWithModDate(date1, date2);
             for(ReleaseProcess releaseProcess : releaseProcessList) {
                 ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
-                int planId = procurementPlan.getProcurementplan_code();
-                ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(planId);
-                Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
+                ProductInformationRegistration productInformationRegistration = procurementPlan.getContract().getProductInformationRegistration();
 
                 ExistenceDTO existence = new ExistenceDTO();
-                ExistenceDTO existenceDTO = existence.existence(releaseProcess,productInformationRegistration.get(),procurementPlan.getContract().getProduct_price(),receivingProcessing.getStore());
+                Optional<Existence> existence1 = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                        ()->{
+                            Existence existence2 = Existence.builder()
+                                    .productCode(productInformationRegistration)
+                                    .releaseCNT(0)
+                                    .build();
+                            existenceRepository.save(existence2);
+                            return existence2;
+                        }
+                ));
 
+                ExistenceDTO existenceDTO = existence.existence(existence1.get(),releaseProcess,procurementPlan.getContract().getProductInformationRegistration(),procurementPlan.getContract().getProduct_price());
                 existenceDTOList.add(existenceDTO);
             }
 
-            return ResponseEntity.status(HttpStatus.OK).body(existenceDTOList);
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("existenceList", existenceDTOList));
         } else {
             List<ReleaseProcess> releaseProcessCollect = new ArrayList<>();
             List<ProductInformationRegistration> productInformationRegistrations = productInformationRepository.findByProductInformationName(product);
             productInformationRegistrations.forEach(productInformationRegistration -> {
                 releaseProcessCollect.addAll(releaseRepository.findByReleaseProcessWithDateAndProductCode(productInformationRegistration.getProduct_code(), date1, date2));
-                for(ReleaseProcess releaseProcess : releaseProcessCollect) {
-                    ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
-                    int planId = procurementPlan.getProcurementplan_code();
-                    ReceivingProcessing receivingProcessing =receivingProcessingRepository.findByProcumentPlanCode(planId);
-                    ExistenceDTO existenceDTO = new ExistenceDTO();
-                    ExistenceDTO existence = existenceDTO.existence(releaseProcess,productInformationRegistration,procurementPlan.getContract().getProduct_price(), receivingProcessing.getStore());
-                    existenceDTOList.add(existence);
-                }
             });
-            return ResponseEntity.status(HttpStatus.OK).body(existenceDTOList);
+            for(ReleaseProcess releaseProcess : releaseProcessCollect) {
+                ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
+                ProductInformationRegistration productInformationRegistration = procurementPlan.getContract().getProductInformationRegistration();
+
+                Optional<Existence> existence1 = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                        ()->{
+                            Existence existence2 = Existence.builder()
+                                    .productCode(productInformationRegistration)
+                                    .releaseCNT(0)
+                                    .build();
+                            existenceRepository.save(existence2);
+                            return existence2;
+                        }
+                ));
+
+                ExistenceDTO existenceDTO = new ExistenceDTO();
+                ExistenceDTO existence = existenceDTO.existence(existence1.get(), releaseProcess,productInformationRegistration, procurementPlan.getContract().getProduct_price());
+                existenceDTOList.add(existence);
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(Map.of("existenceList", existenceDTOList));
         }
     }
 }

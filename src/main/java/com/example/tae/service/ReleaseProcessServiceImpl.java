@@ -28,7 +28,6 @@ import java.util.Optional;
 public class ReleaseProcessServiceImpl implements ReleaseProcessService {
 
     private ReleaseRepository releaseRepository;
-    private ReceivingProcessingRepository receivingProcessingRepository;
     private ProcurementPlanRepository procurementPlanRepository;
     private ProductInformationRegistrationRepository productInformationRepository;
     private ExistenceRepository existenceRepository;
@@ -60,15 +59,6 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                     return releaseProcess;
                 }
         ));
-        Optional<ReceivingProcessing> mostRecentStoreData = Optional.of(receivingProcessingRepository.findTop1ByOrderByModDateDesc(procurementPlan_code).orElseGet(
-                () -> {
-                    return  ReceivingProcessing.builder()
-                            .store(0)
-                            .procurementPlan(procurementPlan.get())
-                            .build();
-                }
-        ));
-
 
         ReleaseProcess releaseP = ReleaseProcess.builder()
                 .procurementPlan(procurementPlan.get())
@@ -116,6 +106,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                         return existence1;
                     }
             ));
+
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
                     mostRecentShippingData.get(),
                     productInformationRegistration,

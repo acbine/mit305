@@ -14,6 +14,7 @@ function searchProduct() {
             console.log("받아오는 데이터 정보 값이 다 잘들어왔는지 확인",info)
             console.log("성공");
             htmlLoad(info);
+            columnChart(info);
             console.log("보내는 정보 보기 : ",product);
         },
         error:function (info) {
@@ -53,66 +54,78 @@ function htmlLoad(data) {
 
 
 google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(columnChart);
 
-google.charts.load('current', {packages: ['corechart']});
+function columnChart(data) {
+    var select =  document.getElementById("selectInfo");
+    var value =  select.options[select.selectedIndex].value
+    console.log(value);
+    var charData;
 
-function columnChart1() {
+    var data1 = [['분류', '재고금액']];
 
-    var arr = [
+    if(value==="대분류") {
+        data.existenceList.forEach(x=>{
+            var array = [x.unit.unit, x.existence_price]
+            data1.push(array);
 
-        ['품목명', '총금액'],
+            charData = google.visualization.arrayToDataTable(data1)
+            var options1 = {
+                title: '대분류 공급가격',
+                width: 800,
+                height: 600
+            };
 
-        ['Unit', 740],
+            var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+            chart1.draw(charData, options1);
+        })
+    } else if(value==="중분류") {
+        data.existenceList.forEach(x=>{
+            var array = [x.assy.assy, x.existence_price]
+            data1.push(array);
 
-        ['Assy', 460],
+            charData = google.visualization.arrayToDataTable(data1)
+            var options1 = {
+                title: '중분류 공급가격',
+                width: 800,
+                height: 600
+            };
 
-        ['Part', 280],
+            var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+            chart1.draw(charData, options1);
+        })
+    }else if(value==="소분류") {
+        data.existenceList.forEach(x=>{
+            var array = [x.part.part, x.existence_price]
+            data1.push(array);
+
+            charData = google.visualization.arrayToDataTable(data1)
+            var options1 = {
+                title: '소분류 공급가격',
+                width: 800,
+                height: 600
+            };
+
+            var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+            chart1.draw(charData, options1);
+        })
+    } else {
+        data.existenceList.forEach(x=>{
+            var array = [x.productName, x.existence_price]
+            data1.push(array);
+
+            charData = google.visualization.arrayToDataTable(data1)
+            var options1 = {
+                title: '품목별 공급가격',
+                width: 800,
+                height: 600
+            };
+
+            var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+            chart1.draw(charData, options1);
+        })
+    }
 
 
-    ];
-
-
-    var dataTable = google.visualization.arrayToDataTable(arr);
-
-
-    var options = {
-
-        title: '현황 그래프',
-
-        hAxis: {
-
-            title: '현황 그래프',
-
-            titleTextStyle: {
-
-                color: 'black'
-
-            }
-
-        }
-
-    };
-
-    var objDiv = document.getElementById('column_chart_div1');
-
-    var chart = new google.visualization.ColumnChart(objDiv);
-
-
-    chart.draw(dataTable, options);
 
 }
-
-$(document).ready(function () {
-
-    $('button').on('click', function () {
-
-        columnChart1();
-
-    });
-
-});
-
-var script = document.createElement("script");
-script.async = true;
-script.src = "https://www.gstatic.com/charts/loader.js";
-document.head.appendChild(script);

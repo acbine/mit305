@@ -81,15 +81,14 @@ public class ExistenceController {
                 ExistenceDTO existenceDTO = existence.existence(existence1.get(),releaseProcess,procurementPlan.getContract().getProductInformationRegistration(),procurementPlan.getContract().getProduct_price());
                 existenceDTOList.add(existenceDTO);
             }
-
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("existenceList", existenceDTOList));
         } else {
-            List<ReleaseProcess> releaseProcessCollect = new ArrayList<>();
-            List<ProductInformationRegistration> productInformationRegistrations = productInformationRepository.findByProductInformationName(product);
-            productInformationRegistrations.forEach(productInformationRegistration -> {
-                releaseProcessCollect.addAll(releaseRepository.findByReleaseProcessWithDateAndProductCode(productInformationRegistration.getProduct_code(), date1, date2));
-            });
+            List<ReleaseProcess> releaseProcessCollect = releaseRepository.findByReleaseProcessWithDateAndProductName(product, date1, date2);
+for(ReleaseProcess releaseProcess : releaseProcessCollect) {
+    System.out.println(releaseProcess.getProcurementPlan().getContract().getProductInformationRegistration().getProduct_name());
+}
             for(ReleaseProcess releaseProcess : releaseProcessCollect) {
+
                 ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
                 ProductInformationRegistration productInformationRegistration = procurementPlan.getContract().getProductInformationRegistration();
 

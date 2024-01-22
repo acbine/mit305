@@ -6,10 +6,7 @@ console.log("데이터가 제대로 오는지 확인,");
 var departName = document.getElementById("departName");
 
 var click = document.querySelectorAll("option[name=departName]");
-click.addEventListener("click", function()) {
-    var word = this.getAttribute("id");
-    console.log(word);
-}
+
 
 }
 

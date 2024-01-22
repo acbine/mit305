@@ -7,11 +7,14 @@ import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import lombok.*;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +24,7 @@ import java.time.LocalDateTime;
 public class ExistenceDTO {
     private String productName;
     private int product_code;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
     private LocalDateTime releaseDate;
     private String texture;
     private int weight;

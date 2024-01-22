@@ -153,11 +153,13 @@ function sendDateToChild(String) {
 
 const childComponent = {
     receiveData: function (data) {
-        // for(var check =0; check<clickTapList.length; check++) {
-        //     if(clickTapList[check]!==data) {
-        //         clickTapList.push(data);
-        //     }
-        // }
+        for(var check =0; check<clickTapList.length; check++) {
+            if(clickTapList[check]!==data) {
+                clickTapList.push(data);
+            } else {
+                break;
+            }
+        }
         clickTapList.push(data);
         var SetClickTapList = new Set(clickTapList);
 

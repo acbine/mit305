@@ -11,7 +11,6 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Getter
-@ToString
 public class ReleaseProcess extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

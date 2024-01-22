@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   <link href="/css/existence.css" rel="stylesheet"/>
 
   <title>Your Page Title</title>
@@ -21,8 +21,8 @@
       <div class="relative w-full overflow-auto">
         <div class="flex justify-center items-center space-x-2 mb-4">
           <input type="text" id ="search">
-          <button onclick="searchProduct()">검색</button>
-          정렬선택 : <select>
+          <button onclick="searchProduct();">검색</button>
+          정렬선택 : <select id="selectInfo">
             <option>전 체</option>
             <option>대분류</option>
             <option>중분류</option>
@@ -52,7 +52,7 @@
         <tr th:each="existence: ${existenceList}">
           <td th:text="${existence.productName}"></td>
           <td th:text="${existence.product_code}"></td>
-          <td th:text="${existence.releaseDate}"></td>
+          <td th:text="${#temporals.format(existence.releaseDate, 'yyyy-MM-dd')}"></td>
           <td th:text="${existence.height}"></td>
           <td th:text="${existence.length}"></td>
           <td th:text="${existence.weight}"></td>
@@ -69,7 +69,7 @@
       </table>
       </div>
     </div>
-  </div>
-<script src="/js/existence.js"></script>
+  <div id="chart_div1" class="graph"></div>
+  <script src="/js/existence.js"></script>
 </body>
 </html>

@@ -49,8 +49,15 @@ public class BinController {
     public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code, @RequestParam("store") String store){
         System.out.println("-------- 입고처리요청들어옴---------------");
         System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store);
-        binService.ReceivingProcessStore(Integer.parseInt(procurementplan_code),Integer.parseInt(store));
-        List<ReceivingProcessingDTO> receivingProcessingDTOList = binService.procurementPlanList();
+        List<ReceivingProcessingDTO> receivingProcessingDTOList = null;
+        if(procurementplan_code.isEmpty() || store.isEmpty()  ){
+            System.out.println("뭔가 비었음");
+        }else{
+            binService.ReceivingProcessStore(Integer.parseInt(procurementplan_code),Integer.parseInt(store));
+            receivingProcessingDTOList = binService.procurementPlanList();
+        }
+
+
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("receivingProcessingDTOList", receivingProcessingDTOList));
     }
     /*------------------------ --------------------현황관리 -----------------------------------*/

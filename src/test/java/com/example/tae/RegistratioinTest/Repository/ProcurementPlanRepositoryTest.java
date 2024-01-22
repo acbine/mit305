@@ -16,6 +16,7 @@ import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 
 import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -73,7 +74,7 @@ public class ProcurementPlanRepositoryTest {
         ProcurementPlan procurementPlan = ProcurementPlan.builder()
                 .projectPlan(projectPlan)//생산계획
                 .contract(contract)//계약코드
-                .purchase(purchase)//발주서코드
+//                .purchase(purchase)//발주서코드
 
                 .productForProject(productForProject) //제품에대한 품목의수량
 

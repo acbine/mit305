@@ -84,7 +84,12 @@ function sendSMRURL(){
 
                     var dateOfOrderCell = document.createElement('td');
                     dateOfOrderCell.classList.add('table-data');
-                    dateOfOrderCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].dateOfOrder;
+                    if(statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString() ==='0001-01-01T00:00:00'  ){
+                        dateOfOrderCell.innerHTML = '발주전입니다';
+                    }else{
+                        dateOfOrderCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString();
+                    }
+
                     tableBodyRow.appendChild(dateOfOrderCell);
 
                     var orderDateCell = document.createElement('td');
@@ -94,7 +99,12 @@ function sendSMRURL(){
 
                     var ArrivalCell = document.createElement('td');
                     ArrivalCell.classList.add('table-data');
-                    ArrivalCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].arrival;
+
+                    if(statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString() ==='0001-01-01T00:00:00'  ){
+                        ArrivalCell.innerHTML = '입고처리 전입니다';
+                    }else{
+                        ArrivalCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].arrival.toString();
+                    }
                     tableBodyRow.appendChild(ArrivalCell);
 
                     var orderStateCell = document.createElement('td');

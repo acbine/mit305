@@ -11,12 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Transactional
 public class ProductInformationRegistrationDTO {
 
     private int product_code;
 
-    private PartDTO partDTO;
+    private Long id; // part의 id
 
     private String product_name;
 
@@ -29,19 +28,5 @@ public class ProductInformationRegistrationDTO {
     private int height;
     private int weight;
 
-//    public ProductInformationRegistration productInformationRegistration () {
-//
-//        return ProductInformationRegistration.builder()
-//                .product_code(product_code)
-//                .part(part)
-//                .product_name(product_name)
-//                .product_abbreviation(product_abbreviation)
-//                .texture(texture)
-//                .width(width)
-//                .length(length)
-//                .height(height)
-//                .weight(weight)
-//                .build();
-//    }
-
+    private String product_imageURL;
 }

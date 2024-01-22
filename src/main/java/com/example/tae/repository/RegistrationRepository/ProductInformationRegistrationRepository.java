@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface ProductInformationRepository extends JpaRepository <ProductInformationRegistration, Integer> {
+public interface ProductInformationRegistrationRepository extends JpaRepository <ProductInformationRegistration, Integer> {
     @Query("select p from ProductInformationRegistration p " +
         "where p.product_name = :proName")
     List<ProductInformationRegistration> findByProductInformationName(String proName);

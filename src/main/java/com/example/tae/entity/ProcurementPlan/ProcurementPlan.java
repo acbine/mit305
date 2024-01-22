@@ -36,6 +36,8 @@ public class ProcurementPlan {
     ProductForProject productForProject;//제품에대한 품목수량  ID:
 
     private int SupportProductAmount; //조달수량
+
     private Date order_date; //발주일
+    
     private String order_state; //품목에 대한 발주상태
 }

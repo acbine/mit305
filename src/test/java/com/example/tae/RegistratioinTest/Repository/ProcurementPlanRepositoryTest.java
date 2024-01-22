@@ -15,8 +15,7 @@ import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
-import jakarta.transaction.Transactional;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -40,7 +39,7 @@ public class ProcurementPlanRepositoryTest {
     ProjectRepository projectRepository;//제품
 
     @Autowired
-    ProductInformationRepository productInfomationRepository;// 품목
+    ProductInformationRegistrationRepository productInfomationRepository;// 품목
 
     @Autowired
     OrderRepository orderRepository; // 발주서

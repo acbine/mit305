@@ -27,19 +27,19 @@ public class ProjectRepositoryTest {
         projectRepository.save(product);
 
 
-//        String dateString = "2024-01-15";
-//
-//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//
-//        //에러나올시 -> 상위로 던지기함
-//        Date date=dateFormat.parse(dateString);
-//
-//
-//        //제품명을 기반으로 생산계획
-//        ProjectPlan projectPlan = ProjectPlan.builder().outPuteNum(11).projectOutputDate(date).product(product).build();
-//        projectPlanRepository.save(projectPlan);
-//
-//        System.out.println("데이터 DB에 들어감");
+        String dateString = "2024-01-15";
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        //에러나올시 -> 상위로 던지기함
+        Date date=dateFormat.parse(dateString);
+
+
+        //제품명을 기반으로 생산계획
+        ProjectPlan projectPlan = ProjectPlan.builder().outPuteNum(11).projectOutputDate(date).product(product).build();
+        projectPlanRepository.save(projectPlan);
+
+        System.out.println("데이터 DB에 들어감");
 
     }
 

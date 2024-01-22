@@ -6,21 +6,18 @@ import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
-import com.example.tae.service.RegistrationService.ContractService;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 public class ContractRestController {
 
     @Autowired
-    ProductInformationRepository productInformationRepository;
+    ProductInformationRegistrationRepository productInformationRegistrationRepository;
 
     @Autowired
     CompanyRepository companyRepository;
@@ -29,8 +26,10 @@ public class ContractRestController {
     @ResponseBody
     public int searchProductId(@RequestParam String name) {
 
+        System.out.println(name);
+
         List<ProductInformationRegistration> NameSearch
-                = productInformationRepository.findByProductInformationName(name);
+                = productInformationRegistrationRepository.findByProductInformationName(name);
 
 //        System.out.println(NameSearch.get(0));
 
@@ -69,7 +68,7 @@ public class ContractRestController {
         for(ContractDTO data : contractDTOList) {
 
             ProductInformationRegistration productInformationRegistration
-                    = productInformationRepository.findById(data.getProduct_code()).orElse(null);
+                    = productInformationRegistrationRepository.findById(data.getProduct_code()).orElse(null);
 
             Company company = companyRepository.findById(data.getBusinessNumber()).orElse(null);
 
@@ -86,7 +85,6 @@ public class ContractRestController {
                 contract.setPayment_method(data.getPayment_method()); // 지불 방법
                 contract.setStart_date(data.getStart_date()); // 계약 시작일
                 contract.setEnd_date(data.getEnd_date()); // 계약 종료일
-                contract.setTf(data.isTf()); // 계약서 등록 여부
 
                 contractRepository.save(contract);
             }

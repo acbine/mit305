@@ -77,8 +77,6 @@ List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 �
 
 //------------------------------------------------------자재관리에서 사용하는 쿼리-----------------------------------------------------------------------------------
 
-    Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc();
-
     @Query(value = "select * from tae.receiving_processing " +
             "where procurement_plan_procurementplan_code = :pcmPlanCode " +
             "order by mod_date desc limit 1", nativeQuery = true

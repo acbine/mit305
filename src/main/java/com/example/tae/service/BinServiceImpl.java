@@ -24,9 +24,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class BinServiceImpl implements BinService{
 
-    ReceivingProcessingRepository receivingProcessingRepository;
+    private ReceivingProcessingRepository receivingProcessingRepository;
 
-    ProcurementPlanRepository procurementPlanRepository;
+    private ProcurementPlanRepository procurementPlanRepository;
 
     @Override
     public List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start , Date end) {

@@ -399,7 +399,6 @@ function closePage(pageData, cnt) {
 
     second.classList.remove("is_on")
     second.classList.add("tap1")
-    console.log("맞게 가져오는지 확인",second)
     taps[cnt].style.display="none";
 
 };

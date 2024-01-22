@@ -543,49 +543,252 @@ public class DummyServiceImpl implements DummyService {
                 "VACUUMPAD",
                 "NOZZLE",
                 "FLOATiNGJOiNT"
-                ));
+        ));
 
 
-            /*중복 데이터 필터기 */
+        /*중복 데이터 필터기 */
 //        List<String> newList = partData.stream().distinct().collect(Collectors.toList());
 //        newList.forEach(System.out::println);
 
 
         /*-------------대중소 테이블 저장--------------------*/
-        for(String data : unitData) {
-            Unit unit = Unit.builder()
-                    .unit(data)
-                    .build();
-            unitRepository.save(unit);
-        }
 
-        for(String data : assyData) {
-            Assy assy = Assy.builder()
-                    .assy(data)
-                    .build();
-            assyRepository.save(assy);
-        }
+        for (String p : partData) {
+            if (p.equals("FLASHLAMP")) {
+                String a = "LASER";
+                String u = "용접부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
 
-        for(String data : partData) {
-            Part part = Part.builder()
-                    .part(data)
-                    .build();
-            partRepository.save(part);
-        }
+            } else if (p.equals("진공밸부VacuumValve")) {
+                String a = "PUMP";
+                String u = "주입부";
 
-        //회사 정보 데이터
-        for (int value = 0; value < companyBusinessNumberList.length; value++) {
-            CompanyDTO companyDTO = CompanyDTO.builder()
-                    .businessNumber(companyBusinessNumberList[value])
-                    .businessName(nameData[value])
-                    .departName(companyNameData[value])
-                    .businessEmail(value + "@naver.com")
-                    .businessTel(value + "-" + value + "-" + value)
-                    .fax(value + "")
-                    .build();
-            Company company = companyDTO.com();
-            companyRepository.save(company);
-        }
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
 
+            } else if (p.equals("CUTTER") || p.equals("GRIPPER")) {
+                String a = "robot arm";
+                String u = "취출부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            } else if (p.equals("SENSOR") || p.equals("솔레노이드밸브SolenoidValve") || p.equals("SHAFT")) {
+                String a = "감지기";
+                String u = "장착부";
+
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+            } else if (p.equals("BRACKET") || p.equals("JIG") || p.equals("FITTING류") || p.equals("BOLTNUT") || p.equals("PiN") || p.equals("FLOATiNGJOiNT")) {
+                String a = "고정대";
+                String u = "장착부";
+
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            } else if (p.equals("SERVOCONTROLLER") || p.equals("엔코더Encoder")) {
+                String a = "SERVOMOTOR";
+                String u = "주입부";
+
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            } else if (p.equals("CLUTCHBRAKE") || p.equals("BEARiNG") || p.equals("GEAR")) {
+                String a = "구동축";
+                String u = "투입부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+            } else if (p.equals("솔레노이드밸브SolenoidValve") || p.equals("HOSE") || p.equals("FILTERHOUSING") || p.equals("COUPLiNG")) {
+                String a = "여과장치";
+                String u = "주입부";
+
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            } else if (p.equals("CHAiN") || p.equals("BELT") || p.equals("GUIDE") || p.equals("TRAY") || p.equals("STOPPER")) {
+                String a = "이동 컨베이어";
+                String u = "취출부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            } else if (p.equals("릴레이Relay") || p.equals("PLC")) {
+                String a = "제어판 이슈";
+                String u = "제어부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+            } else if (p.equals("CABLE") || p.equals("NOZZLE")) {
+                String a = "커넥터";
+                String u = "투입부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+
+            } else if (p.equals("Transmission변감속기") || p.equals("퓨즈Fuse")) {
+                String a = "투영기";
+                String u = "정렬부";
+                Unit unit = Unit.builder()
+                        .unit(u)
+                        .build();
+                Assy assy = Assy.builder()
+                        .unit(unit)
+                        .assy(a)
+                        .build();
+                Part part = Part.builder()
+                        .part(p)
+                        .assy(assy)
+                        .build();
+                unitRepository.save(unit);
+                assyRepository.save(assy);
+                partRepository.save(part);
+
+            }
+
+            //회사 정보 데이터
+            for (int value = 0; value < companyBusinessNumberList.length; value++) {
+                CompanyDTO companyDTO = CompanyDTO.builder()
+                        .businessNumber(companyBusinessNumberList[value])
+                        .businessName(nameData[value])
+                        .departName(companyNameData[value])
+                        .businessEmail(value + "@naver.com")
+                        .businessTel(value + "-" + value + "-" + value)
+                        .fax(value + "")
+                        .build();
+                Company company = companyDTO.com();
+                companyRepository.save(company);
+            }
+
+        }
     }
 }

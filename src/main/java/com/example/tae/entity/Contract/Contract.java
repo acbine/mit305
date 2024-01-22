@@ -13,6 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter
 @ToString
 public class Contract {
 
@@ -30,8 +31,13 @@ public class Contract {
     int product_price;
     int lead_time;
 
+    @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
     Date start_date;
+
+    @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
     Date end_date;
+
+    @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
     Date contract_date;
 
     boolean tf;

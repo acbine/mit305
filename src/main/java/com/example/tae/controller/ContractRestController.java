@@ -73,8 +73,8 @@ public class ContractRestController {
 
             Company company = companyRepository.findById(data.getBusinessNumber()).orElse(null);
 
-            System.out.println("입력 받은 품목 코드 : "+ productInformationRegistration);
-            System.out.println("입력 받은 사업자 번호 : "+ company);
+//            System.out.println("입력 받은 품목 코드 : "+ productInformationRegistration);
+//            System.out.println("입력 받은 사업자 번호 : "+ company);
 
             if(productInformationRegistration != null && company != null) {
                 Contract contract = new Contract();
@@ -96,5 +96,7 @@ public class ContractRestController {
 
     @Autowired
     ContractServiceImpl contractService;
+
+
 
 }

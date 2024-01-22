@@ -32,23 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                <!--
-                <tr>
-                    <td th:text="${#dates.format(purchase.regDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${purchase.ordercode}"></td>
-                    <td>Company.departName</td>
-                    <td>ProgressInspection.progressInspectionStatus</td>
-                    <td onclick="openPopup('${purchase.ordercode}')">🔍️</td>
-                </tr>
-                -->
                 <tr th:each="order : ${oList}">
                     <td th:text="${#temporals.format(order.regDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${order.ordercode}"></td>
                     <!--<td th:text="${order.productNameList != null ? #strings.join(order.productNameList, ',') : ''}"></td>-->
                     <td th:text="${order.departName}"></td>
-                    <td th:text="${order.progressInspectionStatus ? '[검수완료]' : '진척검수등록'}"
+                    <td th:text="${!order.progressInspectionStatus ? '[검수완료]' : '진척검수등록'}"
                         th:class="${order.progressInspectionStatus} ? 'completed' : ''"></td>
-                    <td onclick="openPopup('${order.ordercode}')">🔍️</td>
+                    <td th:onclick="openPopup([[${order.ordercode}]])">🔍️</td>
                 </tr>
                 <tr>
                     <td>2023-12-13</td>

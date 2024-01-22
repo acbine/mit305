@@ -477,6 +477,11 @@ script10.src = "/js/ContractRegistrationModal.js";
 document.head.appendChild(script10);
 
 var script11 = document.createElement("script");
-script10.async = true;
-script10.src = "/js/existence.js";
+script11.async = true;
+script11.src = "/js/existence.js";
 document.head.appendChild(script11);
+
+var script12 = document.createElement("script");
+script12.async = true;
+script12.src = "/js/orderRegister.js";
+document.head.appendChild(script12);

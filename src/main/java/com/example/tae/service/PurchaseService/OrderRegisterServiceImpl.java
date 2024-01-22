@@ -34,20 +34,6 @@ public class OrderRegisterServiceImpl implements OrderRegisterService{
     }
 
     @Override
-    public long countProcurementPlansWithNullPurchase(String departName) {
-        String queryString = "SELECT COUNT(pp) FROM ProcurementPlan pp WHERE pp.purchase IS NULL";
-        if (departName != null && !departName.isEmpty())
-            queryString += " AND pp.contract.company.departName = :departName";
-
-        TypedQuery<Long> query = entityManager.createQuery(queryString, Long.class);
-
-        if (departName != null && !departName.isEmpty())
-            query.setParameter("departName", departName);
-
-        return query.getSingleResult();
-    }
-
-    @Override
     public void cancelProcurementPlan(int procurementplan_code) {
         ProcurementPlan procurementPlan = entityManager.find(ProcurementPlan.class, procurementplan_code);
         if (procurementPlan != null)

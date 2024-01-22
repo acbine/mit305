@@ -13,13 +13,14 @@
                 <tr>
                     <td style="text-align:center; background-color: #ccc;">업체명</td>
                     <td colspan="6" style="text-align:left; background-color: #fff;">
-                        <form th:action="@{/orderRegister}" method="get">
-                            <select id="departName" name="departName" th:onchange="this.form.submit()">
-                                <option value="" disabled selected>선택</option>
-                                <option th:each="orderDto : ${oList}" th:value="${orderDto.departName}" th:text="${orderDto.departName}">
-                                </option>
-                            </select>
-                        </form>
+                        <label for="departName">
+                            <select id="departName" onchange="orderRegister()">
+                            <option>선택</option>
+                            <th:block th:each="orderDto : ${oList}">
+                                <option name = "departName" th:value="${orderDto.departName}" th:text="${orderDto.departName}" id = '${orderDtoStat.index}'></option>
+                            </th:block>
+                        </select>
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -33,15 +34,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="order : ${#strings.isEmpty(param.departName) ? oList : oList.?[departName==param.departName]}">
-                    <td th:text="${order.product_name}"></td>
-                    <td th:text="${order.product_code}"></td>
-                    <td th:text="${order.supportProductAmount}"></td>
+                <tr th:each="order : ${oList}">
+                    <td th:text="${order.productName}"></td>
+                    <td th:text="${order.productCode}"></td>
+                    <td th:text="${order.num}"></td>
                     <td>현재 재고량들</td>
-                    <td th:text="${#temporals.format(order.projectOutputDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${#temporals.format(order.order_date, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${order.lead_time}"></td>
-                    <td><button th:attr="onclick='cancel(this, \'' + ${order.product_code} + '\')'">취소</button></td>
+                    <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${order.LT}"></td>
+                    <td><button th:attr="onclick='cancel(this, \'' + ${order.productCode} + '\')'">취소</button></td>
                 </tr>
             </tbody>
             <tr>
@@ -54,52 +55,6 @@
         <button id="registerBtn" class="btn btn-primary" onclick="orderReg()" disabled>발행</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            $.ajax({
-                url: '/api/orderRegister/count',
-                method: 'GET',
-                dataType: 'json',
-                success: function(data) {
-                    var regBtn = document.getElementById("registerBtn");
-                    if(data > 0)
-                        regBtn.disabled = false;
-                    else
-                        regBtn.disabled = true;
-                },
-                error: function(error) {
-                    console.error('오류:', error);
-                }
-            });
-
-            function cancel(btn, pcode){
-                var confirmCancel = confirm("취소하시겠습니까?");
-                if(confirmCancel){
-                    $.ajax({
-                        url: '/api/cancelOrder/' + pcode,
-                        method: 'DELETE',
-                        success: function(data) {
-                            alert('취소되었습니다.');
-                            $('#row_' + pcode).remove();
-                            location.reload();
-                        },
-                        error: function(error) {
-                            console.error('취소 오류:', error);
-                        }
-                    });
-                }
-            }
-
-            function orderReg(){
-                var result = confirm("발주서를 등록하시겠습니까?");
-                if(result){
-                    alert("발주서가 발행되었습니다.");
-                    window.location.href = 'StatusManagementReport';
-                } else {
-                    window.close();
-                }
-            }
-        });
-    </script>
+    <script src="/js/orderRegister.js"></script>
 </body>
 </html>

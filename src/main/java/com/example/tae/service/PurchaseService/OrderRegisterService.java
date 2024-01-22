@@ -6,6 +6,5 @@ import java.util.List;
 
 public interface OrderRegisterService {
     List<OrderRegisterDto> getProcurementPlansWithNullPurchase(String departName);
-    long countProcurementPlansWithNullPurchase(String departName);
     void cancelProcurementPlan(int procurementplan_code);
 }

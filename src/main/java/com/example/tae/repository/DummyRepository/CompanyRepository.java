@@ -9,6 +9,6 @@ import java.util.List;
 
 public interface CompanyRepository extends JpaRepository<Company, String> {
 
-    @Query("select businessNumber from Company")
-    List<Company> getListOfCompany();
+    @Query("select c from Company c where c.departName = :comName")
+    List<Company> findBydepartName(String comName);
 }

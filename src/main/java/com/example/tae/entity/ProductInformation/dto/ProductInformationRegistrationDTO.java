@@ -1,26 +1,18 @@
 package com.example.tae.entity.ProductInformation.dto;
 
-import com.example.tae.entity.DummyData.Classification.Part;
-
 import com.example.tae.entity.DummyData.DTO.PartDTO;
-import com.example.tae.entity.DummyData.Product.Project;
-import com.example.tae.entity.ProductForProject.ProductForProject;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Transactional
-public class ProductInformationRegistrationDto {
+public class ProductInformationRegistrationDTO {
 
     private int product_code;
 

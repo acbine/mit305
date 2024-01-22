@@ -32,12 +32,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="purchase : ${pList}">
-                    <td th:text="${#dates.format(purchase.regDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${purchase.ordercode}"></td>
-                    <td>업체명1</td>
-                    <td>검수 상태</td>
-                    <td onclick="openPopup('${purchase.ordercode}')">🔍️</td>
+                <tr th:each="order : ${oList}">
+                    <td th:text="${#temporals.format(order.regDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${order.ordercode}"></td>
+                    <!--<td th:text="${order.productNameList != null ? #strings.join(order.productNameList, ',') : ''}"></td>-->
+                    <td th:text="${order.departName}"></td>
+                    <td th:text="${!order.progressInspectionStatus ? '[검수완료]' : '진척검수등록'}"
+                        th:class="${order.progressInspectionStatus} ? 'completed' : ''"></td>
+                    <td th:onclick="openPopup([[${order.ordercode}]])">🔍️</td>
                 </tr>
                 <tr>
                     <td>2023-12-13</td>
@@ -51,13 +53,6 @@
                     <td>풍선, 지갑</td>
                     <td>(주)마텍스</td>
                     <td style="color: green; font-weight: bold;">[검수완료]</td>
-                    <td>🔍</td>
-                </tr>
-                <tr>
-                    <td>2023-12-2</td>
-                    <td>드릴, 망치, ...</td>
-                    <td>(유)길승산업</td>
-                    <td style="color: purple; font-weight: bold;">[입고마감]</td>
                     <td>🔍</td>
                 </tr>
             </tbody>

@@ -1,7 +1,11 @@
 /*--------------------발주 목록(orderList)--------------------*/
 function openPopup(ordercode) {
-    $(".popup").css('display','block');
-    $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + ordercode);
+    if(ordercode) {
+        $(".popup").css('display', 'block');
+        console.log("발주서 코드 : " + ordercode);
+        $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + encodeURIComponent(ordercode));
+    }else
+        console.error("유효하지 않은 ordercode입니다.");
 }
 
 function closePopup() {
@@ -25,6 +29,10 @@ function downloadImage(){
 }
 
 /*-------------------진척 검수 관리-------------------------------------------*/
+
+function openInspectPage(ordercode){
+    window.location.href = '/orderInspect/' + ordercode;
+}
 
 var ProgressInspectionState = 0;
 

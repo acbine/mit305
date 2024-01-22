@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,11 +13,14 @@
                 <tr>
                     <td style="text-align:center; background-color: #ccc;">업체명</td>
                     <td colspan="6" style="text-align:left; background-color: #fff;">
-                        <select id="companyDropdown" onchange="toggleTables()">
-                            <option value="table1">(유)길승산업</option>
-                            <option value="table2">(유)유일산업</option>
-                            <option value="table3">(주)마텍스</option>
+                        <label for="departName">
+                            <select id="departName" onchange="orderRegister()">
+                            <option>선택</option>
+                            <th:block th:each="orderDto : ${oList}">
+                                <option name = "departName" th:value="${orderDto.departName}" th:text="${orderDto.departName}" id = '${orderDtoStat.index}'></option>
+                            </th:block>
                         </select>
+                        </label>
                     </td>
                 </tr>
                 <tr>
@@ -30,124 +33,18 @@
                     <th>L/T</th>
                 </tr>
             </thead>
-            <!-- 예시 시작 -->
-            <tbody id="table1">
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>9</td>
-                    <td>5</td>
-                    <td>2023-12-26</td>
-                    <td>2023-12-1</td>
-                    <td>10</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>A품목</td>
-                    <td>AA</td>
-                    <td>23</td>
-                    <td>66</td>
-                    <td>2024-1-31</td>
-                    <td>2023-12-15</td>
-                    <td>5</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>5</td>
-                    <td>34</td>
-                    <td>2024-1-12</td>
-                    <td>2024-1-31</td>
-                    <td>10</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>D품목</td>
-                    <td>DD</td>
-                    <td>42</td>
-                    <td>2</td>
-                    <td>2024-4-13</td>
-                    <td>2023-12-22</td>
-                    <td>3</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>F품목</td>
-                    <td>FF</td>
-                    <td>11</td>
-                    <td>72</td>
-                    <td>2024-3-12</td>
-                    <td>2023-12-30</td>
-                    <td>22</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>O품목</td>
-                    <td>OO</td>
-                    <td>34</td>
-                    <td>66</td>
-                    <td>2024-2-13</td>
-                    <td>2024-1-4</td>
-                    <td>31</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>R품목</td>
-                    <td>RR</td>
-                    <td>92</td>
-                    <td>78</td>
-                    <td>2024-1-16</td>
-                    <td>2024-1-7</td>
-                    <td>1</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
+            <tbody>
+                <tr th:each="order : ${oList}">
+                    <td th:text="${order.productName}"></td>
+                    <td th:text="${order.productCode}"></td>
+                    <td th:text="${order.num}"></td>
+                    <td>현재 재고량들</td>
+                    <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
+                    <td th:text="${order.LT}"></td>
+                    <td><button th:attr="onclick='cancel(this, \'' + ${order.productCode} + '\')'">취소</button></td>
                 </tr>
             </tbody>
-            <tbody id="table2" class="hidden">
-                <tr>
-                    <td>A품목</td>
-                    <td>AA</td>
-                    <td>23</td>
-                    <td>66</td>
-                    <td>2024-1-31</td>
-                    <td>2023-12-15</td>
-                    <td>5</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>B품목</td>
-                    <td>BB</td>
-                    <td>22</td>
-                    <td>6</td>
-                    <td>2024-2-11</td>
-                    <td>2023-12-29</td>
-                    <td>15</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-                <tr>
-                    <td>D품목</td>
-                    <td>DD</td>
-                    <td>42</td>
-                    <td>2</td>
-                    <td>2024-4-13</td>
-                    <td>2023-12-22</td>
-                    <td>3</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-            </tbody>
-            <tbody id="table3" class="hidden">
-                <tr>
-                    <td>R품목</td>
-                    <td>RR</td>
-                    <td>92</td>
-                    <td>78</td>
-                    <td>2024-1-16</td>
-                    <td>2024-1-7</td>
-                    <td>1</td>
-                    <td><button onclick="cancel(this)">취소</button></td>
-                </tr>
-            </tbody>
-            <!-- 예시 종료 -->
             <tr>
                 <td style="text-align:center; background-color: #ccc;">이메일</td>
                 <td colspan="6" style="text-align:left;">abcde@gmail.com</td>
@@ -155,35 +52,9 @@
         </table>
     </div>
     <div class="btn-container">
-        <button class="btn btn-primary" onclick="orderReg()">발행</button>
+        <button id="registerBtn" class="btn btn-primary" onclick="orderReg()" disabled>발행</button>
     </div>
-<script>
-    function toggleTables() {
-        var selectedOption = document.getElementById("companyDropdown").value;
-        var html = document.getElementById("table1");
-        console.log(html);
-
-        document.getElementById("table1").classList.add("hidden");
-        document.getElementById("table2").classList.add("hidden");
-        document.getElementById("table3").classList.add("hidden");
-
-        document.getElementById(selectedOption).classList.remove("hidden");
-    }
-
-    function cancel(tag){
-        alert("취소되었습니다. \n해당 품목은 품목 선택 페이지로 되돌아갑니다.");
-        tag.closest("tr").remove();
-    }
-
-    function orderReg(){
-        var result = confirm("발주서를 등록하시겠습니까?");
-        if(result){
-            alert("발주서가 발행되었습니다.");
-            window.location.href = 'StatusManagementReport';
-        } else {
-            window.close();
-        }
-    }
-</script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="/js/orderRegister.js"></script>
 </body>
 </html>

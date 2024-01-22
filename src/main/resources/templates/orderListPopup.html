@@ -11,16 +11,16 @@
         <table id="screen_area">
             <tr>
                 <th>사업자번호</th>
-                <td>xxx-xx-xxxxxx</td>
+                <td th:text="${orderPopupHeadDto.businessNumber}"></td>
                 <th rowspan="2">대표자</th>
-                <td style="text-align: left;">이름 : </td>
+                <td style="text-align: left;" th:text="${orderPopupHeadDto.businessName}"></td>
             </tr>
             <tr>
                 <th>업체명</th>
-                <td>(유)길승산업</td>
-                <td style="text-align: left;">이메일 : abcde@gmail.com</td>
+                <td th:text="${orderPopupHeadDto.departName}"></td>
+                <td style="text-align: left;" th:text="${orderPopupHeadDto.businessEmail}"></td>
                 <th colspan="2">발주서 발행일</th>
-                <td colspan="2" th:text="${#dates.format(purchase.regDate, 'yyyy-MM-dd')}"></td>
+                <td colspan="2" th:text="${#temporals.format(orderPopupHeadDto.regDate, 'yyyy-MM-dd')}"></td>
             </tr>
         </table>
         <table class="popup-table">
@@ -37,105 +37,18 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>9</td>
-                    <td>5</td>
-                    <td>2023-12-26</td>
-                    <td>10</td>
-                    <td>2023-12-13</td>
+                <!-- 주문 상세 정보 표시 -->
+                <tr th:each="detail : ${orderPopupDto}">
+                    <td th:text="${detail.product_name}"></td>
+                    <td th:text="${detail.product_code}"></td>
+                    <td th:text="${detail.supportProductAmount}"></td>
                     <td></td>
-                </tr>
-                <tr>
-                    <td th:text="${ordercode}"></td>
                     <td></td>
+                   <!-- <td th:text="${#temporals.format(detail.projectOutputDate, 'yyyy-MM-dd')}"></td>-->
+                    <td th:text="${detail.lead_time}"></td>
                     <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td> </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <!--<td th:text="${#temporals.format(detail.order_date, 'yyyy-MM-dd')}"></td>-->
+                    <td style="width: 31.2%;"></td>
                 </tr>
             </tbody>
             <tr>

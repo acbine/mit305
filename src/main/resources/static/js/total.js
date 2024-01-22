@@ -480,3 +480,8 @@ var script11 = document.createElement("script");
 script11.async = true;
 script11.src = "/js/existence.js";
 document.head.appendChild(script11);
+
+var script12 = document.createElement("script");
+script12.async = true;
+script12.src = "/js/orderRegister.js";
+document.head.appendChild(script12);

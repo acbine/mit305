@@ -57,13 +57,13 @@
                 <tr>
                     <th width="124.67" height="25">품목명</th>
                     <th width="80.63" height="25">품목 코드</th>
-                    <th width="130.67" height="25">거래처 기업명</th>
+                    <th width="188.67" height="25">거래처 기업명</th>
                     <th width="128.25" height="25">사업자 등록 번호</th>
                     <th width="65.25" height="25">L/T</th>
                     <th width="65.25" height="25">단가</th>
-                    <th width="244.88" height="25">계약 기간</th>
+                    <th width="270.88" height="25">계약 기간</th>
                     <th width="111.25" height="25">대금 지급 수단</th>
-                    <th width="70.63" height="25">등록 처리</th>
+                    <th width="90.63" height="25">등록 처리</th>
                 </tr>
                 </thead>
 
@@ -78,63 +78,27 @@
     <div class="data-card">
         <h2 class="title">계약 관리</h2>
 
-        <button onclick="contract_show('co')">계약 불러오기</button>
-
+        <button onclick="contract_All()">계약 불러오기</button>
         <button onclick="OpenContract()">계약서 생성</button>
 
         <div class="table-container">
-            <table class="table" id="contract_info" border="1" style="display:none">
+            <table class="table" id="contract_info" border="1">
                 <thead>
                 <tr>
-                    <th>품목명</th>
-                    <th>품목 코드</th>
-                    <th>거래처 기업명</th>
-                    <th>사업자 등록 번호</th>
-                    <th>L/T</th>
-                    <th>단가</th>
-                    <th>계약 기간</th>
-                    <th>대금 지급 수단</th>
-                    <th>계약 처리</th>
+                    <th width="124.67" height="25">품목명</th>
+                    <th width="80.63" height="25">품목 코드</th>
+                    <th width="188.67" height="25">거래처 기업명</th>
+                    <th width="128.25" height="25">사업자 등록 번호</th>
+                    <th width="65.25" height="25">L/T</th>
+                    <th width="65.25" height="25">단가</th>
+                    <th width="270.88" height="25">계약 기간</th>
+                    <th width="111.25" height="25">대금 지급 수단</th>
+                    <th width="200.63" height="25">계약 처리</th>
 
                 </tr>
                 </thead>
 
                 <tbody>
-                <tr>
-                    <td>나사</td>
-                    <td>A</td>
-                    <td>길승 산업</td>
-                    <td>Xxx-xxx-xxxxx</td>
-                    <td>10</td>
-                    <td>250</td>
-                    <td>24/01/10 ~ 24/01/20</td>
-                    <td>현금 지불</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
-                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
-                        </div>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>A품목</td>
-                    <td>B</td>
-                    <td>길승 산업</td>
-                    <td>Xxx-xxx-xxxxx</td>
-                    <td>8</td>
-                    <td>200</td>
-                    <td>24/01/21 ~ 24/02/03</td>
-                    <td>현금 지불</td>
-                    <td>
-                        <div class="actions">
-                            <button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>
-                            <button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>
-                            <button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>
-                        </div>
-                    </td>
-                </tr>
                 </tbody>
             </table>
 

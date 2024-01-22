@@ -7,7 +7,8 @@ import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import com.example.tae.entity.dto.ExistenceDTO;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.repository.ReleaseRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
@@ -36,7 +37,7 @@ public class ExistenceController {
 
     private final ReleaseRepository releaseRepository;
 
-    private final ProductInformationRepository productInformationRepository;
+    private final ProductInformationRegistrationRepository productInformationRepository;
     private final ProcurementPlanRepository procurementPlanRepository;
     private final ReceivingProcessingRepository receivingProcessingRepository;
 
@@ -64,12 +65,15 @@ public class ExistenceController {
             for(ReleaseProcess releaseProcess : releaseProcessList) {
                 ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
                 int planId = procurementPlan.getProcurementplan_code();
-                ReceivingProcessing receivingProcessing =receivingProcessingRepository.findByProcumentPlanCode(planId);
+                ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(planId);
                 Optional<ProductInformationRegistration> productInformationRegistration = productInformationRepository.findById(planId);
-                ExistenceDTO existenceDTO = new ExistenceDTO();
-                existenceDTO.existence(releaseProcess,productInformationRegistration.get(),procurementPlan.getContract().getProduct_price(),receivingProcessing.getStore());
+
+                ExistenceDTO existence = new ExistenceDTO();
+                ExistenceDTO existenceDTO = existence.existence(releaseProcess,productInformationRegistration.get(),procurementPlan.getContract().getProduct_price(),receivingProcessing.getStore());
+
                 existenceDTOList.add(existenceDTO);
             }
+
             return ResponseEntity.status(HttpStatus.OK).body(existenceDTOList);
         } else {
             List<ReleaseProcess> releaseProcessCollect = new ArrayList<>();
@@ -81,8 +85,8 @@ public class ExistenceController {
                     int planId = procurementPlan.getProcurementplan_code();
                     ReceivingProcessing receivingProcessing =receivingProcessingRepository.findByProcumentPlanCode(planId);
                     ExistenceDTO existenceDTO = new ExistenceDTO();
-                    existenceDTO.existence(releaseProcess,productInformationRegistration,procurementPlan.getContract().getProduct_price(), receivingProcessing.getStore());
-                    existenceDTOList.add(existenceDTO);
+                    ExistenceDTO existence = existenceDTO.existence(releaseProcess,productInformationRegistration,procurementPlan.getContract().getProduct_price(), receivingProcessing.getStore());
+                    existenceDTOList.add(existence);
                 }
             });
             return ResponseEntity.status(HttpStatus.OK).body(existenceDTOList);

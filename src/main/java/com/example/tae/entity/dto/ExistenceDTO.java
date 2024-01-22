@@ -7,10 +7,7 @@ import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
 import com.example.tae.entity.ReleaseProcess.ReleaseProcess;
 import jakarta.persistence.Column;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDateTime;
@@ -19,6 +16,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Getter
+@ToString
 public class ExistenceDTO {
     private String productName;
     private int product_code;

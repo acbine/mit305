@@ -8,7 +8,7 @@ import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.repository.ReleaseRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +28,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
     private ReleaseRepository releaseRepository;
     private ReceivingProcessingRepository receivingProcessingRepository;
     private ProcurementPlanRepository procurementPlanRepository;
-    private ProductInformationRepository productInformationRepository;
+    private ProductInformationRegistrationRepository productInformationRepository;
 
 
     @Override

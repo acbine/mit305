@@ -3,78 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
   <script src="https://www.gstatic.com/charts/loader.js"></script>
+  <link href="/css/existence.css" rel="stylesheet"/>
 
-  <style>
-    .container {
-      margin: auto;
-      max-width: 800px;
-    }
-
-    .button {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 0.25rem;
-      font-size: 0.875rem;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-    }
-
-    .filter-button {
-      border: 1px solid #000;
-      background-color: #fff;
-    }
-
-    .primary-button {
-      background-color: #4a5568;
-      color: #fff;
-    }
-
-    .green-button {
-      background-color: #38a169;
-      color: #fff;
-    }
-
-    .div {
-      background-color:red;
-    }
-
-    .table-header {
-      padding: 1rem;
-      text-align: left;
-      font-weight: bold;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .table thead {
-      padding: 1rem;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .action-button-registration {
-      background-color: #33CC33;
-      color: #ffffff;
-    }
-
-    .action-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      font-weight: 500;
-      transition: background-color 0.2s, color 0.2s;
-      outline: none;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      border: 1px solid #cbd5e0;
-    }
-
-  </style>
   <title>Your Page Title</title>
 </head>
 <body>
@@ -89,7 +21,7 @@
       <div class="relative w-full overflow-auto">
         <div class="flex justify-center items-center space-x-2 mb-4">
           <input type="text" value="품목명 검색">
-          <button onclick="columnChart1()">검색</button>
+          <button onclick="searchProduct()" id ="search">검색</button>
           정렬선택 : <select>
             <option>전 체</option>
             <option>대분류</option>
@@ -122,51 +54,11 @@
           <td>100</td>
           <td>12000</td>
         </tr>
-        <tr>
-          <td>A품목</td>
-          <td>asaf</td>
-          <td>대분류</td>
-          <td>중분류</td>
-          <td>소분류</td>
-          <td>120</td>
-          <td>100</td>
-          <td>12000</td>
-        </tr>
-        <tr>
-          <td>철</td>
-          <td>awqdsf</td>
-          <td>대분류</td>
-          <td>중분류</td>
-          <td>소분류</td>
-          <td>120</td>
-          <td>100</td>
-          <td>12000</td>
-        </tr>
-        <tr>
-          <td>B품목</td>
-          <td>asaf</td>
-          <td>대분류</td>
-          <td>중분류</td>
-          <td>소분류</td>
-          <td>120</td>
-          <td>100</td>
-          <td>12000</td>
-        </tr>
-        <tr>
-          <td>C품목</td>
-          <td>kwsf</td>
-          <td>대분류</td>
-          <td>중분류</td>
-          <td>소분류</td>
-          <td>120</td>
-          <td>100</td>
-          <td>12000</td>
-        </tr>
         </tbody>
       </table>
       </div>
     </div>
   </div>
-  <script src="/js/existence.js"></script>
+<script src="/js/existence.js"></script>
 </body>
 </html>

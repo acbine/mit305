@@ -9,9 +9,9 @@ import java.util.List;
 public interface ReleaseProcessService {
         ReleaseDto release(int release,int procurementPlan_code);
 
-        int existence(int release,int procurementPlan_code);
+        int existence(int release,int procurementPlan_code) throws Exception;
 
-        List<ReleaseDto> getStockDeliver();
+        List<ReleaseDto> getStockDeliver() throws Exception;
 
         List<ReleaseDto> getStockDeliver(int state, String constraints);
 

@@ -79,8 +79,10 @@ List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 �
 
     Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc();
 
-    @Query("select r from ReceivingProcessing r " +
-            "where r.procurementPlan = :pcmPlanCode " +
-            "order by r.modDate DESC limit 1")
+    @Query(value = "select * from tae.receiving_processing " +
+            "where procurement_plan_procurementplan_code = :pcmPlanCode " +
+            "order by mod_date desc limit 1", nativeQuery = true
+    )
     Optional<ReceivingProcessing> findTop1ByOrderByModDateDesc(@Param("pcmPlanCode") int pcmPlanCode);
+
 }

@@ -8,44 +8,6 @@ function CloseContract() {
     $(".ContractModal").css('display', 'none');
 }
 
-function contract_modify_and_save(tag) {
-
-    const tr = tag.closest("tr");
-
-    const cell_0 = tr.children[0];
-    const cell_4 = tr.children[4];
-    const cell_5 = tr.children[5];
-
-
-    if (cell_0.contentEditable == "true") {
-
-        cell_0.contentEditable = "false";
-        cell_4.contentEditable = "false";
-        cell_5.contentEditable = "false";
-
-        tag.innerText = "수정";
-
-        //첫번째 셀의 contenteditable 속성이 false라면(나머지 셀들의 속성 동일)
-    } else {
-
-        //각 셀들의 contenteditable 속성 true로 모두 변경하여 수정 가능하게 함
-
-        cell_0.contentEditable = "true";
-        cell_4.contentEditable = "true";
-        cell_5.contentEditable = "true";
-
-        tag.innerText = "수정 완료";
-
-        cell_4.focus();
-    }
-}
-
-function contract_delete(tag) {
-
-    const tr = tag.closest("tr");
-    tr.remove();
-}
-
 function contract_addRow() {
 
     const table = document.getElementById('contract');
@@ -113,7 +75,7 @@ function contract_addRow() {
             temp_html =
                 '<td>' +
                     '<div class="actions">' +
-                        '<button class="action-button action-button-delete" onclick="contract_registration(this);" width = "74px" height = "35px">등록</button>' +
+                        '<button class="action-button action-button-delete" onclick="contract_registration(this); contract_row_delete(this);" width = "74px" height = "35px">등록</button>' +
                         '<button class="action-button action-button-delete" onclick="contract_row_delete(this);" width = "74px" height = "35px">삭제</button>' +
                     '</div>' +
                 '</td>';
@@ -205,6 +167,7 @@ $.ajax({
 
     success : function(data) {
         alert("등록 성공");
+
     },
 
     error : function(error) {
@@ -215,12 +178,14 @@ $.ajax({
 
 }
 
-// 계약 등록 버튼 눌린 행 삭제
+// 행 삭제
 function contract_row_delete(tag) {
 
     const tr = tag.closest("tr");
     tr.remove();
 }
+
+var dataFromServer; // 전역 변수 (데이터 비교용)
 
 // 계약 검색
 function contract_All() {
@@ -233,7 +198,7 @@ function contract_All() {
 
         success : function(data) {
 
-            console.log(data);
+            dataFromServer = data;
 
             $('#contract_info tbody').empty();
 
@@ -242,21 +207,24 @@ function contract_All() {
                 $('#contract_info tbody')
                     .append(
                     '<tr>' +
-                        '<span class = now_code>' + con.contract_code + '</span>' +
-                        '<td height="25">' + '<input style = "width=128.67; text-align:center;" class = now_product_code value =' + con.productInformationRegistration.product_name + '>' + '</td>' + // 품목명
-                        '<td height="25">' + con.productInformationRegistration.product_code + '</td>' + // 품목 코드
-                        '<td height="25">' + con.company.departName + '</td>' + // 회사명
+                        '<td height="25">' + con.productInformationRegistration.product_name  + '</td>' + // 품목명
+                        '<td height="25">' + con.productInformationRegistration.product_code  +'</td>' + // 품목 코드
+                        '<td height="25">' + con.company.departName  + '</td>' + // 회사명
                         '<td height="25">' + con.company.businessNumber + '</td>' + // 사업자 번호
-                        '<td height="25">' + con.lead_time + '</td>' + // L/T
-                        '<td height="25">' + con.product_price + '</td>' + // 단가
+                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
+                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
 
-                        '<td height="25">' + con.start_date + ' ~ ' + con.end_date + '</td>' + // 계약 기간
-                        '<td height="25">' + con.payment_method + '</td>' + // 지급 수단
+                        '<td height="25">' +
+                            '<input type="date" style = "width:120.67; height:"25"; font-size:15px;" class = now_start_date value =' + con.start_date + '>' +
+                            ' ~ ' +
+                            '<input type="date" style = "width:120.67; height:"25"; font-size:15px;" class = now_end_date value =' + con.end_date + '>' +
+                        '</td>' + // 계약 기간
+                        '<td height="25">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
                         '<td height="25">' +
                             '<div class="actions">' +
-                                '<button class="action-button action-button-edit" onclick="contract_delete(this)">계약서에 추가</button>' +
-                                '<button class="action-button action-button-edit" onclick="contract_modify_and_save(this)">수정</button>' +
-                                '<button class="action-button action-button-delete" onclick="contract_delete(this)">삭제</button>' +
+                                '<button class="action-button action-button-edit" onclick="contract_modify('+ con.contract_code +')">수정</button>' +
+                                '<button class="action-button action-button-edit" onclick="contract_delete('+ con.contract_code +')">계약서에 추가</button>' +
+                                '<button class="action-button action-button-delete" onclick="contract_delete('+ con.contract_code +') contract_row_delete(this)">삭제</button>' +
                             '</div>' +
                         '</td>' + // 계약 처리
                     '</tr>')
@@ -271,4 +239,75 @@ function contract_All() {
 
 }
 
+// 등록된 계약 수정
+function contract_modify(contract_code) {
+
+var lead_time = $(".now_lead_time").eq(contract_code-1); // LeadTime
+var product_price = $(".now_product_price").eq(contract_code-1);// 단가
+var start_date = $(".now_start_date").eq(contract_code-1);// 계약 시작일 : yyyy-mm-dd
+var end_date = $(".now_end_date").eq(contract_code-1); // 계약 종료일
+var payment_method = $(".now_payment").eq(contract_code-1); // 지급 수단
+
+var updatedFields = {};
+
+if (lead_time.val() !== dataFromServer[contract_code - 1].lead_time) { // 수정된 lead_time이 있을 경우 추가
+    updatedFields.lead_time = lead_time.val();
+} else {
+    updatedFields.lead_time = ataFromServer[contract_code - 1].lead_time;
+}
+
+if (product_price.val() !== dataFromServer[contract_code - 1].product_price) {
+    updatedFields.product_price = product_price.val();
+} else {
+    updatedFields.product_price = dataFromServer[contract_code - 1].product_price;
+}
+
+if (start_date.val() !== dataFromServer[contract_code - 1].start_date) {
+    updatedFields.start_date = start_date.val();
+} else {
+    updatedFields.start_date = dataFromServer[contract_code - 1].start_date;
+}
+
+if (end_date.val() !== dataFromServer[contract_code - 1].end_date) {
+    updatedFields.end_date = end_date.val();
+} else {
+    updatedFields.end_date = dataFromServer[contract_code - 1].end_date;
+}
+
+if (payment_method.val() !== dataFromServer[contract_code - 1].payment_method) {
+    updatedFields.payment_method = payment_method.val();
+} else {
+     updatedFields.payment_method = dataFromServer[contract_code - 1].payment_method;
+}
+
+
+    $.ajax({
+        type : "POST",
+        url : "/edit/" + contract_code,
+        data : JSON.stringify (updatedFields),
+        contentType : "application/json;charset=UTF-8",
+        success : function(response) {
+            console.log("수정된 계약 코드: " + contract_code);
+        },
+        error : function(error) {
+            console.error(contract_code + ":" + error)
+        }
+
+    });
+}
+
+// 등록된 계약 삭제
+function contract_delete(contract_code) {
+
+    $.ajax({
+        type : "GET",
+        url : "/delete/" + contract_code,
+        success : function(response) {
+            console.log("삭제된 계약 코드: " + contract_code);
+        },
+        error : function(error) {
+            console.error(contract_code, error)
+        }
+    });
+}
 

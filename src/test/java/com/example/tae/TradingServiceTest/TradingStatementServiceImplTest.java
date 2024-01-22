@@ -1,17 +1,30 @@
 package com.example.tae.TradingServiceTest;
 
+import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
+import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
+import com.example.tae.entity.TradingStatement.TradingStatementDTO;
+import com.example.tae.entity.TradingStatement.TradingStatementModalDTO;
 import com.example.tae.entity.dto.ImageDTO;
+import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.service.TradingStatementService;
+import com.example.tae.service.TradingStatementServiceImpl;
+import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @SpringBootTest
 public class TradingStatementServiceImplTest {
 
     @Autowired
     TradingStatementService tradingStatementService;
-
+    @Autowired
+    ReceivingProcessingRepository receivingProcessingRepository;
 
     @Test
     public void tradingStatementServiceTest(){
@@ -20,5 +33,123 @@ public class TradingStatementServiceImplTest {
         ImageDTO imageDTO = ImageDTO.builder().ordercode("123214").imageDataURL(cloud64).emailadress("bonaeneunyong@gmail.com").build();
         tradingStatementService.imageUpload(imageDTO);
         System.out.println("메일보내는 테스트 코드 성공");
+    }
+
+
+
+
+
+    @Test
+    @Transactional
+    public void aaaTest(){
+
+//        List<Object[]> groupByOrderCodeList=receivingProcessingRepository.groupByOrderCode(); // 발주서 코드 및 그에해당하는 갯수 전부 불러오기 String 과 Long
+//        System.out.println("++++++발주서 코드UUID+++++++"+groupByOrderCodeList.get(0)[0]);
+//        System.out.println("-------이코드르 가진 UUID 4개 ------"+groupByOrderCodeList.get(0)[1]+"개");
+//
+//        System.out.println("++++++발주서 코드UUID+++++++"+groupByOrderCodeList.get(1)[0]);
+//        System.out.println("-------이코드르 가진 UUID 11개 ------"+groupByOrderCodeList.get(1)[1]+"개");
+//
+//        System.out.println("===========리스트의 크기는 0,1 2개================="+groupByOrderCodeList.size());
+//
+//        for(int i=0; i<groupByOrderCodeList.size(); i++){ //리스트 크기가 2 니까 2번 반복
+//
+//            List<ProcurementPlan> procurementPlanListend =receivingProcessingRepository.listByOrderCodeend((String)groupByOrderCodeList.get(i)[0]); //발주서 코드로 발주서  품목의 상태가 마감 인 품목찾음
+//            List<ProcurementPlan> procurementPlanListstart =receivingProcessingRepository.listByOrderCodestrard((String)groupByOrderCodeList.get(i)[0]); //발주서 코드로 발주서  품목의 상태가 마감 인 품목찾음
+//            System.out.println(i+"번쨰겄 "+procurementPlanListend.size());
+////
+//            if(procurementPlanListstart.size() == procurementPlanListend.size() ){ //조달계획의 품목 사이즈와 각  발주서코드해당하는 갯수 를 비교 같야야 출력
+//  //                 4개   ->  다음 11개
+//                System.out.println("통과 UUID는"+procurementPlanListend.get(i).getPurchase().getOrdercode());
+//
+//
+//            } // 같아야지 품목 DTO가 나오고 나온거를  리스트로 만들어줌
+//            else {
+//                System.out.println("실패 UUID는"+procurementPlanListend.get(i).getPurchase().getOrdercode());
+//            }
+//
+//        }
+        List<Object[]> groupByOrderCodeList=receivingProcessingRepository.groupByOrderCode(); // 발주서 코드 및 그에해당하는 갯수 전부 불러오기 String 과 Long
+        List<TradingStatementModalDTO> retrunList = new ArrayList<>(); // 리턴용 리스트
+
+
+//
+        for(int i=0; i<groupByOrderCodeList.size(); i++) { //리스트 크기가 5 니까 5번 반복
+            System.out.println(i);
+
+            System.out.println(i+"반복횟수==================================");
+
+            System.out.println("UUID는-*******************************" + (String) groupByOrderCodeList.get(i)[0]);
+            List<ProcurementPlan> procurementPlanListend = receivingProcessingRepository.listByOrderCodeend((String) groupByOrderCodeList.get(i)[0]); //발주서 코드로 발주서  품목의 상태가 마감 인 품목찾음
+            System.out.println("마감   -------------------------- 리스트 크기?" + procurementPlanListend.size());
+
+            if ((long) groupByOrderCodeList.get(i)[1] == (long) procurementPlanListend.size()) { //조달계획의 품목 사이즈와 각  발주서코드해당하는 갯수 를 비교 같야야 출력
+                //
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++" + i + "번쨰 인덱스UUID는" + groupByOrderCodeList.get(i)[0] + "    이UUID를 가지고있는 품목의 갯수    " + groupByOrderCodeList.get(i)[1]);
+                System.out.println("+++++++++++++++++++++++++++++++++++++++++++++UUID가 " + (String) groupByOrderCodeList.get(i)[0] + "이거인 목록중에 리스트의 크기는" + procurementPlanListend.size());
+                System.out.println("통과 UUID는" + procurementPlanListend.get(i).getPurchase().getOrdercode());
+
+                for (int b = 0; b < procurementPlanListend.size(); b++) {
+                    System.out.println(b + "번 반복------------------------------------------------------------------");
+
+                    TradingStatementModalDTO dto = TradingStatementModalDTO.builder()
+                            .orderCode(procurementPlanListend.get(b).getPurchase().getOrdercode())
+                            .prouctName(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_name())
+                            .count(procurementPlanListend.get(b).getContract().getProduct_price()) //입고처리에서 가져와야함
+                            //.price(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore())
+                            //.pc(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore()*procurementPlanListend.get(b).getContract().getProduct_price())
+                            .businessNumber(procurementPlanListend.get(b).getContract().getCompany().getBusinessNumber())
+                            .departName(procurementPlanListend.get(b).getContract().getCompany().getDepartName())
+                            .businessName(procurementPlanListend.get(b).getContract().getCompany().getBusinessName())
+                            .businessEmail(procurementPlanListend.get(b).getContract().getCompany().getBusinessEmail())
+                            .fax(procurementPlanListend.get(b).getContract().getCompany().getFax())
+                            .businessTel(procurementPlanListend.get(b).getContract().getCompany().getBusinessTel())
+                            .build();
+                    retrunList.add(dto);
+                }
+
+            } // 같아야지 품목 DTO가 나오고 나온거를  리스트로 만들어줌
+            else {
+
+            }
+
+
+        }
+
+    }
+
+
+    @Test
+    public void asad2() {
+
+        List<Object[]> groupByOrderCodeList=receivingProcessingRepository.groupByOrderCode(); // 발주서 코드 및 그에해당하는 갯수 전부 불러오기 String 과 Long
+        List<TradingStatementModalDTO> retrunList = new ArrayList<>(); // 리턴용 리스트
+
+        System.out.println("발주서 코드의 행은 5행"+groupByOrderCodeList.size());
+
+        List<String> uuidlist = new ArrayList<>();
+
+        for (int i = 0; i < groupByOrderCodeList.size(); i++) { //리스트 크기가 5 니까 5번 반복
+            System.out.println(i + "반복횟수==================================");
+
+            System.out.println("UUID는-*******************************" + (String) groupByOrderCodeList.get(i)[0]);
+            List<ProcurementPlan> procurementPlanListend = receivingProcessingRepository.listByOrderCodeend((String) groupByOrderCodeList.get(i)[0]); //발주서 코드로 발주서  품목의 상태가 마감 인 품목찾음
+            System.out.println("마감   --------------------발주마감 된것만 불러온------ 리스트 크기?" + procurementPlanListend.size());
+
+            if ((long) groupByOrderCodeList.get(i)[1] == (long) procurementPlanListend.size()) { //조달계획의 품목 사이즈와 각  발주서코드해당하는 갯수 를 비교 같야야 출력
+//              여기서 알수있는정보는 발주서 코드가얼마나 몇개 있는지    ::: 그발주서 코드에 해당하는 정보와 발주서 그게 몇게 있는지(발주서코드는 상단에서 바뀜)
+                System.out.println("++++++++++++++++++++++++++++++++++++++++++++" + i + "번쨰 인덱스UUID는" + groupByOrderCodeList.get(i)[0] + "    이UUID를 가지고있는 품목의 갯수    " + groupByOrderCodeList.get(i)[1]);
+                System.out.println("***************************UUID가 " + (String) groupByOrderCodeList.get(i)[0] + "이거인 목록중에 리스트의 크기는" + procurementPlanListend.size());
+                System.out.println("통과 UUID는" + procurementPlanListend.get(0).getPurchase().getOrdercode());
+                uuidlist.add(procurementPlanListend.get(0).getPurchase().getOrdercode());
+            } // 같아야지 품목 DTO가 나오고 나온거를  리스트로 만들어줌
+            else {
+//                System.out.println("불통과한  UUID는" + procurementPlanListend.get(i).getPurchase().getOrdercode());
+            }
+
+        }
+
+        uuidlist.forEach(x-> System.out.println("//////////////////////////////////////최종으로 들어있는 리스트//////////////////////////////////"+x));
+
     }
 }

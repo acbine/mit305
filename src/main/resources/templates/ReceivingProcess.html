@@ -11,29 +11,28 @@
 <body>
     <h1>입고처리</h1>
     <div id="searcharea">
-        <form action="">
+        <form id="ReceivingProcessSearch">
             <table border="1">
-<!--                <tr>-->
-<!--                    <td><input type="text" name="보내는칸"></td>-->
-<!--                    <td>-->
-<!--                        <select name="검색종류">-->
-<!--                            <option value="searchProductName">품목명</option>-->
-<!--                            <option value="납기일">납기일</option>-->
-<!--                            <option value="searchDepartNameName">업체명</option>-->
-<!--                        </select>-->
-<!--                    </td>-->
+                <tr>
+                    <td><input id="inputData" type="text" name="inputData"></td>
+                    <td>
+                        <select id="searchData" name="searchData">
+                            <option value="품목명">품목명</option>
+                            <option value="업체명">업체명</option>
+                        </select>
+                    </td>
 
-<!--                    <td>-->
-<!--                        <select name="입고처리상태">-->
-<!--                            <option value="전체">전체</option>-->
-<!--                            <option value="검수완료">검수완료</option>-->
-<!--                            <option value="마감">마감</option>-->
-<!--                            -->
-<!--                        </select>-->
-<!--                    </td>-->
-<!--                    <td><input id="serchbutton"  type="submit" value="검색"></td>-->
-<!--                </tr>-->
-            </table> 
+                    <td>
+                        <select id="searchState" name="searchState">
+                            <option value="전체">전체</option>
+                            <option value="검수완료">검수완료</option>
+                            <option value="마감">마감</option>
+
+                        </select>
+                    </td>
+                    <td><button type="button" id="serchbutton" onclick="searchButton()">검색</button> </td>
+                </tr>
+            </table>
         </form>
     </div>
 
@@ -55,27 +54,27 @@
                 </tr>
             </thead>
 
-            <tbody>
-                <tr th:each="list : ${procumentList}">
-                    <form action="ReceivingProcessStore">
-                        <td class="table-data" hidden="hidden"><input class="input-form-style" type="text" name="procurementplan_code" th:value="${list.procurementplan_code}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="productcode" th:value="${list.productcode}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="productname" th:value="${list.productname}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="departName" th:value="${list.departName}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="businessNumber" th:value="${list.businessNumber}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="DateOfOrder" th:value="${list.DateOfOrder}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="OrderDate" th:value="${list.OrderDate}" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="Arrival" value="" readonly></td>
-                        <td class="table-data"><input class="input-form-style" type="number" name="SupportProductAmount" th:value="${list.SupportProductAmount}" readonly></td>
-                        <td class="table-data" style="width:100px;" ><input type="number" name="store" style="text-align: center; width:100px"></td>
-                        <td class="table-data"><input class="input-form-style" type="text" name="orderState" th:value="${list.orderState}" readonly></td>
-                        <td class="table-data">
-                            <input type="submit" style="background-color: blue; color: white;" value="입고처리" onclick="console.log('버튼 작동 확인')"/>
+            <tbody id="tableBody">
+                <tr th:each="list : ${procumentList}" th:id="row+${list.procurementplan_code}">
+                        <td class="table-data" hidden="hidden"><input th:id="code+${list.procurementplan_code}" class="input-form-style" type="text" name="procurementplan_code" th:value="${list.procurementplan_code}" readonly></td>
+                        <td class="table-data" th:text="${list.productcode}">품목코드</td>
+                        <td class="table-data" th:text="${list.productname}">품목명</td>
+                        <td class="table-data" th:text="${list.departName}">업체명</td>
+                        <td class="table-data" th:text="${list.businessNumber}">사업자번호</td>
+                        <td class="table-data" th:text="${list.DateOfOrder}">발주서발행일</td>
+                        <td class="table-data" th:text="${list.OrderDate}">발주일</td>
+                        <td class="table-data" th:unless="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}" th:text="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm')}" >기본값이 아닐경우 시간 보여줌</td>
+                        <td class="table-data" th:if="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}">입고처리하지 않음</td> <!--기본값 일시 이출력문구 보여줌-->
+                        <td class="table-data" th:text="${list.SupportProductAmount}">조달예정수량</td>
+                        <td class="table-data" style="width:100px;"><input th:id="store+${list.procurementplan_code}" type="number" name="store"></td>
+                        <td class="table-data" th:text="${list.orderState}">품목처리상태</td>
+                        <td class="table-data" th:if="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}">
+                            <button th:onclick="'sendData(\'' + ${list.procurementplan_code} + '\')'" style="background-color: blue; color: white;">입고처리</button>
                         </td>
-                    </form>
                 </tr>
             </tbody>
         </table>
+
     </div>
 
 </body>

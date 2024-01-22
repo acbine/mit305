@@ -44,9 +44,9 @@ function findRelease() {
     }
 }
 
-function submitToRelease(release,procurementPlan_code) {
-
-    var releaseData = document.getElementById("release").value;
+function submitToRelease(clickNum,procurementPlan_code) {
+    var tableData = document.getElementById("release_table").getElementsByTagName("tr");
+    var releaseData = tableData[clickNum].getElementsByTagName("td")[8].childNodes[0].value;
     var formData = {"release": releaseData, "procurementPlan_code":procurementPlan_code}
 
     $.ajax({
@@ -55,28 +55,34 @@ function submitToRelease(release,procurementPlan_code) {
         contentType : 'application/json',
         data:JSON.stringify(formData),
         success:function(data){
-        addTable(data)
+        console.log("data정보 확인하기 : ",data)
+        addTable(clickNum,data)
         console.log("성공");
         },
         error:function () {
             console.log("실패");
         }
     });
-
-    return false;
 }
 
-function addTable(data) {
-    var table = document.getElementsByClassName("table-body");
-    console.log("받아온 데이터 정보 제대로 확인하기 : ", data);
+function addTable(clickNum,data) {
+    var tableData = document.getElementById("release_table").getElementsByTagName("tr");
+    var inputHTML = tableData[clickNum].getElementsByTagName("td")
+    console.log("받아온 데이터 정보 제대로 확인하기 ( data : ", data+", clickNum : "+ clickNum +")");
 
-    var release = data.ReleaseInfo.release;
-    var existence = data.ReleaseInfo.existence;
     var releaseProcess = data.ReleaseInfo;
-    console.log("release정보 확인 : ",release+ ", existence 정보확인 : " + existence);
+    var release = releaseProcess.release;
+    var existence = releaseProcess.existence;
+    var store = releaseProcess.store;
+    var existence_price = releaseProcess.existence_price
 
-    table[8].innerHTML = `<td class="table-body" id="inventory"><input style="width:80px" type="number" value="${release}" name="release"></td>`
-    table[9].innerHTML = `<td class="table-body">${existence}</td>`
+    console.log("release정보 확인 : ",release+ ", existence 정보확인 : " + existence , ", store 입고정보 확인 : ", store);
+
+    console.log("inputHTML 정보 확인 : ",inputHTML)
+
+    inputHTML[9].innerHTML = ` <td class="table-body">${store}</td>`
+    inputHTML[10].innerHTML= ` <td class="table-body">${existence}</td>`
+    inputHTML[11].innerHTML= ` <td class="table-body">${existence_price}</td>`
 }
 
 function uploadHtml(data) {
@@ -96,7 +102,7 @@ function uploadHtml(data) {
             <td class="table-body">${releaseInfo[i].length}</td>
             <td class="table-body">${releaseInfo[i].weight}</td>
             <td class="table-body" id="supplyPrice">${releaseInfo[i].contract_pay}</td>
-            <td class="table-body"><input style="width:80px" type="number" value="${releaseInfo[i].release}" id="release"></td>
+            <td class="table-body"><input style="width:80px" type="number" id="release"></td>
             <td class="table-body">${releaseInfo[i].store}</td>
             <td class="table-body">${releaseInfo[i].existence}</td>
             <td class="table-body">${releaseInfo[i].existence_price}</td>

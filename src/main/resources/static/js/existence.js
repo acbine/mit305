@@ -1,3 +1,15 @@
+function searchProduct() {
+    console.log("함수가 작동 되고 있는지 확인")
+    var search = document.getElementById("search");
+    console.log("정보를 제대로 가져오는지 확인 : ",search);
+}
+
+var script = document.createElement("script");
+script.async = true;
+script.src = "https://www.gstatic.com/charts/loader.js";
+document.head.appendChild(script);
+
+
 google.charts.load('current', {packages: ['corechart']});
 
 google.charts.load('current', {packages: ['corechart']});

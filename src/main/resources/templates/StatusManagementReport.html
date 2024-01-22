@@ -13,22 +13,17 @@
                 <div class="flex justify-between mb-4">
                     <h1 class="text-xl font-bold" onclick="test()">현황관리 리포트</h1>
                     <div id="datesearch">
-                        <form action="">
-                            <table border="1">
-                                <tr>
+                        <table>
+                            <tr>
+                                <td><input id=startDate type="date" name="startDate"></td>
+                                <td>~</td>
+                                <td><input id=endDate type="date" name="endDate"></td>
 
-                                    <td><input type="date" name="startDate"></td>
-                                    <td>~</td>
-                                    <td><input type="date" name="Enddate"></td>
-                                
-                                    <td><input id="serchbutton"  type="submit" value="검색" onclick="drawChart()" >
-                                        <!--발표떄 검색을 누르면 그래프와 리스트가 동시에 나오는것을 하기위해 임시로 만든 버튼 <button type="button" id="serchbutton" onclick="drawChart()" >검색</button> -->
-                                    </td>
-                                </tr>
-                            </table>
-
-                            
-                        </form>
+                                <td><input id="serchbutton"  type="submit" value="검색" onclick="drawChart(); sendSMRURL();" >
+                                    <!--발표떄 검색을 누르면 그래프와 리스트가 동시에 나오는것을 하기위해 임시로 만든 버튼 <button type="button" id="serchbutton" onclick="drawChart()" >검색</button> -->
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
 
@@ -42,84 +37,22 @@
                                 <th class="table-header">사업자번호</th>
                                 <th class="table-header">발주서 발행일</th>
                                 <th class="table-header">발주일</th>
-                                <th class="table-header">입고 예정일</th>
                                 <th class="table-header">입고일</th>
                                 <th class="table-header">품목처리상태</th>
                             </tr>
                         </thead >
-                        <tbody>
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">null</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">null</td>
-                                <td class="table-data">발주전</td>
-                            </tr>
 
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">null</td>
-                                <td class="table-data">발주서발행</td>
+                        <tbody id="tableBody">
+                            <tr th:each="statementDTO : ${statementDTOList}">
+<!--                                <td class="table-data" th:text="${statementDTO.productcode}">A</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.productname}">나사</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.departName}">(유)길승산업</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.businessNumber}">Xxx-xxx-xxxxx</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.dateOfOrder}">null</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.orderDate}">2023/12/15</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.Arrival}">null</td>-->
+<!--                                <td class="table-data" th:text="${statementDTO.orderState}">발주전</td>-->
                             </tr>
-
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">null</td>
-                                <td class="table-data">발주서 검수진행중</td>
-                            </tr>
-
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">null</td>
-                                <td class="table-data">발주서 검수처리 완료</td>
-                            </tr>
-
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">2023/12/19</td>
-                                <td class="table-data">마감</td>
-                            </tr>
-
-                            <tr>
-                                <td class="table-data">A</td>
-                                <td class="table-data">나사</td>
-                                <td class="table-data">(유)길승산업</td>
-                                <td class="table-data">Xxx-xxx-xxxxx</td>
-                                <td class="table-data">12/13</td>
-                                <td class="table-data">2023/12/15</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">2023/12/20</td>
-                                <td class="table-data">마감</td>
-                            </tr>
-
                         </tbody>
                     </table>
                 </div>

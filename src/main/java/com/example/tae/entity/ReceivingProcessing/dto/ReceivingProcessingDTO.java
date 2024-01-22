@@ -19,7 +19,9 @@ public class ReceivingProcessingDTO {
 
     String productname; //품목명
 
-    String departName; //업체명
+    String departName;  //업체명
+    
+    String businessName; //사업자이름
 
     String businessNumber; // 사업자번호
 

@@ -34,7 +34,6 @@
             <th class="table-header">너비</th>
             <th class="table-header">공급가격</th>
             <th class="table-header">출고</th>
-            <th class="table-header">입고</th>
             <th class="table-header">재고</th>
             <th class="table-header">재고금액(재고*공급가격)</th>
             <th class="table-header"></th>
@@ -51,7 +50,6 @@
             <td class="table-body" th:text="${release.weight}"></td>
             <td class="table-body" id="supplyPrice" th:text="${release.contract_pay}"></td>
             <td class="table-body"><input style="width:80px" type="number" id="release"></td>
-            <td class="table-body" th:text="${release.store}"></td>
             <td class="table-body" th:text="${release.existence}"></td>
             <td class="table-body" th:text="${release.existence_price}"></td>
             <input type="hidden" th:value="${release.procurementPlan_code}">

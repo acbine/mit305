@@ -3,8 +3,11 @@ package com.example.tae.controller;
 import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
+import com.example.tae.entity.ProcurementPlan.dto.ProcurementPlanJoinDTO;
 import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
+import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.service.RegistrationService.ProcurementPlanImpl;
+import com.example.tae.service.RegistrationService.ProcurementPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -29,10 +32,14 @@ public class ProcurementPlanController {
     }
 
     @Autowired
-    ProcurementPlanImpl procurementPlan;
+    ProcurementPlanImpl procurementPlanService;
 
     @Autowired
     private ProjectPlanRepository projectPlanRepository;
+
+    @Autowired
+    private ProcurementPlanRepository procurementPlanRepository;
+
 
     @PostMapping("/asd")
     @ResponseBody
@@ -43,23 +50,16 @@ public class ProcurementPlanController {
         return ResponseEntity.status(HttpStatus.OK).body(contract);
     }
 
-    @GetMapping("/search/procurementPlan")
-    @ResponseBody
-    public List<ProcurementPlan> planAll() {
 
-        return procurementPlan.getAllPlan();
-    }
-
-    @GetMapping("/search/Project_plan")
-    @ResponseBody
-    public List<ProjectPlan> searchDate(
-            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
-    )
-    {
-        List<ProjectPlan> projectPlans = projectPlanRepository.findByDateBetween(startDate, endDate);
-
-        return projectPlans;
-    }
+//    @Autowired
+//    ProcurementPlanRepository procurementPlanRepository;
+//
+//    @GetMapping("/search/Project_plan")
+//    @ResponseBody
+//    public List<ProcurementPlanJoinDTO> searchDate() {
+////
+////        return procurementPlanRepository.findAllList();
+//        return null;
+//    }
 
 }

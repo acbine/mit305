@@ -60,31 +60,194 @@ function td_delete(tag) {
 
 function select_row() {
 
-var startDate = $('#s_date').val();
-var endDate = $('#e_date').val();
+    const table = document.getElementById('plan_table');
 
-    if(!startDate && !endDate) {
-        alert("날짜 선택 안됨");
+    const cell_length = table.rows[0].cells.length;
 
-    } else {
-        $.ajax({
+    const num = 3;
 
-            url : '/search/Project_plan',
-            method : 'GET',
-            data : {startDate : startDate, endDate : endDate},
-            success : function(data) {
-                console.log(data);
-                setting_registration(data);
-            },
-             error: function(error) {
-                console.log(error);
-             }
-        });
+    for (let i = 1; i <= num; i++) {
 
+        const new_row = table.insertRow(i);
 
+        for (let j = 0; j < cell_length; j++) {
+            let temp_html = '';
+            const new_cell = new_row.insertCell(j);
+
+            if (i == 1) {
+
+                if (j == 0) {
+                    temp_html = '<td>나사</td>';
+                }
+
+                if (j == 1) {
+                    temp_html = '<td>A</td>';
+                }
+
+                if (j == 2) {
+                    temp_html = '<td>16</td>';
+                }
+
+                if (j == 3) {
+                    temp_html = '<td>4</td>';
+                }
+
+                if (j == 4) {
+                    temp_html = '<td>5일</td>';
+                }
+
+                if (j == 5) {
+                    temp_html = '<td>24/01/16</td>';
+                }
+
+                if (j == 6) {
+                    temp_html = '<td>길승산업</td>';
+                }
+
+                if (j == 7) {
+                    temp_html = '<td>12</td>';
+                }
+
+                if (j == 8) {
+                    temp_html = '<td>24/01/10</td>';
+                }
+
+                if (j == 9) {
+                    temp_html =
+                        '<td>' +
+                        '<div class="actions">' +
+                        '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                        '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                        '</div>' +
+                        '</td>';
+                }
+
+            }
+
+            if (i == 2) {
+
+                if (j == 0) {
+                    temp_html = '<td>A품목</td>';
+                }
+
+                if (j == 1) {
+                    temp_html = '<td>B</td>';
+                }
+
+                if (j == 2) {
+                    temp_html = '<td>12</td>';
+                }
+
+                if (j == 3) {
+                    temp_html = '<td>7</td>';
+                }
+
+                if (j == 4) {
+                    temp_html = '<td>8일</td>';
+                }
+
+                if (j == 5) {
+                    temp_html = '<td>24/01/23</td>';
+                }
+
+                if (j == 6) {
+                    temp_html = '<td>길승산업</td>';
+                }
+
+                if (j == 7) {
+                    temp_html = '<td>5</td>';
+                }
+
+                if (j == 8) {
+                    temp_html = '<td>24/01/15</td>';
+                }
+
+                if (j == 9) {
+                    temp_html =
+                        '<td>' +
+                        '<div class="actions">' +
+                        '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                        '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                        '</div>' +
+                        '</td>';
+                }
+
+            }
+
+            if (i == 3) {
+
+                if (j == 0) {
+                    temp_html = '<td>망치</td>';
+                }
+
+                if (j == 1) {
+                    temp_html = '<td>C</td>';
+                }
+
+                if (j == 2) {
+                    temp_html = '<td>20</td>';
+                }
+
+                if (j == 3) {
+                    temp_html = '<td>8</td>';
+                }
+
+                if (j == 4) {
+                    temp_html = '<td>8일</td>';
+                }
+
+                if (j == 5) {
+                    temp_html = '<td>24/02/13</td>';
+                }
+
+                if (j == 6) {
+                    temp_html = '<td>길승산업</td>';
+                }
+
+                if (j == 7) {
+                    temp_html = '<td>12</td>';
+                }
+
+                if (j == 8) {
+                    temp_html = '<td>24/02/03</td>';
+                }
+
+                if (j == 9) {
+                    temp_html =
+                        '<td>' +
+                        '<div class="actions">' +
+                        '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
+                        '<button class="action-button action-button-registration" onclick="registration_and_delete(this)">등록</button>' +
+                        '</div>' +
+                        '</td>';
+                }
+
+            }
+
+            new_cell.insertAdjacentHTML('afterbegin', temp_html);
+        }
     }
-
 }
+
+//function select_row() {
+//
+//var startDate = $('#s_date').val();
+//var endDate = $('#e_date').val();
+//
+//        $.ajax({
+//
+//            url : '/search/Project_plan',
+//            method : 'GET',
+//            success : function(data) {
+//                console.log(data);
+//                setting_registration(data);
+//            },
+//             error: function(error) {
+//                alert("오류 발생");
+//             }
+//        });
+//
+//}
 
 function setting_registration(plan) {
 
@@ -103,7 +266,7 @@ function ProcurementPlan_list() {
 
         success : function(data) {
             console.log(data);
-            set_table(data);
+//            set_table(data);
         },
 
         error : function(error) {

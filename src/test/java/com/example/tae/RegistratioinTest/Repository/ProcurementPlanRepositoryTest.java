@@ -21,6 +21,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 public class ProcurementPlanRepositoryTest {
@@ -91,4 +92,34 @@ public class ProcurementPlanRepositoryTest {
         ProcurementPlan procurementPlan = procurementPlanRepository.findById(1).get();
         System.out.println(procurementPlan.getContract());
     }
+
+
+//    @Test
+//    public void ProjectPlan() {//생산계획 가져오는 것
+//        procurementPlanRepository.findProjectPlan("스마트폰").forEach(x-> System.out.println(x));
+//    }
+//
+//    @Test
+//    public void ProductForProject() {//제품에 해당하는 품목이 몇개 들어있는지
+//        productForProjectRepository.findAll().forEach(x-> System.out.println(x));
+//    }
+//
+//
+//    @Test
+//    public void JoinQuery () {
+//
+//        procurementPlanRepository.findAllList().forEach(x -> System.out.println(x));
+//
+//    }
+//
+//    @Test
+//    public void findContract() {// 계약에서 품목 코드로 검색
+//        List<ProductForProject>  aa = productForProjectRepository.findAll();
+//
+//        for(int i = 0; i < aa.size(); i++) {
+//            procurementPlanRepository.findContract(aa.get(i).getProductCode().getProduct_code()).forEach(x -> System.out.println(x));
+//        }
+//
+//    }
+
 }

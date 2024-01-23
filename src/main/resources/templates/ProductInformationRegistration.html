@@ -6,7 +6,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/js/ProductInformationRegistration.js"></script>
     <style>
-        td {
+        td, input {
             text-align: center;
         }
 
@@ -54,15 +54,11 @@
                     <th>품목명</th>
                     <th>약칭</th>
                     <th>재질</th>
-                    <th>규격 - 가로</th>
-                    <th>규격 - 세로</th>
-                    <th>규격 - 높이</th>
+                    <th>규격 (가로)</th>
+                    <th>규격 (세로)</th>
+                    <th>규격 (높이)</th>
                     <th>중량</th>
-                    <th>제품명</th>
-                    <th>대분류</th>
-                    <th>중분류</th>
                     <th>소분류</th>
-                    <th>사진</th>
                     <th>등록 처리</th>
                 </tr>
                 </thead>
@@ -71,7 +67,7 @@
                 </tbody>
             </table>
 
-            <button class="action-button action-button-add" style="position: absolute" onclick='info_addRow()'>( + )</button>
+            <button class="action-button action-button-add" style="position: absolute" onclick='select_part()'>( + )</button>
 
         </div>
     </div>
@@ -89,14 +85,13 @@
                     <th>품목 코드</th>
                     <th>약칭</th>
                     <th>재질</th>
-                    <th>규격 - 가로(cm)</th>
-                    <th>규격 - 세로(cm)</th>
-                    <th>규격 - 높이(cm)</th>
+                    <th>규격 (가로)</th>
+                    <th>규격 (세로)</th>
+                    <th>규격 (높이)</th>
                     <th>중량</th>
-                    <th>대분류</th>
-                    <th>중분류</th>
-                    <th>소분류</th>
-                    <th>사진</th>
+                    <th width="80.67" height="25">대분류</th>
+                    <th width="80.67" height="25">중분류</th>
+                    <th width="80.67" height="25">소분류</th>
                     <th>계약 여부</th>
                     <th>품목 처리</th>
                 </tr>

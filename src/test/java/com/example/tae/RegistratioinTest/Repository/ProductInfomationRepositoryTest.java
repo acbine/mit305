@@ -42,16 +42,16 @@ public class ProductInfomationRepositoryTest {
     public void Test1() {
 
         // 소분류 id
-        Part part = partRepository.findById(1).get();
+//        Part part = partRepository.findById(1).get();
 
         // 제품명
-        Project project= projectRepository.findById("스마트폰").get();
-
-        ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().
-                product_name("액정").product_abbreviation('E').texture("철").width(1).length(2).height(3).weight(4).
-                part(part).build();
-
-        productInfomationRepository.save(productInformationRegistration);
+//        Project project= projectRepository.findById("스마트폰").get();
+//
+//        ProductInformationRegistration productInformationRegistration = ProductInformationRegistration.builder().
+//                product_name("액정").product_abbreviation('E').texture("철").width(1).length(2).height(3).weight(4).
+//                part(part).build();
+//
+//        productInfomationRepository.save(productInformationRegistration);
 
     }
 

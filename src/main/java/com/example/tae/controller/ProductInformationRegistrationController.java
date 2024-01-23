@@ -29,11 +29,6 @@ public class ProductInformationRegistrationController {
     @Autowired
     ProductInfomationServiceImpl productInfomationService;
 
-    // 대분류 리스트 검색 하여 리턴
-
-    // 중분류 리스트 검색 하여 리턴
-
-    // 소분류 리스트 검색 하여 리턴
 
     @GetMapping("/search/product")
     @ResponseBody

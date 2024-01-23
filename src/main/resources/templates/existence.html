@@ -52,6 +52,7 @@
         <tr th:each="existence: ${existenceList}">
           <td th:text="${existence.productName}"></td>
           <td th:text="${existence.product_code}"></td>
+          <td th:text="${existence.texture}"></td>
           <td th:text="${#temporals.format(existence.releaseDate, 'yyyy-MM-dd')}"></td>
           <td th:text="${existence.height}"></td>
           <td th:text="${existence.length}"></td>

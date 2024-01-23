@@ -37,6 +37,7 @@ function htmlLoad(data) {
             <td>${existence[i].productName}</td>
             <td>${existence[i].product_code}</td>
             <td>${existence[i].releaseDate}</td>
+            <td>${existence[i].texture}</td>
             <td>${existence[i].length}</td>
             <td>${existence[i].weight}</td>
             <td>${existence[i].length}</td>

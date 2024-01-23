@@ -58,85 +58,46 @@ google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(columnChart);
 
 function columnChart(data) {
-    var select =  document.getElementById("selectInfo");
-    var value =  select.options[select.selectedIndex].value
+    select = document.getElementById("selectInfo");
+    var value = select.options[select.selectedIndex].value;
     var charData;
 
+    data1 = [['분류', '재고금액']];
+    var groupedData = {};
 
-    var data1 = [['분류', '재고금액']];
+    data.existenceList.forEach(x => {
+        var key;
 
-    if(value==="대분류") {
-        data.existenceList.forEach(x=>{
-            var array = [x.unit.unit, x.existence_price];
-            data1.push(array);
-        })
+        if (value === "대분류") {
+            key = x.unit.unit;
+        } else if (value === "중분류") {
+            key = x.assy.assy;
+        } else if (value === "소분류") {
+            key = x.part.part;
+        } else {
+            key = x.productName;
+        }
 
-        charData = google.visualization.arrayToDataTable(data1);
+        if (!groupedData[key]) {
+            groupedData[key] = 0;
+        }
 
-        var options1 = {
-            title: 'unit',
-            width: 1000,
-            height: 600
-        };
+        groupedData[key] += x.existence_price;
+    });
 
-        var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-        chart1.draw(charData, options1);
-    } else if(value==="중분류") {
-        data.existenceList.forEach(x=>{
-            var array = [x.assy.assy, x.existence_price];
-            data1.push(array);
-
-        })
-
-        console.log(data1)
-
-        charData = google.visualization.arrayToDataTable(data1);
-        var options1 = {
-            title: 'assy',
-            width: 1000,
-            height: 600
-        };
-
-        var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-        chart1.draw(charData, options1);
-    }else if(value==="소분류") {
-        data.existenceList.forEach(x=>{
-            var array = [x.part.part, x.existence_price];
-            data1.push(array);
-        })
-
-        console.log(data1)
-        charData = google.visualization.arrayToDataTable(data1);
-
-        var options1 = {
-            title: 'part',
-            width: 1000,
-            height: 600
-        };
-
-        var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-        chart1.draw(charData, options1);
-
-    } else {
-        data.existenceList.forEach(x=>{
-            var array = [x.productName, x.existence_price];
-            data1.push(array);
-
-        })
-
-        console.log(data1)
-
-        charData = google.visualization.arrayToDataTable(data1);
-
-        var options1 = {
-            title: 'total',
-            width: 1000,
-            height: 600
-        };
-        var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
-        chart1.draw(charData, options1);
+    for (var key in groupedData) {
+        data1.push([key, groupedData[key]]);
     }
 
+    charData = google.visualization.arrayToDataTable(data1);
 
+    var options1 = {
+        title: value,
+        width: 1000,
+        height: 600,
+        isStacked: true,
+    };
 
+    var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
+    chart1.draw(charData, options1);
 }

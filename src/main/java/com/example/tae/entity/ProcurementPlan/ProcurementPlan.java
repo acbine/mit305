@@ -23,16 +23,16 @@ public class ProcurementPlan {
     private int procurementplan_code; // 조달 계획 코드
 
     // 생산 계획 키값
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     ProjectPlan projectPlan;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     Contract contract; // 계약(계약코드)
 
-    @ManyToOne(fetch = FetchType.LAZY) //발주서 코드
+    @ManyToOne //발주서 코드
     Purchase purchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     ProductForProject productForProject;//제품에대한 품목수량  ID:
 
     private int SupportProductAmount; //조달수량

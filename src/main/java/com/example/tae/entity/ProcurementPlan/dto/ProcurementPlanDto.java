@@ -19,17 +19,19 @@ public class ProcurementPlanDto {
 
     private int procurementplan_code;
 
-    @Builder.Default
-    List<ProjectPlan> projectPlanList = new ArrayList<>();
+    private int id; // 생산 계획
 
-    @Builder.Default
-    List<ContractDTO> contractDTOList = new ArrayList<>();
+    private int contract_code; // 계약
 
-    private int product_amount;
+    private int product_code; // 품목 수량의 품목 코드
 
-    private Date order_date;
+    private String ordercode; // 발주서 코드
 
-    private String order_state;
+    private int SupportProductAmount; // 조달 수량
+
+    private Date order_date; // 발주일
+
+    private String order_state; // 상태
 
 
 }

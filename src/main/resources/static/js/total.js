@@ -153,11 +153,13 @@ function sendDateToChild(String) {
 
 const childComponent = {
     receiveData: function (data) {
-        // for(var check =0; check<clickTapList.length; check++) {
-        //     if(clickTapList[check]!==data) {
-        //         clickTapList.push(data);
-        //     }
-        // }
+        for(var check =0; check<clickTapList.length; check++) {
+            if(clickTapList[check]!==data) {
+                clickTapList.push(data);
+            } else {
+                break;
+            }
+        }
         clickTapList.push(data);
         var SetClickTapList = new Set(clickTapList);
 
@@ -399,7 +401,6 @@ function closePage(pageData, cnt) {
 
     second.classList.remove("is_on")
     second.classList.add("tap1")
-    console.log("맞게 가져오는지 확인",second)
     taps[cnt].style.display="none";
 
 };
@@ -476,6 +477,7 @@ script10.async = true;
 script10.src = "/js/ContractRegistrationModal.js";
 document.head.appendChild(script10);
 
+// existence.js
 var script11 = document.createElement("script");
 script11.async = true;
 script11.src = "/js/existence.js";

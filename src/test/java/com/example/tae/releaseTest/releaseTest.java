@@ -34,12 +34,6 @@ public class releaseTest {
         });
     }
 
-    //가장 최신값 가져오기
-    @Test
-    public void recentData() {
-        System.out.println("가장 최근의 출고 값이 맞는지 확인 : "+releaseRepository.findTop1ByOrderByModDateDesc().getRegDate());
-    }
-
     @Test
     public void findProceure() {
             for(ProcurementPlan procurementPlan : procurementPlanRepository.findAllByProjectPlan_Id(1)) {

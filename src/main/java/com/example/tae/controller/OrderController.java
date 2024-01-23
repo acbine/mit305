@@ -1,18 +1,14 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Order.dto.OrderDTO;
-import com.example.tae.entity.Order.dto.OrderPopupDto;
-import com.example.tae.entity.Order.dto.OrderPopupHeadDto;
-import com.example.tae.entity.Order.dto.OrderRegisterDto;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
+
 import com.example.tae.service.PurchaseService.OrderRegisterService;
 import com.example.tae.service.PurchaseService.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,7 +35,7 @@ public class OrderController {
 
     @GetMapping("/orderListPopup")
     public String orderListPopup(@RequestParam(name = "ordercode")String ordercode, Model model) {
-        model.addAttribute("orderPopupHeadDto", orderService.getOrderPopupHeadDto(ordercode));
+//        model.addAttribute("orderPopupHeadDto", orderService.getOrderPopupHeadDto(ordercode));
         model.addAttribute("orderPopupDto", orderService.getOrderPopupData(ordercode));
         return "orderListPopup";
     }

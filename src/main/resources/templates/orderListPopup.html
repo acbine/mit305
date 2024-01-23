@@ -24,7 +24,7 @@
             </tr>
         </table>
         <table class="popup-table">
-            <thead>
+            <thead id="thead">
                 <tr>
                     <th>품목명</th>
                     <th>품목코드</th>
@@ -36,7 +36,7 @@
                     <th style="width: 31.2%;">비고</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <!-- 주문 상세 정보 표시 -->
                 <tr th:each="detail : ${orderPopupDto}">
                     <td th:text="${detail.product_name}"></td>

@@ -23,7 +23,7 @@
     </div>
     <div class="container">
         <table>
-            <thead>
+            <thead id="thead">
                 <tr>
                     <th>발주서 발행일</th>
                     <th>발주품목</th>
@@ -31,7 +31,7 @@
                     <th>진척 검수 상태</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <tr th:each="order : ${oList}">
                     <td th:text="${#temporals.format(order.regDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${order.ordercode}"></td>

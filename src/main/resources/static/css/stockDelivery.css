@@ -29,8 +29,8 @@
 }
 
 
-.table {
-    width: 100%;
+.table_box{
+    width: 85%;
     border-collapse: collapse;
     margin-top: 1rem;
 }

@@ -125,8 +125,8 @@ public class TradingStatementServiceImpl implements TradingStatementService{
             e.printStackTrace();
         }////////////////URL을 이미지로 변환
 
-        final String user_email= ""; // 구글 이메일
-        final String user_pw = ""; //구글 앱 비밀번호
+        final String user_email= "ghostjaewoongp@gmail.com"; // 구글 이메일
+        final String user_pw = "rxks poyq biif qcfq"; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
         final int smtp_port = 465;  // TLS : 587, SSL : 465
 
@@ -149,7 +149,7 @@ public class TradingStatementServiceImpl implements TradingStatementService{
             // 보내는 이메일 주소
             message.setFrom(new InternetAddress(user_email));
             // 받는 이메일 주소
-            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse(imageDTO.emailadress)  );
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("youngjjag28@gmail.com")  );
             // 이메일 제목
             message.setSubject("TAE 202401-01거래명세서 메일입니다.");
             Multipart multipart = new MimeMultipart();

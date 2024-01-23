@@ -73,7 +73,9 @@ function addTable(clickNum,data) {
     var releaseProcess = data.ReleaseInfo;
     var existence = releaseProcess.existence;
     var existence_price = releaseProcess.existence_price
+    var releaseDate = releaseProcess.departureDate
 
+    inputHTML[2].innerHTML= ` <td class="table-body">${releaseDate}</td>`
     inputHTML[9].innerHTML= ` <td class="table-body">${existence}</td>`
     inputHTML[10].innerHTML= ` <td class="table-body">${existence_price}</td>`
 }
@@ -89,7 +91,7 @@ function uploadHtml(data) {
         <tr>
             <td class="table-body">${releaseInfo[i].productName}</td>
             <td class="table-body">${releaseInfo[i].product_code}</td>
-            <td class="table-body">${releaseInfo[i].departureDate}</td>
+            <td class="table-body"></td>
             <td class="table-body">${releaseInfo[i].texture}</td>
             <td class="table-body">${releaseInfo[i].height}</td>
             <td class="table-body">${releaseInfo[i].length}</td>

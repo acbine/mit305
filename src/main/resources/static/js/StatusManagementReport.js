@@ -23,6 +23,7 @@ function drawChart() {
                     InputArray.push(forEachArray)
                 });
 
+
 //                console.log(InputArray);
 
                 var data = google.visualization.arrayToDataTable(InputArray);

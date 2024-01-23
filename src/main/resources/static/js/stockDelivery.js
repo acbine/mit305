@@ -71,14 +71,11 @@ function addTable(clickNum,data) {
     console.log("받아온 데이터 정보 제대로 확인하기 ( data : ", data+", clickNum : "+ clickNum +")");
 
     var releaseProcess = data.ReleaseInfo;
-    var release = releaseProcess.release;
     var existence = releaseProcess.existence;
-    var store = releaseProcess.store;
     var existence_price = releaseProcess.existence_price
 
-    inputHTML[9].innerHTML = ` <td class="table-body">${store}</td>`
-    inputHTML[10].innerHTML= ` <td class="table-body">${existence}</td>`
-    inputHTML[11].innerHTML= ` <td class="table-body">${existence_price}</td>`
+    inputHTML[9].innerHTML= ` <td class="table-body">${existence}</td>`
+    inputHTML[10].innerHTML= ` <td class="table-body">${existence_price}</td>`
 }
 
 function uploadHtml(data) {
@@ -99,7 +96,6 @@ function uploadHtml(data) {
             <td class="table-body">${releaseInfo[i].weight}</td>
             <td class="table-body" id="supplyPrice">${releaseInfo[i].contract_pay}</td>
             <td class="table-body"><input style="width:80px" type="number" id="release"></td>
-            <td class="table-body">${releaseInfo[i].store}</td>
             <td class="table-body">${releaseInfo[i].existence}</td>
             <td class="table-body">${releaseInfo[i].existence_price}</td>
             <input type="hidden" value="${releaseInfo[i].procurementPlan_code}">

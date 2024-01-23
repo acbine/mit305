@@ -73,7 +73,9 @@ function addTable(clickNum,data) {
     var releaseProcess = data.ReleaseInfo;
     var existence = releaseProcess.existence;
     var existence_price = releaseProcess.existence_price
+    var departureDate = releaseProcess.departureDate
 
+    inputHTML[2].innerHTML= ` <td class="table-body">${departureDate}</td>`
     inputHTML[9].innerHTML= ` <td class="table-body">${existence}</td>`
     inputHTML[10].innerHTML= ` <td class="table-body">${existence_price}</td>`
 }

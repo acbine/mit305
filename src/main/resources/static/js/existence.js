@@ -44,8 +44,8 @@ function htmlLoad(data) {
             <td>${existence[i].unit.unit}</td>
             <td>${existence[i].assy.assy}</td>
             <td>${existence[i].part.part}</td>
-            <td>${existence[i].release}</td>
             <td>${existence[i].existence}</td>
+            <td>${existence[i].contract_pay}</td>
             <td>${existence[i].existence_price}</td>
         </tr>`);
     }

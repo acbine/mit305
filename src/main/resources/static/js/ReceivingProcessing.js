@@ -164,13 +164,13 @@ $(function ReceivingProcessing(){  //모달 관련 js
 
  }
 
-function searchButton(){
-    console.log("잘클릭");
-    var formInputData=document.getElementById("inputData");
-    var formsearchData=document.getElementById("searchData");
-    var formsearchState=document.getElementById("searchState");
-    console.log(formInputData.value);
-    console.log(formsearchData.value);
-    console.log(formsearchState.value);
- }
+//function searchButton(){
+//    console.log("잘클릭");
+//    var formInputData=document.getElementById("inputData");
+//    var formsearchData=document.getElementById("searchData");
+//    var formsearchState=document.getElementById("searchState");
+//    console.log(formInputData.value);
+//    console.log(formsearchData.value);
+//    console.log(formsearchState.value);
+// }
 

@@ -66,6 +66,8 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                 .build();
         releaseRepository.save(releaseP);
 
+        existenceRepository.save(existence.get().updateRelease(mostRecentShippingData.get().getReleaseCNT()*-1));
+
         return new ReleaseDto().releaseProcessDTO(
                 mostRecentShippingData.get(),
                 productInformationRegistration,
@@ -106,6 +108,9 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                         return existence1;
                     }
             ));
+
+
+            existenceRepository.save(existence.get().updateRelease(mostRecentShippingData.get().getReleaseCNT()*-1));
 
             ReleaseDto releaseDto1 = releaseDto.releaseProcessDTO(
                     mostRecentShippingData.get(),

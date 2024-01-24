@@ -6,9 +6,10 @@
     <link rel="stylesheet" href="/css/order.css">
     <title>발주서 발행</title>
 </head>
-<body>
+<body class="body_css">
+<h2 class="popup-center">발주서 발행</h2>
     <div class="container">
-        <table>
+        <table class="table_css">
             <thead>
                 <tr>
                     <td style="text-align:center; background-color: #ccc;">업체명</td>
@@ -33,7 +34,7 @@
                     <th>L/T</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="tbody">
                 <tr th:each="order : ${oList}">
                     <td th:text="${order.productName}"></td>
                     <td th:text="${order.productCode}"></td>

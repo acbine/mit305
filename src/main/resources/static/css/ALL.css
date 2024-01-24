@@ -28,11 +28,10 @@
 }
 
 .table-style {  /*테이블 스타일 */
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     font-size: 0.875rem;
-    
-    
+
 }
 
 

@@ -155,7 +155,8 @@ public class BinServiceImpl implements BinService{
                     return existence1;
                 }
         ));
-        existenceRepository.save(existence.get());
+
+        existenceRepository.save(existence.get().updateRelease(store));
         receivingProcessingRepository.save(receivingProcessing); //입고처리 DB에 저장
         receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
 //        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로

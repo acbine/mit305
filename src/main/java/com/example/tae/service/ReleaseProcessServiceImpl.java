@@ -41,7 +41,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                 ()->{
                     Existence existence1 = Existence.builder()
                             .productCode(procurementPlan.get().getContract().getProductInformationRegistration())
-                            .releaseCNT(release*-1)
+                            .releaseCNT(release)
                             .build();
                     existenceRepository.save(existence1);
                     return existence1;
@@ -128,9 +128,7 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
         List<ReleaseDto> releaseDtoList = new ArrayList<>();
 
         if (state == 0) {/*품목 이름 검색*/
-            log.info("데이터 잘 받아졌는지 확인",constraints);
             List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationName(constraints);
-            productInformationRegistrationList.forEach(x-> log.info(x.toString()));
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         } else if (state == 1) {/*품목 코드 검색*/

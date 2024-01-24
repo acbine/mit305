@@ -24,7 +24,11 @@ public class Existence extends TimeStamp {
 
     private int releaseCNT;
 
-    public void updateRelease(int num) {
-        this.releaseCNT +=num;
+    public Existence updateRelease(int num) {
+        return Existence.builder()
+                .id(this.id)
+                .productCode(this.getProductCode())
+                .releaseCNT(this.releaseCNT +=num)
+                .build();
     }
 }

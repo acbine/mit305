@@ -1276,7 +1276,7 @@ public class DummyServiceImpl implements DummyService {
 
 
         //회사 정보 데이터
-            for (int value = 0; value < companyBusinessNumberList.length; value++) {
+            for (int value = 0; value < 200; value++) {
                 CompanyDTO companyDTO = CompanyDTO.builder()
                         .businessNumber(companyBusinessNumberList[value])
                         .businessName(nameData[value])

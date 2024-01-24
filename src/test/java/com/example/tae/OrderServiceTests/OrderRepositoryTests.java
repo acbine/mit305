@@ -30,7 +30,7 @@ public class OrderRepositoryTests {
         progressInspectionRepository.save(pi);
         progressInspectionRepository.save(pi2);
 
-        System.out.println("발주서 코드 : " + p.getOrdercode());
+        System.out.println("발주서 코드 : " + p.getOrderCode());
         System.out.println("발주서 발행일 : " + p.getRegDate());
     }
 

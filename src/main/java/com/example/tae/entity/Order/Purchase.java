@@ -17,11 +17,5 @@ import java.util.List;
 public class Purchase extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String ordercode;                       // 발주서 코드
-
-    @OneToMany(mappedBy = "purchase", fetch = FetchType.LAZY)
-    private List<ProcurementPlan> procurementPlan;  // 조달 계획 리스트
-
-    @OneToMany
-    private List<ProgressInspection> progressInspections;
+    private String orderCode;                       // 발주서 코드
 }

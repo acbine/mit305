@@ -37,21 +37,22 @@
                     <td th:text="${order.orderDate}"></td>
                     <td th:text="${order.departName}"></td>
                     <td th:text="${order.orderState}"></td>
-                    <!--<td th:text="${order.productNameList != null ? #strings.join(order.productNameList, ',') : ''}"></td>-->
                     <td>
                         <div th:if="${order.progressInspectionStatus == true}"></div>
-                        <div th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}" th:onclick="'openOrderInspectPopup(\'' + ${order.productCode} + '\')'">진척검수등록</div>
+                        <button th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}" th:onclick="'openOrderInspectPopup(\'' + ${order.productCode} + '\')'">진척검수등록</button>
                     </td>
                     <td th:attr="onclick='openPopup(\'' + ${order.productCode} + '\')'">🔍️</td>
                 </tr>
             </tbody>
         </table>
     </div>
+
     <div id="orderInspectPopup" class="popup" onclick="closePopup()"> <!--팝업창 백그라운드-->
         <div class="popup-content">
             <div id="orderListPopup"></div>
         </div>
     </div>
+
     <script src="/js/order.js"></script>
 </body>
 </html>

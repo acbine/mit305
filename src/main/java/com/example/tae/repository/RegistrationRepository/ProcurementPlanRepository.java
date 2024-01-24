@@ -13,12 +13,21 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
 
     List<ProcurementPlan> findAllByProjectPlan_Id(int prjId);
 
-    @Query(value = "SELECT * FROM tae.procurement_plan where purchase_ordercode IS Null", nativeQuery = true)
+    @Query(value = "SELECT * FROM tae.procurement_plan where purchase_order_code IS Null", nativeQuery = true)
     List<ProcurementPlan> findByProcurementPlanState();
 
 
     @Query("select pr from ProcurementPlan pr " +
         " where pr.contract.contract_code = :contractCode")
     ProcurementPlan findByContract_Contract_code(@Param("contractCode") int contractCode);
+
+    @Query("select pr from ProcurementPlan pr where pr.order_state <> '발주전' and  pr.purchase is not null ")
+    List<ProcurementPlan> findAllByProcurementplan_orderStateNotNull();
+
+    @Query("select pr from ProcurementPlan pr where pr.order_state = '발주전' and  pr.purchase is null ")
+    List<ProcurementPlan> findAllByProcurementplan_orderStateNull();
+
+    @Query("select pl from  ProcurementPlan  pl where pl.productForProject.productCodeCount = :productCode")
+    ProcurementPlan findByProductInformation(@Param("productCode") int productCode);
 
 }

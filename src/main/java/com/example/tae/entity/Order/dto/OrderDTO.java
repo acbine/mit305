@@ -26,6 +26,10 @@ public class OrderDTO {
     private String agent;
     private String email;
     private int existence;
+    private int length;
+    private int width;
+    private int height;
+    private String text;
     private String orderState;
     private boolean progressInspectionStatus;
 

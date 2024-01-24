@@ -24,18 +24,18 @@
                 </tr>
             </thead>
             <tbody id="tbody">
-                <tr th:each="order : ${oList}">
+                <tr class="orderRegisterTable" th:each="order : ${oList}">
                     <td th:text="${order.productName}"></td>
                     <td th:text="${order.productCode}"></td>
                     <td th:text="${order.num}"></td>
                     <td th:text="${order.existence}"></td>
                     <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
-                    <input type="hidden" th:text="${order.procurementPlanCode}">
+                    <input th:hidden="${order.procurementPlanCode}" >
                     <td th:text="${order.LT}"></td>
-                    <th th:text="${order.departName}"></th>
-                    <th th:text="${order.email}"></th>
-                    <td><button th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">등록</button></td>
+                    <td th:text="${order.departName}"></td>
+                    <td th:text="${order.email}"></td>
+                    <td><button th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
                     <td><button th:attr="onclick='cancel(\'' + ${orderStat.index} + '\')'">취소</button></td>
                 </tr>
             </tbody>

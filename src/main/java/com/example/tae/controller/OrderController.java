@@ -30,9 +30,11 @@ public class OrderController {
     }
 
 
-    @GetMapping("orderListPopup")
-    public String  TradingStatementModal(@RequestParam(name = "orderCode")String orderCode, Model model) {
-        model.addAttribute("orderPopupDto", orderService.getOrderPopupData(orderCode));
+    @GetMapping("orderInspect")
+    public String  TradingStatementModal(@RequestParam(name = "productCode")int productCode, Model model) {
+        OrderDTO orderDTO = orderService.getOrderInspectData(productCode);
+        log.info(orderDTO.toString());
+        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode));
         return "orderInspect";
     }
 

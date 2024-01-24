@@ -21,7 +21,7 @@ function openOrderInspectPopup(productCode){  //모달창열기
                 html.innerHTML = this.responseText;
             }
         };
-        xhttp.open('GET','orderListPopup?orderCode='+productCode, true);
+        xhttp.open('GET','orderInspect?productCode='+productCode, true);
         xhttp.send();
 
 

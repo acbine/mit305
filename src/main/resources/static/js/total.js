@@ -201,17 +201,17 @@ const childComponent = {
                                 <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
                         </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else if (arrayClick[0] === arrayClick[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                          </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else {
                 tabList3.push(`<div class="tabClass" id="is_on" >
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                             </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             }
 
         }

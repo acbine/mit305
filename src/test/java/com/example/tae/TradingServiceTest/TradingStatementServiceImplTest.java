@@ -1,20 +1,14 @@
 package com.example.tae.TradingServiceTest;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
-import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
-import com.example.tae.entity.TradingStatement.TradingStatementDTO;
 import com.example.tae.entity.TradingStatement.TradingStatementModalDTO;
 import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.ReceivingProcessingRepository;
 import com.example.tae.service.TradingStatementService;
-import com.example.tae.service.TradingStatementServiceImpl;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -87,26 +81,26 @@ public class TradingStatementServiceImplTest {
                 //
                 System.out.println("++++++++++++++++++++++++++++++++++++++++++++" + i + "번쨰 인덱스UUID는" + groupByOrderCodeList.get(i)[0] + "    이UUID를 가지고있는 품목의 갯수    " + groupByOrderCodeList.get(i)[1]);
                 System.out.println("+++++++++++++++++++++++++++++++++++++++++++++UUID가 " + (String) groupByOrderCodeList.get(i)[0] + "이거인 목록중에 리스트의 크기는" + procurementPlanListend.size());
-                System.out.println("통과 UUID는" + procurementPlanListend.get(i).getPurchase().getOrdercode());
+//                System.out.println("통과 UUID는" + procurementPlanListend.get(i).getPurchase().getOrdercode());
 
-                for (int b = 0; b < procurementPlanListend.size(); b++) {
-                    System.out.println(b + "번 반복------------------------------------------------------------------");
-
-                    TradingStatementModalDTO dto = TradingStatementModalDTO.builder()
-                            .orderCode(procurementPlanListend.get(b).getPurchase().getOrdercode())
-                            .prouctName(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_name())
-                            .count(procurementPlanListend.get(b).getContract().getProduct_price()) //입고처리에서 가져와야함
-                            //.price(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore())
-                            //.pc(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore()*procurementPlanListend.get(b).getContract().getProduct_price())
-                            .businessNumber(procurementPlanListend.get(b).getContract().getCompany().getBusinessNumber())
-                            .departName(procurementPlanListend.get(b).getContract().getCompany().getDepartName())
-                            .businessName(procurementPlanListend.get(b).getContract().getCompany().getBusinessName())
-                            .businessEmail(procurementPlanListend.get(b).getContract().getCompany().getBusinessEmail())
-                            .fax(procurementPlanListend.get(b).getContract().getCompany().getFax())
-                            .businessTel(procurementPlanListend.get(b).getContract().getCompany().getBusinessTel())
-                            .build();
-                    retrunList.add(dto);
-                }
+//                for (int b = 0; b < procurementPlanListend.size(); b++) {
+//                    System.out.println(b + "번 반복------------------------------------------------------------------");
+//
+//                    TradingStatementModalDTO dto = TradingStatementModalDTO.builder()
+//                            .orderCode(procurementPlanListend.get(b).getPurchase().getOrdercode())
+//                            .prouctName(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_name())
+//                            .count(procurementPlanListend.get(b).getContract().getProduct_price()) //입고처리에서 가져와야함
+//                            //.price(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore())
+//                            //.pc(receivingProcessingRepository.findByProcumentPlanCode(procurementPlanListend.get(b).getContract().getProductInformationRegistration().getProduct_code()).getStore()*procurementPlanListend.get(b).getContract().getProduct_price())
+//                            .businessNumber(procurementPlanListend.get(b).getContract().getCompany().getBusinessNumber())
+//                            .departName(procurementPlanListend.get(b).getContract().getCompany().getDepartName())
+//                            .businessName(procurementPlanListend.get(b).getContract().getCompany().getBusinessName())
+//                            .businessEmail(procurementPlanListend.get(b).getContract().getCompany().getBusinessEmail())
+//                            .fax(procurementPlanListend.get(b).getContract().getCompany().getFax())
+//                            .businessTel(procurementPlanListend.get(b).getContract().getCompany().getBusinessTel())
+//                            .build();
+//                    retrunList.add(dto);
+//                }
 
             } // 같아야지 품목 DTO가 나오고 나온거를  리스트로 만들어줌
             else {

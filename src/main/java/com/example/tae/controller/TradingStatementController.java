@@ -1,19 +1,14 @@
 package com.example.tae.controller;
 
-import com.example.tae.entity.TradingStatement.TradingStatementDTO;
 import com.example.tae.entity.TradingStatement.TradingStatementModalDTO;
-import com.example.tae.service.BinService;
 import com.example.tae.service.TradingStatementService;
 import lombok.AllArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.Objects;
 
 
 @Controller

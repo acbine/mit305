@@ -81,9 +81,7 @@ public class receivecingTest {
 
     @Test
     public void aaa(){
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
         try {
             Date changedStartDate; //Date 타입 시작 날짜
             Date changedEndDate; //Date 타입 끝날자
@@ -133,70 +131,32 @@ public class receivecingTest {
 //                System.out.println(localDateTime);
 
                 }
-
-
-
-
-
-
-
-
         }catch(Exception e){
 
         }
-//        for (int i=0; i<procurementPlanList.size(); i++) { //품목에대한 조달계획 불러온 크기 만큼 반복
-//            ReceivingProcessing receivingProcessing;
-//            Integer aaa=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST().get(0).getProcurementplan_code();//모든 품목에대한  조달계획코드 를 넣어줌 하나씩 aaa에 넣어줌 null=0;
-//            System.out.println("assssssssssssssssssssssssssssssssssss"+aaa);
-//            if (aaa!=0){
-//                 receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 1 이고 등록된낮라
-//                LocalDateTime localDateTime;
-//                System.out.println("++++++++++++여기까지는 잘됨ㅁ+++++++++");
-//                if ( receivingProcessing == null) {
-//                    localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
-//                } else {
-//                    localDateTime = receivingProcessing.getRegDate();
-//                }
-//                System.out.println("++++++++++++//////////////////////////////////////////////////////+++++++++");
-//                ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-//                        .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-//                        .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
-//                        .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
-//                        .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
-//                        .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
-//                        .DateOfOrder(procurementPlanList.get(i).getPurchase().getRegDate()) //발주서 발행일
-//                        .OrderDate(procurementPlanList.get(i).getOrder_date())//발주일
-//                        .Arrival(localDateTime) //입고처리된 날짜
-//                        .orderState(procurementPlanList.get(i).getOrder_state()) //품목상태
-//                        .build();
-//                receivingProcessingDTOList.add(receivingProcessingDTO);
-//                System.out.println(localDateTime);
-//
-//            }
+    }
 
+    @Test
+    @Transactional
+    public void sadaz(){ //품목명 검색 쿼리 테스트
+        List<ProcurementPlan> sdas=receivingProcessingRepository.rPSearchByProductname("액정");
+        System.out.println("----------------------------------------------");
+        sdas.forEach(x-> System.out.println(x.getProcurementplan_code()+x.getContract().getProductInformationRegistration().getProduct_name()));
+        System.out.println("----------------------------------------------");
+//        System.out.println("+++++++++++++++++++++"+sdas.get(0).getProcurementplan_code());
 
-//            LocalDateTime localDateTime;
-//            System.out.println("++++++++++++여기까지는 잘됨ㅁ+++++++++");
-//            if ( receivingProcessing == null) {
-//                localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
-//            } else {
-//                localDateTime = receivingProcessing.getRegDate();
-//            }
-//            System.out.println("++++++++++++//////////////////////////////////////////////////////+++++++++");
-//            ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-//                    .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-//                    .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
-//                    .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
-//                    .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
-//                    .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
-//                    .DateOfOrder(procurementPlanList.get(i).getPurchase().getRegDate()) //발주서 발행일
-//                    .OrderDate(procurementPlanList.get(i).getOrder_date())//발주일
-//                    .Arrival(localDateTime) //입고처리된 날짜
-//                    .orderState(procurementPlanList.get(i).getOrder_state()) //품목상태
-//                    .build();
-//            receivingProcessingDTOList.add(receivingProcessingDTO);
-//            System.out.println(localDateTime);
-        }
+    }
+
+    @Test
+    @Transactional
+    public void sadasad(){ //회사면 검색 쿼리테스트
+        List<ProcurementPlan> sdas=receivingProcessingRepository.rPSearchByDepartname("부석종합건설(주)");
+        System.out.println("----------------------시작------------------------");
+        sdas.forEach(x-> System.out.println(x.getProcurementplan_code()+x.getContract().getCompany().getDepartName()));
+        System.out.println("----------------------끝------------------------");
+//        System.out.println("+++++++++++++++++++++"+sdas.get(0).getProcurementplan_code());
+
+    }
 
 
 

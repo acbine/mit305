@@ -1,6 +1,5 @@
 package com.example.tae.service;
 
-import com.example.tae.entity.TradingStatement.TradingStatementDTO;
 import com.example.tae.entity.TradingStatement.TradingStatementModalDTO;
 import com.example.tae.entity.dto.ImageDTO;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -120,6 +120,8 @@ function updateButtonState(buttonId, state) {
 }
 
 function sendDateToChild(String) {
+    console.log("들어오는 값 확인 해보기",String);
+
     var data;
 
     if (String === "item") {
@@ -144,8 +146,6 @@ function sendDateToChild(String) {
         data = "현황리포트"
     } else if (String === "ProductSelect") {
         data = "발주품목선택"
-    } else if (String === "진척검수등록") {
-        data = "orderInspect1_1"
     }
 
     childComponent.receiveData(data);
@@ -193,8 +193,6 @@ const childComponent = {
                 currentPage = "stockDelivery"
             } else if (arrayClick[i] === "현황리포트") {
                 currentPage = "existence"
-            } else if (arrayClick[i] === "진척검수등록") {
-                currentPage = "orderInspect1_1"
             }
 
             if (i===0) {
@@ -487,3 +485,8 @@ var script12 = document.createElement("script");
 script12.async = true;
 script12.src = "/js/orderRegister.js";
 document.head.appendChild(script12);
+
+var script13 = document.createElement("script");
+script13.async = true;
+script13.src = "/js/orderListPopup.js";
+document.head.appendChild(script13);

@@ -1,12 +1,25 @@
 
 
-function orderRegister() {
+function orderRegister(productCode, procurementPlanCode) {
 console.log("함수가 실행 시 해당 알림")
-console.log("데이터가 제대로 오는지 확인,");
-var departName = document.getElementById("departName");
+console.log("클릭 요소 확인해보기",this.target)
+var tbody = document.getElementById("tbody");
+console.log("받아오는 물품 정보 확인", productCode);
+console.log("받아오는 계약 정보 확인", procurementPlanCode);
+var fromData = {"productCode": productCode, "procurementPlanCode" : procurementPlanCode};
+$.ajax({
+    url:'orderRegisterData',
+    contentType : 'application/json',
+    method : 'POST',
+    data : JSON.stringify(fromData),
+    success : function () {
+        tbody.display = "none";
+    },
+    error : function () {
 
-var click = document.querySelectorAll("option[name=departName]");
-
+    }
+})
+// var click = document.querySelectorAll("option[name=departName]");
 
 }
 

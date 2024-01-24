@@ -12,19 +12,6 @@
         <table class="table_css">
             <thead>
                 <tr>
-                    <td style="text-align:center; background-color: #ccc;">업체명</td>
-                    <td colspan="6" style="text-align:left; background-color: #fff;">
-                        <label for="departName">
-                            <select id="departName" onchange="orderRegister()">
-                            <option>선택</option>
-                            <th:block th:each="orderDto : ${oList}">
-                                <option name = "departName" th:value="${orderDto.departName}" th:text="${orderDto.departName}" id = '${orderDtoStat.index}'></option>
-                            </th:block>
-                        </select>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
                     <th>품목명</th>
                     <th>품목코드</th>
                     <th>조달 수량</th>
@@ -32,6 +19,8 @@
                     <th>제품 생산 예정 날짜</th>
                     <th>물품 발주일</th>
                     <th>L/T</th>
+                    <th>업체명</th>
+                    <th>e-mail</th>
                 </tr>
             </thead>
             <tbody id="tbody">
@@ -39,23 +28,19 @@
                     <td th:text="${order.productName}"></td>
                     <td th:text="${order.productCode}"></td>
                     <td th:text="${order.num}"></td>
-                    <td>현재 재고량들</td>
+                    <td th:text="${order.existence}"></td>
                     <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
+                    <input type="hidden" th:text="${order.procurementPlanCode}">
                     <td th:text="${order.LT}"></td>
-                    <td><button th:attr="onclick='cancel(this, \'' + ${order.productCode} + '\')'">취소</button></td>
+                    <th th:text="${order.departName}"></th>
+                    <th th:text="${order.email}"></th>
+                    <td><button th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">등록</button></td>
+                    <td><button th:attr="onclick='cancel(\'' + ${orderStat.index} + '\')'">취소</button></td>
                 </tr>
             </tbody>
-            <tr>
-                <td style="text-align:center; background-color: #ccc;">이메일</td>
-                <td colspan="6" style="text-align:left;">abcde@gmail.com</td>
-            </tr>
         </table>
     </div>
-    <div class="btn-container">
-        <button id="registerBtn" class="btn btn-primary" onclick="orderReg()" disabled>발행</button>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/orderRegister.js"></script>
 </body>
 </html>

@@ -1,11 +1,30 @@
 /*--------------------발주 목록(orderList)--------------------*/
-function openPopup(ordercode) {
-    if(ordercode) {
-        $(".popup").css('display', 'block');
-        console.log("발주서 코드 : " + ordercode);
-        $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + encodeURIComponent(ordercode));
-    }else
-        console.error("유효하지 않은 ordercode입니다.");
+function openPopup(orderCode) {
+
+
+    // if(orderCode) {
+    //     $(".popup").css('display', 'block');
+    //     console.log("발주서 코드 : " + orderCode);
+    //     $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + encodeURIComponent(orderCode));
+    // }else
+    //     console.error("유효하지 않은 ordercode입니다.");
+}
+
+function openOrderInspectPopup(productCode){  //모달창열기
+    console.log("진척검수 오픈 요청이 들어옴");
+    var html = document.getElementById("orderInspectPopup");
+    console.log("Id : ",productCode);
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState === 4 && this.status === 200) {
+                html.style.display = "block";
+                html.innerHTML = this.responseText;
+            }
+        };
+        xhttp.open('GET','orderInspect?productCode='+productCode, true);
+        xhttp.send();
+
+
 }
 
 function closePopup() {

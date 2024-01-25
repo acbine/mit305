@@ -33,20 +33,15 @@ function htmlLoad(data) {
 
     for(var i=0; i<existence.length;i++){
         inputHtml.push(`
-        <tr>
-            <td>${existence[i].productName}</td>
-            <td>${existence[i].product_code}</td>
-            <td>${existence[i].releaseDate}</td>
-            <td>${existence[i].texture}</td>
-            <td>${existence[i].length}</td>
-            <td>${existence[i].weight}</td>
-            <td>${existence[i].length}</td>
-            <td>${existence[i].unit.unit}</td>
-            <td>${existence[i].assy.assy}</td>
-            <td>${existence[i].part.part}</td>
-            <td>${existence[i].existence}</td>
-            <td>${existence[i].contract_pay}</td>
-            <td>${existence[i].existence_price}</td>
+        <tr class="existence_body">
+            <td id="body">${existence[i].productName}</td>
+            <td id="body">${existence[i].product_code}</td>
+            <td id="body">${existence[i].unit.unit}</td>
+            <td id="body">${existence[i].assy.assy}</td>
+            <td id="body">${existence[i].part.part}</td>
+            <td id="body">${existence[i].existence}</td>
+            <td id="body">${existence[i].contract_pay}</td>
+            <td id="body">${existence[i].existence_price}</td>
         </tr>`);
     }
 

@@ -9,7 +9,6 @@ import java.util.Date;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
 @Getter
 public class ProgressInspection {
     @Id

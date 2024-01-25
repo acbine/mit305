@@ -1,12 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/order.css">
+
     <title>진척 검수</title>
 </head>
 <body>
+<h2 class="title">진척 검수 등록</h2>
 <div class="container">
     <table class="tableContainer">
         <thead class="theadContainer">
@@ -18,33 +20,36 @@
             <th class="thContainer">생산 예정일</th>
             <th class="thContainer">L/T</th>
             <th class="thContainer">발주일</th>
-            <th class="thContainer">규격</th>
-            <th class="thContainer">중량</th>
+            <th class="thContainer">가로</th>
+            <th class="thContainer">세로</th>
+            <th class="thContainer">높이</th>
             <th class="thContainer">재질</th>
             <th class="thContainer">진척검수 확인</th>
         </tr>
         </thead>
-        <tbody class="tbodyContainer">
+        <tbody class="tbodyContainer" id="tbody" th:each="info :  ${orderInspect}">
         <tr>
-            <td>나사</td>
-            <td>A</td>
-            <td>9</td>
-            <td>5</td>
-            <td>2023-12-26</td>
-            <td>10</td>
-            <td>2023-12-13</td>
-            <td>10mm</td>
-            <td>10kg</td>
-            <td>철</td>
+            <td th:text="${info.productName}"></td>
+            <td th:text="${info.productCode}"></td>
+            <td th:text="${info.num}"></td>
+            <td th:text="${info.existence}"></td>
+            <td th:text="${info.orderDate}"></td>
+            <td th:text="${info.LT}"></td>
+            <td th:text="${info.projectOutPutDate}"></td>
+            <td th:text="${info.width}"></td>
+            <td th:text="${info.length}"></td>
+            <td th:text="${info.height}"></td>
+            <td th:text="${info.text}"></td>
+            <td th:text="${info.orderState}"></td>
             <td>
-                <button class="confirm" onclick="showHiddenTable()">확인</button>
+                <button class="confirm" onclick="console.log('해당 확인 버튼 확인')">확인</button>
             </td>
         </tr>
         <tr>
-            <td colspan="11">발주서 발행일 : 2023-12-11</td>
+            <td colspan="11" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></td>
         </tr>
         <tr>
-            <td colspan="11">업체명 : (유)길승산업</td>
+            <td colspan="11" th:text="${info.departName}"></td>
         </tr>
         </tbody>
     </table>
@@ -58,9 +63,9 @@
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="progressInspection">
-        <tr>
-            <td>나사</td>
-            <td>2023-12-13</td>
+        <tr th:each="info : ${orderInspect}">
+            <td th:text="${info.productName}"></td>
+            <td th:text="${info.orderDate}"></td>
             <td><input type="date"></td>
             <td id="buttonState">
                 <button id="addProgressInspection" onclick="addProgressInspection()">진척검수 일정 등록</button>

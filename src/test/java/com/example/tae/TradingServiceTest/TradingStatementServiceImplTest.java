@@ -134,8 +134,8 @@ public class TradingStatementServiceImplTest {
 //              여기서 알수있는정보는 발주서 코드가얼마나 몇개 있는지    ::: 그발주서 코드에 해당하는 정보와 발주서 그게 몇게 있는지(발주서코드는 상단에서 바뀜)
                 System.out.println("++++++++++++++++++++++++++++++++++++++++++++" + i + "번쨰 인덱스UUID는" + groupByOrderCodeList.get(i)[0] + "    이UUID를 가지고있는 품목의 갯수    " + groupByOrderCodeList.get(i)[1]);
                 System.out.println("***************************UUID가 " + (String) groupByOrderCodeList.get(i)[0] + "이거인 목록중에 리스트의 크기는" + procurementPlanListend.size());
-                System.out.println("통과 UUID는" + procurementPlanListend.get(0).getPurchase().getOrdercode());
-                uuidlist.add(procurementPlanListend.get(0).getPurchase().getOrdercode());
+                System.out.println("통과 UUID는" + procurementPlanListend.get(0).getPurchase().getOrderCode());
+                uuidlist.add(procurementPlanListend.get(0).getPurchase().getOrderCode());
             } // 같아야지 품목 DTO가 나오고 나온거를  리스트로 만들어줌
             else {
 //                System.out.println("불통과한  UUID는" + procurementPlanListend.get(i).getPurchase().getOrdercode());

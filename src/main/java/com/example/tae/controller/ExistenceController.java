@@ -61,7 +61,7 @@ public class ExistenceController {
 
 
         if(product.equals("")) {
-            List<ReleaseProcess> releaseProcessList= releaseRepository.findByReleaseProcessWithModDate(date1, date2);
+            List<ReleaseProcess> releaseProcessList = releaseRepository.findByReleaseProcessWithModDate(date1, date2);
             for(ReleaseProcess releaseProcess : releaseProcessList) {
                 ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();
                 ProductInformationRegistration productInformationRegistration = procurementPlan.getContract().getProductInformationRegistration();

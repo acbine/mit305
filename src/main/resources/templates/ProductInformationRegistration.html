@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+            integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="/js/ProductInformationRegistration.js"></script>
     <style>
         td, input {
@@ -17,7 +18,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .ContractModal-content { /* 계약서 모달내용 창 */
@@ -32,8 +33,12 @@
             /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
             overflow-y: auto;
 
-            width: 750px;  /*모달의 가로 크기 */
-            height: 925px;  /*모달의 세로 크기 */
+            width: 750px; /*모달의 가로 크기 */
+            height: 925px; /*모달의 세로 크기 */
+        }
+
+        .table-box {
+            margin: auto;
         }
     </style>
 
@@ -48,7 +53,7 @@
         <h2 class="title">품목 정보 등록</h2>
 
         <div class="table-container">
-            <table class="table" id="product" border="1">
+            <table class="table-box" id="product" border="1">
                 <thead>
                 <tr>
                     <th>품목명</th>
@@ -67,7 +72,8 @@
                 </tbody>
             </table>
 
-            <button class="action-button action-button-add" style="position: absolute" onclick='select_part()'>( + )</button>
+            <button class="action-button action-button-add" style="position: absolute" onclick='select_part()'>( + )
+            </button>
 
         </div>
     </div>
@@ -75,10 +81,10 @@
     <div class="data-card">
         <h2 class="title">품목 정보 관리</h2>
 
-        <button onclick="select_info()"> 품목 불러오기 </button>
+        <button onclick="select_info()"> 품목 불러오기</button>
 
         <div class="table-container">
-            <table class="table" id="product_info" border="1">
+            <table class="table-box" id="product_info" border="1">
                 <thead>
                 <tr>
                     <th>품목명</th>

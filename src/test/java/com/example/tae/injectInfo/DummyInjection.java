@@ -24,4 +24,9 @@ public class DummyInjection {
         companyService.dummyDataInjection();
     }
 
+
+    @Test
+    public void inject() {
+        companyService.company();
+    }
 }

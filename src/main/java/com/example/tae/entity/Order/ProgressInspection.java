@@ -18,6 +18,4 @@ public class ProgressInspection {
     private Date progressInspectionPlan;        // 진척 검수 계획
     private boolean progressInspectionStatus;   // 진척 검수 상태
 
-    @ManyToOne
-    private Purchase purchase;                  // 발주서
 }

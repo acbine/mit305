@@ -21,13 +21,15 @@ public class ProcurementPlanDto {
 
     private int id; // 생산 계획
 
-    private int contract_code; // 계약
+    private int contract_code; // 계약 코드
 
-    private int product_code; // 품목 수량의 품목 코드
+//    private int product_code; // 품목 코드
 
     private String ordercode; // 발주서 코드
 
-    private int SupportProductAmount; // 조달 수량
+    private String project_name; // 조달 제품명
+
+    private int supportProductAmount; // 조달 수량
 
     private Date order_date; // 발주일
 

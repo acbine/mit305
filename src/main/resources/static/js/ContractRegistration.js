@@ -56,21 +56,12 @@ function contract_addRow() {
             temp_html = '<input type="text" class = "price" style="width:69px; height:25px; font-size:15px; text-align:center;">';
         }
 
-
         if (i == 6) {
-
-            temp_html =
-                '<td><input class ="cs_date" type="date" name="startDate"></td>' +
-                '<td> ~ </td>' +
-                '<td><input class ="ce_date" type="date" name="endDate"></td>';
-        }
-
-        if (i == 7) {
 
             temp_html = '<input type="text" class = "payment" style="width:115px; height:25px; font-size:15px; text-align:center;">';
         }
 
-        if (i == 8) {
+        if (i == 7) {
 
             temp_html =
                 '<td>' +
@@ -213,12 +204,6 @@ function contract_All() {
                         '<td height="25">' + con.company.businessNumber + '</td>' + // 사업자 번호
                         '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
                         '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
-
-                        '<td height="25">' +
-                            '<input type="date" style = "width:120.67; height:"25"; font-size:15px;" class = now_start_date value =' + con.start_date + '>' +
-                            ' ~ ' +
-                            '<input type="date" style = "width:120.67; height:"25"; font-size:15px;" class = now_end_date value =' + con.end_date + '>' +
-                        '</td>' + // 계약 기간
                         '<td height="25">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
                         '<td height="25">' +
                             '<div class="actions">' +

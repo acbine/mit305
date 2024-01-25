@@ -1,8 +1,8 @@
 
-google.charts.load("current", {packages:["corechart"]});
-google.charts.setOnLoadCallback(drawChart);
+//google.charts.load("current", {packages:["corechart"]});
+//google.charts.setOnLoadCallback(drawChart);
 
-function drawChart() {
+function drawChart() { //그래프 그려주는 함수
 
 //        console.log("drawChart() 작동")
     var startDateInput=document.getElementById('startDate'); // HTML 요소에 접근
@@ -42,7 +42,7 @@ function drawChart() {
         });
 }
 
-function sendSMRURL(){
+function sendSMRURL(){ //리스트를 그려주는 함수
 //    console.log("sendSMRURL() 작동")
     var startDateInput=document.getElementById('startDate'); // HTML 요소에 접근
     var endDateInput=document.getElementById('endDate');// 요소에 접근에 뒤에 값찍을려면.value

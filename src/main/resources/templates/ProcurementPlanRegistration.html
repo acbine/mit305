@@ -7,7 +7,7 @@
     <script src="/js/ProcurementPlanRegistration.js"></script>
     <style>
 
-        td {
+        td, input {
             text-align: center;
         }
 
@@ -33,15 +33,17 @@
             <table class="table" border="1" id="plan_table">
                 <thead>
                 <tr>
+                    <th style="display: none">생산 계획 코드</th>
+                    <th style="display: none">계약 코드</th>
+                    <th>조달 제품명</th>
                     <th>조달 품목명</th>
                     <th>조달 품목 코드</th>
+                    <th>조달 업체명</th>
                     <th>필요 수량</th>
                     <th>조달 수량</th>
                     <th>L/T</th>
                     <th>제품 생산날짜</th>
-                    <th>조달 업체명</th>
-                    <th>현재 재고량</th>
-                    <th>발주일</th>
+                    <th>발주 예정일</th>
                     <th>계획 등록</th>
                 </tr>
                 </thead>
@@ -67,13 +69,11 @@
                     <th width="97.67" height="25">조달 제품명</th>
                     <th width="97.67" height="25">조달 품목명</th>
                     <th width="120.67" height="25">조달 품목 코드</th>
-                    <th width="86.67" height="25">필요 수량</th>
                     <th width="86.67" height="25">조달 수량</th>
                     <th width="57.67" height="25">L/T</th>
                     <th width="104.42" height="25">조달 업체명</th>
                     <th width="128.67" height="25">제품 생산 날짜</th>
-                    <th width="96.9" height="25">현재 재고량</th>
-                    <th width="105.32" height="25">발주일</th>
+                    <th width="105.32" height="25">발주 예정일</th>
                     <th width="112.7" height="25">계획 관리</th>
                 </tr>
                 </thead>

@@ -29,26 +29,30 @@ public class BinController {
     @GetMapping("ReceivingProcess")
     public String ReceivingProcess(Model model) {
         System.out.println("입고처리 페이지여는 요청들어옴 검수완료상태만 보여줌");
-        List<ReceivingProcessingDTO> receivingProcessingDTOList = binService.procurementPlanList();
-        //receivingProcessingDTOList.forEach(x-> System.out.println(x));
-        model.addAttribute("procumentList",receivingProcessingDTOList);
+//        List<ReceivingProcessingDTO> receivingProcessingDTOList = binService.procurementPlanList();
+//        //receivingProcessingDTOList.forEach(x-> System.out.println(x));
+//        model.addAttribute("procumentList",receivingProcessingDTOList);
         return "ReceivingProcess";
     }
 
-    @GetMapping("ReceivingProcessSearch")
+    @GetMapping("rPSearch")
     @ResponseBody
-    public ResponseEntity<?> ReceivingProcessSearch() {
+    public ResponseEntity<?> ReceivingProcessSearch(@RequestParam("inputData") String inputData,@RequestParam("searchData") String searchData ,@RequestParam("state") String state) {
         System.out.println("입고처리의 검색요청들어옴");
+        System.out.println("=======> 검색내용"+inputData +"========>검색종류"+searchData);
+        List<ReceivingProcessingDTO> returnDTO = binService.search(inputData,Integer.parseInt(state));
 
-        return null;
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("searchDTOList", returnDTO));
     }
     
     
     @GetMapping("ReceivingProcessStore")
     @ResponseBody
-    public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code, @RequestParam("store") String store){
+    public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code,@RequestParam("store")String store,@RequestParam("state") String state){
         System.out.println("-------- 입고처리요청들어옴---------------");
-        System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store);
+        System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store+"---------->페이지 상태값"+state);
         List<ReceivingProcessingDTO> receivingProcessingDTOList = null;
         if(procurementplan_code.isEmpty() || store.isEmpty()  ){
             System.out.println("뭔가 비었음");
@@ -63,7 +67,7 @@ public class BinController {
     /*------------------------ --------------------현황관리 -----------------------------------*/
     @GetMapping("StatusManagementReport")
     public String StatusManagementReport() {
-        System.out.println("현황관리 요청들어옴");
+        System.out.println("현황관리 요청들어옴1");
         return "StatusManagementReport";
     }
 

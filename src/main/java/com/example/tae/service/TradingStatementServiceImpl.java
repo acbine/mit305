@@ -2,6 +2,7 @@ package com.example.tae.service;
 
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ReceivingProcessing.ReceivingProcessing;
+import com.example.tae.entity.ReceivingProcessing.dto.ReceivingProcessingDTO;
 import com.example.tae.entity.TradingStatement.TradingStatementModalDTO;
 import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.ReceivingProcessingRepository;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
@@ -85,7 +87,59 @@ public class TradingStatementServiceImpl implements TradingStatementService{
 
         return retrunList;
     }
-//-----------------------------------------------------------버그가 난부분------------수정완료 ---------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------버그가 난부분------------수정완료 ---------------------------------------------------------------------------------------------------
+    @Transactional
+    @Override// -------------------------------검색 부분 시작 -----------------------------------------------------------------------
+    public List<TradingStatementModalDTO> search(String inputData, int searchStatenum) {
+        List<ProcurementPlan> ppProductList=null; //조달계획 엔티티 리스트 불러와짐
+
+        if (searchStatenum==1){
+            ppProductList = receivingProcessingRepository.tSSearchByProductname(inputData); //업체명으로
+        }else if(searchStatenum==2){
+            ppProductList = receivingProcessingRepository.tSSearchByDepartname(inputData); //회사명으로
+        }else {
+            ppProductList=receivingProcessingRepository.tsAll(); //0번은 전체
+        }
+        List<TradingStatementModalDTO> returnList = new ArrayList<>();
+
+        for (int i = 0; i<ppProductList.size(); i++){ // 엔티티 리스트 만큼 반복해주고  조달계획을 가져오고 
+
+            int aaa=ppProductList.get(i).getProcurementplan_code();// 조달계획코드 추출
+            ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 aaa 이고 등록된낮라
+            LocalDateTime localDateTime;
+            if ( receivingProcessing == null) {
+                localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
+            } else {
+                localDateTime = receivingProcessing.getRegDate();
+            }
+            TradingStatementModalDTO addListDTO = TradingStatementModalDTO.builder()
+                    .orderCode(ppProductList.get(i).getPurchase().getOrderCode())
+                    .prouctName(ppProductList.get(i).getContract().getProductInformationRegistration().getProduct_name())
+                    .count(receivingProcessing.getStore())
+                    .price(ppProductList.get(i).getContract().getProduct_price())
+                    .pc((receivingProcessing.getStore())*(ppProductList.get(i).getContract().getProduct_price()))
+                    .Arrival(receivingProcessing.getRegDate())
+                    .businessNumber(ppProductList.get(i).getContract().getCompany().getBusinessNumber())
+                    .departName(ppProductList.get(i).getContract().getCompany().getDepartName())
+                    .businessName(ppProductList.get(i).getContract().getCompany().getBusinessName())
+                    .businessEmail(ppProductList.get(i).getContract().getCompany().getBusinessEmail())
+                    .fax(ppProductList.get(i).getContract().getCompany().getFax())
+                    .businessTel(ppProductList.get(i).getContract().getCompany().getBusinessTel())
+                    .build();
+            System.out.println("거래명세엇의 입고일++++++++++++++++++++++++++++++"+receivingProcessing.getRegDate());
+            returnList.add(addListDTO);
+            
+            
+
+
+        }
+        return returnList;
+    }
+
+    // -------------------------------검색 부분 종료 -----------------------------------------------------------------------
+
+
+
     @Override
     @Transactional
     public List<TradingStatementModalDTO> Listppuuid(String uuid) {
@@ -138,7 +192,7 @@ public class TradingStatementServiceImpl implements TradingStatementService{
         props.put("mail.smtp.ssl.trust", smtp_host);
 
         Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(user_email, user_pw);
                     }

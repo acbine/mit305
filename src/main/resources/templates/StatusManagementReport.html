@@ -15,11 +15,12 @@
                     <div id="datesearch">
                         <table>
                             <tr>
+                                <td>제품생산계획일</td>
                                 <td><input id=startDate type="date" name="startDate"></td>
                                 <td>~</td>
                                 <td><input id=endDate type="date" name="endDate"></td>
 
-                                <td><input id="serchbutton"  type="submit" value="검색" onclick="drawChart(); sendSMRURL();" >
+                                <td><input class="searchbutton"  type="submit" value="검색" onclick="drawChart(); sendSMRURL();" >
                                     <!--발표떄 검색을 누르면 그래프와 리스트가 동시에 나오는것을 하기위해 임시로 만든 버튼 <button type="button" id="serchbutton" onclick="drawChart()" >검색</button> -->
                                 </td>
                             </tr>

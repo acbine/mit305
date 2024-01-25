@@ -8,12 +8,14 @@ import com.example.tae.repository.DummyRepository.CompanyRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.service.RegistrationService.ContractServiceImpl;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@Slf4j
 public class ContractRestController {
 
     @Autowired
@@ -28,8 +30,12 @@ public class ContractRestController {
 
         System.out.println(name);
 
+
+
         List<ProductInformationRegistration> NameSearch
                 = productInformationRegistrationRepository.findByProductInformationName(name);
+
+        NameSearch.forEach(System.out::println);
 
 //        System.out.println(NameSearch.get(0));
 

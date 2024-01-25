@@ -71,7 +71,7 @@ public class BinServiceImpl implements BinService{
                 System.out.println("++++++++++++//////////////////////////////////////////////////////+++++++++");
                 ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
                         .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-                        .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
+                        .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                         .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
                         .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
                         .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
@@ -120,7 +120,7 @@ public class BinServiceImpl implements BinService{
             }
             ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
                     .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-                    .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
+                    .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                     .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
                     .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
                     .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
@@ -174,7 +174,7 @@ public class BinServiceImpl implements BinService{
             }
             ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
                     .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-                    .productcode(procurementPlanList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
+                    .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                     .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
                     .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
                     .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호

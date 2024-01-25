@@ -16,9 +16,7 @@ import java.io.Serializable;
 @Builder
 public class ProductForProjectEmbeddable implements Serializable  {
 
-
     private ProductInformationRegistration productCode; //품목코드
-
 
     private Project projectID; //제품명
 }

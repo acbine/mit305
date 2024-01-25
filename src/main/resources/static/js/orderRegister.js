@@ -1,12 +1,19 @@
 
 
-function orderRegister() {
-console.log("함수가 실행 시 해당 알림")
-console.log("데이터가 제대로 오는지 확인,");
-var departName = document.getElementById("departName");
-
-var click = document.querySelectorAll("option[name=departName]");
-
+function orderRegister(productCode, procurementPlanCode, index) {
+    var tbody = document.getElementsByClassName("orderRegisterTable");
+    tbody[index].style.display = "none";
+    var formData = {"productCode": productCode, "procurementPlanCode" : procurementPlanCode};
+    $.ajax({
+        url:'orderRegisterData',
+        contentType : 'application/json',
+        method : 'POST',
+        data : JSON.stringify(formData),
+        success : function () {
+        },
+        error : function () {
+        }
+    })
 
 }
 

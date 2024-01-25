@@ -1,25 +1,31 @@
 package com.example.tae.entity.ProcurementPlan.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
+import lombok.*;
 
 import java.util.Date;
 
-@Builder
+@ToString
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class ProcurementPlanJoinDTO {
 
-    String product_name;
-    int product_code;
-    int out_pute_num;
-    int product_code_count;
-    int lead_time;
-    Date project_output_date;
-    String depart_name;
-//    int id;
-//    int contract_code;
+    private String productName;
+    private int productCode;
+    private int outPutNum;
+    private int productCodeCount;
+    private int leadTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT") // 날짜 명시
+    private Date projectOutputDate;
+    private String departmentName;
+
+    private int projectPlanCode;
+    private int contractCode;
+    private String projectName;
+
 }

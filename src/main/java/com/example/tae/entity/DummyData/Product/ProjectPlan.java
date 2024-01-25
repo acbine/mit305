@@ -26,5 +26,5 @@ public class ProjectPlan {
     private Date projectOutputDate;
 
     @ManyToOne
-    Project product;
+    Project project;
 }

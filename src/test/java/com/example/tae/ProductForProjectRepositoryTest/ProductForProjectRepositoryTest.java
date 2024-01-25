@@ -23,7 +23,7 @@ public class ProductForProjectRepositoryTest {
     @Test
     public void reTest(){
         Project project=projectRepository.findById("스마트폰").get();
-        System.out.println("--------------------------------------"+project.getProductName());
+        System.out.println("--------------------------------------"+project.getProjectName());
         ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(1).get();
         System.out.println("======================="+productInformationRegistration.getProduct_name());
 

@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface ProductInformationRegistrationRepository extends JpaRepository <ProductInformationRegistration, Integer> {
-    @Query("select p from ProductInformationRegistration p " +
-        "where p.product_name = :proName")
+    @Query("select p from ProductInformationRegistration p"+
+            " where p.product_name = :proName")
     List<ProductInformationRegistration> findByProductInformationName(@Param("proName") String proName);
     @Query("select p from ProductInformationRegistration p " +
         "where p.product_code = :proCode")

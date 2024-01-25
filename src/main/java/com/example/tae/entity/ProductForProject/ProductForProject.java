@@ -25,6 +25,4 @@ public class ProductForProject {
     private Project projectID; //제품명
 
     private int productCodeCount; //품목수량
-
-    private LocalDateTime contractDate; //계약서 작성일
 }

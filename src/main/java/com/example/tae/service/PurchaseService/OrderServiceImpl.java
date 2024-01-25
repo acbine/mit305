@@ -12,6 +12,7 @@ import com.example.tae.repository.RegistrationRepository.ProcurementPlanReposito
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -28,12 +29,37 @@ public class OrderServiceImpl implements OrderService {
     private final ProcurementPlanRepository procurementPlanRepository;
     private final ExistenceRepository existenceRepository;
     private final ContractRepository contractRepository;
-    private final  ProductInformationRegistrationRepository productInformationRegistrationRepository;
+    private final ProductInformationRegistrationRepository productInformationRegistrationRepository;
+
+    /*발주서 발행*/
+    @Override
+    public void orderRegister(int procurementPlanCode) {
+        Optional<ProcurementPlan> procurementPlanOp = procurementPlanRepository.findById(procurementPlanCode);
+        ProcurementPlan procurementPlan = procurementPlanOp.get();
+        Purchase purchase = Purchase.builder().build();
+
+        orderRepository.save(purchase);
+        Date order_date = Timestamp.valueOf(purchase.getModDate());
+        ProcurementPlan updateProcurementPlan = ProcurementPlan.builder()
+                .procurementplan_code(procurementPlan.getProcurementplan_code())
+                .projectPlan(procurementPlan.getProjectPlan())
+                .order_date(order_date)
+                .order_state("발주중")
+                .contract(procurementPlan.getContract())
+                .procurementplan_code(procurementPlanCode)
+                .SupportProductAmount(procurementPlan.getSupportProductAmount())
+                .purchase(purchase)
+                .SupportProductAmount(procurementPlan.getSupportProductAmount())
+                .build();
+        procurementPlanRepository.save(updateProcurementPlan);
+    }
 
 
+    /*발주서 목록 가져오기*/
     @Override
     public List<OrderDTO> getAllOrders() {
         List<OrderDTO> oList = new ArrayList<>();
+
         List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findAllByProcurementplan_orderStateNotNull();
 
         procurementPlanList.forEach(info -> {
@@ -42,71 +68,71 @@ public class OrderServiceImpl implements OrderService {
                     .productName(productInformationRegistration.getProduct_name())
                     .productCode(productInformationRegistration.getProduct_code())
                     .departName(info.getContract().getCompany().getDepartName())
+                    .procurementPlanCode(info.getProcurementplan_code())
                     .orderState(info.getOrder_state())
                     .orderDate(info.getOrder_date())
                     .build();
             orderDTO.setProgressInspectionStatus();
+            log.info(orderDTO.toString());
             oList.add(orderDTO);
         });
         return oList;
     }
 
-//    @Override
-//    public OrderPopupHeadDto getOrderPopupHeadDto(String ordercode) {
-//        Purchase purchase = orderRepository.findById(ordercode).orElse(null);
-//
-//        if (purchase != null) {
-//            purchase.getProcurementPlan().size();
-//            return OrderPopupHeadDto.OrderPopupHead(purchase);
-//        } else
-//            return new OrderPopupHeadDto();
-//    }
 
+    /*진척검수 등록하기*/
     @Override
-    public OrderDTO getOrderInspectData(int productCode) {
-        log.info("받아온 orderCode 확인하기 : " + productCode);
+    public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode) {
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
-        ProductInformationRegistration productInformation = productInformationRegistration.get() ;
-        ProcurementPlan procurementPlan = contractRepository.findByproductInformationId(productCode);
-
-        Optional<Existence> existenceNum = Optional.of(existenceRepository.findByProductCode(productInformation).orElseGet(
-                () -> {
-                    Existence existence1 = Existence.builder()
-                            .releaseCNT(0)
-                            .productCode(productInformation)
-                            .build();
-                    existenceRepository.save(existence1);
-                    return existence1;
-                }
-        ));
-            return OrderDTO.builder()
-                    .productName(productInformation.getProduct_name())
-                    .productCode(productInformation.getProduct_code())
-                    .num(procurementPlan.getSupportProductAmount())
-                    .existence(existenceNum.get().getReleaseCNT())
-                    .LT(procurementPlan.getContract().getLead_time())
-                    .projectOutPutDate(procurementPlan.getContract().getContract_date())
-                    .orderDate(procurementPlan.getOrder_date())
-                    .width(productInformation.getWidth())
-                    .length(productInformation.getLength())
-                    .height(productInformation.getHeight())
-                    .text(productInformation.getTexture())
-                    .orderState(procurementPlan.getOrder_state())
-                    .departName(procurementPlan.getContract().getCompany().getDepartName())
-                    .build();
+        ProductInformationRegistration productInformation = productInformationRegistration.get();
+        List<ProcurementPlan> procurementPlanList = contractRepository.findByproductInformationId(productCode);
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        procurementPlanList.forEach(procurementPlan -> {
+            if (procurementPlan.getProcurementplan_code() == procurementPlanCode) {
+                Optional<Existence> existenceNum = Optional.of(existenceRepository.findByProductCode(productInformation).orElseGet(
+                        () -> {
+                            Existence existence1 = Existence.builder()
+                                    .releaseCNT(0)
+                                    .productCode(productInformation)
+                                    .build();
+                            existenceRepository.save(existence1);
+                            return existence1;
+                        }
+                ));
+                OrderDTO orderDTO = OrderDTO.builder()
+                        .productName(productInformation.getProduct_name())
+                        .productCode(productInformation.getProduct_code())
+                        .num(procurementPlan.getSupportProductAmount())
+                        .existence(existenceNum.get().getReleaseCNT())
+                        .LT(procurementPlan.getContract().getLead_time())
+                        .projectOutPutDate(procurementPlan.getContract().getContract_date())
+                        .orderDate(procurementPlan.getOrder_date())
+                        .width(productInformation.getWidth())
+                        .length(productInformation.getLength())
+                        .height(productInformation.getHeight())
+                        .text(productInformation.getTexture())
+                        .procurementPlanCode(procurementPlan.getProcurementplan_code())
+                        .orderState(procurementPlan.getOrder_state())
+                        .departName(procurementPlan.getContract().getCompany().getDepartName())
+                        .build();
+                orderDTOList.add(orderDTO);
+            }
+        });
+        return orderDTOList;
     }
 
+
+    /*발주 안 된 조달계획 정보 전부 가져오기*/
     public List<OrderDTO> oListSend() {
         List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findAllByProcurementplan_orderStateNull();
         List<OrderDTO> oList = new ArrayList<>();
-        for(ProcurementPlan procurementPlan : procurementPlanList) {
+        for (ProcurementPlan procurementPlan : procurementPlanList) {
             Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(procurementPlan.getContract().getProductInformationRegistration()).orElseGet(
-                    ()->{
-                        Existence existence2 = Existence.builder()
+                    () -> {
+                        return Existence.builder()
                                 .productCode(procurementPlan.getContract().getProductInformationRegistration())
                                 .releaseCNT(0)
                                 .build();
-                        return existence2;
                     }
             ));
             OrderDTO orderDTO = OrderDTO.builder()
@@ -129,25 +155,4 @@ public class OrderServiceImpl implements OrderService {
         return oList;
     }
 
-    @Override
-    public void orderRegister(int procurementPlanCode) {
-        Optional<ProcurementPlan> procurementPlanOp = procurementPlanRepository.findById(procurementPlanCode);
-        ProcurementPlan procurementPlan = procurementPlanOp.get();
-        Purchase purchase = Purchase.builder().build();
-
-        orderRepository.save(purchase);
-        Date order_date = Timestamp.valueOf(purchase.getModDate());
-        ProcurementPlan updateProcurementPlan = ProcurementPlan.builder()
-                .procurementplan_code(procurementPlan.getProcurementplan_code())
-                .projectPlan(procurementPlan.getProjectPlan())
-                .order_date(order_date)
-                .order_state("발주중")
-                .contract(procurementPlan.getContract())
-                .procurementplan_code(procurementPlanCode)
-                .SupportProductAmount(procurementPlan.getSupportProductAmount())
-                .purchase(purchase)
-                .SupportProductAmount(procurementPlan.getSupportProductAmount())
-                .build();
-        procurementPlanRepository.save(updateProcurementPlan);
-    }
 }

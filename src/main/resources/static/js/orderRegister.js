@@ -1,5 +1,5 @@
 
-
+/*발주서 발행*/
 function orderRegister(productCode, procurementPlanCode, index) {
     var tbody = document.getElementsByClassName("orderRegisterTable");
     tbody[index].style.display = "none";
@@ -17,6 +17,12 @@ function orderRegister(productCode, procurementPlanCode, index) {
 
 }
 
+function orderRegisterIn(data) {
+ var insertRegister= document.getElementsByClassName("confirm");
+    var hidden = document.getElementById("hidden");
+    hidden.style.display ="block";
+
+}
 
 //console.log("정보를 잘 찾아오는지 확인 : ",departName);
 // $.ajax({

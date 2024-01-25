@@ -22,19 +22,18 @@ public class OrderController {
     private final OrderServiceImpl orderService;
     private final OrderRegisterService orderRegisterService;
 
-
+    /*발주 아닌 모든 조달 계획 정보 가져오기*/
     @GetMapping("/orderList")
     public String orderList(Model model) {
         model.addAttribute("oList", orderService.getAllOrders());
         return "orderList";
     }
 
-
+    /*진척 검수 처리*/
     @GetMapping("orderInspect")
-    public String  TradingStatementModal(@RequestParam(name = "productCode")int productCode, Model model) {
-        OrderDTO orderDTO = orderService.getOrderInspectData(productCode);
-        log.info(orderDTO.toString());
-        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode));
+    public String  TradingStatementModal(@RequestParam(name = "productCode") int productCode,@RequestParam(name = "procurementPlanCode") int procurementPlanCode,Model model) {
+
+        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode));
         return "orderInspect";
     }
 
@@ -45,6 +44,7 @@ public class OrderController {
     model.addAttribute("oList", oList);
     return "orderRegister";
     }
+
 
     @PostMapping("orderRegisterData")
     public String orderRegisterData(@RequestBody OrderDTO orderDTO) {

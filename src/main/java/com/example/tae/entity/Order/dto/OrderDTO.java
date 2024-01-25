@@ -1,6 +1,7 @@
 package com.example.tae.entity.Order.dto;
 
 import com.example.tae.entity.Contract.Contract;
+import com.example.tae.entity.Order.Purchase;
 import lombok.*;
 
 import java.time.LocalDateTime;

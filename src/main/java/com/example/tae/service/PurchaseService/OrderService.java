@@ -8,7 +8,7 @@ import java.util.List;
 public interface OrderService {
     List<OrderDTO> getAllOrders();
 //    OrderPopupHeadDto getOrderPopupHeadDto(String ordercode);
-    OrderDTO getOrderInspectData(int productCode);
+    List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode);
 
     List<OrderDTO> oListSend();
 

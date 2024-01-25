@@ -8,7 +8,7 @@ import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductForProject.ProductForProject;
 import com.example.tae.entity.ProductForProject.ProductForProjectEmbeddable;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import com.example.tae.repository.OrderRepository;
+import com.example.tae.repository.PurchaseRepository.OrderRepository;
 import com.example.tae.repository.ProductForProjectRepository;
 import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
 import com.example.tae.repository.ProjectRepository.ProjectRepository;
@@ -21,7 +21,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
-import java.util.List;
 
 @SpringBootTest
 public class ProcurementPlanRepositoryTest {

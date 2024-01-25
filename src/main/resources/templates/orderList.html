@@ -26,7 +26,6 @@
             <thead>
                 <tr>
                     <th>발주서 발행일</th>
-                    <th>발주품목</th>
                     <th>업체명</th>
                     <th>진척 검수 상태</th>
                 </tr>
@@ -34,8 +33,6 @@
             <tbody>
                 <tr th:each="order : ${oList}">
                     <td th:text="${#temporals.format(order.regDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${order.ordercode}"></td>
-                    <!--<td th:text="${order.productNameList != null ? #strings.join(order.productNameList, ',') : ''}"></td>-->
                     <td th:text="${order.departName}"></td>
                     <td th:text="${!order.progressInspectionStatus ? '[검수완료]' : '진척검수등록'}"
                         th:class="${order.progressInspectionStatus} ? 'completed' : ''"></td>

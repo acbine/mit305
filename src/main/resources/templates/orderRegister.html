@@ -11,19 +11,6 @@
         <table>
             <thead>
                 <tr>
-                    <td style="text-align:center; background-color: #ccc;">업체명</td>
-                    <td colspan="6" style="text-align:left; background-color: #fff;">
-                        <label for="departName">
-                            <select id="departName" onchange="orderRegister()">
-                            <option>선택</option>
-                            <th:block th:each="orderDto : ${oList}">
-                                <option name = "departName" th:value="${orderDto.departName}" th:text="${orderDto.departName}" id = '${orderDtoStat.index}'></option>
-                            </th:block>
-                        </select>
-                        </label>
-                    </td>
-                </tr>
-                <tr>
                     <th>품목명</th>
                     <th>품목코드</th>
                     <th>조달 수량</th>
@@ -42,17 +29,14 @@
                     <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${order.LT}"></td>
-                    <td><button th:attr="onclick='cancel(this, \'' + ${order.productCode} + '\')'">취소</button></td>
+                    <td><button>발행</button></td>
                 </tr>
             </tbody>
             <tr>
                 <td style="text-align:center; background-color: #ccc;">이메일</td>
-                <td colspan="6" style="text-align:left;">abcde@gmail.com</td>
+                <td colspan="6" style="text-align:left;">abcde@gmail.com(대표님 이메일)</td>
             </tr>
         </table>
-    </div>
-    <div class="btn-container">
-        <button id="registerBtn" class="btn btn-primary" onclick="orderReg()" disabled>발행</button>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/js/orderRegister.js"></script>

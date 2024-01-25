@@ -11,21 +11,19 @@
 <body>
     <h1>입고처리</h1>
     <div id="searcharea">
-        <form id="ReceivingProcessSearch">
-            <table border="1">
-                <tr>
-                    <td><input id="inputData" type="text" name="inputData"></td>
-                    <td>
-                        <select id="searchData" name="searchData">
-                            <option value="productname">품목명</option>
-                            <option value="departname">업체명</option>
-                        </select>
-                    </td>
+        <table border="1">
+            <tr>
+                <td><input id="inputData" type="text" name="inputData"></td>
+                <td>
+                    <select id="searchData" name="searchData">
+                        <option value="productname">품목명</option>
+                        <option value="departname">업체명</option>
+                    </select>
+                </td>
 
-                    <td><button type="button" id="serchbutton" onclick="searchButton()">검색</button> </td>
-                </tr>
-            </table>
-        </form>
+                <td><button type="button" class="searchbutton" onclick="searchButton()">검색</button> </td>
+            </tr>
+        </table>
     </div>
 
     <div class="relative w-full overflow-auto">

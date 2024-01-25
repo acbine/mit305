@@ -27,6 +27,6 @@ public interface BinService {
     List<ReceivingProcessingDTO>  search (String inputData, int searchStatenum);//품목명으로 검수 완료된 리스트 불러오기
 
 
-    //해당 품목에대해 입고처리시 쿼리로 입고수량 데이터 베이스에 넣어어주는것 (각 품목에대한 조달계획이없어 일단 입고수량만 넣음)
+    //해당 품목에대해 입고처리시 쿼리로 입고수량 데이터 베이스에 넣어어주는것  받는갑 조달계획 코드 , // 추후에입고수량, 페이지 상태
     List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store);
 }

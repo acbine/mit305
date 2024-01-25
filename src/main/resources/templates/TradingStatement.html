@@ -11,50 +11,50 @@
 <body>
 <h1 class="text-xl font-bold">거래명세서</h1>
     <div class="bg-white p-4 shadow rounded-lg">         
-<!--        <div id="datesearch"> &lt;!&ndash;거래명세서의 검색창 보여주는 테이블 시작&ndash;&gt;-->
-<!--            <form action=""> &lt;!&ndash;테이블 검색 데이터 보내는구간 시작&ndash;&gt;-->
-<!--                <table border="1">-->
-<!--                    <tr>-->
-<!--                        <td><input type="text" name="보내는칸"></td>-->
-<!--                        <td>-->
-<!--                            <select name="검색종류">-->
-<!--                                <option value="품목명">발주서발행일</option>-->
-<!--                                <option value="업체명">업체명</option>-->
-<!--                            </select>-->
-<!--                        </td>-->
-<!--                        <td><input id="serchbutton"  type="submit" value="검색"></td>-->
-<!--                    </tr>-->
-<!--                </table>-->
-
-<!--            </form>         &lt;!&ndash;테이블 검색 데이터 보내는구간 끝&ndash;&gt;-->
-<!--        </div>                &lt;!&ndash;거래명세서의 검색창 보여주는 테이블 끝&ndash;&gt;-->
+        <div id="TSSearch"> <!--거래명세서의 검색창 보여주는 테이블 시작-->
+            <table border="1">
+                <tr>
+                    <td><input id="inputData" type="text" name="inputData"></td>
+                    <td>
+                        <select id="searchData" name="searchData">
+                            <option value="productname">품목명</option>
+                            <option value="departname">업체명</option>
+                        </select>
+                    </td>
+                    <td><button type="button" class="searchbutton" onclick="searchTSButton()">검색</button> </td>
+                </tr>
+            </table>
+        </div>                <!--거래명세서의 검색창 보여주는 테이블 끝-->
                       
         <table class="table-style"> <!--거래명세서 보여주는 테이블 시작-->
             <thead style="position: sticky;  top: 0;  background-color: #f2f2f2;">
                 <tr >
+                    <th class="table-header">발주서코드</th>
                     <th class="table-header">사업자번호</th>
                     <th class="table-header">업체명</th>
-                    <th class="table-header">대표자이름</th>
+                    <th class="table-header">입고품목명</th>
+                    <th class="table-header">입고수량</th>
+                    <th class="table-header">입고일</th>
                     <th class="table-header">업체전화번호</th>
                     <th class="table-header">업체이메일</th>
                     <th class="table-header">팩스</th>
-                    <th class="table-header">인쇄횟수</th>
+
                     <th class="table-header">전송 및 인쇄</th>
                 </tr>
             </thead>
             
-            <tbody>
-                <tr th:each="list : ${tSDList} ">
-                    <td class="table-data" hidden="hidden" th:text="${list.orderCode}">발주서코드</td>
-                    <td class="table-data" th:text="${list.businessNumber}">사업자번호</td>
-                    <td class="table-data" th:text="${list.departName}">(유)업체명</td>
-                    <td class="table-data" th:text="${list.businessName}">대표자이름</td>
-                    <th class="table-data" th:text="${list.businessTel}">업체전화번호</th>
-                    <th class="table-data" th:text="${list.businessEmail}">업체이메일</th>
-                    <th class="table-data" th:text="${list.fax}">팩스</th>
-                    <td id="count"class="table-data">0</td>
-                    <td th:id="${list.orderCode}" class="table-data" th:onclick="Tradingmy(event);">🔍</td>
-                </tr>
+            <tbody id="tableBody">
+<!--                <tr th:each="list : ${tSDList} ">-->
+<!--                    <td class="table-data" hidden="hidden" th:text="${list.orderCode}">발주서코드</td>-->
+<!--                    <td class="table-data" th:text="${list.businessNumber}">사업자번호</td>-->
+<!--                    <td class="table-data" th:text="${list.departName}">(유)업체명</td>-->
+<!--                    <td class="table-data" th:text="${list.businessName}">대표자이름</td>-->
+<!--                    <th class="table-data" th:text="${list.businessTel}">업체전화번호</th>-->
+<!--                    <th class="table-data" th:text="${list.businessEmail}">업체이메일</th>-->
+<!--                    <th class="table-data" th:text="${list.fax}">팩스</th>-->
+<!--                    <td id="count"class="table-data">0</td>-->
+<!--                    <td th:id="${list.orderCode}" class="table-data" th:onclick="Tradingmy(event);">🔍</td>-->
+<!--                </tr>-->
             </tbody>
         </table> <!--거래명세서 보여주는 테이블 끝-->
 

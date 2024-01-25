@@ -140,7 +140,7 @@ public class BinServiceImpl implements BinService{
     public List<ReceivingProcessingDTO> search(String inputData,int searchStatenum) { //검색된 제품명으로 리스트
         List<ProcurementPlan> ppProductList=null; //조달계획 엔티티 리스트 불러와짐
         if (searchStatenum==1){
-            ppProductList = receivingProcessingRepository.rPSearchByProductname(inputData); //업체명으로
+            ppProductList = receivingProcessingRepository.rPSearchByProductname(inputData); //제품명으로
         }else if(searchStatenum==2){
             ppProductList = receivingProcessingRepository.rPSearchByDepartname(inputData); //회사명으로
         }else {

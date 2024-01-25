@@ -31,9 +31,15 @@ public class OrderController {
 
     /*진척 검수 처리*/
     @GetMapping("orderInspect")
-    public String  TradingStatementModal(@RequestParam(name = "productCode") int productCode,@RequestParam(name = "procurementPlanCode") int procurementPlanCode,Model model) {
+    public String orderInspect(@RequestParam(name = "productCode") int productCode,@RequestParam(name = "procurementPlanCode") int procurementPlanCode,Model model) {
 
         model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode));
+        return "orderInspect";
+    }
+
+    @PostMapping("orderInspect")
+    public String orderInspect() {
+
         return "orderInspect";
     }
 

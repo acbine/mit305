@@ -67,7 +67,8 @@ function addProgressInspection() {
     var classTbodyContainerTr = document.getElementById("progressInspection");
     var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
 
-
+    $.ajax({
+    })
 
 
     classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>

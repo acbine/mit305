@@ -13,6 +13,8 @@ import java.util.Date;
 @NoArgsConstructor
 @ToString
 public class ReceivingProcessingDTO {
+    String ordercode; //발주서코드
+    
     int procurementplan_code;// 조달계획코드
     
     int productcode; //품목코드

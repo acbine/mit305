@@ -68,7 +68,7 @@
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
             <td id="buttonState">
-                <button id="addProgressInspection" onclick="addProgressInspection()">진척검수 일정 등록</button>
+                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>

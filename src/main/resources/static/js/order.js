@@ -2,7 +2,7 @@
 
 function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
     var html = document.getElementById("orderInspectPopup");
-
+console.log(procurementPlanCode)
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -12,6 +12,7 @@ function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열
         };
         xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode, true);
         xhttp.send();
+
 }
 
 function closePopup() {
@@ -63,18 +64,36 @@ function ProgressInspection() {
     }
 }
 
-function addProgressInspection() {
+function addProgressInspection(productName, planId) {
     var classTbodyContainerTr = document.getElementById("progressInspection");
     var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
 
-    $.ajax({
-    })
-
-
-    classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
+    if(dateValue) {
+        var formData = {
+            "inspectDate" : dateValue,
+            "planId" : planId
+        }
+        $.ajax({
+            url : "orderInspect",
+            contentType : 'application/json',
+            data : JSON.stringify(formData),
+            method : "post",
+            success : function () {
+                console.log("성공")
+            },
+            error : function () {
+                console.log("보내는 데이터 형태 확인 : ", formData)
+                console.error("잘못된 응답");
+            }
+        })
+        classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
                                                             <td>2023-12-13</td>
                                                             <td Class="inspectDate">입력된날짜</td>
                                                             <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+    } else {
+        alert("진척 검수 계획일을 입력해주세요")
+    }
+
 }
 
 function updateProgressInspection(info) {

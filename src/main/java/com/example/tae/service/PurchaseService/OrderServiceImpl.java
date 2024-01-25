@@ -1,15 +1,20 @@
 package com.example.tae.service.PurchaseService;
 
+import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
+import com.example.tae.entity.Order.dto.OrderInspectDTO;
+import com.example.tae.entity.Order.dto.OrderInspectionDto;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.OrderRepository;
+import com.example.tae.repository.ProgressInspectionRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
+import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.weaver.ast.Or;
@@ -30,6 +35,8 @@ public class OrderServiceImpl implements OrderService {
     private final ExistenceRepository existenceRepository;
     private final ContractRepository contractRepository;
     private final ProductInformationRegistrationRepository productInformationRegistrationRepository;
+
+    private final ProgressInspectionRepository progressInspectionRepository;
 
     /*발주서 발행*/
     @Override
@@ -73,14 +80,14 @@ public class OrderServiceImpl implements OrderService {
                     .orderDate(info.getOrder_date())
                     .build();
             orderDTO.setProgressInspectionStatus();
-            log.info(orderDTO.toString());
             oList.add(orderDTO);
+            log.info("getall:"+orderDTO.toString());
         });
         return oList;
     }
 
 
-    /*진척검수 등록하기*/
+    /*발주서 목록 가져오기*/
     @Override
     public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode) {
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
@@ -105,7 +112,7 @@ public class OrderServiceImpl implements OrderService {
                         .num(procurementPlan.getSupportProductAmount())
                         .existence(existenceNum.get().getReleaseCNT())
                         .LT(procurementPlan.getContract().getLead_time())
-                        .projectOutPutDate(procurementPlan.getContract().getContract_date())
+                        .projectOutPutDate(procurementPlan.getProjectPlan().getProjectOutputDate())
                         .orderDate(procurementPlan.getOrder_date())
                         .width(productInformation.getWidth())
                         .length(productInformation.getLength())
@@ -116,6 +123,7 @@ public class OrderServiceImpl implements OrderService {
                         .departName(procurementPlan.getContract().getCompany().getDepartName())
                         .build();
                 orderDTOList.add(orderDTO);
+                log.info("getOrder : "+orderDTO.toString());
             }
         });
         return orderDTOList;
@@ -151,8 +159,26 @@ public class OrderServiceImpl implements OrderService {
                     .existence(existence.get().getReleaseCNT())
                     .build();
             oList.add(orderDTO);
+            log.info("oList : "+orderDTO.toString());
         }
         return oList;
     }
 
+
+    /*진척 검수 등록 */
+    public ProgressInspection orderInsepect(OrderInspectDTO inspection) {
+       int planId = inspection.getPlanId();
+       Optional<ProcurementPlan> procurementPlan = Optional.of(procurementPlanRepository.findById(planId).orElseThrow(
+               ()-> new NullPointerException("해당 조달계획이 존재하지 않습니다.")));
+        Purchase purchase = procurementPlan.get().getPurchase();
+        Date date = inspection.getInspectDate();
+        ProgressInspection progressInspection = ProgressInspection.builder()
+                .progressInspectionPlan(date)
+                .progressInspectionStatus(false)
+                .orderCode(purchase)
+                .build();
+        log.info(progressInspection.toString());
+        progressInspectionRepository.save(progressInspection);
+        return progressInspection;
+    }
 }

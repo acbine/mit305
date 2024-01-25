@@ -33,7 +33,6 @@
         </thead>
         <tbody id="tbody">
         <tr class="orderList" th:each="order : ${oList}">
-            <input type="hidden" th:value="${order.procurementPlanCode}">
             <td th:text="${order.productName}"></td>
             <td th:text="${order.orderDate}"></td>
             <td th:text="${order.departName}"></td>
@@ -41,7 +40,7 @@
             <td>
                 <div th:if="${order.progressInspectionStatus == true}"></div>
                 <button th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}"
-                        th:onclick="'openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">진척검수등록
+                        th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">진척검수등록
                 </button>
             </td>
             <td th:attr="onclick='openPopup(\'' + ${order.productCode} + '\')'">🔍️</td>

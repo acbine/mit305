@@ -1,7 +1,10 @@
 package com.example.tae.controller;
 
+import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.dto.OrderDTO;
 
+import com.example.tae.entity.Order.dto.OrderInspectDTO;
+import com.example.tae.entity.Order.dto.OrderInspectionDto;
 import com.example.tae.service.PurchaseService.OrderRegisterService;
 import com.example.tae.service.PurchaseService.OrderServiceImpl;
 import lombok.AllArgsConstructor;
@@ -29,17 +32,17 @@ public class OrderController {
         return "orderList";
     }
 
-    /*진척 검수 처리*/
+    /*발주서 목록 불러오기*/
     @GetMapping("orderInspect")
-    public String orderInspect(@RequestParam(name = "productCode") int productCode,@RequestParam(name = "procurementPlanCode") int procurementPlanCode,Model model) {
-
+    public String orderInspect(@RequestParam("productCode") int productCode, @RequestParam("procurementPlanCode") int procurementPlanCode,Model model) {
         model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode));
         return "orderInspect";
     }
 
     @PostMapping("orderInspect")
-    public String orderInspect() {
-
+    public String orderInspect(@RequestBody OrderInspectDTO inspect) {
+        log.info(inspect.getInspectDate().toString(), inspect.getPlanId());
+        ProgressInspection progressInspection = orderService.orderInsepect(inspect);
         return "orderInspect";
     }
 

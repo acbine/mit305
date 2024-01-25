@@ -33,10 +33,11 @@ $(function ReceivingProcessing(){  //모달 관련 js
     });
 });
 
- function sendData(Codeprocurementplan){
+function sendData(Codeprocurementplan){
 //    console.log("클릭은 되니?");
-    var dos=document.getElementById("code"+Codeprocurementplan); // 조달계획 요소
-    console.log("조달계획 코드 맨처음의 조달계획 코드"+Codeprocurementplan);
+    var dos=document.getElementById(Codeprocurementplan); // 조달계획 요소
+    console.log("페이시 상태값  0  =>> 전체   1 ==>> 품목명   2 ==>> 업체명     =>>>>>>>>>>나온 상태값:",state)
+    console.log(" SENDDATE 의 함수->   조달계획 코드 맨처음의 조달계획 코드"+Codeprocurementplan);
     var store=document.getElementById("store"+Codeprocurementplan); //input 넣고  ID
 
     console.log("=========입력한 값==============",store.value); //입력한 값보기 입혁한 수만큼 잘들어옴
@@ -143,23 +144,27 @@ $(function ReceivingProcessing(){  //모달 관련 js
                         var buttonCell = document.createElement('td');
                         orderStateCell.classList.add('table-data');
 ////버튼생성
-                         var buttonElement = document.createElement('button');
-                         buttonElement.style.backgroundColor = 'blue';
-                         buttonElement.style.color = 'white';
-                         buttonElement.innerText = '입고처리';
-                         buttonElement.onclick = function (){
-                            console.log("잘클릭고됨")
-                            console.log(inputElement);
-                            console.log("값 받아오는지 확인", typeof Codeprocurementplan.toString())
-                            sendData(Codeprocurementplan.toString()); //실행될함수
-                         }
+                        var buttonElement = document.createElement('button');
+                        buttonElement.style.backgroundColor = 'blue';
+                        buttonElement.style.color = 'white';
+                        buttonElement.innerText = '입고처리';
+                        buttonElement.id = ReceivingProcessStoreData.receivingProcessingDTOList[i].procurementplan_code;
+                        console.log("생성된 버튼의 ID",ReceivingProcessStoreData.receivingProcessingDTOList[i].procurementplan_code)
+                        console.log("------------------클릭되면 실행되게----대기중------")
+                        buttonElement.onclick = function (){
+
+                            var aa = event.target;
+                            console.log("SENDDATA 입고처리한후 다시 화면글 그린곳에서 클릭시 클릭된 것 아이디값 가져오기",aa.getAttribute('id'));
+
+                            sendData(aa.getAttribute('id')); //실행될함수
+                        }
 
 
-                         buttonCell.appendChild(buttonElement); //요소에 버튼 추가
-                         tableBodyRow.appendChild(buttonCell); //행안에 요소추가
+                        buttonCell.appendChild(buttonElement); //요소에 버튼 추가
+                        tableBodyRow.appendChild(buttonCell); //행안에 요소추가
 
 
-                         tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
+                        tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
 
 
 
@@ -172,7 +177,7 @@ $(function ReceivingProcessing(){  //모달 관련 js
     }
 
 
- }
+}
 
 function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용을 그려줌
     console.log("검색 버튼 잘 클릭");
@@ -281,7 +286,7 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
                 inputElement.type = 'number';
                 inputElement.name = 'store';
                 inputElement.id = 'store'+searchList.searchDTOList[i].procurementplan_code; //인풋박스
-                 console.log(searchList.searchDTOList[i].procurementplan_code,"인풋에 있는것=======================");
+//                console.log(searchList.searchDTOList[i].procurementplan_code,"인풋에 있는것=======================");
                 storeCell.appendChild(inputElement);
 
                 tableBodyRow.appendChild(storeCell);
@@ -297,31 +302,36 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
                 var buttonCell = document.createElement('td');
                 orderStateCell.classList.add('table-data');
 ////버튼생성
-                 var buttonElement = document.createElement('button');
-                 console.log(searchList.searchDTOList[i].procurementplan_code,"버튼 위치에 있는것 =======================");
-                 buttonElement.style.backgroundColor = 'blue';
-                 buttonElement.style.color = 'white';
-                 buttonElement.id = searchList.searchDTOList[i].procurementplan_code;
+                var buttonElement = document.createElement('button');
+//                console.log(searchList.searchDTOList[i].procurementplan_code,"버튼 위치에 있는것 =======================");
+                buttonElement.style.backgroundColor = 'blue';
+                buttonElement.style.color = 'white';
+                buttonElement.id = searchList.searchDTOList[i].procurementplan_code;
 //                 console.log(document.getElementById(searchList.searchDTOList[i].procurementplan_code))
-                 buttonElement.classList = "receivingInput";
-                 buttonElement.innerText = '입고처리';
-                 buttonElement.onclick = function (e){
-                    onCLickFn();
-                 }
+                buttonElement.classList = "receivingInput";
+                buttonElement.innerText = '입고처리';
+                buttonElement.onclick = function (){
+                 //해당 버튼의 i값 읽기
+
+                var bb = event.target;
+                console.log(bb.getAttribute('id'));
+                sendData(bb.getAttribute('id')); //숫자를 sendData에 넣어주고
+
+                }
 
 
-                 buttonCell.appendChild(buttonElement); //요소에 버튼 추가
-                 tableBodyRow.appendChild(buttonCell); //행안에 요소추가
+                buttonCell.appendChild(buttonElement); //요소에 버튼 추가
+                tableBodyRow.appendChild(buttonCell); //행안에 요소추가
 
 
-                 tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
+                tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
 
 
 
             }
 
         },
-         error: function(error) {
+        error: function(error) {
             console.log("오류발생 0");
         }
 
@@ -330,22 +340,5 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
 
 
 
-
-}
-
-
-function onCLickFn() {
-     var inputButton = document.getElementsByClassName("receivingInput");
-
-    for(let j = 0 ; j<inputButton.length; j++) {
-    inputButton[j].addEventListener('click', function (e) {
-     e.preventDefault();
-     console.log("---------------------",j)
-      var code = inputButton[j].getAttribute('id');
-       console("-----------------",code);
-
-                }
-            )
-        }
 
 }

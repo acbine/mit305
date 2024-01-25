@@ -67,7 +67,7 @@ public class BinController {
     /*------------------------ --------------------현황관리 -----------------------------------*/
     @GetMapping("StatusManagementReport")
     public String StatusManagementReport() {
-        System.out.println("현황관리 요청들어옴");
+        System.out.println("현황관리 요청들어옴1");
         return "StatusManagementReport";
     }
 

@@ -118,7 +118,7 @@ public class BinServiceImpl implements BinService{
                 localDateTime = receivingProcessing.getRegDate();
             }
             ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-                    .ordercode(procurementPlanList.get(i).getPurchase().getOrdercode()) // 발주서 코드번호
+                    .ordercode(procurementPlanList.get(i).getPurchase().getOrderCode()) // 발주서 코드번호
                     .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
                     .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                     .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
@@ -160,9 +160,9 @@ public class BinServiceImpl implements BinService{
                 localDateTime = receivingProcessing.getRegDate();
             }
             ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-                    .ordercode(ppProductList.get(i).getPurchase().getOrdercode()) // 발주서 코드번호
+                    .ordercode(ppProductList.get(i).getPurchase().getOrderCode()) // 발주서 코드번호
                     .procurementplan_code(ppProductList.get(i).getProcurementplan_code()) //조달계획코든
-                    .productcode(ppProductList.get(i).getProductForProject().getProductCode().getProduct_code()) //품목코드
+                    .productcode(ppProductList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                     .productname(ppProductList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
                     .departName(ppProductList.get(i).getContract().getCompany().getDepartName()) //업체명
                     .businessNumber(ppProductList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
@@ -200,8 +200,8 @@ public class BinServiceImpl implements BinService{
         ));
 
         existenceRepository.save(existence.get().updateRelease(receivingProcessing.getStore()));
-        //receivingProcessingRepository.save(receivingProcessing); //입고처리 DB에 저장
-        //receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
+        receivingProcessingRepository.save(receivingProcessing); //입고처리 DB에 저장
+        receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
 //        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로
 
         List<ProcurementPlan> procurementPlanList = receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST(); //다시 조달계획을 그려주기위하여 받음
@@ -217,7 +217,7 @@ public class BinServiceImpl implements BinService{
                 localDateTime = receivingProcessing2.getRegDate();
             }
             ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-                    .ordercode(procurementPlanList.get(i).getPurchase().getOrdercode()) // 발주서 코드번호
+                    .ordercode(procurementPlanList.get(i).getPurchase().getOrderCode()) // 발주서 코드번호
                     .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
                     .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
                     .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
@@ -232,7 +232,7 @@ public class BinServiceImpl implements BinService{
             receivingProcessingDTOList.add(receivingProcessingDTO);
             System.out.println("------------------SAVE   DTO에들어간 입고일 정보----------------------------"+localDateTime);
 
-            System.out.println("리스트에 들어간 SAVE DTO 정보---------------------------------------"+procurementPlanList.get(i).getPurchase().getOrdercode());
+            System.out.println("리스트에 들어간 SAVE DTO 정보---------------------------------------"+procurementPlanList.get(i).getPurchase().getOrderCode());
         }
         return receivingProcessingDTOList;
     }

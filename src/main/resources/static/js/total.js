@@ -120,6 +120,8 @@ function updateButtonState(buttonId, state) {
 }
 
 function sendDateToChild(String) {
+    console.log("들어오는 값 확인 해보기",String);
+
     var data;
 
     if (String === "item") {
@@ -144,8 +146,6 @@ function sendDateToChild(String) {
         data = "현황리포트"
     } else if (String === "ProductSelect") {
         data = "발주품목선택"
-    } else if (String === "진척검수등록") {
-        data = "orderInspect1_1"
     }
 
     childComponent.receiveData(data);
@@ -193,8 +193,6 @@ const childComponent = {
                 currentPage = "stockDelivery"
             } else if (arrayClick[i] === "현황리포트") {
                 currentPage = "existence"
-            } else if (arrayClick[i] === "진척검수등록") {
-                currentPage = "orderInspect1_1"
             }
 
             if (i===0) {
@@ -203,17 +201,17 @@ const childComponent = {
                                 <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
                         </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else if (arrayClick[0] === arrayClick[i]) {
                 tabList3.push(`<div class="tabClass" id="is_on">
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                          </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else {
                 tabList3.push(`<div class="tabClass" id="is_on" >
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                             </div>`)
-                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'>testcont</div>`)
+                contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             }
 
         }
@@ -487,3 +485,8 @@ var script12 = document.createElement("script");
 script12.async = true;
 script12.src = "/js/orderRegister.js";
 document.head.appendChild(script12);
+
+var script13 = document.createElement("script");
+script13.async = true;
+script13.src = "/js/orderListPopup.js";
+document.head.appendChild(script13);

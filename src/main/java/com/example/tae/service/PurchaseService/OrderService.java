@@ -1,13 +1,16 @@
 package com.example.tae.service.PurchaseService;
 
-import com.example.tae.entity.Order.dto.OrderListDto;
-import com.example.tae.entity.Order.dto.OrderPopupDto;
+import com.example.tae.entity.Order.dto.OrderDTO;
 
 
 import java.util.List;
 
 public interface OrderService {
-    List<OrderListDto> getAllOrders();
+    List<OrderDTO> getAllOrders();
 //    OrderPopupHeadDto getOrderPopupHeadDto(String ordercode);
-    OrderPopupDto getOrderPopupData(String ordercode);
+    OrderDTO getOrderInspectData(int productCode);
+
+    List<OrderDTO> oListSend();
+
+    void orderRegister(int procurementPlanCode);
 }

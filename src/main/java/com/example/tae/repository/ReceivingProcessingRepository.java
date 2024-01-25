@@ -50,13 +50,13 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
     ReceivingProcessing findByProcumentPlanCode (@Param("ppcode") int pp); //입고처리 엔티티에서 조달계획 코드가 pp인 것 불러오기 정렬은?-> 조달계획코드가 하나라 필요없음
 
 //-----------------------------------------------------------거래명세서-----------------------------------------------------------------------------------------
-@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' And pp.purchase.ordercode=:od")
-List<ProcurementPlan> listByOrderCodestrard(@Param("od") String Ordercode); //조달계획의 품목 상태가 검수처리완료 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
+@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' And pp.purchase.orderCode=:od")
+List<ProcurementPlan> listByOrderCodestrard(@Param("od") String OrderCode); //조달계획의 품목 상태가 검수처리완료 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
 
-@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='마감' And pp.purchase.ordercode=:od")
-List<ProcurementPlan> listByOrderCodeend(@Param("od") String Ordercode); //조달계획의 품목 상태가 마감 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
+@Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='마감' And pp.purchase.orderCode=:od")
+List<ProcurementPlan> listByOrderCodeend(@Param("od") String OrderCode); //조달계획의 품목 상태가 마감 이면서 OrderCode로 조달계획 리스트 불러오기(여기에만 정렬기능 오름차순)
 
-@Query("SELECT pp.purchase.ordercode , Count(pp)  FROM ProcurementPlan pp GROUP BY pp.purchase.ordercode ORDER BY pp.purchase.ordercode ")
+@Query("SELECT pp.purchase.orderCode , Count(pp)  FROM ProcurementPlan pp GROUP BY pp.purchase.orderCode ORDER BY pp.purchase.orderCode ")
 List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 묶어서  각 발주코드별 가 갯수가 얼마나되는지
 
 

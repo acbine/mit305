@@ -67,7 +67,8 @@ public class OrderServiceImpl implements OrderService {
         log.info("받아온 orderCode 확인하기 : " + productCode);
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
         ProductInformationRegistration productInformation = productInformationRegistration.get() ;
-        ProcurementPlan procurementPlan = procurementPlanRepository.findByProductInformation(productCode);
+        ProcurementPlan procurementPlan = contractRepository.findByproductInformationId(productCode);
+
         Optional<Existence> existenceNum = Optional.of(existenceRepository.findByProductCode(productInformation).orElseGet(
                 () -> {
                     Existence existence1 = Existence.builder()
@@ -99,7 +100,15 @@ public class OrderServiceImpl implements OrderService {
         List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findAllByProcurementplan_orderStateNull();
         List<OrderDTO> oList = new ArrayList<>();
         for(ProcurementPlan procurementPlan : procurementPlanList) {
-            Optional<Existence> existence = existenceRepository.findByProductCode(procurementPlan.getContract().getProductInformationRegistration());
+            Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(procurementPlan.getContract().getProductInformationRegistration()).orElseGet(
+                    ()->{
+                        Existence existence2 = Existence.builder()
+                                .productCode(procurementPlan.getContract().getProductInformationRegistration())
+                                .releaseCNT(0)
+                                .build();
+                        return existence2;
+                    }
+            ));
             OrderDTO orderDTO = OrderDTO.builder()
                     .departName(procurementPlan.getContract().getCompany().getDepartName())
                     .agent(procurementPlan.getContract().getCompany().getBusinessName())
@@ -107,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
                     .fax(procurementPlan.getContract().getCompany().getFax())
                     .LT(procurementPlan.getContract().getLead_time())
                     .procurementPlanCode(procurementPlan.getProcurementplan_code())
-                    .num(procurementPlan.getProjectPlan().getOutPuteNum()*procurementPlan.getProductForProject().getProductCodeCount())
+                    .num(procurementPlan.getSupportProductAmount()) // 조달 수량 받아 오기
                     .tel(procurementPlan.getContract().getCompany().getBusinessTel())
                     .orderDate(procurementPlan.getOrder_date())
                     .projectOutPutDate(procurementPlan.getProjectPlan().getProjectOutputDate())
@@ -137,7 +146,7 @@ public class OrderServiceImpl implements OrderService {
                 .procurementplan_code(procurementPlanCode)
                 .SupportProductAmount(procurementPlan.getSupportProductAmount())
                 .purchase(purchase)
-                .productForProject(procurementPlan.getProductForProject())
+                .SupportProductAmount(procurementPlan.getSupportProductAmount())
                 .build();
         procurementPlanRepository.save(updateProcurementPlan);
     }

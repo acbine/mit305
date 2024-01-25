@@ -18,4 +18,5 @@ public class Purchase extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private String orderCode;                       // 발주서 코드
+
 }

@@ -31,7 +31,7 @@ public class receivecingTest {
         List<ProcurementPlan> aalist= receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST();
 
         //aalist.forEach(x-> System.out.println("---------------------------"+x));
-        System.out.println(aalist.get(0).getProductForProject());
+        System.out.println(aalist.get(0).getSupportProductAmount());
         //aalist.get(1).getProductForProject()
 
     }

@@ -391,7 +391,6 @@ function closePage(pageData, cnt) {
 
     arrayClick.splice(arrayClick.indexOf(pageData),1);
 
-
     setCookie("clickTapList", arrayClick,7)
     console.log(pageData, cnt);
 

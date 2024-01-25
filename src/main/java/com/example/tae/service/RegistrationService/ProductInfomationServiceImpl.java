@@ -2,25 +2,33 @@ package com.example.tae.service.RegistrationService;
 
 import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Classification.Part;
+import com.example.tae.entity.DummyData.Product.Project;
+import com.example.tae.entity.ProductForProject.ProductForProject;
+import com.example.tae.entity.ProductForProject.ProductForProjectEmbeddable;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ProductInformation.dto.ProductInformationRegistrationDTO;
 import com.example.tae.repository.DummyRepository.PartRepository;
+import com.example.tae.repository.ProductForProjectRepository;
+import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 @Service
+@AllArgsConstructor
 public class ProductInfomationServiceImpl implements ProductInfomationService {
 
-    @Autowired
     private ProductInformationRegistrationRepository productInformationRegistrationRepository;
-
-    @Autowired
-    PartRepository partRepository;
+    private ProductForProjectRepository productForProjectRepository;
+    private PartRepository partRepository;
+    private ProjectRepository projectRepository;
 
     @Override
     public List<ProductInformationRegistration> getAllProductInfo() {
@@ -100,5 +108,23 @@ public class ProductInfomationServiceImpl implements ProductInfomationService {
 
 
         productInformationRegistrationRepository.save(productInformationRegistration);
+
+        Project projectId = projectRepository.findById("스마트폰").get();
+
+       Optional<ProductForProject> productForProject = Optional.of(productForProjectRepository.findByProdcutId(productInformationRegistration.getProduct_code()).orElseGet(
+                ()->{
+                    ProductForProjectEmbeddable productForProjectEmbeddable = ProductForProjectEmbeddable.builder()
+                            .productCode(productInformationRegistration)
+                            .projectID(projectId)
+                            .build();
+                    Random random = new Random();
+                    return ProductForProject.builder()
+                            .productCode(productInformationRegistration)
+                            .productCodeCount(random.nextInt(1,100))
+                            .projectID(projectId)
+                            .build();
+                }
+        ));
+       productForProjectRepository.save(productForProject.get());
     }
 }

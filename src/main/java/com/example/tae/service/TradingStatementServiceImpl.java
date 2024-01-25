@@ -138,7 +138,7 @@ public class TradingStatementServiceImpl implements TradingStatementService{
         props.put("mail.smtp.ssl.trust", smtp_host);
 
         Session session = Session.getInstance(props,
-                new javax.mail.Authenticator() {
+                new Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(user_email, user_pw);
                     }

@@ -23,8 +23,8 @@ public class ProjectRepositoryTest {
     @Test
     public void ProductTest () throws ParseException {
         //제품 DB 안에 제품명 넣기
-        Project product = Project.builder().productName("스마트폰").build();
-        projectRepository.save(product);
+        Project project = Project.builder().projectName("스마트폰").build();
+        projectRepository.save(project);
 
 
         String dateString = "2024-01-15";
@@ -36,7 +36,7 @@ public class ProjectRepositoryTest {
 
 
         //제품명을 기반으로 생산계획
-        ProjectPlan projectPlan = ProjectPlan.builder().outPuteNum(11).projectOutputDate(date).product(product).build();
+        ProjectPlan projectPlan = ProjectPlan.builder().outPuteNum(11).projectOutputDate(date).project(project).build();
         projectPlanRepository.save(projectPlan);
 
         System.out.println("데이터 DB에 들어감");

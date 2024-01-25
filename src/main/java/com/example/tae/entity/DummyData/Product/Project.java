@@ -16,5 +16,5 @@ import lombok.*;
 @ToString
 public class Project {
     @Id
-    String productName;
+    String projectName;
 }

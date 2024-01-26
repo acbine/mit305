@@ -1,10 +1,7 @@
 package com.example.tae.service.PurchaseService;
 
-import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
-import com.example.tae.entity.Order.dto.OrderInspectDTO;
-import com.example.tae.entity.Order.dto.OrderInspectionDto;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
@@ -14,10 +11,8 @@ import com.example.tae.repository.ProgressInspectionRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
-import com.sun.nio.sctp.IllegalReceiveException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -81,7 +76,6 @@ public class OrderServiceImpl implements OrderService {
                     .build();
             orderDTO.setProgressInspectionStatus();
             oList.add(orderDTO);
-            log.info("getall:"+orderDTO.toString());
         });
         return oList;
     }
@@ -123,7 +117,6 @@ public class OrderServiceImpl implements OrderService {
                         .departName(procurementPlan.getContract().getCompany().getDepartName())
                         .build();
                 orderDTOList.add(orderDTO);
-                log.info("getOrder : "+orderDTO.toString());
             }
         });
         return orderDTOList;
@@ -159,26 +152,11 @@ public class OrderServiceImpl implements OrderService {
                     .existence(existence.get().getReleaseCNT())
                     .build();
             oList.add(orderDTO);
-            log.info("oList : "+orderDTO.toString());
         }
         return oList;
     }
 
 
-    /*진척 검수 등록 */
-    public List<ProgressInspection> orderInsepect(OrderInspectDTO inspection) {
-       int planId = inspection.getPlanId();
-       List<ProgressInspection> progressInspectionList = new ArrayList<>();
-       Optional<ProcurementPlan> procurementPlan = Optional.of(procurementPlanRepository.findById(planId).orElseThrow(
-               ()-> new NullPointerException("해당 조달계획이 존재하지 않습니다.")));
-        Purchase purchase = procurementPlan.get().getPurchase();
-        Date date = inspection.getInspectDate();
-        ProgressInspection progressInspection = ProgressInspection.builder()
-                .progressInspectionPlan(date)
-                .progressInspectionStatus(false)
-                .orderCode(purchase)
-                .build();
-        progressInspectionRepository.save(progressInspection);
-        return progressInspectionList;
-    }
+
+
 }

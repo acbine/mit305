@@ -35,7 +35,7 @@
                     <td th:text="${order.departName}"></td>
                     <td th:text="${order.email}"></td>
                     <td><button th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
-                    <td><button th:attr="onclick='cancel(\'' + ${orderStat.index} + '\')'">취소</button></td>
+                    <td><button th:attr="onclick='cancel(\'' + ${order.productCode} + '\',\'' + ${orderStat.index} + '\')'">취소</button></td>
                 </tr>
             </tbody>
         </table>

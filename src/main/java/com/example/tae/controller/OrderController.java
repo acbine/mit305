@@ -1,16 +1,12 @@
 package com.example.tae.controller;
 
-import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.dto.OrderDTO;
 
-import com.example.tae.entity.Order.dto.OrderInspectDTO;
-import com.example.tae.entity.Order.dto.OrderInspectionDto;
 import com.example.tae.service.PurchaseService.OrderRegisterService;
 import com.example.tae.service.PurchaseService.OrderServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-import org.hibernate.query.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -39,11 +35,6 @@ public class OrderController {
         return "orderInspect";
     }
 
-    @PostMapping("orderInspect")
-    public String orderInspect(@RequestBody OrderInspectDTO inspect) {
-        List<ProgressInspection> progressInspections = orderService.orderInsepect(inspect);
-        return "orderInspect";
-    }
 
 
     @GetMapping("orderRegister")

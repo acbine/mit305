@@ -11,7 +11,6 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)

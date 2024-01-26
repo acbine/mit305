@@ -30,7 +30,7 @@ function htmlLoad(data) {
 
     var inputHtml = [];
     var existence = data.existenceList;
-
+    console.log(existence,"==============================")
     for(var i=0; i<existence.length;i++){
         inputHtml.push(`
         <tr class="existence_body">

@@ -28,5 +28,5 @@ public interface BinService {
 
 
     //해당 품목에대해 입고처리시 쿼리로 입고수량 데이터 베이스에 넣어어주는것  받는갑 조달계획 코드 , // 추후에입고수량, 페이지 상태
-    List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store);
+    List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store ,int pageState,String formInputData);
 }

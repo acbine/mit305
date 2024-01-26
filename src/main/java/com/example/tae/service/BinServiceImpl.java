@@ -182,7 +182,8 @@ public class BinServiceImpl implements BinService{
 
     @Override
     @Transactional  //입고처리에서 값을 넣고 요청시 입고처리를 한후 새로운 리스트를 그릴수있게 AJAX DTO 리스트를 보내 주는 코드 ---> 맨처음 화면시
-    public List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store) {
+    public List<ReceivingProcessingDTO> ReceivingProcessStore(int procurementplan_code, int store,int pageState ,String formInputData) {
+
         ReceivingProcessing receivingProcessing = ReceivingProcessing.builder()
                 .procurementPlan(receivingProcessingRepository.productplane(procurementplan_code))
                 .store(store)
@@ -204,36 +205,49 @@ public class BinServiceImpl implements BinService{
         receivingProcessingRepository.updateProcumentPlan(procurementplan_code);//검수완료를  마감으로
 //        System.out.println("업데이트된 행의 갯수-------"+receivingProcessingRepository.updateProcumentPlan(procurementplan_code));//발주전을 마감으로
 
-        List<ProcurementPlan> procurementPlanList = receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST(); //다시 조달계획을 그려주기위하여 받음
-        List<ReceivingProcessingDTO> receivingProcessingDTOList = new ArrayList<>();
-        for (int i=0; i<procurementPlanList.size(); i++) {
-            int aaa=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST().get(i).getProcurementplan_code();// 조달계획코드를 가져옴
+
+        List<ProcurementPlan> ppProductList=null; //조달계획 엔티티 리스트 불러와짐 //다시 그려주기 위해서
+        if (pageState==1){
+            ppProductList = receivingProcessingRepository.rPSearchByProductname(formInputData); //제품명으로
+        }else if(pageState==2){
+            ppProductList = receivingProcessingRepository.rPSearchByDepartname(formInputData); //회사명으로
+        }else {
+            ppProductList=receivingProcessingRepository.RECEIVING_PROCESSING_DTO_LIST(); //0번은 전체
+        }
+        System.out.println("입고처리후 리스트를 그려줄떄ppProductList========> 리스트 사이즈 크기는?"+ppProductList.size());
+        List<ReceivingProcessingDTO> returnList = new ArrayList<>();
+        for (int n=0; n<ppProductList.size(); n++) {
+            int aaa=ppProductList.get(n).getProcurementplan_code();// 조달계획코드를 가져옴
             
-            ReceivingProcessing receivingProcessing2 = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획코드를 넣어 줘서 입고처리 엔티티의 한행을 가져옴
+            ReceivingProcessing receivingProcessingBin = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획코드를 넣어 줘서 입고처리 엔티티의 한행을 가져옴
             LocalDateTime localDateTime;
-            if ( receivingProcessing2 == null) {
+            if ( receivingProcessingBin == null) {
                 localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
             } else {
-                localDateTime = receivingProcessing2.getRegDate();
+                localDateTime = receivingProcessingBin.getRegDate();
             }
-            ReceivingProcessingDTO receivingProcessingDTO = ReceivingProcessingDTO.builder()
-                    .ordercode(procurementPlanList.get(i).getPurchase().getOrderCode()) // 발주서 코드번호
-                    .procurementplan_code(procurementPlanList.get(i).getProcurementplan_code()) //조달계획코든
-                    .productcode(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
-                    .productname(procurementPlanList.get(i).getContract().getProductInformationRegistration().getProduct_name())   //품목명
-                    .departName(procurementPlanList.get(i).getContract().getCompany().getDepartName()) //업체명
-                    .businessNumber(procurementPlanList.get(i).getContract().getCompany().getBusinessNumber()) // 사업자번호
-                    .DateOfOrder(procurementPlanList.get(i).getPurchase().getRegDate()) //발주서 발행일
-                    .OrderDate(procurementPlanList.get(i).getOrder_date())//발주일
+            ReceivingProcessingDTO addListDTO = ReceivingProcessingDTO.builder()
+                    .ordercode(ppProductList.get(n).getPurchase().getOrderCode()) // 발주서 코드번호
+                    .procurementplan_code(ppProductList.get(n).getProcurementplan_code()) //조달계획코든
+                    .productcode(ppProductList.get(n).getContract().getProductInformationRegistration().getProduct_code()) //품목코드
+                    .productname(ppProductList.get(n).getContract().getProductInformationRegistration().getProduct_name())   //품목명
+                    .departName(ppProductList.get(n).getContract().getCompany().getDepartName()) //업체명
+                    .businessNumber(ppProductList.get(n).getContract().getCompany().getBusinessNumber()) // 사업자번호
+                    .DateOfOrder(ppProductList.get(n).getPurchase().getRegDate()) //발주서 발행일
+                    .OrderDate(ppProductList.get(n).getOrder_date())//발주일
                     .Arrival(localDateTime) //입고처리된 날짜
-                    .SupportProductAmount(procurementPlanList.get(i).getSupportProductAmount()) //조달예정수량
-                    .orderState(procurementPlanList.get(i).getOrder_state()) //품목상태
+                    .SupportProductAmount(ppProductList.get(n).getSupportProductAmount()) //조달예정수량
+                    .orderState(ppProductList.get(n).getOrder_state()) //품목상태
                     .build();
-            receivingProcessingDTOList.add(receivingProcessingDTO);
-            System.out.println("------------------SAVE   DTO에들어간 입고일 정보----------------------------"+localDateTime);
+            System.out.println("리스트에 최종적으로 더해진 숫잣"+n);
+            returnList.add(addListDTO);
+//            System.out.println("------------------SAVE   DTO에들어간 입고일 정보----------------------------"+localDateTime);
 
-            System.out.println("리스트에 들어간 SAVE DTO 정보---------------------------------------"+procurementPlanList.get(i).getPurchase().getOrderCode());
+//            System.out.println("리스트에 들어간 SAVE DTO 정보---------------------------------------"+ppProductList.get(i).getPurchase().getOrderCode());
         }
-        return receivingProcessingDTOList;
+
+        returnList.forEach(x-> System.out.println("이리스트 안에 있는 내용은 몇개일까?"+x));
+
+        return returnList;
     }
 }

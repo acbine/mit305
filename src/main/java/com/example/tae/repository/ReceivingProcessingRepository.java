@@ -30,13 +30,13 @@ public interface ReceivingProcessingRepository extends JpaRepository<ReceivingPr
     @Query("SELECT pp.order_state , Count(pp) FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end GROUP BY pp.order_state ORDER BY pp.order_state ")
     List<Object[]> groupByOrderState(@Param("start") Date start, @Param("end") Date end); //발주현황관리의 조달계획리스트를 발주 상태별로 묶어서 각 발주 상태가 갯수가 얼마나되는지 정렬은?-> 발주서 의 이름 순서대로 오른차순
 //----------------------------------------------------------입고처리------------------------------------------------------------------
-    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ORDER BY pp.purchase.regDate LIMIT 10")
+    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ORDER BY pp.purchase.regDate")
     List<ProcurementPlan> RECEIVING_PROCESSING_DTO_LIST(); //조달계획의 품목 상태가 검수처리완료  모든 조달계획 리스트를 10개만  불러오기 정렬은?->발주서 발행일을 기준으로 오름차순      > 입고처리 맨처음 보여줄시 사용
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='검수처리완료' AND pp.contract.productInformationRegistration.product_name= :inputData ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 검색타입은품목명 검수완료처리된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
+    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='검수처리완료' AND pp.contract.productInformationRegistration.product_name LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 검색타입은품목명 검수완료처리된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
     List<ProcurementPlan> rPSearchByProductname(@Param("inputData") String inputData);
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='검수처리완료' AND pp.contract.company.departName=:inputData ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 업체명을 가지고 검수완료처리된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
+    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='검수처리완료' AND pp.contract.company.departName LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 업체명을 가지고 검수완료처리된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
     List<ProcurementPlan> rPSearchByDepartname(@Param("inputData") String inputData);
 
     @Query("SELECT pp FROM ProcurementPlan pp where pp.procurementplan_code=:ppcode ")
@@ -63,10 +63,10 @@ List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 �
     @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='마감' ORDER BY pp.purchase.regDate LIMIT 10")
     List<ProcurementPlan> tsAll(); //조달계획의 품목 상태가 마감  모든 조달계획 리스트를 10개만  불러오기 정렬은?->발주서 발행일을 기준으로 오름차순      > 입고처리 맨처음 보여줄시 사용
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.productInformationRegistration.product_name= :inputData ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 검색타입은품목명 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
+    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.productInformationRegistration.product_name LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 검색타입은품목명 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
     List<ProcurementPlan> tSSearchByProductname(@Param("inputData") String inputData);
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.company.departName=:inputData ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 업체명을 가지고 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
+    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.company.departName LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 업체명을 가지고 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
     List<ProcurementPlan> tSSearchByDepartname(@Param("inputData") String inputData);
 
 

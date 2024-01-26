@@ -1,4 +1,4 @@
-#searchbutton {  /* 검색버튼 */
+.searchbutton {  /* 검색버튼 */
     background-color: black;
     color: white;
 }
@@ -19,8 +19,6 @@
     position: absolute;
     right: 20px;
     bottom: 10px;
-    
-    
 }
 
 .button-style:hover { /*버튼2*/
@@ -31,7 +29,6 @@
     width: 90%;
     border-collapse: collapse;
     font-size: 0.875rem;
-
 }
 
 
@@ -52,8 +49,6 @@
     border-left: 1px solid white;
     border-right: 1px solid white;
     background-color: gray;
-    
-    
 }
 
 
@@ -63,14 +58,13 @@
     text-align: center;
     vertical-align: middle;
     border-bottom: 1px solid #e2e8f0;
-    
 }
 
 .input-form-style{
     border:none;
     outline:none;
     text-align: center;
-     width:80px;
+    width:80px;
 }
 
 

@@ -60,14 +60,14 @@ List<ProcurementPlan> listByOrderCodeend(@Param("od") String OrderCode); //조�
 List<Object[]> groupByOrderCode(); //조달계획리스트를 발주 코드로 묶어서  각 발주코드별 가 갯수가 얼마나되는지
 
 ///////// 아래 3개는 거래명세서  검색용
-    @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='마감' ORDER BY pp.purchase.regDate LIMIT 10")
-    List<ProcurementPlan> tsAll(); //조달계획의 품목 상태가 마감  모든 조달계획 리스트를 10개만  불러오기 정렬은?->발주서 발행일을 기준으로 오름차순      > 입고처리 맨처음 보여줄시 사용
+    @Query("SELECT rp FROM ReceivingProcessing rp where rp.procurementPlan.order_state='마감' ORDER BY rp.regDate")
+    List<ReceivingProcessing> tsAll(); //조달계획의 품목 상태가 마감  모든 조달계획 리스트를 10개만  불러오기 정렬은?->발주서 발행일을 기준으로 오름차순      > 입고처리 맨처음 보여줄시 사용
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.productInformationRegistration.product_name LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 검색타입은품목명 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
-    List<ProcurementPlan> tSSearchByProductname(@Param("inputData") String inputData);
+    @Query("SELECT rp FROM ReceivingProcessing rp WHERE rp.procurementPlan.order_state='마감' AND rp.procurementPlan.contract.productInformationRegistration.product_name LIKE %:inputData% ORDER BY rp.regDate ") //검색내용을 넣어주고 검색타입은품목명 마감된 조달계획을 불러오는 것  정렬은?->입고일을 기준 오름차순
+    List<ReceivingProcessing> tSSearchByProductname(@Param("inputData") String inputData);
 
-    @Query("SELECT pp FROM ProcurementPlan pp WHERE pp.order_state='마감' AND pp.contract.company.departName LIKE %:inputData% ORDER BY pp.purchase.regDate ") //검색내용을 넣어주고 업체명을 가지고 마감된 조달계획을 불러오는 것  정렬은?->발주서 발행일을 기준 오름차순
-    List<ProcurementPlan> tSSearchByDepartname(@Param("inputData") String inputData);
+    @Query("SELECT rp FROM ReceivingProcessing rp WHERE rp.procurementPlan.order_state='마감' AND rp.procurementPlan.contract.company.departName LIKE %:inputData% ORDER BY rp.regDate ") //검색내용을 넣어주고 업체명을 가지고 마감된 조달계획을 불러오는 것  정렬은?->입고일을 기준 오름차순
+    List<ReceivingProcessing> tSSearchByDepartname(@Param("inputData") String inputData);
 
 
 //------------------------------------------------------자재관리에서 사용하는 쿼리-----------------------------------------------------------------------------------

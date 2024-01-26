@@ -94,7 +94,7 @@ function searchTSButton(){ //검색 정보를 넣고 검색요청 검색된 내�
 
                 var ArrivalCell = document.createElement('td');
                 ArrivalCell.classList.add('table-data');
-                ArrivalCell.innerHTML = searchTSList.tsDTO[i].arrival; //입고일
+                ArrivalCell.innerHTML = searchTSList.tsDTO[i].arrival.toString(); //입고일
                 tableBodyRow.appendChild(ArrivalCell);
 
                 var businessTelCell = document.createElement('td');
@@ -123,6 +123,8 @@ function searchTSButton(){ //검색 정보를 넣고 검색요청 검색된 내�
                     Tradingmy(cc.getAttribute('id')); //숫자를 sendData에 넣어주고
                 }
                 tableBodyRow.appendChild(sendAndPrintCell);
+
+
                 tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
             }
 

@@ -327,10 +327,7 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
                 buttonCell.appendChild(buttonElement); //요소에 버튼 추가
                 tableBodyRow.appendChild(buttonCell); //행안에 요소추가
 
-
                 tableBody.appendChild(tableBodyRow);   //행을 TbodTbodydp
-
-
 
             }
 

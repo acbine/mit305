@@ -54,7 +54,7 @@ function info_addRow(partList) {
     var newInfo =
         '<tr>' +
             '<td><input type="text" class = "get_name" style = "width:90.67px; height:29px; font-size:15px;"></td>' + // 품목명
-            '<td><input type="text" class = "get_abbreviation" style = "width:75.67px; height:29px; font-size:15px;"></td>' + // 약칭
+            '<td><input type="text"  maxlength="3" class = "get_abbreviation" style = "width:75.67px; height:29px; font-size:15px;"></td>' + // 약칭
             '<td><input type="text" class = "get_texture" style = "width:75.67px; height:29px; font-size:15px;"></td>' + // 재질
             '<td><input type="text" class = "get_width" style = "width:85.67px; height:29px; font-size:15px;"></td>' + // 가로
             '<td><input type="text" class = "get_length" style = "width:89.67px; height:29px; font-size:15px;"></td>' + // 세로

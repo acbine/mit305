@@ -170,7 +170,7 @@ function contract_row_delete(tag) {
 
 var dataFromServer; // 전역 변수 (데이터 비교용)
 
-// 계약 검색
+// 계약 검색 결과
 function contract_All() {
 
     $.ajax({
@@ -200,7 +200,7 @@ function contract_All() {
                         '<td height="25">' +
                             '<div class="actions">' +
                                 '<button class="action-button action-button-edit" onclick="contract_modify('+ con.contract_code +')">수정</button>' +
-                                '<button class="action-button action-button-edit" onclick="contract_delete('+ con.contract_code +')">계약서에 추가</button>' +
+                                '<button class="action-button action-button-edit" onclick="contract_to_contractPage('+ con.contract_code +'); contract_row_delete(this);">계약서에 추가</button>' +
                                 '<button class="action-button action-button-delete" onclick="contract_delete('+ con.contract_code +') contract_row_delete(this)">삭제</button>' +
                             '</div>' +
                         '</td>' + // 계약 처리
@@ -212,6 +212,23 @@ function contract_All() {
             console.error(error);
         }
 
+    });
+
+}
+
+
+// 계약서 db에 계약 등록
+function contract_to_contractPage(contract_code) {
+
+    $.ajax({
+        type : "POST",
+        url : "/registration_page/" + contract_code,
+        success : function(response) {
+            console.log("계약서에 등록된 계약 코드: " + contract_code);
+        },
+        error : function(error) {
+            console.error(contract_code, error)
+        }
     });
 
 }

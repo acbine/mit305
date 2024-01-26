@@ -20,7 +20,7 @@ public class ProductInformationRegistrationDTO {
 
     private String product_name;
 
-    private char product_abbreviation;
+    private String product_abbreviation;
 
     private String texture;
 

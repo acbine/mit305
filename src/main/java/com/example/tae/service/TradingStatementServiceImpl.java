@@ -91,7 +91,7 @@ public class TradingStatementServiceImpl implements TradingStatementService{
     @Transactional
     @Override// -------------------------------검색 부분 시작 -----------------------------------------------------------------------
     public List<TradingStatementModalDTO> search(String inputData, int searchStatenum) {
-        List<ProcurementPlan> ppProductList=null; //조달계획 엔티티 리스트 불러와짐
+        List<ReceivingProcessing> ppProductList=null; //조달계획 엔티티 리스트 불러와짐
 
         if (searchStatenum==1){
             ppProductList = receivingProcessingRepository.tSSearchByProductname(inputData); //업체명으로
@@ -104,29 +104,30 @@ public class TradingStatementServiceImpl implements TradingStatementService{
 
         for (int i = 0; i<ppProductList.size(); i++){ // 엔티티 리스트 만큼 반복해주고  조달계획을 가져오고 
 
-            int aaa=ppProductList.get(i).getProcurementplan_code();// 조달계획코드 추출
-            ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 aaa 이고 등록된낮라
-            LocalDateTime localDateTime;
-            if ( receivingProcessing == null) {
-                localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
-            } else {
-                localDateTime = receivingProcessing.getRegDate();
-            }
+//            int aaa=ppProductList.get(i).getProcurementplan_code();// 조달계획코드 추출
+//            ReceivingProcessing receivingProcessing = receivingProcessingRepository.findByProcumentPlanCode(aaa); //조달계획이 aaa 이고 등록된낮라
+//            LocalDateTime localDateTime;
+//            if ( receivingProcessing == null) {
+//                localDateTime = LocalDateTime.of(1, 1, 1, 0, 0);
+//            } else {
+//                localDateTime = receivingProcessing.getRegDate();
+//            }
+
             TradingStatementModalDTO addListDTO = TradingStatementModalDTO.builder()
-                    .orderCode(ppProductList.get(i).getPurchase().getOrderCode())
-                    .prouctName(ppProductList.get(i).getContract().getProductInformationRegistration().getProduct_name())
-                    .count(receivingProcessing.getStore())
-                    .price(ppProductList.get(i).getContract().getProduct_price())
-                    .pc((receivingProcessing.getStore())*(ppProductList.get(i).getContract().getProduct_price()))
-                    .Arrival(receivingProcessing.getRegDate())
-                    .businessNumber(ppProductList.get(i).getContract().getCompany().getBusinessNumber())
-                    .departName(ppProductList.get(i).getContract().getCompany().getDepartName())
-                    .businessName(ppProductList.get(i).getContract().getCompany().getBusinessName())
-                    .businessEmail(ppProductList.get(i).getContract().getCompany().getBusinessEmail())
-                    .fax(ppProductList.get(i).getContract().getCompany().getFax())
-                    .businessTel(ppProductList.get(i).getContract().getCompany().getBusinessTel())
+                    .orderCode(ppProductList.get(i).getProcurementPlan().getPurchase().getOrderCode())
+                    .prouctName(ppProductList.get(i).getProcurementPlan().getContract().getProductInformationRegistration().getProduct_name())
+                    .count(ppProductList.get(i).getStore())
+                    .price(ppProductList.get(i).getProcurementPlan().getContract().getProduct_price())
+                    .pc((ppProductList.get(i).getStore())*(ppProductList.get(i).getProcurementPlan().getContract().getProduct_price()))
+                    .Arrival(ppProductList.get(i).getRegDate())
+                    .businessNumber(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getBusinessNumber())
+                    .departName(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getDepartName())
+                    .businessName(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getBusinessName())
+                    .businessEmail(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getBusinessEmail())
+                    .fax(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getFax())
+                    .businessTel(ppProductList.get(i).getProcurementPlan().getContract().getCompany().getBusinessTel())
                     .build();
-            System.out.println("거래명세엇의 입고일++++++++++++++++++++++++++++++"+receivingProcessing.getRegDate());
+//            System.out.println("거래명세엇의 입고일++++++++++++++++++++++++++++++"+receivingProcessing.getRegDate());
             returnList.add(addListDTO);
             
             

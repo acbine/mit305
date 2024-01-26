@@ -1,5 +1,5 @@
 
-//google.charts.load("current", {packages:["corechart"]});
+google.charts.load("current", {packages:["corechart"]});
 //google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() { //그래프 그려주는 함수

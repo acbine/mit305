@@ -16,5 +16,5 @@ public interface OrderService {
     List<OrderDTO> oListSend();
 
     void orderRegister(int procurementPlanCode);
-    ProgressInspection orderInsepect(OrderInspectDTO inspection);
+    List<ProgressInspection> orderInsepect(OrderInspectDTO inspection);
 }

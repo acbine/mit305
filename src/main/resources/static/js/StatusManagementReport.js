@@ -53,11 +53,11 @@ function sendSMRURL(){ //리스트를 그려주는 함수
         type : 'get',
         success: function(statusManagementReportSearchData) {
                 console.log("잘보냄");
-//                console.log(statusManagementReportSearchData);
+                console.log(statusManagementReportSearchData);
 
-//                console.log(statusManagementReportSearchData.statementDTOList.length) // 왜 이값이 비어있지?
+                console.log(statusManagementReportSearchData.statementDTOList.length) // 왜 이값이 비어있지?
 
-                var tableBody = document.getElementById('tableBody');//DOM 요소 가져와서
+                var tableBody = document.getElementById('statusManagementTableBody');//DOM 요소 가져와서
                 tableBody.innerHTML = '';//내부에 있는 내용을 비워주고
 
                 for (var i=0; i<statusManagementReportSearchData.statementDTOList.length; i++){ //리스트 크기만큼 반복
@@ -85,7 +85,7 @@ function sendSMRURL(){ //리스트를 그려주는 함수
 
                     var dateOfOrderCell = document.createElement('td');
                     dateOfOrderCell.classList.add('table-data');
-                    if(statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString() ==='0001-01-01T00:00:00'  ){
+                    if(statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString() =='0001-01-01T00:00:00'  ){
                         dateOfOrderCell.innerHTML = '발주전입니다';
                     }else{
                         dateOfOrderCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString();
@@ -101,7 +101,7 @@ function sendSMRURL(){ //리스트를 그려주는 함수
                     var ArrivalCell = document.createElement('td');
                     ArrivalCell.classList.add('table-data');
 
-                    if(statusManagementReportSearchData.statementDTOList[i].dateOfOrder.toString() ==='0001-01-01T00:00:00'  ){
+                    if(statusManagementReportSearchData.statementDTOList[i].arrival.toString() ==='0001-01-01T00:00:00'  ){
                         ArrivalCell.innerHTML = '입고처리 전입니다';
                     }else{
                         ArrivalCell.innerHTML = statusManagementReportSearchData.statementDTOList[i].arrival.toString();

@@ -409,106 +409,48 @@ function test() {
     console.log("임의로 테스트 하는 함수");
 }
 
-
 function loadJS(includePath) {
-    if (includePath === "ProductInformationRegistration") {
-        // ProductInformationRegistration.js
-        var script7 = document.createElement("script");
-        script7.async = true;
-        script7.src = "/js/ProductInformationRegistration.js";
-        document.head.appendChild(script7);
+    // 스크립트를 추가할 경로와 제거할 경로를 정의
+    var scriptPaths = {
+        "ProductInformationRegistration": ["/js/ProductInformationRegistration.js"],
+        "ContractRegistration": ["/js/ContractRegistration.js", "/js/ContractRegistrationModal.js", "/js/Registration.js"],
+        "ProcurementPlanRegistration": ["/js/ProcurementPlanRegistration.js"],
+        "orderRegister": ["/js/orderRegister.js", "/js/order.js"],
+        "orderList": ["/js/orderListPopup.js", "/js/order.js"],
+        "StatusManagementReport": ["/js/StatusManagementReport.js"],
+        "stockDelivery": ["/js/stockDelivery.js"],
+        "existence": ["/js/existence.js"],
+        "ReceivingProcess": ["/js/ReceivingProcessing.js"],
+        "TradingStatement": ["/js/TradingStatementModal.js", "/js/TradingStatement.js"]
+    };
 
-    } else if (includePath === "ContractRegistration") {
-        // ContractRegistration.js
-        var script9 = document.createElement("script");
-        script9.async = true;
-        script9.src = "/js/ContractRegistration.js";
-        document.head.appendChild(script9);
+    // 주어진 includePat// 주어진 includePath에 따라 스크립트를 추가 또는 제거
+    if (scriptPaths[includePath]) {
+        scriptPaths[includePath].forEach(function (path) {
+            addScript(path);
+        });
+    }
 
-        // ContractRegistrationModal.js
-        var script10 = document.createElement("script");
-        script10.async = true;
-        script10.src = "/js/ContractRegistrationModal.js";
-        document.head.appendChild(script10);
+    // 주어진 includePath 이외의 경우 해당 스크립트를 모두 제거
+    for (var path in scriptPaths) {
+        if (path !== includePath) {
+            scriptPaths[path].forEach(function (pathToRemove) {
+                removeScript(pathToRemove);
+            });
+        }
+    }
+}
 
-        // Registration.js
-        var script2 = document.createElement("script");
-        script2.async = true;
-        script2.src = "/js/Registration.js";
-        document.head.appendChild(script2);
 
-    } else if (includePath === "ProcurementPlanRegistration") {
+function addScript(src) {
+    var script = document.createElement("script");
+    script.async = true;
+    script.src = src;
+    document.head.appendChild(script);
+}
 
-        // ProcurementPlanRegistration.js
-        var script8 = document.createElement("script");
-        script8.async = true;
-        script8.src = "/js/ProcurementPlanRegistration.js";
-        document.head.appendChild(script8);
-
-    } else if (includePath === "orderRegister") {
-
-        var script12 = document.createElement("script");
-        script12.async = true;
-        script12.src = "/js/orderRegister.js";
-        document.head.appendChild(script12);
-
-        // order.js
-        var script5 = document.createElement("script");
-        script5.async = true;
-        script5.src = "/js/order.js";
-        document.head.appendChild(script5);
-    } else if (includePath === "orderList") {
-        //orderList.js
-        var script13 = document.createElement("script");
-        script13.async = true;
-        script13.src = "/js/orderListPopup.js";
-        document.head.appendChild(script13);
-
-        // order.js
-        var script5 = document.createElement("script");
-        script5.async = true;
-        script5.src = "/js/order.js";
-        document.head.appendChild(script5);
-
-        var script13 = document.createElement("script");
-        script13.async = true;
-        script13.src = "/js/orderListPopup.js";
-        document.head.appendChild(script13);
-
-    } else if (includePath === "StatusManagementReport") {
-        // StatusManagementReport.js
-        var script6 = document.createElement("script");
-        script6.async = true;
-        script6.src = "/js/StatusManagementReport.js";
-        document.head.appendChild(script6);
-    } else if (includePath === "stockDelivery") {
-        var scriptElement1 = document.createElement("script");
-        scriptElement1.async = true;
-        scriptElement1.src = "/js/stockDelivery.js";
-        document.head.appendChild(scriptElement1);
-    } else if (includePath === "existence") {
-        // existence.js
-        var script11 = document.createElement("script");
-        script11.async = true;
-        script11.src = "/js/existence.js";
-        document.head.appendChild(script11);
-    } else if (includePath === "ReceivingProcess") {
-        // ReceivingProcessing.js
-        var script3 = document.createElement("script");
-        script3.async = true;
-        script3.src = "/js/ReceivingProcessing.js";
-        document.head.appendChild(script3);
-
-    } else if (includePath === "TradingStatement") {
-        var script1 = document.createElement("script");
-        script1.async = true;
-        script1.src = "/js/TradingStatementModal.js";
-        document.head.appendChild(script1);
-
-        // TradingStatement.js
-        var script4 = document.createElement("script");
-        script4.async = true;
-        script4.src = "/js/TradingStatement.js";
-        document.head.appendChild(script4);
+function removeScript(scriptElement) {
+    if (scriptElement && scriptElement.parentNode) {
+        scriptElement.parentNode.removeChild(scriptElement);
     }
 }

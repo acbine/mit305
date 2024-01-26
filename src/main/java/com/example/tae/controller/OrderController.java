@@ -41,8 +41,7 @@ public class OrderController {
 
     @PostMapping("orderInspect")
     public String orderInspect(@RequestBody OrderInspectDTO inspect) {
-        log.info(inspect.getInspectDate().toString(), inspect.getPlanId());
-        ProgressInspection progressInspection = orderService.orderInsepect(inspect);
+        List<ProgressInspection> progressInspections = orderService.orderInsepect(inspect);
         return "orderInspect";
     }
 

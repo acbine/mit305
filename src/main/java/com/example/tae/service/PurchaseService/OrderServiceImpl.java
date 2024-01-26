@@ -166,8 +166,9 @@ public class OrderServiceImpl implements OrderService {
 
 
     /*진척 검수 등록 */
-    public ProgressInspection orderInsepect(OrderInspectDTO inspection) {
+    public List<ProgressInspection> orderInsepect(OrderInspectDTO inspection) {
        int planId = inspection.getPlanId();
+       List<ProgressInspection> progressInspectionList = new ArrayList<>();
        Optional<ProcurementPlan> procurementPlan = Optional.of(procurementPlanRepository.findById(planId).orElseThrow(
                ()-> new NullPointerException("해당 조달계획이 존재하지 않습니다.")));
         Purchase purchase = procurementPlan.get().getPurchase();
@@ -177,8 +178,7 @@ public class OrderServiceImpl implements OrderService {
                 .progressInspectionStatus(false)
                 .orderCode(purchase)
                 .build();
-        log.info(progressInspection.toString());
         progressInspectionRepository.save(progressInspection);
-        return progressInspection;
+        return progressInspectionList;
     }
 }

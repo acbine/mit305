@@ -2,7 +2,6 @@
 
 function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
     var html = document.getElementById("orderInspectPopup");
-console.log(procurementPlanCode)
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {

@@ -1,13 +1,11 @@
 package com.example.tae.entity.Contract.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,6 +18,7 @@ public class ContractDTO {
     private String payment_method;
     private int product_price;
     private int lead_time;
+    private Date start_date;
 
     private Date contract_date;
 

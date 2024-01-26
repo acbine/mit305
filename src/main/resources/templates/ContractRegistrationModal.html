@@ -48,6 +48,13 @@
 
             #printBTN{display: none;}
         }
+
+        table {
+
+            width : 600px;
+
+        }
+
     </style>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
@@ -81,7 +88,7 @@
                 <P CLASS=HStyle0 STYLE='text-align:right;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>
             </TD>
 
-            <TD width="67" height="19" valign="middle" style='border-left:none;border-right:none;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <TD width="70" height="19" valign="middle" style='border-left:none;border-right:none;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
                 <div id="year" STYLE='font-size:8.0pt;line-height:160%; text-align:right;'>년</div>
             </TD>
 
@@ -119,84 +126,25 @@
         <!-- 품목 테이블 - 헤드-->
         <thead>
         <tr>
-            <TD colspan="3" width="120" height="28" valign="middle" class="cell">
+            <TH colspan="3" width="137" height="28" valign="middle" class="cell">
                 <P CLASS=HStyle3 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>품&nbsp;&nbsp;&nbsp;명</SPAN></P>
-            </TD>
-            <TD colspan="2" width="63" height="28" valign="middle" class="cell">
+            </TH>
+            <TH colspan="2" width="63" height="28" valign="middle" class="cell">
                 <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>L&nbsp;&nbsp;/&nbsp;&nbsp;T</SPAN></P>
-            </TD>
-            <TD width="95" height="28" valign="middle" class="cell">
+            </TH>
+            <TH width="95" height="28" valign="middle" class="cell">
                 <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>단&nbsp;가</SPAN></P>
-            </TD>
-            <TD colspan="4" width="120" height="28" valign="middle" class="cell">
-                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>계&nbsp;&nbsp;약&nbsp;&nbsp;기&nbsp;&nbsp;간</SPAN></P>
-            </TD>
-            <TD colspan="2" width="87" height="28" valign="middle" class="cell">
+            </TH>
+            <TH colspan="2" width="110" height="28" valign="middle" class="cell">
                 <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>지&nbsp;&nbsp;급&nbsp;&nbsp;수&nbsp;&nbsp;단</SPAN></P>
-            </TD>
+            </TH>
+            <TH colspan="4" width="80" height="22" valign="middle" class="cell">
+                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>비&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;고</SPAN></P>
+            </TH>
         </tr>
         </thead>
 
         <tbody>
-        <!--            <TR class="cell">-->
-
-        <!--            <TD colspan="3" width="107" height="22" valign="middle">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>나사</SPAN></P>-->
-        <!--            </TD>-->
-
-        <!--            <TD colspan="2" width="63" height="22" valign="middle">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-
-        <!--            <TD width="95" height="22" valign="middle">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-
-        <!--            <TD colspan="4" width="120" height="22" valign="middle">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>24/01/10 ~ 24/01/20</SPAN></P>-->
-        <!--            </TD>-->
-
-        <!--            <TD colspan="2" width="87" height="22" valign="middle" class="cell">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            </TR>-->
-
-        <!-- 여백을 위한 빈 행-->
-        <!--            <TR>-->
-        <!--            <TD colspan="3" width="107" height="16" valign="middle" class="cell">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="2" width="63" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD width="95" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="4" width="120" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="2" width="87" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--        </TR>-->
-        <!--            <TR>-->
-        <!--            <TD colspan="3" width="107" height="16" valign="middle" class="cell">-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="2" width="63" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD width="95" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="4" width="120" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--            <TD colspan="2" width="87" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:solid #000000 0.4pt;border-bottom:solid #000000 0.4pt;padding:1.4pt 5.1pt 1.4pt 5.1pt'>-->
-        <!--                <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>-->
-        <!--            </TD>-->
-        <!--        </TR>-->
-
         </tbody>
     </TABLE>
 
@@ -204,7 +152,7 @@
     <TABLE border="1" cellspacing="0" cellpadding="0" style='border-collapse:collapse;border:none;'>
 
         <TR>
-            <TD colspan="3" width="124" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:none;border-top:solid #000000 0.4pt;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
+            <TD colspan="3" width="126" height="16" valign="middle" style='border-left:solid #000000 0.4pt;border-right:none;border-top:solid #000000 0.4pt;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
                 <P CLASS=HStyle0 STYLE='text-align:center;'><SPAN STYLE='font-size:8.0pt;line-height:160%;'>&nbsp;</SPAN></P>
             </TD>
             <TD colspan="2" width="63" height="16" valign="middle" style='border-left:none;border-right:none;border-top:solid #000000 0.4pt;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
@@ -306,14 +254,12 @@
 
     <br>
 
-    <select id="name_select" onChange="name_value(this.options[this.selectedIndex].value)">
-        <option value="none">=== 선택 ===</option>
-        <option value="n1">길승산업</option>
-        <option value="n2">마텍스</option>
-    </select>
+    <input id = "get_company">
 
-    <button id="select_contract" onclick="contract_select()" >계약 확인</button> &nbsp;&nbsp;&nbsp;
-    <button id="save" style="position: absolute" onclick="contract_convertToImage();" >계약서 저장</button>
+
+    <button id="select_contract" onclick="company_select()" >계약 확인</button> &nbsp;&nbsp;&nbsp;
+    <input type="button" value="저장" id="print" onclick="contract_convertToImage(); window.print();"/> &nbsp;&nbsp;&nbsp;
+<!--    <button id="save" style="position: absolute" onclick="contract_convertToImage();" >계약서 저장</button>-->
 
 </div>
 </p>

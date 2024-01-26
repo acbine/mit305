@@ -55,7 +55,7 @@ public class ProductInfomationServiceImpl implements ProductInfomationService {
 
         try {
 
-            String uploadDir = "images"; // 이미지 저장 경로 : 프로젝트 내의 images 폴더
+            String uploadDir = "images/Product"; // 이미지 저장 경로 : 프로젝트 내의 images 폴더
             String image_name = file.getOriginalFilename(); // 이미지 이름 생성
             Path upload_path = Paths.get(uploadDir);
 

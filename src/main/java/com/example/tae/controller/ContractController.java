@@ -1,6 +1,7 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Contract.Contract;
+import com.example.tae.repository.RegistrationRepository.ContractPageRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,7 +42,7 @@ public class ContractController {
     // 계약 수정한 값으로 db에 수정
     @PostMapping("/edit/{contract_code}")
     @ResponseBody
-    public String updateContract(@PathVariable int contract_code, @RequestBody Contract contractUpdate) {
+    public String updateContract(@PathVariable(value = "contract_code") int contract_code, @RequestBody Contract contractUpdate) {
 
         Contract contract = contractRepository.findById(contract_code).orElseThrow(() -> new IllegalArgumentException("Invalid entity ID: " + contract_code));
 
@@ -54,9 +55,10 @@ public class ContractController {
         return "수정된 계약 코드: " + contract_code;
     }
 
+    // 계약 삭제
     @GetMapping("/delete/{contract_code}")
     @ResponseBody
-    public String deleteContract(@PathVariable int contract_code) {
+    public String deleteContract(@PathVariable(value = "contract_code") int contract_code) {
 
         contractRepository.deleteById(contract_code);
         return "삭제된 계약 코드: " + contract_code;

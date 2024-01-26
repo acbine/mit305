@@ -270,6 +270,7 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
                 selectCont.innerHTML = this.responseText;
+                loadJS(includePath);
             }
         };
         xhttp.open('GET', includePath, true);
@@ -294,6 +295,7 @@ function LoadHTMLOfThePage(cnt) {
             if (this.readyState === 4 && this.status === 200) {
                 PageData.style.display = "block";
                 PageData.innerHTML = this.responseText;
+                loadJS(includePath);
             }
         };
         xhttp.open('GET', includePath, true);
@@ -408,84 +410,105 @@ function test() {
 }
 
 
-//stockDelivery.js
-var scriptElement1 = document.createElement("script");
-scriptElement1.async = true;
-scriptElement1.src = "/js/stockDelivery.js";
-document.head.appendChild(scriptElement1);
+function loadJS(includePath) {
+    if (includePath === "ProductInformationRegistration") {
+        // ProductInformationRegistration.js
+        var script7 = document.createElement("script");
+        script7.async = true;
+        script7.src = "/js/ProductInformationRegistration.js";
+        document.head.appendChild(script7);
 
-// TradingStatementModal.js
-var script1 = document.createElement("script");
-script1.async = true;
-script1.src = "/js/TradingStatementModal.js";
-document.head.appendChild(script1);
+    } else if (includePath === "ContractRegistration") {
+        // ContractRegistration.js
+        var script9 = document.createElement("script");
+        script9.async = true;
+        script9.src = "/js/ContractRegistration.js";
+        document.head.appendChild(script9);
 
-// Registration.js
-var script2 = document.createElement("script");
-script2.async = true;
-script2.src = "/js/Registration.js";
-document.head.appendChild(script2);
+        // ContractRegistrationModal.js
+        var script10 = document.createElement("script");
+        script10.async = true;
+        script10.src = "/js/ContractRegistrationModal.js";
+        document.head.appendChild(script10);
 
-// ReceivingProcessing.js
-var script3 = document.createElement("script");
-script3.async = true;
-script3.src = "/js/ReceivingProcessing.js";
-document.head.appendChild(script3);
+        // Registration.js
+        var script2 = document.createElement("script");
+        script2.async = true;
+        script2.src = "/js/Registration.js";
+        document.head.appendChild(script2);
 
-// TradingStatement.js
-var script4 = document.createElement("script");
-script4.async = true;
-script4.src = "/js/TradingStatement.js";
-document.head.appendChild(script4);
+    } else if (includePath === "ProcurementPlanRegistration") {
 
-// order.js
-var script5 = document.createElement("script");
-script5.async = true;
-script5.src = "/js/order.js";
-document.head.appendChild(script5);
+        // ProcurementPlanRegistration.js
+        var script8 = document.createElement("script");
+        script8.async = true;
+        script8.src = "/js/ProcurementPlanRegistration.js";
+        document.head.appendChild(script8);
 
-// StatusManagementReport.js
-var script6 = document.createElement("script");
-script6.async = true;
-script6.src = "/js/StatusManagementReport.js";
-document.head.appendChild(script6);
+    } else if (includePath === "orderRegister") {
 
-// ProductInformationRegistration.js
-var script7 = document.createElement("script");
-script7.async = true;
-script7.src = "/js/ProductInformationRegistration.js";
-document.head.appendChild(script7);
+        var script12 = document.createElement("script");
+        script12.async = true;
+        script12.src = "/js/orderRegister.js";
+        document.head.appendChild(script12);
 
-// ProcurementPlanRegistration.js
-var script8 = document.createElement("script");
-script8.async = true;
-script8.src = "/js/ProcurementPlanRegistration.js";
-document.head.appendChild(script8);
+        // order.js
+        var script5 = document.createElement("script");
+        script5.async = true;
+        script5.src = "/js/order.js";
+        document.head.appendChild(script5);
+    } else if (includePath === "orderList") {
+        //orderList.js
+        var script13 = document.createElement("script");
+        script13.async = true;
+        script13.src = "/js/orderListPopup.js";
+        document.head.appendChild(script13);
 
-// ContractRegistration.js
-var script9 = document.createElement("script");
-script9.async = true;
-script9.src = "/js/ContractRegistration.js";
-document.head.appendChild(script9);
+        // order.js
+        var script5 = document.createElement("script");
+        script5.async = true;
+        script5.src = "/js/order.js";
+        document.head.appendChild(script5);
 
-// ContractRegistrationModal.js
-var script10 = document.createElement("script");
-script10.async = true;
-script10.src = "/js/ContractRegistrationModal.js";
-document.head.appendChild(script10);
+        var script13 = document.createElement("script");
+        script13.async = true;
+        script13.src = "/js/orderListPopup.js";
+        document.head.appendChild(script13);
 
-// existence.js
-var script11 = document.createElement("script");
-script11.async = true;
-script11.src = "/js/existence.js";
-document.head.appendChild(script11);
+    } else if (includePath === "StatusManagementReport") {
+        // StatusManagementReport.js
+        var script6 = document.createElement("script");
+        script6.async = true;
+        script6.src = "/js/StatusManagementReport.js";
+        document.head.appendChild(script6);
+    } else if (includePath === "stockDelivery") {
+        var scriptElement1 = document.createElement("script");
+        scriptElement1.async = true;
+        scriptElement1.src = "/js/stockDelivery.js";
+        document.head.appendChild(scriptElement1);
+    } else if (includePath === "existence") {
+        // existence.js
+        var script11 = document.createElement("script");
+        script11.async = true;
+        script11.src = "/js/existence.js";
+        document.head.appendChild(script11);
+    } else if (includePath === "ReceivingProcess") {
+        // ReceivingProcessing.js
+        var script3 = document.createElement("script");
+        script3.async = true;
+        script3.src = "/js/ReceivingProcessing.js";
+        document.head.appendChild(script3);
 
-var script12 = document.createElement("script");
-script12.async = true;
-script12.src = "/js/orderRegister.js";
-document.head.appendChild(script12);
+    } else if (includePath === "TradingStatement") {
+        var script1 = document.createElement("script");
+        script1.async = true;
+        script1.src = "/js/TradingStatementModal.js";
+        document.head.appendChild(script1);
 
-var script13 = document.createElement("script");
-script13.async = true;
-script13.src = "/js/orderListPopup.js";
-document.head.appendChild(script13);
+        // TradingStatement.js
+        var script4 = document.createElement("script");
+        script4.async = true;
+        script4.src = "/js/TradingStatement.js";
+        document.head.appendChild(script4);
+    }
+}

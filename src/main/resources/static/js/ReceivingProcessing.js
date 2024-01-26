@@ -109,7 +109,7 @@ function sendData(Codeprocurementplan){
 
                         var ArrivalCell = document.createElement('td'); ////////////////////////////////////////////////입고일
                         ArrivalCell.classList.add('table-data');
-                        if(inSTRData.rProcessList[i].arrival.toLocaleString() === '0001-01-01T00:00:00'){
+                        if(inSTRData.rProcessList[i].arrival.toLocaleString() == '0001-01-01T00:00:00'){
 //                            console.log("일치함")
                             ArrivalCell.innerHTML ='입고처리하지 않음';
                         }else{
@@ -225,16 +225,12 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
                 ordercodeCell.innerHTML = searchList.searchDTOList[i].ordercode; //발주서 코드
                 tableBodyRow.appendChild(ordercodeCell);
 
-
-
-
                 var procurementplan_codeCell = document.createElement('td');
                 procurementplan_codeCell.classList.add('table-data');
                 procurementplan_codeCell.setAttribute('hidden', 'hidden');
                 procurementplan_codeCell.id = 'code' +searchList.searchDTOList[i].procurementplan_code;
                 procurementplan_codeCell.innerHTML = searchList.searchDTOList[i].procurementplan_code; //조달계획코드
                 tableBodyRow.appendChild(procurementplan_codeCell);
-
 
                 var productcodeCell = document.createElement('td');
                 productcodeCell.classList.add('table-data');

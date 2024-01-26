@@ -21,13 +21,13 @@ import java.util.Optional;
 
 public interface ReceivingProcessingRepository extends JpaRepository<ReceivingProcessing,Integer> {
 //---------------------------------------------------------발주 현황괄리 리포트------------------------------------------------------
-    @Query(value = " SELECT * FROM tae.procurement_plan as p, tae.project_plan as pl where p.project_plan_id = pl.id and pl.project_output_date between :start and :end ", nativeQuery = true)
+    @Query(value = "SELECT * FROM tae.procurement_plan as p, tae.project_plan as pl WHERE p.project_plan_id = pl.id and pl.project_output_date BETWEEN :start AND :end", nativeQuery = true)
     List<Object[]> StatMentRepostSearch(@Param("start") Date start,@Param("end") Date end); //발주현황관리의 조달계획리스트를 검색 기간동안 불러오기  정렬은?->생산계획의 오른차순으로
 
-    @Query("SELECT pp FROM ProcurementPlan pp ORDER BY pp.projectPlan.projectOutputDate ")
-    List<ProcurementPlan> statementAllSearch(); //조달계획의 품목리스트를 전부  불러오기    정렬은?-> 생산계획의 오른차순으로
+//    @Query("SELECT pp FROM ProcurementPlan pp ORDER BY pp.projectPlan.projectOutputDate ")
+//    List<ProcurementPlan> statementAllSearch(); //조달계획의 품목리스트를 전부  불러오기    정렬은?-> 생산계획의 오른차순으로
 
-    @Query("SELECT pp.order_state , Count(pp) FROM ProcurementPlan pp WHERE pp.projectPlan.projectOutputDate BETWEEN :start AND :end GROUP BY pp.order_state ORDER BY pp.order_state ")
+    @Query(value ="SELECT p.order_state , count(*) FROM tae.procurement_plan as p, tae.project_plan as pl WHERE p.project_plan_id = pl.id and pl.project_output_date BETWEEN :start AND :end GROUP BY p.order_state ORDER BY p.order_state" ,nativeQuery = true)
     List<Object[]> groupByOrderState(@Param("start") Date start, @Param("end") Date end); //발주현황관리의 조달계획리스트를 발주 상태별로 묶어서 각 발주 상태가 갯수가 얼마나되는지 정렬은?-> 발주서 의 이름 순서대로 오른차순
 //----------------------------------------------------------입고처리------------------------------------------------------------------
     @Query("SELECT pp FROM ProcurementPlan pp where pp.order_state='검수처리완료' ORDER BY pp.purchase.regDate")

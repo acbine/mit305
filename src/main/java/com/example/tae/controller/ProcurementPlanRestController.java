@@ -103,7 +103,6 @@ public class ProcurementPlanRestController  {
                 procurementPlan.setContract(contract);// 계약 코드
                 procurementPlan.setProject(project_Name);// 조달 제품명
                 procurementPlan.setSupportProductAmount(data.getSupportProductAmount());// 조달 수량
-                procurementPlan.setOrder_state("발주전");
                 procurementPlan.setOrder_date(data.getOrder_date());// 발주일
 
                 procurementPlanRepository.save(procurementPlan);

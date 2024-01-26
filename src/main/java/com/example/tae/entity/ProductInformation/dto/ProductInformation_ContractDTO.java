@@ -1,18 +1,15 @@
 package com.example.tae.entity.ProductInformation.dto;
 
-import com.example.tae.entity.DummyData.DTO.PartDTO;
-import jakarta.transaction.Transactional;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
 
-@Data
-@Builder
+
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductInformationRegistrationDTO {
+@Getter
+@Setter
+public class ProductInformation_ContractDTO {
 
     private int product_code;
 
@@ -29,5 +26,9 @@ public class ProductInformationRegistrationDTO {
     private int height;
     private int weight;
 
-    private MultipartFile image_name;
+//    private String product_imageURL;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING) // 계약 코드가 null 이어도 가져와야 함
+    private int contract_code;
+
 }

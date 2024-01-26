@@ -26,18 +26,12 @@ public class ContractRestController {
 
     @PostMapping("/search/pro") // 품목 코드 검색
     @ResponseBody
-    public int searchProductId(@RequestParam String name) {
+    public int searchProductId(@RequestParam(name = "name") String name) {
 
         System.out.println(name);
 
-
-
         List<ProductInformationRegistration> NameSearch
                 = productInformationRegistrationRepository.findByProductInformationName(name);
-
-        NameSearch.forEach(System.out::println);
-
-//        System.out.println(NameSearch.get(0));
 
         if(!NameSearch.isEmpty()) {
 
@@ -50,9 +44,9 @@ public class ContractRestController {
 
     @PostMapping("/search/com") // 사업자 번호 검색
     @ResponseBody
-    public String searchCompanyId(@RequestParam String name) {
+    public String searchCompanyId(@RequestParam(name = "comName") String comName) {
 
-        List<Company> NameSearch2 = companyRepository.findBydepartName(name);
+        List<Company> NameSearch2 = companyRepository.findBydepartName(comName);
 
 //        System.out.println("리스트의 0번째 : " + NameSearch2.get(0));
 
@@ -78,9 +72,6 @@ public class ContractRestController {
 
             Company company = companyRepository.findById(data.getBusinessNumber()).orElse(null);
 
-//            System.out.println("입력 받은 품목 코드 : "+ productInformationRegistration);
-//            System.out.println("입력 받은 사업자 번호 : "+ company);
-
             if(productInformationRegistration != null && company != null) {
                 Contract contract = new Contract();
 
@@ -89,8 +80,6 @@ public class ContractRestController {
                 contract.setCompany(company); // 사업자 번호
                 contract.setProduct_price(data.getProduct_price()); // 단가
                 contract.setPayment_method(data.getPayment_method()); // 지불 방법
-                contract.setStart_date(data.getStart_date()); // 계약 시작일
-                contract.setEnd_date(data.getEnd_date()); // 계약 종료일
 
                 contractRepository.save(contract);
             }

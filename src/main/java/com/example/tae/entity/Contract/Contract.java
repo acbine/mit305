@@ -32,12 +32,6 @@ public class Contract {
     int lead_time;
 
     @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
-    Date start_date;
-
-    @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
-    Date end_date;
-
-    @Temporal(TemporalType.DATE) // TemporalType.DATE: 년-월-일 의 date로 매핑
     Date contract_date;
 
 }

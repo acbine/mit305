@@ -48,6 +48,7 @@ public class OrderServiceImpl implements OrderService {
                 .order_date(order_date)
                 .order_state("발주중")
                 .contract(procurementPlan.getContract())
+                .project(procurementPlan.getProject())
                 .procurementplan_code(procurementPlanCode)
                 .SupportProductAmount(procurementPlan.getSupportProductAmount())
                 .purchase(purchase)

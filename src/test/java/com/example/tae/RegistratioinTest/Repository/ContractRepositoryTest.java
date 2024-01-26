@@ -41,8 +41,7 @@ public class ContractRepositoryTest {
         ProductInformationRegistration productInformationRegistration = productInfomationRepository.findById(2).get();
 
         Contract contract1 = Contract.builder().productInformationRegistration(productInformationRegistration)
-                .company(company).payment_method("현금지불").product_price(100).lead_time(10)
-                .start_date(date1).end_date(date2).contract_date(date3).build();
+                .company(company).payment_method("현금지불").product_price(100).lead_time(10).contract_date(date3).build();
 
         contractRepository.save(contract1);
     }

@@ -120,7 +120,6 @@ function updateButtonState(buttonId, state) {
 }
 
 function sendDateToChild(String) {
-    console.log("들어오는 값 확인 해보기",String);
 
     var data;
 
@@ -170,7 +169,7 @@ const childComponent = {
         const contList = [];
 
         var currentPage;
-        
+
         for (var i=0; i<arrayClick.length; i++) {
 
             if (arrayClick[i] === "품목정보등록") {
@@ -269,8 +268,8 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                selectCont.innerHTML = this.responseText;
                 loadJS(includePath);
+                selectCont.innerHTML = this.responseText;
             }
         };
         xhttp.open('GET', includePath, true);
@@ -293,9 +292,9 @@ function LoadHTMLOfThePage(cnt) {
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
+                loadJS(includePath);
                 PageData.style.display = "block";
                 PageData.innerHTML = this.responseText;
-                loadJS(includePath);
             }
         };
         xhttp.open('GET', includePath, true);
@@ -394,7 +393,6 @@ function closePage(pageData, cnt) {
     arrayClick.splice(arrayClick.indexOf(pageData),1);
 
     setCookie("clickTapList", arrayClick,7)
-    console.log(pageData, cnt);
 
     var second = taps[1];
 
@@ -424,12 +422,14 @@ function loadJS(includePath) {
         "TradingStatement": ["/js/TradingStatementModal.js", "/js/TradingStatement.js"]
     };
 
+
     // 주어진 includePat// 주어진 includePath에 따라 스크립트를 추가 또는 제거
     if (scriptPaths[includePath]) {
         scriptPaths[includePath].forEach(function (path) {
             addScript(path);
         });
     }
+
 
     // 주어진 includePath 이외의 경우 해당 스크립트를 모두 제거
     for (var path in scriptPaths) {

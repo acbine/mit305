@@ -45,24 +45,7 @@
                 </tr>
             </thead>
 
-            <tbody id="tableBody">
-<!--                <tr th:each="list : ${procumentList}" th:id="row+${list.procurementplan_code}">-->
-<!--                        <td class="table-data" th:text="${list.ordercode}">발주서코드</td>-->
-<!--                        <td class="table-data" hidden="hidden"><input th:id="code+${list.procurementplan_code}" class="input-form-style" type="text" name="procurementplan_code" th:value="${list.procurementplan_code}" readonly></td>-->
-<!--                        <td class="table-data" th:text="${list.productcode}">품목코드</td>-->
-<!--                        <td class="table-data" th:text="${list.productname}">품목명</td>-->
-<!--                        <td class="table-data" th:text="${list.departName}">업체명</td>-->
-<!--                        <td class="table-data" th:text="${list.businessNumber}">사업자번호</td>-->
-<!--                        <td class="table-data" th:text="${list.DateOfOrder}">발주서발행일</td>-->
-<!--                        <td class="table-data" th:text="${list.OrderDate}">발주일</td>-->
-<!--                        <td class="table-data" th:unless="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}" th:text="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm')}" >기본값이 아닐경우 시간 보여줌</td>-->
-<!--                        <td class="table-data" th:if="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}">입고처리하지 않음</td> &lt;!&ndash;기본값 일시 이출력문구 보여줌&ndash;&gt;-->
-<!--                        <td class="table-data" th:text="${list.SupportProductAmount}">조달예정수량</td>-->
-<!--                        <td class="table-data" style="width:100px;"><input th:id="store+${list.procurementplan_code}" type="number" name="store"></td>-->
-<!--                        <td class="table-data" th:text="${list.orderState}">품목처리상태</td>-->
-<!--                        <td class="table-data" th:if="${#temporals.format(list.Arrival,'yyyy-MM-dd HH:mm') eq '0001-01-01 00:00'}">-->
-<!--                            <button th:onclick="'sendData(\'' + ${list.procurementplan_code} + '\')'" style="background-color: blue; color: white;">입고처리</button>-->
-<!--                        </td>-->
+            <tbody id="ReceivingTableBody">
 <!--                </tr>-->
             </tbody>
         </table>

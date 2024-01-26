@@ -17,73 +17,67 @@ function orderRegister(productCode, procurementPlanCode, index) {
 
 }
 
-function orderRegisterIn(data) {
- var insertRegister= document.getElementsByClassName("confirm");
+function orderRegisterIn(index, planCode) {
+    console.log("확인시 받아오는 데이터 확인",index , "           ", planCode);
+    $.ajax({
+        url:'inspectorData?planCode='+planCode,
+        method: 'get',
+        success:function (inspector) {
+            console.log(inspector)
+            addInspect(inspector)
+            console.log("성공")
+        },
+        error:function (){
+            console.error("실패")
+        }
+
+    })
+}
+
+function addInspect(inspector) {
+    console.log("넘어오는 데이터 확인 : ", inspector.progressInspectionList);
+    var inspectorInfo = inspector.progressInspectionList;
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+
+    for(let i = 0; i<inspectorInfo.length; i++) {
+
+        classTbodyContainerTr.insertRow(0).innerHTML = `<td>${inspectorInfo[i].productName}</td>
+                                                            <td>${formDate(inspectorInfo[i].orderDate)}</td>
+                                                            <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
+                                                            <input hidden="${inspectorInfo[i].progressInspectionId}"/>
+                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+    }
+
     var hidden = document.getElementById("hidden");
     hidden.style.display ="block";
+}
+
+function updateProgressInspection(info) {
+    var updateDate = info.closest("tr");
+
+    var date = updateDate.children[2];
+    var updateButton = updateDate.children[3];
+    updateButton.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateConfirm(this)">등록</button><button>삭제</button></td>`;
+    date.innerHTML = `<input type="date">`;
+    console.log(updateDate);
+}
+
+function cancel(productCode, index) {
+    var tbody = document.getElementsByClassName("orderRegisterTable");
+    tbody[index].style.display = "none";
+    var formData = {"productCode": productCode};
+
+
 
 }
 
-//console.log("정보를 잘 찾아오는지 확인 : ",departName);
-// $.ajax({
-//        url: '/orderRegister?&departName='+departName,
-//        method: 'GET',
-//        dataType: 'json',
-//        success: function(data) {
-//            var regBtn = document.getElementById("registerBtn");
-//            if(data > 0)
-//                regBtn.disabled = false;
-//            else
-//                regBtn.disabled = true;
-//        },
-//        error: function(error) {
-//            console.error('오류:', error);
-//        }
-//    });
-//}
+function formDate(data) {
 
-//$(document).ready(function(){
-//    $.ajax({
-//        url: '/orderRegister?&departName='+departName,
-//        method: 'GET',
-//        dataType: 'json',
-//        success: function(data) {
-//            var regBtn = document.getElementById("registerBtn");
-//            if(data > 0)
-//                regBtn.disabled = false;
-//            else
-//                regBtn.disabled = true;
-//        },
-//        error: function(error) {
-//            console.error('오류:', error);
-//        }
-//    });
-//
-//    function cancel(btn, pcode){
-//        var confirmCancel = confirm("취소하시겠습니까?");
-//        if(confirmCancel){
-//            $.ajax({
-//                url: '/api/cancelOrder/' + pcode,
-//                method: 'DELETE',
-//                success: function(data) {
-//                    alert('취소되었습니다.');
-//                    $('#row_' + pcode).remove();
-//                    location.reload();
-//                },
-//                error: function(error) {
-//                    console.error('취소 오류:', error);
-//                }
-//            });
-//        }
-//    }
-//
-//    function orderReg(){
-//        var result = confirm("발주서를 등록하시겠습니까?");
-//        if(result){
-//            alert("발주서가 발행되었습니다.");
-//            window.location.href = 'StatusManagementReport';
-//        } else {
-//            window.close();
-//        }
-//    }
-//});
+    var date = new Date(data)
+
+    var formattedDate = date.getFullYear() + '-' +
+        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + date.getDate()).slice(-2);
+
+    return formattedDate;
+}

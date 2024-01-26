@@ -1,0 +1,29 @@
+package com.example.tae.entity.Order.dto;
+
+import com.example.tae.entity.Order.ProgressInspection;
+import lombok.*;
+
+import java.time.LocalDateTime;
+import java.util.Date;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
+public class ProgressInspectionDTO {
+    private String productName;
+    private int progressInspectionId;
+    private Date progressInspectonDate;
+    private LocalDateTime orderDate;
+
+    public static ProgressInspectionDTO makeDt(ProgressInspection progressInspection, String productName, LocalDateTime orderDate) {
+        return ProgressInspectionDTO.builder()
+                .productName(productName)
+                .progressInspectonDate(progressInspection.getProgressInspectionPlan())
+                .progressInspectionId(progressInspection.getProgressInspectionNum())
+                .orderDate(orderDate)
+                .build();
+    }
+
+}

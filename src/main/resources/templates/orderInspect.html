@@ -42,7 +42,7 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\')'">확인</button>
+                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\')'">확인</button>
             </td>
         </tr>
         <tr>

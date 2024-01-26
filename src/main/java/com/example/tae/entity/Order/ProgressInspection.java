@@ -1,6 +1,7 @@
 package com.example.tae.entity.Order;
 
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
+import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,7 +12,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class ProgressInspection {
+public class ProgressInspection extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int progressInspectionNum;          // 진척 검수 순번

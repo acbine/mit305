@@ -1,13 +1,14 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Contract.Contract;
+import com.example.tae.entity.Contract.ContractPage;
 import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
+import com.example.tae.repository.RegistrationRepository.ContractPageRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
-import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class ContractRestController {
 
     @Autowired
     CompanyRepository companyRepository;
+
+    @Autowired
+    ContractPageRepository contractPageRepository;
 
     @PostMapping("/search/pro") // 품목 코드 검색
     @ResponseBody
@@ -87,9 +91,31 @@ public class ContractRestController {
         }
     }
 
-    @Autowired
-    ContractServiceImpl contractService;
+    @PostMapping("/registration_page/{contract_code}")
+    public String RegisterPage(@PathVariable(value = "contract_code") int contract_code) {
+
+        ContractPage contractPage = new ContractPage();
+
+        Contract contract = contractRepository.findById(contract_code).orElse(null);
+        log.info("찾은 계약 코드 값: " + contract);
+
+        contractPage.setContract(contract);
+
+        contractPageRepository.save(contractPage);
+
+        return "계약서에 등록된 계약 코드: " + contract_code;
+    }
+
+    // 사업자 번호에 맞는 계약서에 등록된 계약 코드 검색
+    @PostMapping("/search/codes/{businessNumber}")
+    public List<ContractPage> getContract_code(@PathVariable(value = "businessNumber") String businessNumber) {
 
 
+         return contractPageRepository.findContractCodes_of_businessNumber(businessNumber);
+
+    }
+
+
+    // 계약 코드에 대응하는 계약 정보 검색
 
 }

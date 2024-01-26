@@ -10,5 +10,5 @@ import java.util.List;
 public interface CompanyRepository extends JpaRepository<Company, String> {
 
     @Query("select c from Company c where c.departName = :comName")
-    List<Company> findBydepartName(String comName);
+    List<Company> findBydepartName(@Param("comName")String comName);
 }

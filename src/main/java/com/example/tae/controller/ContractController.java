@@ -30,6 +30,7 @@ public class ContractController {
         return "ContractRegistrationModal";
     }
 
+    // 품목 전체 검색
     @GetMapping("/search/contract")
     @ResponseBody
     public List<Contract> getAll(){
@@ -37,6 +38,7 @@ public class ContractController {
         return contractService.getAllContracts();
     }
 
+    // 계약 수정한 값으로 db에 수정
     @PostMapping("/edit/{contract_code}")
     @ResponseBody
     public String updateContract(@PathVariable int contract_code, @RequestBody Contract contractUpdate) {
@@ -44,8 +46,7 @@ public class ContractController {
         Contract contract = contractRepository.findById(contract_code).orElseThrow(() -> new IllegalArgumentException("Invalid entity ID: " + contract_code));
 
         contract.setLead_time(contractUpdate.getLead_time());
-        contract.setStart_date(contractUpdate.getStart_date());
-        contract.setEnd_date(contractUpdate.getEnd_date());
+        contract.setProduct_price(contractUpdate.getProduct_price());
         contract.setPayment_method(contractUpdate.getPayment_method());
 
         contractRepository.save(contract);

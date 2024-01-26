@@ -80,7 +80,7 @@ function contract_addRow() {
 // 확인 클릭시 서버에 품목명으로 요청하는 함수
 function get_pname(button) {
 
-var productName = $(button).closest("tr").find(".p_input").val();
+var product_name = $(button).closest("tr").find(".p_input").val();
 var resultCell = $(button).closest("tr").find(".search_p");
 
 //console.log("입력받은 값: " + productName);
@@ -88,13 +88,14 @@ var resultCell = $(button).closest("tr").find(".search_p");
 $.ajax({
     type : "POST",
     url : "/search/pro",
-    data : {"name" : productName},
+    data : {"name" : product_name},
     success : function(data) {
           console.log("품목 코드" + data);
           resultCell.val(data);
     },
     error : function() {
-        console.log("검색 실패함");
+              console.log(data);
+        console.log("품목 코드 검색 실패함");
     }
 
 });
@@ -110,13 +111,13 @@ var resultCell2 = $(button).closest("tr").find(".search_c");
 $.ajax({
     type : "POST",
     url : "/search/com",
-    data : {"name" : companyName},
+    data : {"comName" : companyName},
     success : function(data) {
           console.log(data);
           resultCell2.val(data);
     },
     error : function() {
-        console.log("검색 실패함");
+        console.log("사업자 번호 검색 실패함");
     }
 
 });
@@ -136,16 +137,7 @@ var data = {
 
     product_price : $(button).closest("tr").find(".price").val(), // 단가
 
-    start_date : $(button).closest("tr").find(".cs_date").val(), // 계약 시작일 : yyyy-mm-dd
-
-    end_date : $(button).closest("tr").find(".ce_date").val(), // 계약 종료일
-
     payment_method : $(button).closest("tr").find(".payment").val(), // 지급 수단
-
-    // 계약 등록일 (빈값)
-
-    // 계약 등록여부 (False)
-    true_false : false
 
 };
 
@@ -229,8 +221,6 @@ function contract_modify(contract_code) {
 
 var lead_time = $(".now_lead_time").eq(contract_code-1); // LeadTime
 var product_price = $(".now_product_price").eq(contract_code-1);// 단가
-var start_date = $(".now_start_date").eq(contract_code-1);// 계약 시작일 : yyyy-mm-dd
-var end_date = $(".now_end_date").eq(contract_code-1); // 계약 종료일
 var payment_method = $(".now_payment").eq(contract_code-1); // 지급 수단
 
 var updatedFields = {};
@@ -238,25 +228,13 @@ var updatedFields = {};
 if (lead_time.val() !== dataFromServer[contract_code - 1].lead_time) { // 수정된 lead_time이 있을 경우 추가
     updatedFields.lead_time = lead_time.val();
 } else {
-    updatedFields.lead_time = ataFromServer[contract_code - 1].lead_time;
+    updatedFields.lead_time = dataFromServer[contract_code - 1].lead_time;
 }
 
 if (product_price.val() !== dataFromServer[contract_code - 1].product_price) {
     updatedFields.product_price = product_price.val();
 } else {
     updatedFields.product_price = dataFromServer[contract_code - 1].product_price;
-}
-
-if (start_date.val() !== dataFromServer[contract_code - 1].start_date) {
-    updatedFields.start_date = start_date.val();
-} else {
-    updatedFields.start_date = dataFromServer[contract_code - 1].start_date;
-}
-
-if (end_date.val() !== dataFromServer[contract_code - 1].end_date) {
-    updatedFields.end_date = end_date.val();
-} else {
-    updatedFields.end_date = dataFromServer[contract_code - 1].end_date;
 }
 
 if (payment_method.val() !== dataFromServer[contract_code - 1].payment_method) {

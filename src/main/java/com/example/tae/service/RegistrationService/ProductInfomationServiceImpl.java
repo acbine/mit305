@@ -12,17 +12,27 @@ import com.example.tae.repository.ProductForProjectRepository;
 import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
+@Slf4j
 public class ProductInfomationServiceImpl implements ProductInfomationService {
 
     private ProductInformationRegistrationRepository productInformationRegistrationRepository;
@@ -35,83 +45,71 @@ public class ProductInfomationServiceImpl implements ProductInfomationService {
         return productInformationRegistrationRepository.findAll();
     }
 
-
     @Override
     public List<ContractDTO> getListOfProductContract(int product_code) {
         return null;
     }
 
-    //    private String saveImage(MultipartFile multipartFile) throws IOException {
-//
-//
-//        // 여기에 이미지를 저장하는 로직을 추가
-//        // 예를 들어, 저장 경로는 /resources/images/ 디렉토리로 가정
-//
-//        String uploadDir = "src/main/resources/static/images/";
-//
-//        // 원본 파일명을 사용하여 저장할 파일명 생성
-//        String originalFilename = multipartFile.getOriginalFilename();
-//        System.out.println("현재 파일명: " + originalFilename);
-//
-//        String fileName = System.currentTimeMillis() + "_" + originalFilename;
-//        System.out.println(""+ fileName);
-//
-//        String filePath = uploadDir + fileName;
-//
-//        // 이미지를 서버에 저장
-//        File dest = new File(filePath);
-//        multipartFile.transferTo(dest);
-//
-//        // 이미지의 경로를 반환
-//        return fileName;
-//    }
+    @Transactional
+    public String saveImage(MultipartFile file)  {
+
+        try {
+
+            String uploadDir = "images"; // 이미지 저장 경로 : 프로젝트 내의 images 폴더
+            String image_name = file.getOriginalFilename(); // 이미지 이름 생성
+            Path upload_path = Paths.get(uploadDir);
+
+            log.info("생성된 파일 이름: " + image_name); // fa_download.png 확인됨
+
+            if(!Files.exists(upload_path)) { // 저장 폴더가 없으면 생성
+
+                Files.createDirectories(upload_path);
+            }
+
+            // 파일을 저장 경로에 복사
+            Path filePath = upload_path.resolve(image_name);
+            Files.copy(file.getInputStream(), filePath , StandardCopyOption.REPLACE_EXISTING);
+
+            return image_name;
+
+        } catch (IOException e) {
+
+            e.printStackTrace();
+            throw new RuntimeException("이미지 저장 실패");
+
+        }
+    }
 
     @Override
     @Transactional
     public void saveProductInfo(ProductInformationRegistrationDTO productInformationRegistrationDTO) throws IOException {
 
-        System.out.println("///// 서비스 시작 //////");
+        System.out.println("///// 품목 정보 등록 서비스 시작 //////");
 
         ProductInformationRegistration productInformationRegistration = new ProductInformationRegistration();
 
-        // 이름
-        productInformationRegistration.setProduct_name(productInformationRegistrationDTO.getProduct_name());
-
-        // 약칭
-        productInformationRegistration.setProduct_abbreviation(productInformationRegistrationDTO.getProduct_abbreviation());
-
-        // 재질
-        productInformationRegistration.setTexture(productInformationRegistrationDTO.getTexture());
-
-        // 가로
-        productInformationRegistration.setWidth(productInformationRegistrationDTO.getWidth());
-
-        // 세로
-        productInformationRegistration.setLength(productInformationRegistrationDTO.getLength());
-
-        // 높이
-        productInformationRegistration.setHeight(productInformationRegistrationDTO.getHeight());
-
-        // 중량
-        productInformationRegistration.setWeight(productInformationRegistrationDTO.getWeight());
-
-        // 소분류
-        Part part = partRepository.findById(productInformationRegistrationDTO.getId())
+        productInformationRegistration.setProduct_name(productInformationRegistrationDTO.getProduct_name()); // 이름
+        productInformationRegistration.setProduct_abbreviation(productInformationRegistrationDTO.getProduct_abbreviation()); // 약칭
+        productInformationRegistration.setTexture(productInformationRegistrationDTO.getTexture()); // 재질
+        productInformationRegistration.setWidth(productInformationRegistrationDTO.getWidth()); // 가로
+        productInformationRegistration.setLength(productInformationRegistrationDTO.getLength()); // 세로
+        productInformationRegistration.setHeight(productInformationRegistrationDTO.getHeight()); // 높이
+        productInformationRegistration.setWeight(productInformationRegistrationDTO.getWeight()); // 중량
+        Part part = partRepository.findById(productInformationRegistrationDTO.getId()) // 소분류
                 .orElseThrow(() -> new IllegalArgumentException("부모 데이터를 찾을 수 없습니다."));
         productInformationRegistration.setPart(part);
 
-//        System.out.println("upload 값: " + productInformationRegistrationDTO.getUpload());
 
-        // 이미지
-//        String imageName = saveImage(productInformationRegistrationDTO.getUpload());
-//        productInformationRegistration.setImageName(imageName);
+        String image_name = saveImage(productInformationRegistrationDTO.getImage_name());
+
+        productInformationRegistration.setImage_name(image_name);
 
 
         productInformationRegistrationRepository.save(productInformationRegistration);
 
         Project projectId = projectRepository.findById("스마트폰").get();
 
-       Optional<ProductForProject> productForProject = Optional.of(productForProjectRepository.findByProdcutId(productInformationRegistration.getProduct_code()).orElseGet(
+        Optional<ProductForProject> productForProject = Optional.of(productForProjectRepository.findByProdcutId(productInformationRegistration.getProduct_code()).orElseGet(
                 ()->{
                     ProductForProjectEmbeddable productForProjectEmbeddable = ProductForProjectEmbeddable.builder()
                             .productCode(productInformationRegistration)

@@ -100,7 +100,6 @@ $.each(join_List, function(index, setList) {
             '<td><input type="date" style = "width:150.67px; height:"29px"; font-size:15px;" class = get_date></td>' + // 발주일 (날짜 선택, 기본값)
             '<td>' + // 계획 처리
                 '<div class="actions">' +
-                     '<button class="action-button action-button-edit" onclick="modify_and_save(this)">수정</button>' +
                      '<button class="action-button action-button-registration" onclick="procurement_registration(this); td_delete(this);">등록</button>' +
                 '</div>' +
             '</td>'+

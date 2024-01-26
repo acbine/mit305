@@ -33,5 +33,5 @@ public class ProductInformationRegistration {
     private int height;
     private int weight;
 
-//    private String product_imageURL;
+    private String image_name;
 }

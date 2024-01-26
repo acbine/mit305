@@ -30,11 +30,22 @@ public class ProductInformationRegistrationController {
     ProductInfomationServiceImpl productInfomationService;
 
 
+    // 모든 품목 검색
     @GetMapping("/search/product")
     @ResponseBody
     public List<ProductInformationRegistration> getProductInfo() {
 
         return productInfomationService.getAllProductInfo();
     }
+
+    // 계약과 조인한 품목 검색
+//    @GetMapping("/search/product/contract")
+//    @ResponseBody
+//    public List<ProductInformationRegistration> getProduct_contract() {
+//
+//
+//
+//        return null;
+//    }
 
 }

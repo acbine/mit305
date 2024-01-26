@@ -21,8 +21,6 @@ public class ContractDTO {
     private int product_price;
     private int lead_time;
 
-    private Date start_date;
-    private Date end_date;
     private Date contract_date;
 
 }

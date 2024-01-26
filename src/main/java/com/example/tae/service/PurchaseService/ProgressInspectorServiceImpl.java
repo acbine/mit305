@@ -44,7 +44,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
                 .progressInspectionStatus(false)
                 .orderCode(purchase)
                 .build();
-//        progressInspectionRepository.save(progressInspection);
+        progressInspectionRepository.save(progressInspection);
 
         return  ProgressInspectionDTO.makeDt(progressInspection,procurementPlan.get().getContract().getProductInformationRegistration().getProduct_name(),purchase.getModDate());
     }

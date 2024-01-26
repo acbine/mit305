@@ -36,7 +36,6 @@ public class BinController {
     }
 
     @GetMapping("rPSearch")
-    @ResponseBody
     public ResponseEntity<?> ReceivingProcessSearch(@RequestParam("inputData") String inputData,@RequestParam("searchData") String searchData ,@RequestParam("state") String state) {
         System.out.println("입고처리의 검색요청들어옴");
         System.out.println("=======> 검색내용"+inputData +"========>검색종류"+searchData);

@@ -1,38 +1,38 @@
 var state; //페이지 상태값
 var formInputData; // 검색 데이터
 
-$(function ReceivingProcessing(){  //모달 관련 js
-    $("#modalBTN").on("click",function(){
-        console.log("모달 버튼 클릭됨");
-        $("#myModal").css('display','block');
-    });
-
-    $(".button-style").on("click",function(){
-        console.log("모달 닫기 클릭됨");
-        $("#myModal").css('display','none');
-    });
-
-
-    $('.modal-content').on('click',function(){
-        console.log("모달콘튼츠창클릭 백그라운드 클릭");
-    });
-
-    $("submitBTN").on('click',function(){
-        console.log("모달창 안에서 데이터 전송함");
-        $("#myModal").css('display','block');
-    });
-
-
-    const table = $('.table-style');
-    const headerRow = table.find('thead tr');
-
-
-    $(".table-container").on("scroll",function(){
-        console.log("테이블콘테이너 스크로됨");
-
-
-    });
-});
+// $(function ReceivingProcessing(){  //모달 관련 js
+//     $("#modalBTN").on("click",function(){
+//         console.log("모달 버튼 클릭됨");
+//         $("#myModal").css('display','block');
+//     });
+//
+//     $(".button-style").on("click",function(){
+//         console.log("모달 닫기 클릭됨");
+//         $("#myModal").css('display','none');
+//     });
+//
+//
+//     $('.modal-content').on('click',function(){
+//         console.log("모달콘튼츠창클릭 백그라운드 클릭");
+//     });
+//
+//     $("submitBTN").on('click',function(){
+//         console.log("모달창 안에서 데이터 전송함");
+//         $("#myModal").css('display','block');
+//     });
+//
+//
+//     const table = $('.table-style');
+//     const headerRow = table.find('thead tr');
+//
+//
+//     $(".table-container").on("scroll",function(){
+//         console.log("테이블콘테이너 스크로됨");
+//
+//
+//     });
+// });
 
 function sendData(Codeprocurementplan){
 //    console.log("클릭은 되니?");
@@ -53,7 +53,7 @@ function sendData(Codeprocurementplan){
                     console.log("전송잘됨");
 //                    console.log(ReceivingProcessStoreData);
                     console.log("ReceivingProcessStoreData.rProcessList 이거의 리스트 길이",inSTRData.rProcessList.length)
-                    var tableBody = document.getElementById('tableBody');//DOM 요소 가져와서
+                    var tableBody = document.getElementById('ReceivingTableBody');//DOM 요소 가져와서
                     tableBody.innerHTML = '';//내부에 있는 내용을 비워주고
 
                     for (var i=0; i<inSTRData.rProcessList.length; i++){ //리스트 크기만큼 반복
@@ -211,7 +211,7 @@ function searchButton(){ //검색 정보를 넣고 검색요청 검색된 내용
             console.log("검색용 에이작스 잘보냄");
             console.log(searchList);
             console.log(searchList.searchDTOList.length)
-            var tableBody = document.getElementById('tableBody');//DOM 요소 가져와서
+            var tableBody = document.getElementById('ReceivingTableBody');//DOM 요소 가져와서
             tableBody.innerHTML = '';//내부에 있는 내용을 비워주고
 
             for (var i=0; i<searchList.searchDTOList.length; i++){ //리스트 크기만큼 반복

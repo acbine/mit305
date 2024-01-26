@@ -1,19 +1,8 @@
 /*--------------------발주 목록(orderList)--------------------*/
-function openPopup(orderCode) {
 
-
-    // if(orderCode) {
-    //     $(".popup").css('display', 'block');
-    //     console.log("발주서 코드 : " + orderCode);
-    //     $("#myPopup iframe").attr("src", "orderListPopup?ordercode=" + encodeURIComponent(orderCode));
-    // }else
-    //     console.error("유효하지 않은 ordercode입니다.");
-}
-
-function openOrderInspectPopup(productCode){  //모달창열기
-    console.log("진척검수 오픈 요청이 들어옴");
+function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
     var html = document.getElementById("orderInspectPopup");
-    console.log("Id : ",productCode);
+console.log(procurementPlanCode)
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -21,19 +10,16 @@ function openOrderInspectPopup(productCode){  //모달창열기
                 html.innerHTML = this.responseText;
             }
         };
-        xhttp.open('GET','orderInspect?productCode='+productCode, true);
+        xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode, true);
         xhttp.send();
-
 
 }
 
 function closePopup() {
-    $(".popup").css('display','none');
+    document.getElementById("orderInspectPopup").style.display = "none";
 }
-
-function showHiddenTable(){
-    document.querySelector('.hidden').classList.remove('hidden');
-    document.querySelector('.confirm').classList.add('hidden');
+function closeInspect(){
+    console.log("일단 닫기 버튼")
 }
 
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
@@ -49,9 +35,6 @@ function downloadImage(){
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 
-function openInspectPage(ordercode){
-    window.location.href = '/orderInspect/' + ordercode;
-}
 
 var ProgressInspectionState = 0;
 
@@ -81,12 +64,36 @@ function ProgressInspection() {
     }
 }
 
-function addProgressInspection() {
+function addProgressInspection(productName, planId) {
     var classTbodyContainerTr = document.getElementById("progressInspection");
-    classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
+    var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
+
+    if(dateValue) {
+        var formData = {
+            "inspectDate" : dateValue,
+            "planId" : planId
+        }
+        $.ajax({
+            url : "orderInspect",
+            contentType : 'application/json',
+            data : JSON.stringify(formData),
+            method : "post",
+            success : function () {
+                console.log("성공")
+            },
+            error : function () {
+                console.log("보내는 데이터 형태 확인 : ", formData)
+                console.error("잘못된 응답");
+            }
+        })
+        classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
                                                             <td>2023-12-13</td>
-                                                            <td>입력된날짜</td>
+                                                            <td Class="inspectDate">입력된날짜</td>
                                                             <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
+    } else {
+        alert("진척 검수 계획일을 입력해주세요")
+    }
+
 }
 
 function updateProgressInspection(info) {
@@ -108,13 +115,6 @@ function updateConfirm(info) {
     updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
 }
 
-function registration_and_delete(tag) {
-    tag.closest("tr").remove();
-}
-
-function deleteRow(tag) {
-    tag.closest("tr").remove();
-}
 
 function toggleTables() {
     var selectedOption = document.getElementById("companyDropdown").value;

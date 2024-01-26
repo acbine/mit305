@@ -42,7 +42,7 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button class="confirm" onclick="console.log('해당 확인 버튼 확인')">확인</button>
+                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\')'">확인</button>
             </td>
         </tr>
         <tr>
@@ -53,7 +53,7 @@
         </tr>
         </tbody>
     </table>
-    <table class="hidden">
+    <table class="hidden" id="hidden">
         <thead class="theadContainer">
         <tr>
             <th class="thContainer">품목명</th>
@@ -66,13 +66,14 @@
         <tr th:each="info : ${orderInspect}">
             <td th:text="${info.productName}"></td>
             <td th:text="${info.orderDate}"></td>
-            <td><input type="date"></td>
+            <td id="setInspectDate"><input type="date"></td>
             <td id="buttonState">
-                <button id="addProgressInspection" onclick="addProgressInspection()">진척검수 일정 등록</button>
+                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>
     </table>
+    <button onclick="closePopup()">닫기</button>
 </div>
 <div class="popup" id="popup">
     <table style="width: 190px;">
@@ -107,7 +108,7 @@
     </table>
     <div style="text-align: center;">
         <button class="inspect">등록</button>
-        <button class="exit" onclick="closePopup('popup')">닫기</button>
+        <button class="exit" onclick="closeInspect('popup')">닫기</button>
     </div>
 </div>
 <script src="/js/order.js"></script>

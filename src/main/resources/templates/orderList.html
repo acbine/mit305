@@ -6,53 +6,53 @@
     <title>구매 발주서 목록</title>
 </head>
 <body>
-    <div class="flex justify-between mb-4">
-        <h1 class="text-xl font-bold">발주서 목록</h1>
-        <div id="datesearch">
-            <form action="#">
-                <table border="1">
-                    <tr>
-                        <td><input type="date" name="startDate"></td>
-                        <td>~</td>
-                        <td><input type="date" name="endDate"></td>
-                        <td><input id="searchbutton"  type="submit" value="검색"></td>
-                    </tr>
-                </table>
-            </form>
-        </div>
-    </div>
-    <div class="container">
-        <table>
-            <thead id="thead">
+<div class="flex justify-between mb-4">
+    <h1 class="text-xl font-bold">발주서 목록</h1>
+    <div id="datesearch">
+        <form action="#">
+            <table border="1">
                 <tr>
-                    <th>발주품</th>
-                    <th>발주서 발행일</th>
-                    <th>업체명</th>
-                    <th>진척 검수 상태</th>
+                    <td><input type="date" name="startDate"></td>
+                    <td>~</td>
+                    <td><input type="date" name="endDate"></td>
+                    <td><input id="searchbutton" type="submit" value="검색"></td>
                 </tr>
-            </thead>
-            <tbody id="tbody">
-                <tr class="orderList" th:each="order : ${oList}">
-                    <td th:text="${order.productName}"></td>
-                    <td th:text="${order.orderDate}"></td>
-                    <td th:text="${order.departName}"></td>
-                    <td th:text="${order.orderState}"></td>
-                    <td>
-                        <div th:if="${order.progressInspectionStatus == true}"></div>
-                        <button th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}" th:onclick="'openOrderInspectPopup(\'' + ${order.productCode} + '\')'">진척검수등록</button>
-                    </td>
-                    <td th:attr="onclick='openPopup(\'' + ${order.productCode} + '\')'">🔍️</td>
-                </tr>
-            </tbody>
-        </table>
+            </table>
+        </form>
     </div>
-
-    <div id="orderInspectPopup" class="popup" onclick="closePopup()"> <!--팝업창 백그라운드-->
-        <div class="popup-content">
-            <div id="orderListPopup"></div>
-        </div>
+</div>
+<div class="container">
+    <table>
+        <thead id="thead">
+        <tr>
+            <th>발주품</th>
+            <th>발주서 발행일</th>
+            <th>업체명</th>
+            <th>진척 검수 상태</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        <tr class="orderList" th:each="order : ${oList}">
+            <td th:text="${order.productName}"></td>
+            <td th:text="${order.orderDate}"></td>
+            <td th:text="${order.departName}"></td>
+            <td th:text="${order.orderState}"></td>
+            <td>
+                <div th:if="${order.progressInspectionStatus == true}"></div>
+                <button th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}"
+                        th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">진척검수등록
+                </button>
+            </td>
+            <td th:attr="onclick='openPopup(\'' + ${order.productCode} + '\')'">🔍️</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div id="orderInspectPopup" class="popup"> <!--팝업창 백그라운드-->
+    <div class="popup-content">
+        <div id="orderListPopup"></div>
     </div>
-
-    <script src="/js/order.js"></script>
+</div>
+<script src="/js/order.js"></script>
 </body>
 </html>

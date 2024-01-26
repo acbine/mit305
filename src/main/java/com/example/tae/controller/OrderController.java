@@ -1,99 +1,63 @@
 package com.example.tae.controller;
 
+import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.dto.OrderDTO;
-import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 
+import com.example.tae.entity.Order.dto.OrderInspectDTO;
+import com.example.tae.entity.Order.dto.OrderInspectionDto;
 import com.example.tae.service.PurchaseService.OrderRegisterService;
-import com.example.tae.service.PurchaseService.OrderService;
+import com.example.tae.service.PurchaseService.OrderServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.hibernate.query.Order;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Controller
 @AllArgsConstructor
 @Slf4j
 public class OrderController {
-    private final OrderService orderService;
+    private final OrderServiceImpl orderService;
     private final OrderRegisterService orderRegisterService;
-    private final ProcurementPlanRepository procurementPlanRepository;
 
+    /*발주 아닌 모든 조달 계획 정보 가져오기*/
     @GetMapping("/orderList")
     public String orderList(Model model) {
         model.addAttribute("oList", orderService.getAllOrders());
         return "orderList";
     }
 
-    @GetMapping("/orderListPopup")
-    public String orderListPopup(@RequestParam(name = "ordercode")String ordercode, Model model) {
-//        model.addAttribute("orderPopupHeadDto", orderService.getOrderPopupHeadDto(ordercode));
-        model.addAttribute("orderPopupDto", orderService.getOrderPopupData(ordercode));
-        return "orderListPopup";
-    }
-
-    @GetMapping("/orderInspect/{ordercode}")
-    public String orderInspect(@PathVariable String ordercode, Model model){
-        //model.addAttribute("orderDetails", orderService.getOrderInspection(ordercode));
+    /*발주서 목록 불러오기*/
+    @GetMapping("orderInspect")
+    public String orderInspect(@RequestParam("productCode") int productCode, @RequestParam("procurementPlanCode") int procurementPlanCode,Model model) {
+        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode));
         return "orderInspect";
     }
 
-    @GetMapping("/orderInspect1_1")
-    public String orderIns1(){
-        return "orderInspect1_1";
+    @PostMapping("orderInspect")
+    public String orderInspect(@RequestBody OrderInspectDTO inspect) {
+        log.info(inspect.getInspectDate().toString(), inspect.getPlanId());
+        ProgressInspection progressInspection = orderService.orderInsepect(inspect);
+        return "orderInspect";
     }
 
-    @GetMapping("/orderInspect1_2")
-    public String orderIns2(){
-        return "orderInspect1_2";
-    }
 
-    @GetMapping("/orderInspect4")
-    public String orderIns4(){
-        return "orderInspect4";
-    }
-
-//    @RequestParam("departName")String departName
     @GetMapping("orderRegister")
     public String orderRegister(Model model) {
-    List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findByProcurementPlanState();
-    List<OrderDTO> oList = new ArrayList<>();
-
-    for(ProcurementPlan procurementPlan : procurementPlanList) {
-        OrderDTO orderDTO = OrderDTO.builder()
-                .departName(procurementPlan.getContract().getCompany().getDepartName())
-                .agent(procurementPlan.getContract().getCompany().getBusinessName())
-                .email(procurementPlan.getContract().getCompany().getBusinessEmail())
-                .fax(procurementPlan.getContract().getCompany().getFax())
-                .LT(procurementPlan.getContract().getLead_time())
-                .num(procurementPlan.getProjectPlan().getOutPuteNum()*procurementPlan.getProductForProject().getProductCodeCount())
-                .tel(procurementPlan.getContract().getCompany().getBusinessTel())
-                .orderDate(procurementPlan.getOrder_date())
-                .projectOutPutDate(procurementPlan.getProjectPlan().getProjectOutputDate())
-                .productCode(procurementPlan.getContract().getProductInformationRegistration().getProduct_code())
-                .productName(procurementPlan.getContract().getProductInformationRegistration().getProduct_name())
-                .build();
-       oList.add(orderDTO);
-    }
-
+    List<OrderDTO> oList = orderService.oListSend();
     model.addAttribute("oList", oList);
-    oList.forEach(System.out::println);
     return "orderRegister";
     }
 
-    @GetMapping("orderRegisterData")
-    public String orderRegisterData() {
-//        model.a""ddAttribute("oList", orderRegisterService.getProcurementPlansWithNullPurchase(departName));
-//        List<OrderRegisterDto> oList = orderRegisterService.getProcurementPlansWithNullPurchase(departName);
-//        model.addAttribute("departName", departName);
+
+    @PostMapping("orderRegisterData")
+    public String orderRegisterData(@RequestBody OrderDTO orderDTO) {
+        orderService.orderRegister(orderDTO.getProcurementPlanCode());
         return "orderRegister";
     }
 

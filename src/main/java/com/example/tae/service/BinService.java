@@ -13,7 +13,7 @@ import java.util.List;
 public interface BinService {
     //----------------------------------현황관리------------------------------------------
     //현황관리 리포트 날짜 요청을 받으면 리스트
-    List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start ,Date end);
+    List<ReceivingProcessingDTO> procurementPlanListbyStatement(Date start ,Date end) throws Exception;
     
     //날짜별로 발주상태로 묶어 각각  몇개인지
     List<StatusManagementDTO> statusManagementDTOList(Date start , Date end);

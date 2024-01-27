@@ -18,7 +18,7 @@ function closePopup() {
     document.getElementById("orderInspectPopup").style.display = "none";
 }
 function closeInspect(){
-    console.log("일단 닫기 버튼")
+    document.getElementById("popup").style.display = "none";
 }
 
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
@@ -52,7 +52,8 @@ function addProgressInspection(productName, planId) {
                 addInspectorOne(data);
                 console.log("성공")
             },
-            error : function () {
+            error : function (data) {
+                console.error(data)
                 console.log("보내는 데이터 형태 확인 : ", formData)
                 console.error("잘못된 응답");
             }

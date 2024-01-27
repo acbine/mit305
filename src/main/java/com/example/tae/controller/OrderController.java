@@ -2,8 +2,7 @@ package com.example.tae.controller;
 
 import com.example.tae.entity.Order.dto.OrderDTO;
 
-import com.example.tae.service.PurchaseService.OrderRegisterService;
-import com.example.tae.service.PurchaseService.OrderServiceImpl;
+import com.example.tae.service.PurchaseService.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,8 +17,7 @@ import java.util.*;
 @AllArgsConstructor
 @Slf4j
 public class OrderController {
-    private final OrderServiceImpl orderService;
-    private final OrderRegisterService orderRegisterService;
+    private final OrderService orderService;
 
     /*발주 아닌 모든 조달 계획 정보 가져오기*/
     @GetMapping("/orderList")
@@ -35,8 +33,6 @@ public class OrderController {
         return "orderInspect";
     }
 
-
-
     @GetMapping("orderRegister")
     public String orderRegister(Model model) {
     List<OrderDTO> oList = orderService.oListSend();
@@ -51,10 +47,10 @@ public class OrderController {
         return "orderRegister";
     }
 
-    @DeleteMapping("/api/cancelOrder/{procurementplan_code}")
+    @DeleteMapping("/cancelOrder/{procurementplan_code}")
     @ResponseBody
-    public ResponseEntity<Void> cancelOrder(@PathVariable int procurementplan_code) {
-        orderRegisterService.cancelProcurementPlan(procurementplan_code);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<?> cancelOrder(@PathVariable int procurementplan_code) {
+        orderService.cancelOrder(procurementplan_code);
+        return ResponseEntity.ok().body(Map.of("msg",procurementplan_code+"번 조달 계획 발주서 취소 완료"));
     }
 }

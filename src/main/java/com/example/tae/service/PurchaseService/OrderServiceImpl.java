@@ -13,6 +13,7 @@ import com.example.tae.repository.RegistrationRepository.ProcurementPlanReposito
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -55,6 +56,22 @@ public class OrderServiceImpl implements OrderService {
                 .SupportProductAmount(procurementPlan.getSupportProductAmount())
                 .build();
         procurementPlanRepository.save(updateProcurementPlan);
+    }
+
+    @Override
+    public void cancelOrder(int procurementPlanCode) {
+        Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlanCode);
+
+        ProcurementPlan orderProcurementPlan = procurementPlan.get();
+        ProcurementPlan cancelToPurchase = ProcurementPlan.builder()
+                .procurementplan_code(orderProcurementPlan.getProcurementplan_code())
+                .contract(orderProcurementPlan.getContract())
+                .order_date(orderProcurementPlan.getOrder_date())
+                .project(orderProcurementPlan.getProject())
+                .SupportProductAmount(orderProcurementPlan.getSupportProductAmount())
+                .projectPlan(orderProcurementPlan.getProjectPlan())
+                .build();
+        procurementPlanRepository.save(cancelToPurchase);
     }
 
 

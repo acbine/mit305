@@ -80,7 +80,9 @@
     float: left;
 }
 
-#tap1 {
+.tabClassOne {
+    background-color: #2ecc71;
+    font-weight: bold;
     border-radius: 10px;
     height: 40px;
     width: 100px;
@@ -91,12 +93,19 @@
 }
 
 .tabClass {
+    background-color: #2ecc71;
     font-weight: bold;
+    border-radius: 10px;
 }
 
 .tab_menu .list div.tabClass .btn {
-    background-color: #2ecc71;
-    border-radius: 10px;
+    height: 40px;
+    width: 100px;
+    z-index: 3;
+    display: flex;
+    float: left;
+}
+.tab_menu .list div.tabClassOne .btn {
     height: 40px;
     width: 100px;
     z-index: 3;
@@ -123,4 +132,8 @@
 
 #closeBTN {
     color: red;
+}
+
+#on {
+    background-color: #cbd5e0;
 }

@@ -4,14 +4,11 @@ import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.entity.Order.Purchase;
-import com.example.tae.entity.ProductForProject.ProductForProject;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
-import java.util.SimpleTimeZone;
 
 @Entity
 @Builder
@@ -34,6 +31,7 @@ public class ProcurementPlan {
     Contract contract; // 계약(계약코드)
 
     @ManyToOne //발주서 코드
+    @JoinColumn(nullable = true)
     @JsonIgnore // 발주서 코드가 안 생긴 조달 계획도 불러옴
     Purchase purchase;
 

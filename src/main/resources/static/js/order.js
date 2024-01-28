@@ -14,12 +14,6 @@ function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열
 
 }
 
-function closePopup() {
-    document.getElementById("orderInspectPopup").style.display = "none";
-}
-function closeInspect(){
-    document.getElementById("popup").style.display = "none";
-}
 
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
 function downloadImage(){
@@ -34,63 +28,6 @@ function downloadImage(){
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 
-function addProgressInspection(productName, planId) {
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
-
-    if(dateValue) {
-        var formData = {
-            "inspectDate" : dateValue,
-            "planId" : planId
-        }
-        $.ajax({
-            url : "orderInspect",
-            contentType : 'application/json',
-            data : JSON.stringify(formData),
-            method : "post",
-            success : function (data) {
-                addInspectorOne(data);
-                console.log("성공")
-            },
-            error : function (data) {
-                console.error(data)
-                console.log("보내는 데이터 형태 확인 : ", formData)
-                console.error("잘못된 응답");
-            }
-        })
-
-    } else {
-        alert("진척 검수 계획일을 입력해주세요")
-    }
-
-}
-
-function addInspectorOne(data) {
-    var inspector = data.progressInspection;
-
-
-    var orderDate = formDate(inspector.orderDate)
-    var progressInspectorDate = formDate(inspector.progressInspectonDate);
-
-
-
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    classTbodyContainerTr.insertRow(0).innerHTML = `<td>${inspector.productName}</td>
-                                                            <td>${orderDate}</td>
-                                                            <td class="inspectDate">${progressInspectorDate}</td>
-                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
-}
-
-function toggleTables() {
-    var selectedOption = document.getElementById("companyDropdown").value;
-
-    document.getElementById("table1").classList.add("hidden");
-    document.getElementById("table2").classList.add("hidden");
-    document.getElementById("table3").classList.add("hidden");
-
-    document.getElementById(selectedOption).classList.remove("hidden");
-}
-
 function formDate(data) {
 
     var date = new Date(data)
@@ -101,4 +38,3 @@ function formDate(data) {
 
     return formattedDate;
 }
-

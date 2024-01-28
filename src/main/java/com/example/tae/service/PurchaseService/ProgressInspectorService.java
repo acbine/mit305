@@ -1,5 +1,6 @@
 package com.example.tae.service.PurchaseService;
 
+import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.dto.OrderInspectDTO;
 import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 
@@ -12,4 +13,6 @@ public interface ProgressInspectorService {
     List<ProgressInspectionDTO> getProgressInspectorList(int planId);
 
     void upDateProgressInspector(int progressInspectionId, Date updateDate);
+
+    String inspectorResult(int inspectorId, boolean progressInspectorResult);
 }

@@ -68,7 +68,7 @@
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
             <td id="buttonState">
-                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\')'">진척검수 일정 등록</button>
+                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>
@@ -102,8 +102,8 @@
         </tbody>
     </table>
     <div style="text-align: center;">
-        <button class="inspect" onclick="inspectorCheck(this)">등록</button>
-        <button class="exit" onclick="closeInspect('popup')">닫기</button>
+        <button class="inspect" onclick="inspectorCheck.progressInspectorCheck()">진척 검수</button>
+        <button class="exit" onclick="closeInspect()">닫기</button>
     </div>
 </div>
 <script src="/js/order.js"></script>

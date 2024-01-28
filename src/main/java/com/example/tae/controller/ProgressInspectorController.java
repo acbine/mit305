@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.ErrorResponse;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -47,13 +48,13 @@ public class ProgressInspectorController {
 
     @PutMapping("inspectorResult")
     public ResponseEntity<?> inspectorResult(@RequestBody ProgressInspectionDTO progressInspectionDTO) {
-        log.info("받는 진척검수 아이디 확인 :"+progressInspectionDTO.getProgressInspectionId());
         String result = progressInspectorService.inspectorResult(progressInspectionDTO.getProgressInspectionId(), progressInspectionDTO.isProgressInspectorResult());
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("result",result));
     }
 
-    @DeleteMapping("inspectorData")
-    public void deleteProgressInspector() {
-
+    @DeleteMapping("inspectorData/{progressInspectionId}")
+    public void deleteProgressInspector(@PathVariable int progressInspectionId) {
+            progressInspectorService.deleteProgressInspector(progressInspectionId);
     }
+
 }

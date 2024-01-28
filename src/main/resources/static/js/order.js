@@ -13,7 +13,23 @@ function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열
         xhttp.send();
 
 }
+function searchOrderListWithDate() {
+    var date1 = document.getElementsByName("startDate")[0].value;
+    console.log(date1)
+    var date2 = document.getElementsByName("endDate")[0].value;
+    $.ajax({
+            url: 'order_list_with_date?&date1=' + date1 +'&date2='+date2,
+            method:'get',
+        success:function (){
+                console.log("성공");
+        },
+        error:function (){
+            console.log("실패");
+        }
 
+    }
+        )
+}
 
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
 function downloadImage(){

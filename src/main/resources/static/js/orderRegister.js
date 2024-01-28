@@ -1,7 +1,7 @@
 /*발주서 발행*/
 var progressInspectorIndex;
 
-console.log(progressInspectorIndex,"변하는 값 확인하기")
+
 function orderRegister(productCode, procurementPlanCode, index) {
     var tbody = document.getElementsByClassName("orderRegisterTable");
     tbody[index].style.display = "none";
@@ -61,7 +61,6 @@ function addInspects(inspector) {
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td><font color="green">[검수 완료]</font></td>`;
-            console.log("0이 되는 시점 찾기 updateProgress :  ",i);
         }
     }
 
@@ -74,22 +73,20 @@ function addInspects(inspector) {
 
 const inspectorCheck = {
     receiveIndexData: function (index) {
-        console.log("0이 되는 시점 찾기 :recevicedata :  ",index);
         progressInspectorIndex = index;
-        console.log("여기서 변화하는 값 확인해보기 : ",progressInspectorIndex)
     },
 
     progressInspectorCheck: function () {
         var checkListCnt = 0;
-        console.log(progressInspectorIndex,"번호 변화 과정 찍어보기")
         var progressInspectorResult = false;
         var classTbodyContainerTr = document.getElementById("progressInspection");
         var tData = classTbodyContainerTr.children[progressInspectorIndex];
         var checkBoxes = document.getElementsByClassName("checkbox");
+
         var progressInspectionId = tData.children[3].value;
         var resultTable = tData.children[4];
         var buttonColumn = document.getElementById("buttonState");
-
+        var date  = document.getElementById("setInspectDate");
 
         for (let i = 0; i < checkBoxes.length; i++) {
             if (checkBoxes[i].checked === true) {
@@ -114,10 +111,11 @@ const inspectorCheck = {
                                                         <input type="hidden" value="${progressInspectionId}">
                                                         <td><font color="red">[${result.result}]</font></td>`;
                     } else {
-                        console.log(buttonColumn,"버튼 데이터 정보 확인")
-                        buttonColumn.innerHTML = `
-                                                        <input type="hidden" value="${progressInspectionId}">
+                        console.log(date,"버튼 데이터 정보 확인")
+                        date.innerHTML = ``;
+                        resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
                                                         <td><font color="green">[${result.result}]</font></td>`;
+                        buttonColumn.innerHTML = `<td></td>`;
                     }
                 },
                 error: function () {
@@ -138,22 +136,23 @@ function updateProgressInspection(info, index) {
     var date = updateData.children[2];
     var updateButton = updateData.children[4];
 
-    console.log("0이 되는 시점 찾기 updateProgress :  ",index);
-
     updateButton.innerHTML = `<td id="buttonState"><button onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateConfirm(this,${index})">등록</button><button onclick="cancel()">삭제</button></td>`;
     date.innerHTML = `<input type="date">`;
 
 }
 
-function cancel(procurementplan_code, index) {
-    var tbody = document.getElementsByClassName("orderRegisterTable");
-    tbody[index].style.display = "none";
+function cancel(progressInspectorId, index) {
+    var classTbodyContainerTr = document.getElementById("progressInspection");
+    var tData = classTbodyContainerTr.children[classTbodyContainerTr.children.length-1];
+    var progressInspectionId = tData.children[3].value;
+    console.log(tData)
 
     $.ajax({
-        url: 'cancelOrder/' + procurementplan_code,
+        url: 'inspectorData/' + progressInspectionId,
         method: 'delete',
-        data: {},
         success: function () {
+            tData.style.display="none";
+            tData.innerHTML="";
             console.log("성공")
         },
         error: function () {
@@ -168,7 +167,6 @@ const popup ={
     openPopup: function (){
         var progressInspection = document.getElementById("progressInspection");
         var index =  progressInspection.children.length-1;
-        console.log("------------------------",index)
         var progressInspectorPopup = document.getElementById('popup');
         progressInspectorPopup.style.display = "block";
         inspectorCheck.receiveIndexData(index);

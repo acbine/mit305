@@ -15,4 +15,7 @@ public interface ProgressInspectorService {
     void upDateProgressInspector(int progressInspectionId, Date updateDate);
 
     String inspectorResult(int inspectorId, boolean progressInspectorResult);
+
+    void deleteProgressInspector(int progressInspector);
+
 }

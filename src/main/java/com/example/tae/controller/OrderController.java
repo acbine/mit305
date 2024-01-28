@@ -6,6 +6,7 @@ import com.example.tae.service.PurchaseService.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,5 +53,11 @@ public class OrderController {
     public ResponseEntity<?> cancelOrder(@PathVariable int procurementplan_code) {
         orderService.cancelOrder(procurementplan_code);
         return ResponseEntity.ok().body(Map.of("msg",procurementplan_code+"번 조달 계획 발주서 취소 완료"));
+    }
+
+    @GetMapping("order_list_with_date")
+    public ResponseEntity<?> getOrderListWithDate(@RequestParam("date1") Date date1, @RequestParam("date2") Date date2) {
+        List<OrderDTO> oList = orderService.getOrderListWithDate(date1, date2);
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("oList", oList));
     }
 }

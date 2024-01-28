@@ -2,6 +2,7 @@ package com.example.tae.service.PurchaseService;
 
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
+import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
@@ -174,7 +175,23 @@ public class OrderServiceImpl implements OrderService {
         return oList;
     }
 
-
+    @Override
+    public List<OrderDTO> getOrderListWithDate(Date date1, Date date2) {
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        List<Purchase> orderList = orderRepository.findOrderListWithDate(date1,  date2);
+        orderList.forEach( order -> {
+            Date order_date = Timestamp.valueOf(order.getModDate());
+            ProcurementPlan procurementPlan = procurementPlanRepository.findByPurchase_OrderCode(order.getOrderCode());
+            OrderDTO orderDTO = OrderDTO.builder()
+                    .productName(procurementPlan.getContract().getProductInformationRegistration().getProduct_name())
+                    .orderDate(order_date)
+                    .departName(procurementPlan.getContract().getCompany().getDepartName())
+                    .orderState(procurementPlan.getOrder_state())
+                    .build();
+                    orderList.add(order);
+        });
+        return orderDTOList;
+    }
 
 
 }

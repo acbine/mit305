@@ -132,12 +132,16 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
                    .purchase(procurementPlan.getPurchase())
                    .order_date(procurementPlan.getOrder_date())
                    .build();
-//           procurementPlanRepository.save(progressInspectorResultUpdate);
+           procurementPlanRepository.save(progressInspectorResultUpdate);
            return "검수 완료";
        } else {
            return "재검수 요망";
        }
     }
 
+    @Override
+    public void deleteProgressInspector(int progressInspectorId) {
+        progressInspectionRepository.deleteById(progressInspectorId);
+    }
 
 }

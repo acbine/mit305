@@ -16,6 +16,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
 
@@ -86,10 +89,9 @@ public class ContractController {
 
         System.out.println("아래부터는 메일 전송 하기위한 코드");
 
-
-        File file = new File("D:/mit305-master/images", contractMultipartFile.getOriginalFilename());
+        // 해당 저장 경로는 본인에게 맞는 곳으로 위치 수정해야함
+        File file = new File("D:/mit305-master/src/main/resources/static/images/Contract", contractMultipartFile.getOriginalFilename());
         contractMultipartFile.transferTo(file);
-        
 
         final String user_email= "ghostjaewoongp@gmail.com"; // 구글 이메일
         final String user_pw = "rxks poyq biif qcfq"; //구글 앱 비밀번호

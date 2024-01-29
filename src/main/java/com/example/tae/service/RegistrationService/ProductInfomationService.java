@@ -3,10 +3,13 @@ package com.example.tae.service.RegistrationService;
 import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.DTO.PartDTO;
+import com.example.tae.entity.ProcurementPlan.dto.ProcurementPlanJoinDTO;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
+import com.example.tae.entity.ProductInformation.dto.ProductInformationJoinContractDTO;
 import com.example.tae.entity.ProductInformation.dto.ProductInformationRegistrationDTO;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 // 품목 정보 서비스
@@ -20,4 +23,6 @@ public interface ProductInfomationService {
     List<ContractDTO> getListOfProductContract(int product_code);
 
     void saveProductInfo(ProductInformationRegistrationDTO productInformationRegistrationDTO) throws IOException;
+
+    List<ProductInformationJoinContractDTO> getProductJoin();
 }

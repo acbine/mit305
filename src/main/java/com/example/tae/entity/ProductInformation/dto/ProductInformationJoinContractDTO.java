@@ -2,6 +2,7 @@ package com.example.tae.entity.ProductInformation.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @ToString
@@ -9,15 +10,13 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class ProductInformation_ContractDTO {
+public class ProductInformationJoinContractDTO {
 
     private int product_code;
 
-    private Long id; // part의 id
-
     private String product_name;
 
-    private char product_abbreviation;
+    private String product_abbreviation;
 
     private String texture;
 
@@ -26,9 +25,14 @@ public class ProductInformation_ContractDTO {
     private int height;
     private int weight;
 
-//    private String product_imageURL;
+    private String image_name;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING) // 계약 코드가 null 이어도 가져와야 함
-    private int contract_code;
+    private Long contract_code;
+
+    private String part; // part의 id
+    private String assy;
+    private String unit;
+
 
 }

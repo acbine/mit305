@@ -26,6 +26,7 @@ public class ProcurementPlanController {
     @Autowired
     private ProcurementPlanRepository procurementPlanRepository;
 
+    // 발주 등록 처리
     @PostMapping("/plan_edit/{procurement_plan_code}")
     @ResponseBody
     public String updateProcurementPlan(@PathVariable(value = "procurement_plan_code") int procurement_plan_code) {
@@ -38,4 +39,16 @@ public class ProcurementPlanController {
 
         return "발주 등록한 조달 계획: " + procurement_plan_code;
     }
+
+    // 조달 계획 삭제
+    @PostMapping("/plan_delete/{procurement_plan_code}")
+    @ResponseBody
+    public String deletePlan(@PathVariable(value = "procurement_plan_code") int procurement_plan_code) {
+
+        procurementPlanRepository.deleteById(procurement_plan_code);
+
+        return "삭제한 조달 계획 코드: " + procurement_plan_code;
+    }
+
+
 }

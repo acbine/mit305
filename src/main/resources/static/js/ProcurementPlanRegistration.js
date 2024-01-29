@@ -143,7 +143,7 @@ $.each(plan_list, function(index, plan) {
             '<td>' +
                 '<div class="actions">' + // 계획 관리 칸
                      '<button class="action-button action-button-edit" onclick="td_regOrder('+ plan.procurementplan_code +'); td_delete(this)">발주등록</button>' +
-                     '<button class="action-button action-button-edit" onclick="td_delete(this)">삭제</button>' +
+                     '<button class="action-button action-button-edit" onclick="plan_delete('+ plan.procurementplan_code +'); td_delete(this)">삭제</button>' +
                 '</div>' +
             '</td>' +
         '</tr>'
@@ -153,7 +153,8 @@ $.each(plan_list, function(index, plan) {
 
 }
 
-function td_regOrder(procurement_plan_code) { // 발주 등록 js
+// 발주 등록 js
+function td_regOrder(procurement_plan_code) {
 
     $.ajax({
 
@@ -173,6 +174,27 @@ function td_regOrder(procurement_plan_code) { // 발주 등록 js
     });
 
 }
+
+// 조달 계획 삭제
+function plan_delete(procurement_plan_code) {
+
+    $.ajax({
+
+        type : "POST",
+        url : "/plan_delete/" + procurement_plan_code,
+        contentType : "application/json;charset=UTF-8",
+
+        success : function(response_code) {
+
+            console.log(response_code);
+        },
+
+        error : function(error) {
+            console.error(response_code + ":" + error)
+        }
+    });
+}
+
 
 function td_delete(tag) {
 

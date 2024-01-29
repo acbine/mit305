@@ -2,6 +2,7 @@ package com.example.tae.service.PurchaseService;
 
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
+import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
@@ -13,9 +14,11 @@ import com.example.tae.repository.RegistrationRepository.ProcurementPlanReposito
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -55,6 +58,22 @@ public class OrderServiceImpl implements OrderService {
                 .SupportProductAmount(procurementPlan.getSupportProductAmount())
                 .build();
         procurementPlanRepository.save(updateProcurementPlan);
+    }
+
+    @Override
+    public void cancelOrder(int procurementPlanCode) {
+        Optional<ProcurementPlan> procurementPlan = procurementPlanRepository.findById(procurementPlanCode);
+
+        ProcurementPlan orderProcurementPlan = procurementPlan.get();
+        ProcurementPlan cancelToPurchase = ProcurementPlan.builder()
+                .procurementplan_code(orderProcurementPlan.getProcurementplan_code())
+                .contract(orderProcurementPlan.getContract())
+                .order_date(orderProcurementPlan.getOrder_date())
+                .project(orderProcurementPlan.getProject())
+                .SupportProductAmount(orderProcurementPlan.getSupportProductAmount())
+                .projectPlan(orderProcurementPlan.getProjectPlan())
+                .build();
+        procurementPlanRepository.save(cancelToPurchase);
     }
 
 
@@ -157,7 +176,23 @@ public class OrderServiceImpl implements OrderService {
         return oList;
     }
 
-
+    @Override
+    public List<OrderDTO> getOrderListWithDate(LocalDateTime date1, LocalDateTime date2) {
+        List<OrderDTO> orderDTOList = new ArrayList<>();
+        List<Purchase> orderList = orderRepository.findOrderListWithDate(date1,  date2);
+        orderList.forEach( order -> {
+            Date order_date = Timestamp.valueOf(order.getModDate());
+            ProcurementPlan procurementPlan = procurementPlanRepository.findByPurchase_OrderCode(order.getOrderCode());
+            OrderDTO orderDTO = OrderDTO.builder()
+                    .productName(procurementPlan.getContract().getProductInformationRegistration().getProduct_name())
+                    .orderDate(order_date)
+                    .departName(procurementPlan.getContract().getCompany().getDepartName())
+                    .orderState(procurementPlan.getOrder_state())
+                    .build();
+                    orderDTOList.add(orderDTO);
+        });
+        return orderDTOList;
+    }
 
 
 }

@@ -9,7 +9,7 @@ const tabList = document.getElementsByClassName("list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 
-var arrayClick =[]
+var arrayClick = []
 
 let activeCont = ''; /*현재 활성화 된 컨텐츠 (기본:#tab1 활성화)*/
 
@@ -152,8 +152,8 @@ function sendDateToChild(String) {
 
 const childComponent = {
     receiveData: function (data) {
-        for(var check =0; check<clickTapList.length; check++) {
-            if(clickTapList[check]!==data) {
+        for (var check = 0; check < clickTapList.length; check++) {
+            if (clickTapList[check] !== data) {
                 clickTapList.push(data);
             } else {
                 break;
@@ -164,13 +164,12 @@ const childComponent = {
 
         arrayClick = Array.from(SetClickTapList);
 
-
         const tabList3 = [];
         const contList = [];
 
         var currentPage;
 
-        for (var i=0; i<arrayClick.length; i++) {
+        for (var i = 0; i < arrayClick.length; i++) {
 
             if (arrayClick[i] === "품목정보등록") {
                 currentPage = "ProductInformationRegistration"
@@ -194,20 +193,20 @@ const childComponent = {
                 currentPage = "existence"
             }
 
-            if (i===0) {
-                tabList3.push(`<div id = "tap1">
-                            <div class="tabClass" id="is_on" data-include-path='${currentPage}'>
+            if (i === 0) {
+                tabList3.push(`
+                            <div class="tabClassOne" data-include-path='${currentPage}'>
                                 <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
-                        </div>`)
+                      `)
                 contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else if (arrayClick[0] === arrayClick[i]) {
-                tabList3.push(`<div class="tabClass" id="is_on">
+                tabList3.push(`<div class="tabClass">
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                          </div>`)
                 contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
             } else {
-                tabList3.push(`<div class="tabClass" id="is_on" >
+                tabList3.push(`<div class="tabClass">
                             <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}','${i}')">❌</div></div>
                             </div>`)
                 contList.push(`<div class="cont" data-include-path='${currentPage}' id = '${currentPage}'></div>`)
@@ -220,27 +219,31 @@ const childComponent = {
         LoadHTMLOfThePageWithClickedPageData(currentPage, i);
 
         var transFromITOStringI = String(i);
-        var currentPageInfoOfDirectClick = [currentPage,transFromITOStringI]
-        setCookie("currentPageInfoOfDirectClick",currentPageInfoOfDirectClick,7)
+        var currentPageInfoOfDirectClick = [currentPage, transFromITOStringI]
+        setCookie("currentPageInfoOfDirectClick", currentPageInfoOfDirectClick, 7)
 
-        let SoYouCanSeeWhatWasPressed = document.getElementById("is_on")
+        let SoYouCanSeeWhatWasPressed = document.getElementById("on");
 
         for (let k = 0; k < tabList3.length; k++) {
             var clickEvent = document.getElementsByClassName("btn");
             clickEvent[k].addEventListener('click', function (e) {
                 e.preventDefault();
                 for (let j = 0; j < tabList3.length; j++) {
-                    SoYouCanSeeWhatWasPressed.classList.remove('is_on')
+                    if (SoYouCanSeeWhatWasPressed) {
+                        SoYouCanSeeWhatWasPressed[j].remove('on');
+                    }
                     contents[j].style.display = 'none';
                 }
-                SoYouCanSeeWhatWasPressed.classList.add('is_on')
+                if(SoYouCanSeeWhatWasPressed) {
+                    SoYouCanSeeWhatWasPressed[k].id = 'on';
+                }
                 contents[k].style.display = 'block';
 
                 var pageInfoToString = String(k);
 
                 LoadHTMLOfThePage(k);
 
-                setCookie("currentPageInfoOfTapListClick",pageInfoToString,7);
+                setCookie("currentPageInfoOfTapListClick", pageInfoToString, 7);
             });
         }
         setCookie("clickTapList", arrayClick, 7)
@@ -250,12 +253,12 @@ const childComponent = {
 
 function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
 
-    setCookie("openInfo","Direct",7);
+    setCookie("openInfo", "Direct", 7);
     var LoadForHtml = document.getElementById(clickData);
     var contList = document.getElementsByClassName("cont");
 
 
-    for(var j = 0; j<contents.length; j++) {
+    for (var j = 0; j < contents.length; j++) {
         contents[j].style.display = "none";
     }
 
@@ -279,11 +282,11 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
 }
 
 function LoadHTMLOfThePage(cnt) {
-    var PageData =  contents[cnt];
+    var PageData = contents[cnt];
 
-    setCookie("openInfo","Tap",7);
+    setCookie("openInfo", "Tap", 7);
 
-    for(var j = 0; j<contents.length; j++) {
+    for (var j = 0; j < contents.length; j++) {
         contents[j].style.display = "none";
     }
 
@@ -299,7 +302,8 @@ function LoadHTMLOfThePage(cnt) {
         };
         xhttp.open('GET', includePath, true);
         xhttp.send();
-    };
+    }
+    ;
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/
@@ -334,21 +338,21 @@ function loadClickTapListFromCookie() {
 
 function loadCurrentPageWithDirectClickFromCookie() {
     var currentPageInfoOfDirectClick = getCookie("currentPageInfoOfDirectClick");
-    if(currentPageInfoOfDirectClick) {
+    if (currentPageInfoOfDirectClick) {
         return currentPageInfoOfDirectClick;
     }
 }
 
 function loadCurrentPageWithTapListClickFromCookie() {
     var currentPageInfoOfTapListClick = getCookie("currentPageInfoOfTapListClick");
-    if(currentPageInfoOfTapListClick) {
+    if (currentPageInfoOfTapListClick) {
         return currentPageInfoOfTapListClick;
     }
 }
 
 function checkingState() {
     var openInfo = getCookie("openInfo");
-    if(openInfo) {
+    if (openInfo) {
         return openInfo;
     }
 }
@@ -377,10 +381,10 @@ window.onload = function () {
         for (let i = 0; i < cookieList.length; i++) {
             childComponent.receiveData(cookieList[i]);
         }
-        if(State==="Direct"){
-            var directInfo =  loadCurrentPageWithDirectClickFromCookie().split(",")
-            LoadHTMLOfThePageWithClickedPageData(directInfo[0],parseInt(directInfo[1]));
-        } else if(State==="Tap"){
+        if (State === "Direct") {
+            var directInfo = loadCurrentPageWithDirectClickFromCookie().split(",")
+            LoadHTMLOfThePageWithClickedPageData(directInfo[0], parseInt(directInfo[1]));
+        } else if (State === "Tap") {
             var data = parseInt(loadCurrentPageWithTapListClickFromCookie())
             LoadHTMLOfThePage(data);
         }
@@ -389,16 +393,23 @@ window.onload = function () {
 
 function closePage(pageData, cnt) {
     var taps = document.getElementsByClassName("tabClass");
+    var firstTap = document.getElementById("tap1")
+    var conts = document.getElementsByClassName("cont");
+    var closeData = arrayClick.indexOf(pageData)
 
-    arrayClick.splice(arrayClick.indexOf(pageData),1);
+    clickTapList = clickTapList.filter((value) => value !== pageData);
 
-    setCookie("clickTapList", arrayClick,7)
+    arrayClick.splice(closeData, 1);
 
-    var second = taps[1];
-
-    second.classList.remove("is_on")
-    second.classList.add("tap1")
-    taps[cnt].style.display="none";
+    setCookie("clickTapList", arrayClick, 7)
+    var second = taps[1]
+    if (closeData === arrayClick[0]) {
+        firstTap.removeAttribute('class');
+        firstTap.classList.add("tabClass")
+        if (second) {
+            second.classList.add("tabClass1");
+        }
+    }
 
 };
 
@@ -433,11 +444,12 @@ function loadJS(includePath) {
 
     // 주어진 includePath 이외의 경우 해당 스크립트를 모두 제거
     for (var path in scriptPaths) {
-        if (path !== includePath) {
-            scriptPaths[path].forEach(function (pathToRemove) {
+        scriptPaths[path].forEach(function (pathToRemove) {
+            if (pathToRemove !== includePath) {
                 removeScript(pathToRemove);
-            });
-        }
+            }
+        });
+
     }
 }
 

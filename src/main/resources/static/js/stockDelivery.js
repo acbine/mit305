@@ -15,13 +15,10 @@ function findRelease() {
             type : 'get',
             data: {},
             success:function (info){
-                console.log("성공");
-                console.log("데이터 정보 확인 : ",info)
                 uploadHtml(info);
-                console.log("함수가 다 실행되면 이 함수 실행");
             },
             error:function (info) {
-                console.log("에러 받아오는 데이터 확인하기 : ", info);
+                alert(info);
             }
         });
     } else if(select==="ProductCode") {

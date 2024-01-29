@@ -4,6 +4,7 @@ import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cache;
 
 import java.util.Date;
 
@@ -19,6 +20,7 @@ public class ProgressInspection extends TimeStamp {
     @ManyToOne
     private Purchase orderCode;                       //발주서코드
     private Date progressInspectionPlan;        // 진척 검수 계획
+    @Column(nullable = true)
     private boolean progressInspectionStatus;   // 진척 검수 상태
 
 }

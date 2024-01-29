@@ -68,7 +68,7 @@
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
             <td id="buttonState">
-                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\')'">진척검수 일정 등록</button>
+                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>
@@ -85,30 +85,25 @@
         <tbody>
         <tr>
             <td>규격</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
         <tr>
             <td>중량</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
         <tr>
             <td>재질</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
         <tr>
             <td>입고가능여부</td>
-            <td><input type="checkbox"></td>
-        </tr>
-        <tr>
-            <td colspan="2">
-                <textarea placeholder="규격에 문제가 있으므로 체크처리를 보류하겠습니다."></textarea>
-            </td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
         </tbody>
     </table>
     <div style="text-align: center;">
-        <button class="inspect">등록</button>
-        <button class="exit" onclick="closeInspect('popup')">닫기</button>
+        <button class="inspect" onclick="inspectorCheck.progressInspectorCheck()">진척 검수</button>
+        <button class="exit" onclick="closeInspect()">닫기</button>
     </div>
 </div>
 <script src="/js/order.js"></script>

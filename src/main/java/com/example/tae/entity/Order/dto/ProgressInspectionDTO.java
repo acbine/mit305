@@ -16,12 +16,16 @@ public class ProgressInspectionDTO {
     private int progressInspectionId;
     private Date progressInspectonDate;
     private LocalDateTime orderDate;
+    private boolean progressInspectorResult;
+    private String orderState;
 
-    public static ProgressInspectionDTO makeDt(ProgressInspection progressInspection, String productName, LocalDateTime orderDate) {
+    public static ProgressInspectionDTO makeDt(ProgressInspection progressInspection, String productName, LocalDateTime orderDate,String orderState) {
         return ProgressInspectionDTO.builder()
+                .orderState(orderState)
                 .productName(productName)
                 .progressInspectonDate(progressInspection.getProgressInspectionPlan())
                 .progressInspectionId(progressInspection.getProgressInspectionNum())
+                .progressInspectorResult(progressInspection.isProgressInspectionStatus())
                 .orderDate(orderDate)
                 .build();
     }

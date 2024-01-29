@@ -13,14 +13,40 @@ function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열
         xhttp.send();
 
 }
+function searchOrderListWithDate() {
+    var date1 = document.getElementsByName("startDate")[0].value;
+    var date2 = document.getElementsByName("endDate")[0].value;
+    $.ajax({
+            url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
+            method:'get',
+        success:function (info){
+                console.log(info,"info 정보 확인하기")
+                drawHTMl(info)
+                console.log("성공");
+        },
+        error:function (){
+            console.log("실패");
+        }
 
-function closePopup() {
-    document.getElementById("orderInspectPopup").style.display = "none";
-}
-function closeInspect(){
-    console.log("일단 닫기 버튼")
+    }
+        )
 }
 
+
+function drawHTMl(info) {
+    var orderBoxInfo = document.getElementsByClassName("orderList")
+    for(var i = 0 ; i<orderBoxInfo.length; i++) {
+        orderBoxInfo[i].innerHTML = `<td>${info.productName}</td>
+                     
+                                    <td>${info.productName}</td>
+                                    <td>${info.productName}</td>
+                                    <td>${info.productName}</td>
+                                    <td>${info.productName}</td>v
+                                    <td>${info.productName}</td>
+`
+    }
+
+}
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
 function downloadImage(){
     /*html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
@@ -34,62 +60,6 @@ function downloadImage(){
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 
-function addProgressInspection(productName, planId) {
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
-
-    if(dateValue) {
-        var formData = {
-            "inspectDate" : dateValue,
-            "planId" : planId
-        }
-        $.ajax({
-            url : "orderInspect",
-            contentType : 'application/json',
-            data : JSON.stringify(formData),
-            method : "post",
-            success : function (data) {
-                addInspectorOne(data);
-                console.log("성공")
-            },
-            error : function () {
-                console.log("보내는 데이터 형태 확인 : ", formData)
-                console.error("잘못된 응답");
-            }
-        })
-
-    } else {
-        alert("진척 검수 계획일을 입력해주세요")
-    }
-
-}
-
-function addInspectorOne(data) {
-    var inspector = data.progressInspection;
-
-
-    var orderDate = formDate(inspector.orderDate)
-    var progressInspectorDate = formDate(inspector.progressInspectonDate);
-
-
-
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    classTbodyContainerTr.insertRow(0).innerHTML = `<td>${inspector.productName}</td>
-                                                            <td>${orderDate}</td>
-                                                            <td class="inspectDate">${progressInspectorDate}</td>
-                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
-}
-
-function toggleTables() {
-    var selectedOption = document.getElementById("companyDropdown").value;
-
-    document.getElementById("table1").classList.add("hidden");
-    document.getElementById("table2").classList.add("hidden");
-    document.getElementById("table3").classList.add("hidden");
-
-    document.getElementById(selectedOption).classList.remove("hidden");
-}
-
 function formDate(data) {
 
     var date = new Date(data)
@@ -100,4 +70,3 @@ function formDate(data) {
 
     return formattedDate;
 }
-

@@ -80,22 +80,11 @@
     float: left;
 }
 
-.tabClassOne {
-    background-color: #2ecc71;
-    font-weight: bold;
-    border-radius: 10px;
-    height: 40px;
-    width: 100px;
-    margin-left: 80px;
-    z-index: 2;
-    display: flex;
-    float: left;
-}
-
 .tabClass {
-    background-color: #2ecc71;
+    background-color: #D3E3FD;
     font-weight: bold;
     border-radius: 10px;
+    display: flex;
 }
 
 .tab_menu .tap_list div.tabClass .btn {
@@ -108,7 +97,7 @@
 .tab_menu .tap_list div.tabClassOne .btn {
     height: 40px;
     width: 100px;
-    z-index: 3;
+    z-index: 2;
     display: flex;
     float: left;
 }
@@ -134,6 +123,6 @@
     color: red;
 }
 
-#on {
-    background-color: #cbd5e0;
+#first {
+   margin-left: 50px;
 }

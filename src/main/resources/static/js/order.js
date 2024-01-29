@@ -1,12 +1,13 @@
 /*--------------------발주 목록(orderList)--------------------*/
 
 function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
-    var html = document.getElementById("orderInspectPopup");
+    var html = document.getElementById("popup-inspector-content");
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                html.style.display = "block";
-                html.innerHTML = this.responseText;
+                window.open('./orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode,this.responseText,'width=900, height=600, left=400, top=3')
+                // html.style.display = "block";
+                // html.innerHTML = this.responseText;
             }
         };
         xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode, true);
@@ -58,13 +59,15 @@ function drawHTMl(info) {
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
 function openOrder(procurementPlanCode) {
     var html = document.getElementById("orderPopup");
+    var orderHtml = document.getElementById("order-popup-content")
     $.ajax({
         url:"open-order/"+procurementPlanCode,
         method: "get",
         success:function (order){
             console.log(order)
             html.style.display = "block";
-            html.innerHTML = order;
+            orderHtml.style.display="block";
+            orderHtml.innerHTML = order;
             console.log("성공")
         },
         error:function (){
@@ -74,7 +77,9 @@ function openOrder(procurementPlanCode) {
     console.log("버튼 동작 확인")
 }
 
-
+function closeOrder() {
+    document.getElementById("orderPopup").style.display = "none";
+}
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 

@@ -6,6 +6,7 @@ var total = 0;
 
 var clickTapList = new Array();
 const tabList = document.getElementsByClassName("tap_list");
+const taps = document.getElementsByClassName("tabClass")
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 
@@ -195,7 +196,7 @@ const childComponent = {
 
             if (i === 0) {
                 tabList3.push(`
-                            <div class="tabClassOne" data-include-path='${currentPage}'>
+                            <div class="tabClass" id="first" data-include-path='${currentPage}'>
                                 <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
                       `)
@@ -222,21 +223,15 @@ const childComponent = {
         var currentPageInfoOfDirectClick = [currentPage, transFromITOStringI]
         setCookie("currentPageInfoOfDirectClick", currentPageInfoOfDirectClick, 7)
 
-        let SoYouCanSeeWhatWasPressed = document.getElementById("on");
-
         for (let k = 0; k < tabList3.length; k++) {
             var clickEvent = document.getElementsByClassName("btn");
             clickEvent[k].addEventListener('click', function (e) {
                 e.preventDefault();
                 for (let j = 0; j < tabList3.length; j++) {
-                    if (SoYouCanSeeWhatWasPressed) {
-                        SoYouCanSeeWhatWasPressed[j].remove('on');
-                    }
                     contents[j].style.display = 'none';
+                    taps[j].style.background = "#D3E3FD";
                 }
-                if(SoYouCanSeeWhatWasPressed) {
-                    SoYouCanSeeWhatWasPressed[k].id = 'on';
-                }
+                taps[k].style.background = "#05AFF1";
                 contents[k].style.display = 'block';
 
                 var pageInfoToString = String(k);
@@ -400,23 +395,8 @@ function closePage(pageData, cnt) {
 
     arrayClick.splice(closeData, 1);
 
-    if(cnt===0) {
-        var second = taps[1]
-        if (closeData === arrayClick[0]) {
-            firstTap.removeAttribute('class');
-            firstTap.classList.add("tabClass")
-            if (second) {
-                second.classList.add("tabClass1");
-            }
-        }
-        conts[0].style.display = "none"
-        firstTap[0].style.display = "none";
-
-    }
-
-
-    taps[cnt-1].style.display = "none";
-    conts[cnt-1].style.display = "none";
+    taps[cnt].style.display = "none";
+    conts[cnt].style.display = "none";
 
     setCookie("clickTapList", arrayClick, 7)
 

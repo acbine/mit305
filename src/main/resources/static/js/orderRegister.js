@@ -173,7 +173,6 @@ const popup ={
 }
 
 function updateConfirm(html, index) {
-    console.log("0이 되는 시점 찾기 updateConfirm :  ",index);
     var updateData = html.closest("tr");
     var dateHtml = updateData.children[2];
     var updateButton = updateData.children[4];
@@ -256,7 +255,7 @@ function toggleTables() {
 }
 
 function closePopup() {
-    document.getElementById("orderPopup").style.display = "none";
+    window.close();
 }
 
 function closeInspect() {

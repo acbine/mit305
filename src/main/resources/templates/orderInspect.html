@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" href="/css/order.css">
 
     <title>진척 검수</title>
+
+    <style>
+        .title {
+            margin: 0 auto;
+        }
+        .theadContainer {
+            width: 100%;
+            border: 1px solid #444444;
+            border-collapse: collapse;
+        }
+        .tbodyContainer {
+            width: 100%;
+            border: 1px solid #444444;
+            border-collapse: collapse;
+        }
+        .trClass {
+            width: 100%;
+            border: 1px solid #444444;
+            border-collapse: collapse;
+        }
+        #ta {
+
+        }
+        #setInspectDate {
+
+        }
+    </style>
 </head>
 <body>
 <h2 class="title">진척 검수 등록</h2>
 <div class="container">
-    <table class="tableContainer">
+    <table class="theadContainer" id ="ta">
         <thead class="theadContainer">
-        <tr>
+        <tr class="trClass">
             <th class="thContainer">품목명</th>
             <th class="thContainer">품목코드</th>
             <th class="thContainer">수량</th>
@@ -28,7 +56,7 @@
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="tbody" th:each="info :  ${orderInspect}">
-        <tr>
+        <tr class="trClass">
             <td th:text="${info.productName}"></td>
             <td th:text="${info.productCode}"></td>
             <td th:text="${info.num}"></td>
@@ -45,17 +73,17 @@
                 <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\')'">확인</button>
             </td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td colspan="11" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td colspan="11" th:text="${info.departName}"></td>
         </tr>
         </tbody>
     </table>
     <table class="hidden" id="hidden">
         <thead class="theadContainer">
-        <tr>
+        <tr class="trClass">
             <th class="thContainer">품목명</th>
             <th class="thContainer">발주일</th>
             <th class="thContainer">진척 검수 계획일</th>
@@ -63,7 +91,7 @@
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="progressInspection">
-        <tr th:each="info : ${orderInspect}">
+        <tr class="trClass" th:each="info : ${orderInspect}" >
             <td th:text="${info.productName}"></td>
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
@@ -78,24 +106,24 @@
 <div class="popup" id="popup">
     <table style="width: 190px;">
         <thead>
-        <tr>
+        <tr class="trClass">
             <th colspan="2">품목수준평가</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="trClass">
             <td>규격</td>
             <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>중량</td>
             <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>재질</td>
             <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>입고가능여부</td>
             <td><input class="checkbox" type="checkbox"></td>
         </tr>
@@ -107,5 +135,6 @@
     </div>
 </div>
 <script src="/js/order.js"></script>
+<script src="/js/orderRegister.js"></script>
 </body>
 </html>

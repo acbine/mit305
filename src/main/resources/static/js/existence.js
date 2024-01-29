@@ -6,16 +6,16 @@ function searchProduct() {
     console.log("date1과 date2 정보 확인하기 date1 : ", date1, ", date2 : ", date2)
     var product = search.value;
 
+    var select = document.getElementById("selectInfo");
+    var value = select.options[select.selectedIndex].value;
+
     $.ajax({
         url:'existenceDate?&date1='+date1+'&date2='+date2+'&product='+product,
         type : 'get',
         data: {},
         success:function (info){
-            console.log("받아오는 데이터 정보 값이 다 잘들어왔는지 확인",info)
-            console.log("성공");
-            htmlLoad(info);
-            columnChart(info);
-            console.log("보내는 정보 보기 : ",product);
+            htmlLoad(info,value);
+            columnChart(info,value);
         },
         error:function (info) {
             console.log("에러 받아오는 데이터 확인하기 : ", info);
@@ -25,15 +25,39 @@ function searchProduct() {
 
 }
 
-function htmlLoad(data) {
-    var table = document.getElementsByClassName("existence_body");
-
-    var inputHtml = [];
+function htmlLoad(data,value) {
+    var table = document.getElementById("existence_body");
+    var title = document.getElementById("t-header");
     var existence = data.existenceList;
-    for(var i=0; i<existence.length;i++){
-        inputHtml.push(`
-        <tr class="existence_body">
+
+    if(value === "대분류"){
+        table.innerHTML = `<td>대분류</td>
+                           <td>품목명</td>
+                           <td>품목코드</td>
+                           <td>공급가격</td>
+                           <td>재고 금액</td>
+                           <td>출고 날짜</td>`
+        for(var i=0; i<existence.length;i++){
+            table.innerHTML=
+                ` <td id="body">${existence[i].unit.unit}</td>
             <td id="body">${existence[i].productName}</td>
+            <td id="body">${existence[i].product_code}</td>
+            <td id="body">${existence[i].existence}</td>
+            <td id="body">${existence[i].contract_pay}</td>
+            <td id="body">${existence[i].existence_price}</td>
+             <td id="body">${existence[i].releaseDate}</td>`;
+        }
+    }
+    else if(value === "중분류"){
+
+    }
+    else if(value === "소분류"){
+
+    } else
+    {
+        for(var i=0; i<existence.length;i++){
+            table.innerHTML=
+                `<td id="body">${existence[i].productName}</td>
             <td id="body">${existence[i].product_code}</td>
             <td id="body">${existence[i].unit.unit}</td>
             <td id="body">${existence[i].assy.assy}</td>
@@ -41,11 +65,10 @@ function htmlLoad(data) {
             <td id="body">${existence[i].existence}</td>
             <td id="body">${existence[i].contract_pay}</td>
             <td id="body">${existence[i].existence_price}</td>
-             <td id="body">${existence[i].releaseDate}</td>
-        </tr>`);
+             <td id="body">${existence[i].releaseDate}</td>`;
+        }
     }
 
-    table[table.length-1].innerHTML = inputHtml.join("");
 }
 
 
@@ -53,7 +76,7 @@ google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(columnChart);
 
 function columnChart(data) {
-    select = document.getElementById("selectInfo");
+    var select = document.getElementById("selectInfo");
     var value = select.options[select.selectedIndex].value;
     var charData;
 

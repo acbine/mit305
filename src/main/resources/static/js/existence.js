@@ -30,7 +30,6 @@ function htmlLoad(data) {
 
     var inputHtml = [];
     var existence = data.existenceList;
-    console.log(existence,"==============================")
     for(var i=0; i<existence.length;i++){
         inputHtml.push(`
         <tr class="existence_body">
@@ -42,6 +41,7 @@ function htmlLoad(data) {
             <td id="body">${existence[i].existence}</td>
             <td id="body">${existence[i].contract_pay}</td>
             <td id="body">${existence[i].existence_price}</td>
+             <td id="body">${existence[i].releaseDate}</td>
         </tr>`);
     }
 

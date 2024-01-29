@@ -70,7 +70,7 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\')'">확인</button>
+                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\')'">진척 검수 불러오기</button>
             </td>
         </tr>
         <tr class="trClass">
@@ -104,7 +104,7 @@
     <button onclick="closePopup()">닫기</button>
 </div>
 <div class="popup" id="popup">
-    <table style="width: 190px;">
+    <table style="width: 190px;" class="testBox">
         <thead>
         <tr class="trClass">
             <th colspan="2">품목수준평가</th>

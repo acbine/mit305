@@ -29,7 +29,7 @@ public class TradingStatementController {
     }
 
     @GetMapping("TSSearch")
-    public ResponseEntity<?> TSSearch(@RequestParam("inputData") String inputData, @RequestParam("searchData") String searchData , @RequestParam("state") String state) {
+    public ResponseEntity<?> TSSearch(@RequestParam("trinputData") String inputData, @RequestParam("trsearchData") String searchData , @RequestParam("trstate") String state) {
         System.out.println("거래명세서의 검색요청 들어옴");
         System.out.println("=======> 검색내용"+inputData +"========>검색종류"+searchData +"페이지 상태"+state);
         List <TradingStatementModalDTO> returnDTOList = tradingStatementService.search(inputData,Integer.parseInt(state));

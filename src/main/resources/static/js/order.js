@@ -18,9 +18,10 @@ function searchOrderListWithDate() {
     console.log(date1)
     var date2 = document.getElementsByName("endDate")[0].value;
     $.ajax({
-            url: 'order_list_with_date?&date1=' + date1 +'&date2='+date2,
+            url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
             method:'get',
-        success:function (){
+        success:function (info){
+
                 console.log("성공");
         },
         error:function (){

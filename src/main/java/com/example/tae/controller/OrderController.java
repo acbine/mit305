@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Controller
@@ -41,7 +43,6 @@ public class OrderController {
     return "orderRegister";
     }
 
-
     @PostMapping("orderRegisterData")
     public String orderRegisterData(@RequestBody OrderDTO orderDTO) {
         orderService.orderRegister(orderDTO.getProcurementPlanCode());
@@ -55,8 +56,17 @@ public class OrderController {
         return ResponseEntity.ok().body(Map.of("msg",procurementplan_code+"번 조달 계획 발주서 취소 완료"));
     }
 
-    @GetMapping("order_list_with_date")
-    public ResponseEntity<?> getOrderListWithDate(@RequestParam("date1") Date date1, @RequestParam("date2") Date date2) {
+    @GetMapping("order-list-with-date")
+    @ResponseBody
+    public ResponseEntity<?> getOrderListWithDate(@RequestParam("date1") String stringDate1, @RequestParam("date2") String stringDate2) {
+
+        log.info("받아오는 데이터 정보 확인 "+ stringDate1+stringDate2);
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        LocalDateTime date1 = LocalDateTime.parse(stringDate1+ " 00:00", format);
+        LocalDateTime date2 = LocalDateTime.parse(stringDate2+ " 00:00", format);
+
         List<OrderDTO> oList = orderService.getOrderListWithDate(date1, date2);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("oList", oList));
     }

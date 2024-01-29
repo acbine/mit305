@@ -18,6 +18,7 @@ import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -176,7 +177,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public List<OrderDTO> getOrderListWithDate(Date date1, Date date2) {
+    public List<OrderDTO> getOrderListWithDate(LocalDateTime date1, LocalDateTime date2) {
         List<OrderDTO> orderDTOList = new ArrayList<>();
         List<Purchase> orderList = orderRepository.findOrderListWithDate(date1,  date2);
         orderList.forEach( order -> {
@@ -188,7 +189,7 @@ public class OrderServiceImpl implements OrderService {
                     .departName(procurementPlan.getContract().getCompany().getDepartName())
                     .orderState(procurementPlan.getOrder_state())
                     .build();
-                    orderList.add(order);
+                    orderDTOList.add(orderDTO);
         });
         return orderDTOList;
     }

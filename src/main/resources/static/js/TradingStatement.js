@@ -48,7 +48,7 @@ function searchTSButton(){ //검색 정보를 넣고 검색요청 검색된 내�
             trstate=1;
         }else{
 //            console.log("업체이름")
-            state=2;
+            trstate=2;
         }
     }
 //    console.log("최종상태",trstate)

@@ -19,4 +19,5 @@ public interface ProductInformationRegistrationRepository extends JpaRepository 
 
 
 
+
 }

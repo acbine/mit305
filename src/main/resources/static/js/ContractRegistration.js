@@ -291,3 +291,9 @@ function contract_delete(contract_code) {
     });
 }
 
+// 계약서 전송 팝업창 열기
+function SendContract() {
+
+    var popup = window.open("/ContractSend", "ContractSend", "width=500,height=200");
+
+}

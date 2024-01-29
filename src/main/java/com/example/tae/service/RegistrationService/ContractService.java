@@ -10,4 +10,6 @@ public interface ContractService {
 
     List<Contract> getAllContracts();
 
+//    void sendEmail();
+
 }

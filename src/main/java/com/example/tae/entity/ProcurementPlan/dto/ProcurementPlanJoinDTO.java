@@ -20,7 +20,7 @@ public class ProcurementPlanJoinDTO {
     private int productCodeCount;
     private int leadTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "GMT") // 날짜 명시
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Seoul") // 날짜 명시
     private Date projectOutputDate;
     private String departmentName;
 

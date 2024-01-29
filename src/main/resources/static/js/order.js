@@ -43,27 +43,38 @@ function drawHTMl(info) {
                                     <td>${ formDate(data)}</td>
                                     <td>${info.oList[i].departName}</td>
                                     <td>${info.oList[i].orderState}</td>
-                                    <td onclick="openOrderInspectPopup(${info.oList[i].productCode, info.oList[i].procurementPlanCode})" ></td>`
+                                    <td onclick="openOrderInspectPopup(${info.oList[i].productCode, info.oList[i].procurementPlanCode})" ></td>
+                                    <td onclick="openOrder(${info.oList[i].procurementPlanCode})">🔍️</td>`
         } else {
             orderBoxInfo[i].innerHTML = `<td>${info.oList[i].productName}</td>
                                     <td>${ formDate(data)}</td>
                                     <td>${info.oList[i].departName}</td>
                                     <td>${info.oList[i].orderState}</td>
-                                    <td onclick="openPopup(${info.oList[i].productCode})">🔍️</td>`
+                                    <td onclick="openOrder(${info.oList[i].procurementPlanCode})">🔍️</td>`
         }
     }
 
 }
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
-function downloadImage(){
-    /*html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
-        const imageDataURL = canvas.toDataURL("image/jpg");
-
-        const a = document.createElement("a");
-        a.href = imageDataURL;
-        a.download = "발주서.jpg";
-    }*/
+function openOrder(procurementPlanCode) {
+    var html = document.getElementById("orderPopup");
+    $.ajax({
+        url:"open-order/"+procurementPlanCode,
+        method: "get",
+        success:function (order){
+            console.log(order)
+            html.style.display = "block";
+            html.innerHTML = order;
+            console.log("성공")
+        },
+        error:function (){
+            console.log("실패")
+        }
+    })
+    console.log("버튼 동작 확인")
 }
+
+
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 

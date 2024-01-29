@@ -5,7 +5,7 @@ var state3 = 0;
 var total = 0;
 
 var clickTapList = new Array();
-const tabList = document.getElementsByClassName("list");
+const tabList = document.getElementsByClassName("tap_list");
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 
@@ -393,23 +393,34 @@ window.onload = function () {
 
 function closePage(pageData, cnt) {
     var taps = document.getElementsByClassName("tabClass");
-    var firstTap = document.getElementById("tap1")
+    var firstTap = document.getElementsByClassName("tabClassOne")
     var conts = document.getElementsByClassName("cont");
+
     var closeData = arrayClick.indexOf(pageData)
 
     clickTapList = clickTapList.filter((value) => value !== pageData);
 
     arrayClick.splice(closeData, 1);
 
-    setCookie("clickTapList", arrayClick, 7)
-    var second = taps[1]
-    if (closeData === arrayClick[0]) {
-        firstTap.removeAttribute('class');
-        firstTap.classList.add("tabClass")
-        if (second) {
-            second.classList.add("tabClass1");
+    if(cnt===0) {
+        var second = taps[1]
+        if (closeData === arrayClick[0]) {
+            firstTap.removeAttribute('class');
+            firstTap.classList.add("tabClass")
+            if (second) {
+                second.classList.add("tabClass1");
+            }
         }
+        conts[0].style.display = "none"
+        firstTap[0].style.display = "none";
+
     }
+
+
+    taps[cnt-1].style.display = "none";
+    conts[cnt-1].style.display = "none";
+
+    setCookie("clickTapList", arrayClick, 7)
 
 };
 

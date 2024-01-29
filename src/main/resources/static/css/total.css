@@ -72,11 +72,11 @@
     position: relative;
 }
 
-.tab_menu .list {
+.tab_menu .tap_list {
     overflow: hidden;
 }
 
-.tab_menu .list div {
+.tab_menu .tap_list div {
     float: left;
 }
 
@@ -98,14 +98,14 @@
     border-radius: 10px;
 }
 
-.tab_menu .list div.tabClass .btn {
+.tab_menu .tap_list div.tabClass .btn {
     height: 40px;
     width: 100px;
     z-index: 3;
     display: flex;
     float: left;
 }
-.tab_menu .list div.tabClassOne .btn {
+.tab_menu .tap_list div.tabClassOne .btn {
     height: 40px;
     width: 100px;
     z-index: 3;
@@ -113,7 +113,7 @@
     float: left;
 }
 
-.tab_menu .list .btn {
+.tab_menu .tap_list .btn {
     font-size: 13px;
 }
 

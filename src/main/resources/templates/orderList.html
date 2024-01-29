@@ -43,7 +43,7 @@
                         th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">진척검수등록
                 </button>
             </td>
-            <td th:attr="onclick='openPopup(\'' + ${order.productCode} + '\')'">🔍️</td>
+            <td th:attr="onclick='openOrder(\'' + ${order.procurementPlanCode} + '\')'">🔍️</td>
         </tr>
         </tbody>
     </table>
@@ -51,6 +51,11 @@
 <div id="orderInspectPopup" class="popup"> <!--팝업창 백그라운드-->
     <div class="popup-content">
         <div id="orderListPopup"></div>
+    </div>
+</div>
+<div id="orderPopup" class="orderPopup"> <!--팝업창 백그라운드-->
+    <div class="popup-content">
+        <div id="orderPopupDiv"></div>
     </div>
 </div>
 <script src="/js/order.js"></script>

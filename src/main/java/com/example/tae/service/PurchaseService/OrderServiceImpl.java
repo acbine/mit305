@@ -6,6 +6,7 @@ import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
+import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.OrderRepository;
 import com.example.tae.repository.ProgressInspectionRepository;
@@ -16,13 +17,20 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -196,5 +204,132 @@ public class OrderServiceImpl implements OrderService {
         return orderDTOList;
     }
 
+    @Override
+    public OrderDTO getOrderPopup(int procurementPlanCode) {
+        Optional<ProcurementPlan> pr = Optional.of(procurementPlanRepository.findById(procurementPlanCode).orElseThrow(
+                ()->new IllegalArgumentException("조달 파업청 열기 실패 : 존재하지 않는 조달계획 아이디 ")
+        ));
+        ProcurementPlan procurementPlan = pr.get();
+
+        Optional<Existence> existence = Optional.of(
+                existenceRepository.findByProductCode(procurementPlan.getContract().getProductInformationRegistration()).orElseGet(
+                        () -> {
+                            Existence ex = Existence.builder()
+                                    .productCode(procurementPlan.getContract().getProductInformationRegistration())
+                                    .releaseCNT(0)
+                                    .build();
+                            existenceRepository.save(ex);
+                            return ex;
+                        }
+                )
+        );
+
+        return OrderDTO.builder()
+                .productName(procurementPlan.getContract().getProductInformationRegistration().getProduct_name())
+                .businessNum(procurementPlan.getContract().getCompany().getBusinessNumber())
+                .departName(procurementPlan.getContract().getCompany().getDepartName())
+                .businessName(procurementPlan.getContract().getCompany().getBusinessName())
+                .registerOrderDate(procurementPlan.getPurchase().getRegDate())
+                .productCode(procurementPlan.getContract().getProductInformationRegistration().getProduct_code())
+                .supportProductAmount(procurementPlan.getSupportProductAmount())
+                .existence(existence.get().getReleaseCNT())
+                .projectOutPutDate(procurementPlan.getProjectPlan().getProjectOutputDate())
+                .LT(procurementPlan.getContract().getLead_time())
+                .orderDate(procurementPlan.getOrder_date())
+                .email(procurementPlan.getContract().getCompany().getBusinessEmail())
+                .tel(procurementPlan.getContract().getCompany().getBusinessTel())
+                .fax(procurementPlan.getContract().getCompany().getFax())
+                .build();
+    }
+
+
+    public void orderUpload(ImageDTO imageDTO) {
+        System.out.println("포스트요청 들어옴");
+
+        String folderPath="../../Desktop/이미지 테스트/발주서/"; //폴더주소
+
+        try {
+            createFolderAndDownloadBase64Image(folderPath,imageDTO);
+            System.out.println("이미지가 무사히 저장됨");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }////////////////URL을 이미지로 변환
+
+        final String user_email= "b1gdd0601@gmail.com"; // 구글 이메일
+        final String user_pw = "qkqhemfth1352"; //구글 앱 비밀번호
+        final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
+        final int smtp_port = 465;  // TLS : 587, SSL : 465
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", smtp_host);
+        props.put("mail.smtp.port", smtp_port);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.enable", "true");
+        props.put("mail.smtp.ssl.trust", smtp_host);
+
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user_email, user_pw);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            // 보내는 이메일 주소
+            message.setFrom(new InternetAddress(user_email));
+            // 받는 이메일 주소
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("b1gdd@naver.com")  );
+            // 이메일 제목
+            message.setSubject("TAE 발주서 이메일 기능 확인.");
+            Multipart multipart = new MimeMultipart();
+
+            // 메일 내용 부분
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText("하단의 첨부파일에 거래명세서가 보이면 잘 전송이 된것입니다");
+            multipart.addBodyPart(textPart);
+
+            // 이미지 파일 경로
+            String imageurl = folderPath+imageDTO.ordercode+"발주서.jpg";
+
+            //이미지 첨부 부분
+            MimeBodyPart imagePart = new MimeBodyPart();
+            imagePart.attachFile(imageurl);//
+            multipart.addBodyPart(imagePart);
+
+            message.setContent(multipart);
+
+            // 발송
+            Transport.send(message);
+            System.out.println("발송완료됨");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    /**
+     * base64 이미지 URL을 바이너리로 디코딩 한고 폴더가 미존재시 폴더를 생성하고 이미지파일을 저장하는 함수입니다
+     * @param folderPath 저장할파일 위치 넣어주세요
+     * @param dto ImageDTO객체
+     */
+    private static void createFolderAndDownloadBase64Image(String folderPath , ImageDTO dto) throws IOException {
+        // Base64 문자열에서 이미지 데이터 부분 추출
+        String imageData = dto.imageDataURL.split(",")[1];
+        // Base64 디코딩
+        byte[] imageBytes = Base64.getDecoder().decode(imageData);
+        // 지정한 위치에 폴더 미존재시 폴더생성
+        Path path = Paths.get(folderPath);
+        if(!Files.exists(path)){
+            Files.createDirectories(path);
+        }
+        //이미지파일의 저장폴더위치와 이름을 정하고
+        String destinationPath = folderPath+dto.ordercode+"발주서.jpg";
+
+        //폴더에 파일저장
+        Path destination = Path.of(destinationPath);
+        Files.write(destination, imageBytes);
+    }
 
 }

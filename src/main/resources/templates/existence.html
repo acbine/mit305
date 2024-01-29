@@ -32,7 +32,7 @@
           </div>
         </div>
       <table>
-        <thead id="t-header" class="t-header">
+        <thead class="t-header">
         <tr>
           <th>품목명</th>
           <th>품목코드</th>
@@ -42,10 +42,10 @@
           <th>재고</th>
           <th>공급 가격</th>
           <th>재고 금액</th>
-          <th>출고 날짜</th>
+          <th>재고 금액</th>
         </tr>
         </thead>
-        <tbody id="existence_body">
+        <tbody class="existence_body">
         <tr th:each="existence: ${existenceList}">
           <td th:text="${existence.productName}"></td>
           <td th:text="${existence.product_code}"></td>

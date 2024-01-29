@@ -190,6 +190,8 @@ $('#product_info tbody').empty();
 
     $.each(data_info, function(index, info) {
 
+        var name = decodeURIComponent(info.image_name);
+
         $('#product_info tbody')
             .append(
                 '<tr>' +
@@ -204,7 +206,7 @@ $('#product_info tbody').empty();
                     '<td>' + info.assy + '</td>' + // 중분류
                     '<td>' + info.part + '</td>' + // 소분류
                     '<td>' +
-                        '<img src="/images/Product/' + decodeURIComponent(info.image_name) + '" alt="'+ info.image_name +'" style="max-width: 100px; max-height: 100px;">' +
+                        '<img src="/images/Product/' + name + '" alt="'+ info.image_name +'" style="max-width: 100px; max-height: 100px;">' +
                     '</td>' + // 사진 이름
 
                     '<td>' +

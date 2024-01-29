@@ -40,9 +40,6 @@ function find_contract_code(businessNumber) {
         url : "/search/codes/" + businessNumber,
         success : function(c_codes) {
             console.log(c_codes);
-
-
-
             contract_select(c_codes);
         },
         error : function() {
@@ -69,6 +66,8 @@ $("#cp_table tbody").empty();
         $("#cp_table tbody")
             .append(
                 '<TR class = "cell">' +
+
+                    '<TD style="display: none">' + result.contract.contract_code + '</TD>' +  // 계약 코드 (숨겨짐)
 
                     '<TD colspan="3" width="135" height="22" valign="middle">' + // 품목명
                         '<P CLASS=HStyle0 STYLE="text-align:center;">' +
@@ -111,8 +110,54 @@ $("#cp_table tbody").empty();
 
                 '</TR>')
     });
+}
+
+// 다시 계약서를 불렀을때 버튼이 숨겨진 채로 존재 = 새로 고침이 되지 않고 기존의 상태가 남아있음
+//$(document).ready(function() {
+//
+//h1.style.display = 'inline-block';
+//h2.style.display = 'inline-block';
+//h3.style.display = 'inline-block';
+//
+//});
+
+function get_contract_code(con_code) {
+
+console.log(con_code);
+
+var table = document.getElementById("cp_table");
+var rows = table.getElementsByTagName("tr");
+var columnArray = [];
 
 
+for (var i = 1; i< rows.length; i++) {
+
+    var cells = rows[i].getElementsByTagName("td");
+    columnArray.push(cells[con_code].innerText);
+}
+
+console.log("계약 코드들: ", columnArray);
+
+    $.ajax({
+
+        type : "POST",
+        contentType: "application/json",
+        url : "/update/code",
+        data : JSON.stringify(columnArray),
+
+        success: function() {
+
+            console.log("날짜 변경 성공");
+        },
+
+        error: function (error) {
+            console.error("변경 오류 발생: ", error);
+        }
+
+    });
+
+
+/* 빈 행 추가 하는 코드 */
 const row_num = document.getElementById('cp_table').rows.length;
 
 if(row_num < 11) {
@@ -122,6 +167,9 @@ if(row_num < 11) {
         $("#cp_table tbody")
             .append(
                 '<TR>' +
+
+                     '<TD style="display: none"></TD>' +
+
                      '<TD colspan="3" width="107" height="16" valign="middle" class="cell">' +
                         '<P CLASS=HStyle0 STYLE="text-align:center;">' +
                             '<SPAN STYLE="font-size:8.0pt;line-height:160%;">' +
@@ -166,19 +214,15 @@ if(row_num < 11) {
     }
 
 }
-}
+/* 빈 행 추가 하는 코드 끝 */
 
-// 다시 계약서를 불렀을때 버튼이 숨겨진 채로 존재 = 새로 고침이 되지 않고 기존의 상태가 남아있음
-//$(document).ready(function() {
-//
-//h1.style.display = 'inline-block';
-//h2.style.display = 'inline-block';
-//h3.style.display = 'inline-block';
-//
-//});
+}
 
 
 function contract_convertToImage() {
+
+
+
 
     const h1 = document.getElementById('get_company');
     const h2 = document.getElementById('select_contract');
@@ -188,15 +232,15 @@ function contract_convertToImage() {
     h2.style.display = 'none';
     h3.style.display = 'none';
 
-    html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
-        const imageDataURL = canvas.toDataURL("image/jpg");
-
-        const a = document.createElement("a");
-        a.href = imageDataURL;
-        a.download = "계약서.jpg";
-        a.click();
-
-    });
+//    html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
+//        const imageDataURL = canvas.toDataURL("image/jpg");
+//
+//        const a = document.createElement("a");
+//        a.href = imageDataURL;
+//        a.download = "계약서.jpg";
+//        a.click();
+//
+//    });
 
 }
 

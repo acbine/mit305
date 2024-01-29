@@ -7,8 +7,17 @@ import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Properties;
 
 @Controller
 public class ContractController {
@@ -30,6 +39,10 @@ public class ContractController {
     public String ContractRegistrationModal() {
         return "ContractRegistrationModal";
     }
+
+
+    @GetMapping("ContractSend")
+    public String ContractSendPopup () {return  "ContractSend"; }
 
     // 품목 전체 검색
     @GetMapping("/search/contract")
@@ -63,5 +76,88 @@ public class ContractController {
         contractRepository.deleteById(contract_code);
         return "삭제된 계약 코드: " + contract_code;
     }
+
+    // 이메일 전송
+    @PostMapping("/contractUpload")
+    public String SendContract(@RequestParam(value="email") String email, @RequestParam(value="text") String text, @RequestParam(value="file") MultipartFile contractMultipartFile) throws IOException {
+
+        System.out.println("이메일: " + email + "이메일 내용: " + text + "파일: " + contractMultipartFile);
+        
+
+        System.out.println("아래부터는 메일 전송 하기위한 코드");
+
+
+        File file = new File("D:/mit305-master/images", contractMultipartFile.getOriginalFilename());
+        contractMultipartFile.transferTo(file);
+        
+
+        final String user_email= "ghostjaewoongp@gmail.com"; // 구글 이메일
+        final String user_pw = "rxks poyq biif qcfq"; //구글 앱 비밀번호
+        final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
+        final int smtp_port = 465;  // TLS : 587, SSL : 465
+
+        Properties props = System.getProperties();
+        props.put("mail.smtp.host", smtp_host);
+        props.put("mail.smtp.port", smtp_port);
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.ssl.enable", "true");
+        props.put("mail.smtp.ssl.trust", smtp_host);
+
+        Session session = Session.getInstance(props,
+                new Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(user_email, user_pw);
+                    }
+                });
+
+        try {
+            Message message = new MimeMessage(session);
+            // 보내는 이메일 주소
+            message.setFrom(new InternetAddress(user_email));
+            // 받는 이메일 주소
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("youngjjag28@gmail.com")  );
+            // 이메일 제목
+            message.setSubject("TAE 계약서에 관한  메일입니다.");
+            Multipart multipart = new MimeMultipart();
+
+            // 메일 내용 부분
+            MimeBodyPart textPart = new MimeBodyPart();
+            textPart.setText(text);
+            multipart.addBodyPart(textPart);
+
+
+            //이미지 첨부 부분
+            MimeBodyPart imagePart = new MimeBodyPart();
+            imagePart.attachFile(file);//
+            multipart.addBodyPart(imagePart);
+
+            message.setContent(multipart);
+
+            // 발송
+            Transport.send(message);
+            System.out.println("발송완료됨");
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.getMessage());
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+        return "ContractSend";
+
+
+
+    }
+
 
 }

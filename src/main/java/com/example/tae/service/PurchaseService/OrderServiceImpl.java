@@ -8,12 +8,15 @@ import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.OrderRepository;
-import com.example.tae.repository.ProgressInspectionRepository;
+import org.springframework.beans.factory.annotation.Value;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
+
 import lombok.extern.slf4j.Slf4j;
+
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
@@ -32,7 +35,13 @@ import java.util.*;
 @Service
 @AllArgsConstructor
 @Slf4j
+@PropertySource("classpath:application.properties")
 public class OrderServiceImpl implements OrderService {
+//    @Value("${database.email}")
+//    private String email;
+//    @Value("${database.pw}")
+//    private String password;
+
     private final OrderRepository orderRepository;
     private final ProcurementPlanRepository procurementPlanRepository;
     private final ExistenceRepository existenceRepository;
@@ -237,6 +246,7 @@ public class OrderServiceImpl implements OrderService {
 
 
     public void orderUpload(ImageDTO imageDTO) {
+
         System.out.println("포스트요청 들어옴");
 
         String folderPath="../../Desktop/이미지 테스트/발주서/"; //폴더주소
@@ -248,8 +258,8 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }////////////////URL을 이미지로 변환
 
-        final String user_email= "b1gdd0601@gmail.com"; // 구글 이메일
-        final String user_pw = "qkqhemfth1352"; //구글 앱 비밀번호
+        final String user_email= ""; // 구글 이메일
+        final String user_pw = ""; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
         final int smtp_port = 465;  // TLS : 587, SSL : 465
 

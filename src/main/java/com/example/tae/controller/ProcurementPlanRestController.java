@@ -91,9 +91,6 @@ public class ProcurementPlanRestController  {
 
             System.out.println( "조달 총 수량 : " + data.getSupportProductAmount());
 
-            // 발주 상태
-            System.out.println("등록한 발주 상태 : " + data.getOrder_state());
-
             // 등록
             if(project != null && contract != null) {
 

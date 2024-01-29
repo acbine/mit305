@@ -44,13 +44,4 @@ public class ProcurementPlanImpl implements ProcurementPlanService{
         return procurementPlanRepository.findByProcurementPlanState();
     }
 
-
-//    @Override
-//    public void insert_plan() {
-//
-//        ProcurementPlan procurementPlan = ProcurementPlan.builder().plan_code(1001).build();
-//
-//        planRepository.save(procurementPlan);
-//
-//    }
 }

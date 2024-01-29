@@ -1,27 +1,6 @@
 package com.example.tae.RegistratioinTest.Repository;
 
-import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.DummyData.Product.Project;
-import com.example.tae.entity.DummyData.Product.ProjectPlan;
-import com.example.tae.entity.Order.Purchase;
-import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
-import com.example.tae.entity.ProductForProject.ProductForProject;
-import com.example.tae.entity.ProductForProject.ProductForProjectEmbeddable;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
-import com.example.tae.repository.OrderRepository;
-import com.example.tae.repository.ProductForProjectRepository;
-import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
-import com.example.tae.repository.ProjectRepository.ProjectRepository;
-import com.example.tae.repository.RegistrationRepository.ContractRepository;
-import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-
-import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.Date;
-import java.util.List;
 
 @SpringBootTest
 public class ProcurementPlanRepositoryTest {

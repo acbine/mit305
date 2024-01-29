@@ -41,7 +41,7 @@ public class ProcurementPlanImpl implements ProcurementPlanService{
 
     @Override
     public List<ProcurementPlan> getAllPlan() {
-        return procurementPlanRepository.findAll();
+        return procurementPlanRepository.findByProcurementPlanState();
     }
 
 

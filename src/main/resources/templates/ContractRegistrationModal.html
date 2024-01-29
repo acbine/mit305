@@ -109,7 +109,7 @@
 
         <TR>
             <TD colspan="12" width="473" height="18" valign="middle" style='border-left:solid #000000 0.4pt;border-right:solid #000000 0.4pt;border-top:none;border-bottom:none;padding:1.4pt 5.1pt 1.4pt 5.1pt'>
-                <P CLASS=HStyle0 STYLE='font-size:7.0pt;' id="text"><SPAN STYLE='font-size:7.0pt;line-height:160%;'>TAE 와  은 계약서를 기준으로 다음과 같이 상품을 공급한다.</SPAN></P>
+                <P CLASS=HStyle0 STYLE='font-size:7.0pt;' id="text"><SPAN STYLE='font-size:7.0pt;line-height:160%;'></SPAN></P>
             </TD>
         </TR>
 
@@ -126,6 +126,8 @@
         <!-- 품목 테이블 - 헤드-->
         <thead>
         <tr>
+            <TH style="display: none">계약 코드</TH>
+
             <TH colspan="3" width="137" height="28" valign="middle" class="cell">
                 <P CLASS=HStyle3 STYLE='text-align:center;'><SPAN STYLE='font-size:10.0pt;font-family:"맑은 고딕";line-height:160%;'>품&nbsp;&nbsp;&nbsp;명</SPAN></P>
             </TH>
@@ -258,8 +260,8 @@
 
 
     <button id="select_contract" onclick="company_select()" >계약 확인</button> &nbsp;&nbsp;&nbsp;
-    <input type="button" value="저장" id="print" onclick="contract_convertToImage(); window.print();"/> &nbsp;&nbsp;&nbsp;
-<!--    <button id="save" style="position: absolute" onclick="contract_convertToImage();" >계약서 저장</button>-->
+    <input type="button" value="계약서 저장" id="print" onclick="get_contract_code(0); contract_convertToImage(); window.print();"/> &nbsp;&nbsp;&nbsp;
+<!--    <button id="save" style="position: absolute" onclick="contract_convertToImage();" >계약서 전송</button>-->
 
 </div>
 </p>

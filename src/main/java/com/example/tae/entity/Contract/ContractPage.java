@@ -22,7 +22,7 @@ public class ContractPage {
     @ManyToOne
     Contract contract; // 계약 코드
 
-    private String contract_name; // 계약서 이미지 이름
+//    private String contract_name; // 계약서 이미지 이름
 
     @Temporal(TemporalType.DATE) // 계약서 작성일
     private Date contract_write_date;

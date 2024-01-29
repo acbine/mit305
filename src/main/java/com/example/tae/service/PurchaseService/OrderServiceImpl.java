@@ -185,6 +185,8 @@ public class OrderServiceImpl implements OrderService {
             ProcurementPlan procurementPlan = procurementPlanRepository.findByPurchase_OrderCode(order.getOrderCode());
             OrderDTO orderDTO = OrderDTO.builder()
                     .productName(procurementPlan.getContract().getProductInformationRegistration().getProduct_name())
+                    .productCode(procurementPlan.getContract().getProductInformationRegistration().getProduct_code())
+                    .procurementPlanCode(procurementPlan.getProcurementplan_code())
                     .orderDate(order_date)
                     .departName(procurementPlan.getContract().getCompany().getDepartName())
                     .orderState(procurementPlan.getOrder_state())

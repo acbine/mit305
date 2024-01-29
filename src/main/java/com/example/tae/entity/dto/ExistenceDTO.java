@@ -45,6 +45,7 @@ public class ExistenceDTO {
             int existence_price = existence * contract_pay;
             Part part1 = Part.builder().part(null).assy(null).build();
             return ExistenceDTO.builder()
+                    .releaseDate(releaseProcess.getModDate())
                     .productName(productInformationRegistration.getProduct_name())
                     .product_code(productInformationRegistration.getProduct_code())
                     .texture(productInformationRegistration.getTexture())
@@ -65,6 +66,7 @@ public class ExistenceDTO {
         int existence = existenceInfo.getReleaseCNT();
         int existence_price = existence * contract_pay;
         return ExistenceDTO.builder()
+                .releaseDate(releaseProcess.getModDate())
                 .productName(productInformationRegistration.getProduct_name())
                 .product_code(productInformationRegistration.getProduct_code())
                 .texture(productInformationRegistration.getTexture())

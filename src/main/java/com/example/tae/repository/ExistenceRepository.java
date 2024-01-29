@@ -13,4 +13,8 @@ public interface ExistenceRepository extends JpaRepository<Existence, Integer> {
            " where e.productCode= :code "+
            " order by e.modDate desc ")
     Optional<Existence> findByProductCode(@Param("code") ProductInformationRegistration code);
+
+   @Query("select e from Existence  e "+
+            " where e.productCode.product_name = :productName ")
+    Existence findByProductName(@Param("productName") String productName);
 }

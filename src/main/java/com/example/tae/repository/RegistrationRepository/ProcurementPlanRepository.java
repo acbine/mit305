@@ -32,7 +32,7 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
     @Query("select pr from ProcurementPlan pr where pr.order_state <> '발주전' and  pr.purchase is not null ")
     List<ProcurementPlan> findAllByProcurementplan_orderStateNotNull();
 
-    @Query("select pr from ProcurementPlan pr where pr.order_state = '발주전' and  pr.purchase is null ")
+    @Query("select pr from ProcurementPlan pr where pr.order_state = '발주전' or pr.order_state = null and  pr.purchase is null ")
     List<ProcurementPlan> findAllByProcurementplan_orderStateNull();
 
     ProcurementPlan findByPurchase_OrderCode(String orderCode);

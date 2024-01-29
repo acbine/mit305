@@ -20,7 +20,7 @@ function searchOrderListWithDate() {
             url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
             method:'get',
         success:function (info){
-                console.log(info,"info 정보 확인하기")
+                console.log(info.oList[0],"info 정보 확인하기")
                 drawHTMl(info)
                 console.log("성공");
         },
@@ -35,15 +35,22 @@ function searchOrderListWithDate() {
 
 function drawHTMl(info) {
     var orderBoxInfo = document.getElementsByClassName("orderList")
+
     for(var i = 0 ; i<orderBoxInfo.length; i++) {
-        orderBoxInfo[i].innerHTML = `<td>${info.productName}</td>
-                     
-                                    <td>${info.productName}</td>
-                                    <td>${info.productName}</td>
-                                    <td>${info.productName}</td>
-                                    <td>${info.productName}</td>v
-                                    <td>${info.productName}</td>
-`
+        var data = info.oList[i].orderDate;
+        if(info.oList[i].progressInspectionStatus===false) {
+            orderBoxInfo[i].innerHTML = `<td>${info.oList[i].productName}</td>
+                                    <td>${ formDate(data)}</td>
+                                    <td>${info.oList[i].departName}</td>
+                                    <td>${info.oList[i].orderState}</td>
+                                    <td onclick="openOrderInspectPopup(${info.oList[i].productCode, info.oList[i].procurementPlanCode})" ></td>`
+        } else {
+            orderBoxInfo[i].innerHTML = `<td>${info.oList[i].productName}</td>
+                                    <td>${ formDate(data)}</td>
+                                    <td>${info.oList[i].departName}</td>
+                                    <td>${info.oList[i].orderState}</td>
+                                    <td onclick="openPopup(${info.oList[i].productCode})">🔍️</td>`
+        }
     }
 
 }

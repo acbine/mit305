@@ -1,4 +1,4 @@
-var state;
+var trstate;
 
 function Tradingmy(event){  //모달창열기
 //    console.log("트레딩모달 버튼 클릭됨");
@@ -34,27 +34,27 @@ function CloseTradingMy(){  //모달창열기
 
 function searchTSButton(){ //검색 정보를 넣고 검색요청 검색된 내용을 그려줌
     console.log("검색 버튼 잘 클릭");
-    var formInputData=document.getElementById("inputData").value;
-    var formsearchData=document.getElementById("searchData").value;
-    state=0; //전체
-    console.log(formInputData);
-    console.log(formsearchData);
-    if(formInputData==""){
-//        console.log("formInputData=== 이값이 빔 =>");
+    var trformInputData=document.getElementById("trinputData").value;
+    var trformsearchData=document.getElementById("trsearchData").value;
+    trstate=0; //전체
+    console.log(trformInputData);
+    console.log(trformsearchData);
+    if(trformInputData==""){
+//        console.log("trformInputData=== 이값이 빔 =>");
     }else{
 //        console.log("값이 존재함")
-        if(formsearchData=="productname"){
+        if(trformsearchData=="productname"){
 //            console.log("품목이름")
-            state=1;
+            trstate=1;
         }else{
 //            console.log("업체이름")
             state=2;
         }
     }
-//    console.log("최종상태",state)
+//    console.log("최종상태",trstate)
     $.ajax({
 
-        url:"TSSearch?inputData="+formInputData+"&searchData="+formsearchData+"&state="+state ,
+        url:"TSSearch?trinputData="+trformInputData+"&trsearchData="+trformsearchData+"&trstate="+trstate ,
         type : 'get',
         success: function(searchTSList) {
             console.log("거래명세서 검색용 에이작스 잘보냄");

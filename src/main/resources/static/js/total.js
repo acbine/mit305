@@ -231,7 +231,7 @@ const childComponent = {
                     contents[j].style.display = 'none';
                     taps[j].style.background = "#D3E3FD";
                 }
-                taps[k].style.background = "#05AFF1";
+                taps[k].style.background = "white";
                 contents[k].style.display = 'block';
 
                 var pageInfoToString = String(k);

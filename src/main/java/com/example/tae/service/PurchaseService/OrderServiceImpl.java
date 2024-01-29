@@ -2,7 +2,6 @@ package com.example.tae.service.PurchaseService;
 
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
-import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
@@ -15,9 +14,7 @@ import com.example.tae.repository.RegistrationRepository.ProcurementPlanReposito
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.expression.spel.ast.OpOr;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
@@ -42,7 +39,6 @@ public class OrderServiceImpl implements OrderService {
     private final ContractRepository contractRepository;
     private final ProductInformationRegistrationRepository productInformationRegistrationRepository;
 
-    private final ProgressInspectionRepository progressInspectionRepository;
 
     /*발주서 발행*/
     @Override
@@ -157,12 +153,9 @@ public class OrderServiceImpl implements OrderService {
         List<OrderDTO> oList = new ArrayList<>();
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(procurementPlan.getContract().getProductInformationRegistration()).orElseGet(
-                    () -> {
-                        return Existence.builder()
-                                .productCode(procurementPlan.getContract().getProductInformationRegistration())
-                                .releaseCNT(0)
-                                .build();
-                    }
+                    Existence.builder()
+                            .productCode(procurementPlan.getContract().getProductInformationRegistration())
+                            .releaseCNT(0)::build
             ));
             OrderDTO orderDTO = OrderDTO.builder()
                     .departName(procurementPlan.getContract().getCompany().getDepartName())

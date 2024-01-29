@@ -278,7 +278,6 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
         xhttp.open('GET', includePath, true);
         xhttp.send();
     }
-    ;
 }
 
 function LoadHTMLOfThePage(cnt) {
@@ -303,7 +302,6 @@ function LoadHTMLOfThePage(cnt) {
         xhttp.open('GET', includePath, true);
         xhttp.send();
     }
-    ;
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/
@@ -422,7 +420,7 @@ function closePage(pageData, cnt) {
 
     setCookie("clickTapList", arrayClick, 7)
 
-};
+}
 
 
 function test() {

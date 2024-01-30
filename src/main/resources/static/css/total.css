@@ -89,16 +89,8 @@
 .tab_menu .tap_list div.tabClass .btn {
     height: 40px;
     width: 100px;
-    z-index: 3;
     display: flex;
-    float: left;
-}
-.tab_menu .tap_list div.tabClassOne .btn {
-    height: 40px;
-    width: 100px;
-    z-index: 2;
-    display: flex;
-    float: left;
+    float: right;
 }
 
 .tab_menu .tap_list .btn {

@@ -26,7 +26,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .ContractModal-content { /* 계약서 모달내용 창 */
@@ -41,8 +41,8 @@
             /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
             overflow-y: auto;
 
-            width: 750px;  /*모달의 가로 크기 */
-            height: 925px;  /*모달의 세로 크기 */
+            width: 750px; /*모달의 가로 크기 */
+            height: 925px; /*모달의 세로 크기 */
         }
 
     </style>
@@ -71,10 +71,26 @@
                 </thead>
 
                 <tbody>
+
+                <tr th:each="product : ${nonContractProducts}">
+                <th:block th:if="${product.contract_code==0}">
+                        <td width="124.67" height="25" class="p_input" th:text="${product.product_name}"></td>
+                        <td width="80.63" height="25" th:text="${product.product_code}"></td>
+                        <td>
+                            <input type="text" class = "c_input" style="width:115px; height:25px; font-size:15px; text-align:center;">
+                            <button onclick="get_cname(this)">확인</button>
+                        </td>
+                        <td><input type="text" class = "search_c" style="width:115px; height:25px; font-size:15px; text-align:center;" readonly></td>
+                        <td><input type="text" class = "l_time" style="width:115px; height:25px; font-size:15px; text-align:center;"></td>
+                        <td><input type="text" class = "price" style="width:115px; height:25px; font-size:15px; text-align:center;"></td>
+                        <td><input type="text" class = "payment" style="width:115px; height:25px; font-size:15px; text-align:center;"></td>
+                        <td><button class="action-button action-button-delete" onclick="contract_registration(this); contract_row_delete(this);" width = "74px" height = "35px">등록</button></td>
+                    </th:block>
+                </tr>
                 </tbody>
             </table>
 
-            <button onclick='contract_addRow()'> ( + ) </button>
+<!--            <button onclick='contract_addRow()'> ( + )</button>-->
         </div>
     </div>
 

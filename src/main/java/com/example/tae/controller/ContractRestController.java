@@ -28,11 +28,20 @@ public class ContractRestController {
     @Autowired
     ContractPageRepository contractPageRepository;
 
+    @Autowired
+    ContractRepository contractRepository;
+
     @PostMapping("/search/pro") // 품목 코드 검색
     @ResponseBody
     public int searchProductId(@RequestParam(name = "name") String name) {
 
         System.out.println(name);
+
+        List<Contract> contractList = contractRepository.findAll();
+        contractList.forEach(contract ->
+                {if(contract.getProductInformationRegistration().getProduct_name().equals(name)) {
+                        throw new IllegalArgumentException("해당 품목에 대한 계약이 존재하고 있습니다.");
+                    }});
 
         List<ProductInformationRegistration> NameSearch
                 = productInformationRegistrationRepository.findByProductInformationName(name);
@@ -62,9 +71,6 @@ public class ContractRestController {
             return  null;
         }
     }
-
-    @Autowired
-    ContractRepository contractRepository;
 
     @PostMapping("/register") // 입력한 데이터를 db에 저장
     public void ContractRegister(@RequestBody List<ContractDTO>  contractDTOList) {

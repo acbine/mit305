@@ -258,8 +258,8 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }////////////////URL을 이미지로 변환
 
-        final String user_email= ""; // 구글 이메일
-        final String user_pw = ""; //구글 앱 비밀번호
+        final String user_email= "b1gdd0601@gmail.com"; // 구글 이메일
+        final String user_pw = "gyvj vtth fvcg lwdf"; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
         final int smtp_port = 465;  // TLS : 587, SSL : 465
 
@@ -293,7 +293,7 @@ public class OrderServiceImpl implements OrderService {
             multipart.addBodyPart(textPart);
 
             // 이미지 파일 경로
-            String imageurl = folderPath+imageDTO.ordercode+"발주서.jpg";
+            String imageurl = folderPath+"발주서.jpg";
 
             //이미지 첨부 부분
             MimeBodyPart imagePart = new MimeBodyPart();
@@ -328,7 +328,7 @@ public class OrderServiceImpl implements OrderService {
             Files.createDirectories(path);
         }
         //이미지파일의 저장폴더위치와 이름을 정하고
-        String destinationPath = folderPath+dto.ordercode+"발주서.jpg";
+        String destinationPath = folderPath+"발주서.jpg";
 
         //폴더에 파일저장
         Path destination = Path.of(destinationPath);

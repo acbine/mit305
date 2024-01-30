@@ -88,6 +88,7 @@ public class ProcurementPlanRestController  {
                 ProcurementPlan procurementPlan = new ProcurementPlan();
 
                 procurementPlan.setProjectPlan(project); // 생산 계획 코드
+                procurementPlan.setOrder_state("조달계획등록");
                 procurementPlan.setContract(contract); // 계약 코드
                 procurementPlan.setProject(project_Name); // 조달 제품명
                 procurementPlan.setSupportProductAmount(data.getSupportProductAmount());// 조달 수량

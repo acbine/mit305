@@ -396,7 +396,7 @@ function closePage(pageData, cnt) {
     arrayClick.splice(closeData, 1);
 
     taps[cnt].style.display = "none";
-    conts[cnt].style.display = "none";
+    contents[cnt].style.display = "none";
 
     setCookie("clickTapList", arrayClick, 7)
 

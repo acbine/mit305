@@ -28,8 +28,8 @@
         <span th:text="${projectplanlist.setouputNum}"></span>
         <span th:text="${projectplanlist.setProjectPlanDate}"></span>
         <button th:id="delete+${projectplanlist.projectCode}" type="button" onclick="Delete()" >삭제</button>
-        <button th:id="update+${projectplanlist.projectCode}" type="button" onclick="Update()">수정 버튼</button>
-        <span id="updateZone" th:id="updateZone+${projectplanlist.projectCode}">asdasdsa</span>
+<!--        <button th:id="update+${projectplanlist.projectCode}" type="button" onclick="Update()">수정칸 생성</button>-->
+<!--        <span th:id="updateZone+${projectplanlist.projectCode}"></span>-->
         <br>
     </div>
 
@@ -62,23 +62,21 @@
 
     }
 
-
     function Update(){
+
         console.log("업데이트 버튼 클릭됨");
 
         var updatetargetId=event.target;
-
-
         var updatetargetId2=updatetargetId.getAttribute('id');
 
         var spilt2 = updatetargetId2.substring(6,7)
-        console.log(spilt2);
-
+//        console.log(spilt2);
 
         var formElement = document.createElement("form");
 
         formElement.method = "post"; // 전송 방식 설정 (GET 또는 POST)
         formElement.action = "ProjectPlanUpdate"; // 전송될 URL 설정
+        formElement.id="myForm"+spilt2;
 
         var inputElement1 = document.createElement("input");
         inputElement1.type = "hidden";
@@ -103,7 +101,19 @@
         submitButton.value = "수정완료";
         formElement.appendChild(submitButton);
 
+        var buttoncancle  = document.createElement("button");
+        buttoncancle.type = "button";
+        buttoncancle.innerText = "취소";
+        buttoncancle.addEventListener("click", function() {
+                var form = document.getElementById("myForm"+spilt2);
+                form.remove();
+            });
+        formElement.appendChild(buttoncancle)
+
+
         document.getElementById("updateZone"+spilt2).appendChild(formElement);
+
+
 
     }
 

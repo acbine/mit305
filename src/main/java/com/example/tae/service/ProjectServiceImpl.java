@@ -5,6 +5,7 @@ import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.entity.DummyData.Product.ProjectPlanDTO;
 import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
 import com.example.tae.repository.ProjectRepository.ProjectRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -71,5 +72,19 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void delete(int code) {
         projectPlanRepository.deleteById(code);
+    }
+
+    @Transactional
+    @Override
+    public void update(int updateprojectCode, int updateNumber, String upDateDate) {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            Date date = sdf.parse(upDateDate);
+            projectPlanRepository.updateProjectPlan(updateprojectCode,updateNumber,date);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 }

@@ -1,18 +1,12 @@
 package com.example.tae.controller;
 
-import com.example.tae.entity.DummyData.Product.Project;
-import com.example.tae.entity.DummyData.Product.ProjectPlan;
 import com.example.tae.entity.DummyData.Product.ProjectPlanDTO;
-import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.service.ProjectService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -57,7 +51,10 @@ public class ProjectPlaneController {
     public String ProjectPlanUpdate(int updateprojectCode ,int updateNumber ,String upDateDate ){
         System.out.println("생산계획 수정 서비스 요청");
         System.out.println(updateprojectCode+"수정코드***********"+updateNumber+"----------------------"+upDateDate);
+        projectService.update(updateprojectCode,updateNumber,upDateDate);
+
         System.out.println("수정됨");
+
         return "redirect:ProjectPlan";
     }
 

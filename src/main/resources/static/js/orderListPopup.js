@@ -1,5 +1,5 @@
 function orderImage(){
-    html2canvas(document.getElementById('screenOrderArea')).then((canvas) => {
+    html2canvas(document.getElementById('forSendEmail')).then((canvas) => {
         const imageDataURL = canvas.toDataURL("image/jpg");
 
         const imageJson = {imageDataURL : imageDataURL}

@@ -24,6 +24,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -85,6 +86,14 @@ public class ProductInfomationServiceImpl implements ProductInfomationService {
         System.out.println("///// 품목 정보 등록 서비스 시작 //////");
 
         ProductInformationRegistration productInformationRegistration = new ProductInformationRegistration();
+
+
+        /*품목명 유무 검사*/
+        for(ProductInformationRegistration productInformationInfo : productInformationRegistrationRepository.findByProductInformationName(productInformationRegistrationDTO.getProduct_name())) {
+            if(Objects.equals(productInformationInfo.getProduct_name(), productInformationRegistrationDTO.getProduct_name())) {
+                throw new IllegalArgumentException("해당 이름의 품목은 이미 존재하고 있습니다.");
+            }
+        }
 
         productInformationRegistration.setProduct_name(productInformationRegistrationDTO.getProduct_name()); // 이름
         productInformationRegistration.setProduct_abbreviation(productInformationRegistrationDTO.getProduct_abbreviation()); // 약칭

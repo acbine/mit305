@@ -151,7 +151,8 @@ for(var fom of formData.entries()) {
             alert("품목 정보 등록 완료");
         },
         error : function(error) {
-            alert("품목 정보 등록 오류")
+            console.error(error)
+            alert(error)
         }
 
     });

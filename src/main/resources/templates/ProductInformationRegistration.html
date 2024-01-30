@@ -40,8 +40,9 @@
         .table-box {
             margin: auto;
         }
-        #productTitle {
-            margin-top: 10px;
+
+        .data-card {
+            margin-top: 30px;
         }
     </style>
 
@@ -50,80 +51,78 @@
 </head>
 <body>
 
-<div class="product_container">
 
-    <div class="data-card">
-        <h2 class="title">품목 정보 등록</h2>
+<div class="data-card">
+    <h2 class="title">품목 정보 등록</h2>
 
-        <div class="table-container">
-            <table class="table-box" id="product" border="1">
-                <thead>
-                <tr>
-                    <th>품목명</th>
-                    <th>약칭</th>
-                    <th>재질</th>
-                    <th>규격 (가로)</th>
-                    <th>규격 (세로)</th>
-                    <th>규격 (높이)</th>
-                    <th>중량</th>
-                    <th>소분류</th>
-                    <th>도면 사진</th>
-                    <th>등록 처리</th>
-                </tr>
-                </thead>
+    <div class="table-container">
+        <table class="table-box" id="product" border="1">
+            <thead>
+            <tr>
+                <th>품목명</th>
+                <th>약칭</th>
+                <th>재질</th>
+                <th>규격 (가로)</th>
+                <th>규격 (세로)</th>
+                <th>규격 (높이)</th>
+                <th>중량</th>
+                <th>소분류</th>
+                <th>도면 사진</th>
+                <th>등록 처리</th>
+            </tr>
+            </thead>
 
-                <tbody>
-                </tbody>
-            </table>
+            <tbody>
+            </tbody>
+        </table>
 
-            <button class="action-button action-button-add" style="position: absolute" onclick='select_part()'>( + )
-            </button>
+        <button class="action-button action-button-add" style="position: absolute" onclick='select_part()'>( + )
+        </button>
 
-        </div>
     </div>
+</div>
 
-    <div class="data-card">
-        <h2 class="title" id="productTitle">품목 정보 관리</h2>
+<div class="data-card">
+    <h2 class="title" id="productTitle">품목 정보 관리</h2>
 
-        <button onclick="select_test()">품목 불러오기</button>
+    <button onclick="select_test()">품목 불러오기</button>
 
-        <div class="table-container">
-            <table class="table-box" id="product_info" border="1">
-                <thead>
-                <tr>
-                    <th>품목명</th>
-<!--                    <th>품목 코드</th>-->
-                    <th>약칭</th>
-                    <th>재질</th>
-                    <th>규격 (가로)</th>
-                    <th>규격 (세로)</th>
-                    <th>규격 (높이)</th>
-                    <th>중량</th>
-                    <th width="80.67" height="25">대분류</th>
-                    <th width="80.67" height="25">중분류</th>
-                    <th width="80.67" height="25">소분류</th>
-                    <th>도면 사진</th>
-                    <th>계약 여부</th>
-                    <th>품목 처리</th>
-                </tr>
-                </thead>
+    <div class="table-container">
+        <table class="table-box" id="product_info" border="1">
+            <thead>
+            <tr>
+                <th>품목명</th>
+                <!--                    <th>품목 코드</th>-->
+                <th>약칭</th>
+                <th>재질</th>
+                <th>규격 (가로)</th>
+                <th>규격 (세로)</th>
+                <th>규격 (높이)</th>
+                <th>중량</th>
+                <th width="80.67" height="25">대분류</th>
+                <th width="80.67" height="25">중분류</th>
+                <th width="80.67" height="25">소분류</th>
+                <th>도면 사진</th>
+                <th>계약 여부</th>
+                <th>품목 처리</th>
+            </tr>
+            </thead>
 
-                <tbody>
-                </tbody>
-            </table>
+            <tbody>
+            </tbody>
+        </table>
 
-            <div id="myModal" class="Product_Contract_Modal" onclick="CloseProductContract()"> <!--모달창 백그라운드-->
-                <div class="ContractModal-content"> <!--모달창 내용-->
+        <div id="myModal" class="Product_Contract_Modal" onclick="CloseProductContract()"> <!--모달창 백그라운드-->
+            <div class="ContractModal-content"> <!--모달창 내용-->
 
-                    <iframe src="ProductContractModal" width="60%" height="79%" frameborder="0"></iframe>
+                <iframe src="ProductContractModal" width="60%" height="79%" frameborder="0"></iframe>
 
-                </div><!--모달창 내용끝-->
-            </div> <!--모달창 백그라운드-->
-
-        </div>
+            </div><!--모달창 내용끝-->
+        </div> <!--모달창 백그라운드-->
 
     </div>
 
 </div>
+
 </body>
 </html>

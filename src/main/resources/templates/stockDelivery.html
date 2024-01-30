@@ -18,7 +18,7 @@
     </label>
     <button class="button primary-button" onclick="findRelease()">검색</button>
 </div>
-</div>
+
 <div class="w-full h-[300px] mb-4">
     <div style="width: 50%; height: 50%;"></div>
 </div>
@@ -55,7 +55,7 @@
             <td class="table-body" th:text="${release.existence_price}"></td>
             <input type="hidden" th:value="${release.procurementPlan_code}">
             <td class="table-body">
-                <button class="action-button action-button-registration"
+                <button class="action-button-stock action-button-registration-stock"
                         th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.procurementPlan_code} + '\')'">확인</button>
             </td>
         </tr>

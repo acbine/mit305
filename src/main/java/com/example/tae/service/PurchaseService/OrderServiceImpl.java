@@ -282,7 +282,7 @@ public class OrderServiceImpl implements OrderService {
             // 보내는 이메일 주소
             message.setFrom(new InternetAddress(user_email));
             // 받는 이메일 주소
-            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("b1gdd@naver.com")  );
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("")  );
             // 이메일 제목
             message.setSubject("TAE 발주서 이메일 기능 확인.");
             Multipart multipart = new MimeMultipart();
@@ -293,7 +293,7 @@ public class OrderServiceImpl implements OrderService {
             multipart.addBodyPart(textPart);
 
             // 이미지 파일 경로
-            String imageurl = folderPath+imageDTO.ordercode+"발주서.jpg";
+            String imageurl = folderPath+"발주서.jpg";
 
             //이미지 첨부 부분
             MimeBodyPart imagePart = new MimeBodyPart();
@@ -328,7 +328,7 @@ public class OrderServiceImpl implements OrderService {
             Files.createDirectories(path);
         }
         //이미지파일의 저장폴더위치와 이름을 정하고
-        String destinationPath = folderPath+dto.ordercode+"발주서.jpg";
+        String destinationPath = folderPath+"발주서.jpg";
 
         //폴더에 파일저장
         Path destination = Path.of(destinationPath);

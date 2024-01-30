@@ -47,12 +47,12 @@
     border-bottom: 1px solid #ccc;
 }
 
-.action-button-registration {
+.action-button-registration-stock {
     background-color: #33CC33;
     color: #ffffff;
 }
 
-.action-button {
+.action-button-stock {
     display: inline-flex;
     align-items: center;
     justify-content: center;

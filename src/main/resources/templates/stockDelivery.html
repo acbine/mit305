@@ -5,9 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>재고산출</title>
     <link href="/css/stockDelivery.css" rel="stylesheet"/>
+
+    <style>
+        .stockDeliverySearchButton {  /* 검색버튼 */
+            background-color: black;
+            color: white;
+        }
+        .stockDelivery_head {
+            padding: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 500;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .stockDelivery-table-style{
+            width: 87%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+    </style>
 </head>
 <body>
-<h2 class="popup-center">재고 산출</h2>
+<h1 class="popup-center">재고 산출</h1>
 <div class="flex space-x-2">
     <input class="button filter-button" id="searchWord"/>
     <label>
@@ -16,28 +35,28 @@
             <option style="font-size: 10px" value="ProductCode">품목코드</option>
         </select>
     </label>
-    <button class="button primary-button" onclick="findRelease()">검색</button>
+    <button class="button primary-button stockDeliverySearchButton" onclick="findRelease()">검색</button>
 </div>
 
 <div class="w-full h-[300px] mb-4">
     <div style="width: 50%; height: 50%;"></div>
 </div>
 <div class="relative w-full overflow-auto">
-    <table class="table_box">
-        <thead>
-        <tr>
-            <th class="table-header">품목명</th>
-            <th class="table-header">품목코드</th>
-            <th class="table-header">출고 날짜</th>
-            <th class="table-header">재질</th>
-            <th class="table-header">높이</th>
-            <th class="table-header">길이</th>
-            <th class="table-header">너비</th>
-            <th class="table-header">공급가격</th>
-            <th class="table-header">출고</th>
-            <th class="table-header">재고</th>
-            <th class="table-header">재고금액(재고*공급가격)</th>
-            <th class="table-header"></th>
+    <table class="table_box stockDelivery-table-style">
+        <thead  class="stockDelivery_head">
+        <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+            <th class="table-header stockDelivery_head">품목명</th>
+            <th class="table-header stockDelivery_head">품목코드</th>
+            <th class="table-header stockDelivery_head">출고 날짜</th>
+            <th class="table-header stockDelivery_head">재질</th>
+            <th class="table-header stockDelivery_head">높이</th>
+            <th class="table-header stockDelivery_head">길이</th>
+            <th class="table-header stockDelivery_head">너비</th>
+            <th class="table-header stockDelivery_head">공급가격</th>
+            <th class="table-header stockDelivery_head">출고</th>
+            <th class="table-header stockDelivery_head">재고</th>
+            <th class="table-header stockDelivery_head">재고금액(재고*공급가격)</th>
+            <th class="table-header stockDelivery_head"></th>
         </tr>
         </thead>
         <tbody class="table_body" id="release_table">
@@ -55,7 +74,7 @@
             <td class="table-body" th:text="${release.existence_price}"></td>
             <input type="hidden" th:value="${release.procurementPlan_code}">
             <td class="table-body">
-                <button class="action-button-stock action-button-registration-stock"
+                <button class="action-button-stock action-button-registration-stock stockDeliverySearchButton"
                         th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.procurementPlan_code} + '\')'">확인</button>
             </td>
         </tr>

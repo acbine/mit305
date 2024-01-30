@@ -187,6 +187,25 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void putOrderPlan(int procurementPlanCode, int num) {
+         Optional<ProcurementPlan> procurementPlan = Optional.of(procurementPlanRepository.findById(procurementPlanCode).orElseThrow(
+                 () -> new IllegalArgumentException("해당 조달 계획이 존재하지 않습니다.")
+         ));
+         ProcurementPlan pl = procurementPlan.get();
+         ProcurementPlan putProcurementPlan = ProcurementPlan.builder()
+                 .project(pl.getProject())
+                 .projectPlan(pl.getProjectPlan())
+                 .order_state(pl.getOrder_state())
+                 .order_date(pl.getOrder_date())
+                 .procurementplan_code(pl.getProcurementplan_code())
+                 .SupportProductAmount(num)
+                 .procurementplan_code(pl.getProcurementplan_code())
+                 .contract(pl.getContract())
+                 .build();
+         procurementPlanRepository.save(putProcurementPlan);
+    }
+
+    @Override
     public List<OrderDTO> getOrderListWithDate(LocalDateTime date1, LocalDateTime date2) {
         List<OrderDTO> orderDTOList = new ArrayList<>();
         List<Purchase> orderList = orderRepository.findOrderListWithDate(date1,  date2);

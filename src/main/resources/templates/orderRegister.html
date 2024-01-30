@@ -5,37 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/order.css">
     <title>발주서 발행</title>
+
+    <style>
+        .orderRGSearchButton {  /* 검색버튼 */
+            background-color: black;
+            color: white;
+        }
+        .orderRG_head {
+            padding: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 500;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .orderRG-table-style{
+            margin-left: 10px;
+            width: 80%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+    </style>
 </head>
 <body class="body_css">
-<h2 class="popup-center">발주서 발행</h2>
+<h1 class="popup-center">발주서 발행</h1>
     <div class="container">
-        <table class="table_css">
+        <table class="table_css orderRG-table-style">
             <thead >
-                <tr>
-                    <th>품목명</th>
-                    <th>품목코드</th>
-                    <th>조달 수량</th>
-                    <th>현재 재고량</th>
-                    <th>제품 생산 예정 날짜</th>
-                    <th>물품 발주일</th>
-                    <th>L/T</th>
-                    <th>업체명</th>
-                    <th>e-mail</th>
+                <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+                    <th class="orderRG_head">품목명</th>
+                    <th class="orderRG_head">품목코드</th>
+                    <th class="orderRG_head">조달 수량</th>
+                    <th class="orderRG_head">현재 재고량</th>
+                    <th class="orderRG_head">제품 생산 예정 날짜</th>
+                    <th class="orderRG_head">물품 발주일</th>
+                    <th class="orderRG_head">L/T</th>
+                    <th class="orderRG_head">업체명</th>
+                    <th class="orderRG_head">e-mail</th>
                 </tr>
             </thead>
             <tbody id="tbody">
                 <tr class="orderRegisterTable" th:each="order : ${oList}">
                     <td th:text="${order.productName}"></td>
                     <td th:text="${order.productCode}"></td>
-                    <td th:text="${order.num}"></td>
+                    <td class="planNum" th:text="${order.num}"></td>
                     <td th:text="${order.existence}"></td>
                     <td th:text="${#dates.format(order.projectOutPutDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${#dates.format(order.orderDate, 'yyyy-MM-dd')}"></td>
                     <td th:text="${order.LT}"></td>
                     <td th:text="${order.departName}"></td>
                     <td th:text="${order.email}"></td>
-                    <td><button th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
-                    <td><button th:attr="onclick='cancel(\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">취소</button></td>
+                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='putOrderAmount(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">수정</button></td>
+                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
+                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='cancel(\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">취소</button></td>
                 </tr>
             </tbody>
         </table>

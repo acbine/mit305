@@ -7,13 +7,6 @@
     text-align: center;
 }
 
-.table_css {
-    text-align: center;
-    border-collapse: collapse;
-    width: 796px;
-    font-size: 14px;
-    margin: 0 auto;
-}
 
 .btn-container {
     display: flex;

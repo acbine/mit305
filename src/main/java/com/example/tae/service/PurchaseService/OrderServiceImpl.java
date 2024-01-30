@@ -258,8 +258,8 @@ public class OrderServiceImpl implements OrderService {
             e.printStackTrace();
         }////////////////URL을 이미지로 변환
 
-        final String user_email= ""; // 구글 이메일
-        final String user_pw = ""; //구글 앱 비밀번호
+        final String user_email= "b1gdd0601@gmail.com"; // 구글 이메일
+        final String user_pw = "gyvj vtth fvcg lwdf"; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
         final int smtp_port = 465;  // TLS : 587, SSL : 465
 
@@ -282,7 +282,7 @@ public class OrderServiceImpl implements OrderService {
             // 보내는 이메일 주소
             message.setFrom(new InternetAddress(user_email));
             // 받는 이메일 주소
-            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("")  );
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("b1gdd@naver.com")  );
             // 이메일 제목
             message.setSubject("TAE 발주서 이메일 기능 확인.");
             Multipart multipart = new MimeMultipart();

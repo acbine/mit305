@@ -13,7 +13,7 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
 
     List<ProcurementPlan> findAllByProjectPlan_Id(int prjId);
 
-    @Query(value = "SELECT * FROM tae.procurement_plan where order_state IS Null", nativeQuery = true)
+    @Query(value = "SELECT * FROM tae.procurement_plan where order_state ='조달계획등록'", nativeQuery = true)
     List<ProcurementPlan> findByProcurementPlanState();
 
     // 조달 계획 불러오기 (발주 상태가 없는것)

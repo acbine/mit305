@@ -1,11 +1,15 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Contract.Contract;
+import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
+import com.example.tae.entity.ProductInformation.dto.ProductInformationJoinContractDTO;
 import com.example.tae.repository.RegistrationRepository.ContractPageRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
+import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.Properties;
+import java.util.stream.Collectors;
 
 @Controller
 public class ContractController {
@@ -31,8 +36,31 @@ public class ContractController {
     @Autowired
     ContractRepository contractRepository;
 
+    @Autowired
+    ProductInformationRegistrationRepository productInformationRegistrationRepository;
+
     @GetMapping("ContractRegistration")
-    public String ContractRegistration() {
+    public String ContractRegistration(Model model) {
+        List<Object[]> productInformationRegistrationList = productInformationRegistrationRepository.findProductWithContract();
+        List<ProductInformationJoinContractDTO> nonContractProducts = productInformationRegistrationList.stream().map( result ->
+            new ProductInformationJoinContractDTO(
+                    (int) result[0], // 품목 코드
+                    (String) result[1], // 품목명
+                    (String) result[2], // 약자
+                    (String) result[3], // 재질
+                    (int) result[4], // 가로
+                    (int) result[5], // 세로
+                    (int) result[6], // 높이
+                    (int) result[7], // 중량
+                    (String) result[8], // 파일 이름
+                    (Long) result[9], // 계약 코드
+                    (String) result[10],
+                    (String) result[11],
+                    (String) result[12]
+            )).toList();
+
+        model.addAttribute("nonContractProducts",nonContractProducts);
+
         return "ContractRegistration";
     }
 

@@ -4,7 +4,6 @@ import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.DummyData.Classification.Assy;
 import com.example.tae.entity.DummyData.Classification.Part;
 import com.example.tae.entity.DummyData.Classification.Unit;
-import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.AssyRepository;
 import com.example.tae.repository.DummyRepository.PartRepository;

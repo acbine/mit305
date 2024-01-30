@@ -204,9 +204,9 @@ public class TradingStatementServiceImpl implements TradingStatementService{
             // 보내는 이메일 주소
             message.setFrom(new InternetAddress(user_email));
             // 받는 이메일 주소
-            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("youngjjag28@gmail.com")  );
+            message.setRecipients( Message.RecipientType.TO,   InternetAddress.parse("bonaeneunyong@gmail.com")  );
             // 이메일 제목
-            message.setSubject("TAE 202401-01거래명세서 메일입니다.");
+            message.setSubject("TAE 2024-01-29  거래명세서 메일입니다.");
             Multipart multipart = new MimeMultipart();
 
             // 메일 내용 부분

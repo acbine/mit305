@@ -51,23 +51,25 @@ function info_addRow(partList) {
 
     var newInfo =
         '<tr>' +
-            '<td><input type="text" class = "get_name" style = "width:90.67px; height:29px; font-size:15px;"></td>' + // 품목명
-            '<td><input type="text"  maxlength="3" class = "get_abbreviation" style = "width:75.67px; height:29px; font-size:15px;"></td>' + // 약칭
-            '<td><input type="text" class = "get_texture" style = "width:75.67px; height:29px; font-size:15px;"></td>' + // 재질
-            '<td><input type="text" class = "get_width" style = "width:85.67px; height:29px; font-size:15px;"></td>' + // 가로
-            '<td><input type="text" class = "get_length" style = "width:89.67px; height:29px; font-size:15px;"></td>' + // 세로
-            '<td><input type="text" class = "get_height" style = "width:89.67px; height:29px; font-size:15px;"></td>' + // 높이
-            '<td><input type="text" class = "get_weight" style = "width:89.67px; height:29px; font-size:15px;"></td>' + // 중량
-            '<td>' + // 소분류 선택
-                '<select class = "selectParts" style = "text-align:center;">' + dropdownOptions + '</select>' +
+            '<td class="productImformationTable-data" style="width:125.42px;"><input type="text" class = "get_name" style = "width:60px; font-size:15px;"></td>' + // 품목명
+            '<td class="productImformationTable-data" style="width:109px;"><input type="text"  maxlength="3" class = "get_abbreviation" style = "width:60px;  font-size:15px;"></td>' + // 약칭
+            '<td class="productImformationTable-data" style="width:109px;"><input type="text" class = "get_texture" style = "width:60px;  font-size:15px;"></td>' + // 재질
+            '<td class="productImformationTable-data" style="width:120px;"><input type="text" class = "get_width" style = "width:60px; ; font-size:15px;"></td>' + // 가로
+            '<td class="productImformationTable-data" style="width:125px;"><input type="text" class = "get_length" style = "width:60px;  font-size:15px;"></td>' + // 세로
+            '<td class="productImformationTable-data" style="width:125px;"><input type="text" class = "get_height" style = "width:60px;  font-size:15px;"></td>' + // 높이
+            '<td class="productImformationTable-data" style="width:125px;"><input type="text" class = "get_weight" style = "width:60px;  font-size:15px;"></td>' + // 중량
+            '<td class="productImformationTable-data" style="width:220px;">' + // 소분류 선택
+                '<select class = "selectParts" style = "text-align:center; width:180px; " >' + dropdownOptions + '</select>' +
             '</td>' +
-            '<td><input type="file" class="image" onchange = "fileCheck(this)" accept="image/png, image/jpg"></td>' + // 파일 업로드
-            '<td>' +
-                '<div class="actions">' +
-                    '<button onclick="Product_registration(this); info_delete(this);">등록</button>' +
-                    '<button class="action-button action-button-delete" onclick="info_delete(this)">삭제</button>'
-                '</div>' +
-            '</td>'
+
+            '<td class="productImformationTable-data" style="width:220px;"> '+
+                '<input type="file" class="image" onchange = "fileCheck(this)" accept="image/png, image/jpg" style = "width:180px;">' +
+            '</td>' + // 파일 업로드
+
+            '<td class="productImformationTable-data" style="width:118.97px;" >' +
+                '<button onclick="Product_registration(this); info_delete(this);">등록</button>' +
+                '<button class="action-button action-button-delete" onclick="info_delete(this)">삭제</button>'+
+            '</td>'+
         '</tr>';
 
         $("#product tbody").append(newInfo);
@@ -195,24 +197,24 @@ $('#product_info tbody').empty();
         $('#product_info tbody')
             .append(
                 '<tr>' +
-                    '<td>' + info.product_name + '</td>' + // 품목명
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_product_abbreviation value =' + info.product_abbreviation + '>' + '</td>' + // 약칭
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_texture value =' + info.texture + '>' + '</td>' + // 재질
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_width value =' + info.width + '>' + '</td>' + // 가로
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_length value =' + info.length + '>' + '</td>' + // 세로
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_height value =' + info.height + '>' + '</td>' + // 높이
-                    '<td>' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_weight value =' + info.weight + '>' + '</td>' + // 중량
-                    '<td>' + info.unit + '</td>' + // 대분류
-                    '<td>' + info.assy + '</td>' + // 중분류
-                    '<td>' + info.part + '</td>' + // 소분류
-                    '<td>' +
+                    '<td class="productImformationTable-data">' + info.product_name + '</td>' + // 품목명
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_product_abbreviation value =' + info.product_abbreviation + '>' + '</td>' + // 약칭
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_texture value =' + info.texture + '>' + '</td>' + // 재질
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_width value =' + info.width + '>' + '</td>' + // 가로
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_length value =' + info.length + '>' + '</td>' + // 세로
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_height value =' + info.height + '>' + '</td>' + // 높이
+                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_weight value =' + info.weight + '>' + '</td>' + // 중량
+                    '<td class="productImformationTable-data">' + info.unit + '</td>' + // 대분류
+                    '<td class="productImformationTable-data">' + info.assy + '</td>' + // 중분류
+                    '<td class="productImformationTable-data">' + info.part + '</td>' + // 소분류
+                    '<td class="productImformationTable-data">' +
                         '<img src="/images/Product/' + name + '" alt="'+ info.image_name +'" style="max-width: 100px; max-height: 100px;">' +
                     '</td>' + // 사진 이름
 
-                    '<td>' +
+                    '<td class="productImformationTable-data">' +
                         (info.contract_code == 0 ? "계약 안됨" : "계약 됨") +
                     '</td>' +
-                    '<td>' +
+                    '<td class="productImformationTable-data">' +
                          '<div class="actions">' +
                              '<button class="action-button action-button-edit" onclick="product_modify('+ info.product_code +')">수정</button>' +
                              '<button class="action-button action-button-delete" onclick="product_delete('+ info.product_code +'); info_delete(this)">삭제</button>' +

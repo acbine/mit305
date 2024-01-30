@@ -16,5 +16,7 @@ public interface ProjectService {
 
     //생산계획삭제
     void delete(int code);
+
     //생산계획 수정
+    void update(int updateprojectCode ,int updateNumber ,String upDateDate);
 }

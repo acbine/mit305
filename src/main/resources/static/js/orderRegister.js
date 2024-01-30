@@ -45,7 +45,7 @@ function addInspects(inspector) {
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
-                                                            <td id="buttonState"><button onclick="popup.openPopup(${i})">진척검수실행</button><button onclick="updateProgressInspection(this,${i})">수정</button><button onclick="cancel()">삭제</button></td>`
+                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${i})">진척검수실행</button><button class="orderInspectButton" onclick="updateProgressInspection(this,${i})">수정</button><button class="orderInspectButton" onclick="cancel()">삭제</button></td>`
         } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="발주중"||inspectorInfo[i].orderState==="발주전"||inspectorInfo[i].orderState==="") {
             classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
@@ -134,7 +134,7 @@ function updateProgressInspection(info, index) {
     var date = updateData.children[2];
     var updateButton = updateData.children[4];
 
-    updateButton.innerHTML = `<td id="buttonState"><button onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateConfirm(this,${index})">등록</button><button onclick="cancel()">삭제</button></td>`;
+    updateButton.innerHTML = `<td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index})">진척검수실행</button><button class="orderInspectButton" onclick="updateConfirm(this,${index})">등록</button><button class="orderInspectButton" onclick="cancel()">삭제</button></td>`;
     date.innerHTML = `<input type="date">`;
 
 }
@@ -193,7 +193,7 @@ function updateConfirm(html, index) {
         data: JSON.stringify(formData),
         success: function () {
             dateHtml.innerHTML = `<td class="inspectDate">${transDate}</td>`
-            updateButton.innerHTML = `<td id="buttonState"><button onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateProgressInspection(this, ${index})">수정</button><button onclick="cancel()">삭제</button></td>`;
+            updateButton.innerHTML = `<td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateProgressInspection(this, ${index})">수정</button><button onclick="cancel()">삭제</button></td>`;
         },
         error: function () {
             console.log("실패")
@@ -241,7 +241,7 @@ function addInspectorOne(data, index) {
                                                             <td>${orderDate}</td>
                                                             <td class="inspectDate">${progressInspectorDate}</td>
                                                             <input type="hidden" value="${inspector.progressInspectionId}"/>
-                                                            <td id="buttonState"><button onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateProgressInspection(this,${index})">수정</button><button onclick="cancel()">삭제</button></td>`
+                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index})">진척검수실행</button><button onclick="updateProgressInspection(this,${index})">수정</button><button onclick="cancel()">삭제</button></td>`
 }
 
 function toggleTables() {

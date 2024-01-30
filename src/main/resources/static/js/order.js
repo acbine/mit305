@@ -56,6 +56,62 @@ function drawHTMl(info) {
     }
 
 }
+function putOrderAmount(productCode, planCode, index) {
+    var putOrderTableInfo = document.getElementsByClassName("planNum");
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+    var changeToInput = putOrderTableInfo[index];
+    var num =putOrderTableInfo[index].innerHTML;
+    console.log(planCode);
+    changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
+    btnList[0].innerHTML = `<button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>`
+    btnList[1].innerHTML =  `<button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>`
+    btnList[2].innerHTML = ``;
+}
+
+function putPlanNum(productCode,planCode,index) {
+    var input = document.getElementsByClassName("inputPlanNum");
+    var changeToInput = input[index];
+
+    console.log(changeToInput.innerHTML)
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+
+
+    var inputData = input[index].value;//받아온 데이터 값
+    changeToInput.outerHTML=`<td class="planNum">${inputData}</td>`
+
+    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
+    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
+    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+
+    var formData = { "procurementPlanCode" : planCode, "num" : inputData};
+
+    console.log(planCode);
+    $.ajax({
+        url: "putOrderNum",
+        method: "put",
+        contentType: 'application/json',
+        data : JSON.stringify(formData),
+        success:function () {
+            console.log("성공")
+        },
+        error : function (error) {
+            alert(error.responseJSON.msg)
+        }
+    })
+
+}
+function cancelPlanPut(productCode,planCode,index,num) {
+    var putOrderTableInfo = document.getElementsByClassName("planNum");
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+    var changeToInput = putOrderTableInfo[index];
+
+    changeToInput.innerHTML=`<td>${num}</td>`
+
+    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
+    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
+    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+
+}
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
 function openOrder(procurementPlanCode) {
     var html = document.getElementById("orderPopup");

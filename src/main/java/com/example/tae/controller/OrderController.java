@@ -70,6 +70,12 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("oList", oList));
     }
 
+    @PutMapping("putOrderNum")
+    public ResponseEntity<?> putOrderPlan(@RequestBody OrderDTO orderDTO) {
+        orderService.putOrderPlan(orderDTO.getProcurementPlanCode(), orderDTO.getNum());
+        return ResponseEntity.ok().body(Map.of("msg","발주서 수정을 성공하였습니다."));
+    }
+
     @GetMapping("open-order/{procurementPlanCode}")
     public String openOrder(@PathVariable int procurementPlanCode, Model model) {
        OrderDTO order =  orderService.getOrderPopup(procurementPlanCode);

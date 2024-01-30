@@ -18,6 +18,7 @@ public interface OrderService {
 
     List<OrderDTO> oListSend();
 
+    void putOrderPlan(int procurementPlanCode, int num);
     void orderRegister(int procurementPlanCode);
     void cancelOrder(int procurementPlanCode);
 

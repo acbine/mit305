@@ -5,13 +5,22 @@
     <link rel="stylesheet" href="/css/order.css">
     <title>구매 발주서 목록</title>
     <style>
-        .orderContainer {
-            margin-left:35%;
-            text-align: center;
+        .orderListSearchButton {  /* 검색버튼 */
+            background-color: black;
+            color: white;
         }
-        #datesearch {
-            margin-left:35%;
+
+        .orderList_head {
+            padding: 1rem;
             text-align: center;
+            vertical-align: middle;
+            font-weight: 500;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .order-table-style{
+            width: 90%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
         }
     </style>
 </head>
@@ -25,20 +34,20 @@
                     <td><input type="date" name="startDate"></td>
                     <td>~</td>
                     <td><input type="date" name="endDate"></td>
-                    <td><input id="searchOrderWithDate" onclick="searchOrderListWithDate()" type="button" value="검색"></td>
+                    <td class="orderListSearchButton"><input class="orderListSearchButton" id="searchOrderWithDate" onclick="searchOrderListWithDate()" type="button" value="검색"></td>
                 </tr>
             </table>
         </form>
     </div>
 </div>
-<div class="orderContainer">
-    <table>
-        <thead id="thead">
-        <tr>
-            <th>발주품</th>
-            <th>발주서 발행일</th>
-            <th>업체명</th>
-            <th>진척 검수 상태</th>
+<div class="orderContainer" style="overflow-y: auto; max-height: 270px; width:1645px ">
+    <table class="order-table-style">
+        <thead id="thead" class="orderList_head">
+        <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+            <th class="orderList_head">발주품</th>
+            <th class="orderList_head">발주서 발행일</th>
+            <th class="orderList_head">업체명</th>
+            <th class="orderList_head">진척 검수 상태</th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -49,7 +58,7 @@
             <td th:text="${order.orderState}"></td>
             <td>
                 <div th:if="${order.progressInspectionStatus == true}"></div>
-                <button th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}"
+                <button class="orderListSearchButton" th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}"
                         th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\')'">진척검수등록
                 </button>
             </td>

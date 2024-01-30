@@ -3,6 +3,8 @@ package com.example.tae.service.PurchaseService;
 import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.Order.dto.OrderDTO;
 import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
+import com.example.tae.entity.dto.ImageDTO;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 import java.time.LocalDateTime;
@@ -20,4 +22,8 @@ public interface OrderService {
     void cancelOrder(int procurementPlanCode);
 
     List<OrderDTO> getOrderListWithDate(LocalDateTime date1, LocalDateTime date2);
+
+    OrderDTO getOrderPopup(int procurementPlanCode);
+
+    void orderUpload(@RequestBody ImageDTO imageDTO);
 }

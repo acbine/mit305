@@ -46,14 +46,12 @@ function addInspects(inspector) {
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td id="buttonState"><button onclick="popup.openPopup(${i})">진척검수실행</button><button onclick="updateProgressInspection(this,${i})">수정</button><button onclick="cancel()">삭제</button></td>`
-            console.log("0이 되는 시점 찾기 updateProgress :  ",i);
         } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="발주중"||inspectorInfo[i].orderState==="발주전"||inspectorInfo[i].orderState==="") {
             classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td><font color="red">[재검수 요망]</font></td>`;
-            console.log("0이 되는 시점 찾기 updateProgress :  ",i);
         } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="마감"||inspectorInfo[i].orderState==="검수처리완료"){
             classTbodyContainerTr.innerHTML =``;
             classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
@@ -175,7 +173,6 @@ const popup ={
 }
 
 function updateConfirm(html, index) {
-    console.log("0이 되는 시점 찾기 updateConfirm :  ",index);
     var updateData = html.closest("tr");
     var dateHtml = updateData.children[2];
     var updateButton = updateData.children[4];
@@ -207,7 +204,6 @@ function updateConfirm(html, index) {
 function addProgressInspection(productName, planId, info) {
     var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
     var index = info.target;
-    console.log("0이 되는 시점 찾기 productName :  ",index);
     if (dateValue) {
         var formData = {
             "inspectDate": dateValue,
@@ -236,7 +232,6 @@ function addProgressInspection(productName, planId, info) {
 
 function addInspectorOne(data, index) {
     var inspector = data.progressInspection;
-    console.log("0이 되는 시점 찾기 addInsepctor :  ",index);
 
     var orderDate = formDate(inspector.orderDate)
     var progressInspectorDate = formDate(inspector.progressInspectonDate);
@@ -260,7 +255,7 @@ function toggleTables() {
 }
 
 function closePopup() {
-    document.getElementById("orderInspectPopup").style.display = "none";
+    window.close();
 }
 
 function closeInspect() {

@@ -2,6 +2,7 @@ package com.example.tae.controller;
 
 import com.example.tae.entity.Order.dto.OrderDTO;
 
+import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.service.PurchaseService.OrderService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -60,8 +61,6 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity<?> getOrderListWithDate(@RequestParam("date1") String stringDate1, @RequestParam("date2") String stringDate2) {
 
-        log.info("받아오는 데이터 정보 확인 "+ stringDate1+stringDate2);
-
         DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         LocalDateTime date1 = LocalDateTime.parse(stringDate1+ " 00:00", format);
@@ -69,5 +68,17 @@ public class OrderController {
 
         List<OrderDTO> oList = orderService.getOrderListWithDate(date1, date2);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("oList", oList));
+    }
+
+    @GetMapping("open-order/{procurementPlanCode}")
+    public String openOrder(@PathVariable int procurementPlanCode, Model model) {
+       OrderDTO order =  orderService.getOrderPopup(procurementPlanCode);
+       model.addAttribute("order", order);
+        return "orderListPopup";
+    }
+
+    @PostMapping("/order-imageURl")
+    public void orderUpload(@RequestBody ImageDTO imageDTO){
+        orderService.orderUpload(imageDTO);
     }
 }

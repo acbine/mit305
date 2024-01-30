@@ -5,7 +5,8 @@ var state3 = 0;
 var total = 0;
 
 var clickTapList = new Array();
-const tabList = document.getElementsByClassName("list");
+const tabList = document.getElementsByClassName("tap_list");
+const taps = document.getElementsByClassName("tabClass")
 const contents = document.getElementsByClassName("cont")
 const contentList = document.getElementsByClassName("cont_area")
 
@@ -195,7 +196,7 @@ const childComponent = {
 
             if (i === 0) {
                 tabList3.push(`
-                            <div class="tabClassOne" data-include-path='${currentPage}'>
+                            <div class="tabClass" id="first" data-include-path='${currentPage}'>
                                 <div class="btn">${arrayClick[i]}<div onclick="closePage('${arrayClick[i]}',0)">❌</div></div>
                             </div>
                       `)
@@ -222,21 +223,15 @@ const childComponent = {
         var currentPageInfoOfDirectClick = [currentPage, transFromITOStringI]
         setCookie("currentPageInfoOfDirectClick", currentPageInfoOfDirectClick, 7)
 
-        let SoYouCanSeeWhatWasPressed = document.getElementById("on");
-
         for (let k = 0; k < tabList3.length; k++) {
             var clickEvent = document.getElementsByClassName("btn");
             clickEvent[k].addEventListener('click', function (e) {
                 e.preventDefault();
                 for (let j = 0; j < tabList3.length; j++) {
-                    if (SoYouCanSeeWhatWasPressed) {
-                        SoYouCanSeeWhatWasPressed[j].remove('on');
-                    }
                     contents[j].style.display = 'none';
+                    taps[j].style.background = "#D3E3FD";
                 }
-                if(SoYouCanSeeWhatWasPressed) {
-                    SoYouCanSeeWhatWasPressed[k].id = 'on';
-                }
+                taps[k].style.background = "white";
                 contents[k].style.display = 'block';
 
                 var pageInfoToString = String(k);
@@ -278,7 +273,6 @@ function LoadHTMLOfThePageWithClickedPageData(clickData, contCnt) {
         xhttp.open('GET', includePath, true);
         xhttp.send();
     }
-    ;
 }
 
 function LoadHTMLOfThePage(cnt) {
@@ -303,7 +297,6 @@ function LoadHTMLOfThePage(cnt) {
         xhttp.open('GET', includePath, true);
         xhttp.send();
     }
-    ;
 }
 
 /*쿠키 저장하기(이름, 값, 저장일 수)*/
@@ -393,25 +386,21 @@ window.onload = function () {
 
 function closePage(pageData, cnt) {
     var taps = document.getElementsByClassName("tabClass");
-    var firstTap = document.getElementById("tap1")
+    var firstTap = document.getElementsByClassName("tabClassOne")
     var conts = document.getElementsByClassName("cont");
+
     var closeData = arrayClick.indexOf(pageData)
 
     clickTapList = clickTapList.filter((value) => value !== pageData);
 
     arrayClick.splice(closeData, 1);
 
-    setCookie("clickTapList", arrayClick, 7)
-    var second = taps[1]
-    if (closeData === arrayClick[0]) {
-        firstTap.removeAttribute('class');
-        firstTap.classList.add("tabClass")
-        if (second) {
-            second.classList.add("tabClass1");
-        }
-    }
+    taps[cnt].style.display = "none";
+    contents[cnt].style.display = "none";
 
-};
+    setCookie("clickTapList", arrayClick, 7)
+
+}
 
 
 function test() {

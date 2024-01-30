@@ -5,7 +5,7 @@ function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                window.open('./orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode,this.responseText,'width=900, height=600, left=400, top=3')
+                window.open('./orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode,this.responseText,'width=1200, height=600, left=400, top=3')
                 // html.style.display = "block";
                 // html.innerHTML = this.responseText;
             }

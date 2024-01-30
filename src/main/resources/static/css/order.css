@@ -31,22 +31,58 @@
 .orderPopup {
     text-align: center;
     display: none; /* 모달 전체 처음에는 숨김 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .popup {
     display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 38px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 830px;
+    height: 843px;
+    text-align: center;
 }
 
 .order-popup-content {
+    position: absolute;
+    top: 50%;
+    width: 600px;
+    height: 800px;
+    padding: 40px;
+    left: 30%;
+    text-align: center;
+
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    box-shadow: 0 2px 3px 0 rgba(34, 36, 38, 0.15);
+    transform: translateY(-50%);
 }
 
 .popup-content {
+    text-align: center;
+    position: absolute;
+    width: 804px;
+    height: 712px;
 }
 
 .popup-table td {
+    text-align: center;
+    height: 18px;
 }
 
 .popup-center {
+    text-align: center;
 }
 
 .taf {

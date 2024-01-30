@@ -38,16 +38,16 @@ $.each(join_List, function(index, setList) {
         '<tr>' +
             '<td style="display: none">' + setList.projectPlanCode + '</td>' +  // 생산 계획 코드 (숨겨짐)
             '<td style="display: none">' + setList.contractCode + '</td>' + // 계약 코드 (숨겨짐)
-            '<td>' + setList.projectName + '</td>' + // 조달 제품명
-            '<td>' + setList.productName + '</td>' + // 조달 품목명
-            '<td>' + setList.productCode + '</td>' + // 품목 코드
-            '<td>' + setList.departmentName + '</td>' + // 조달 업체명
-            '<td>' + setList.outPutNum * setList.productCodeCount + '</td>' + // 조달 필요 수량
-            '<td>' + '<input type="text" style = "width:50.67px; height:"29px"; font-size:15px;" class = get_num value =' + setList.outPutNum * setList.productCodeCount + '>' + '</td>' + // 조달 수량 (입력, 기본값)
-            '<td>' + setList.leadTime + '</td>' + // L/T
-            '<td>' + setList.projectOutputDate + '</td>' + // 제품 생산 날짜
-            '<td><input type="date" style = "width:150.67px; height:"29px"; font-size:15px;" class = get_date></td>' + // 발주일 (날짜 선택, 기본값)
-            '<td>' + // 계획 처리
+            '<td class="productImformationTable-data">' + setList.projectName + '</td>' + // 조달 제품명
+            '<td class="productImformationTable-data">' + setList.productName + '</td>' + // 조달 품목명
+            '<td class="productImformationTable-data">' + setList.productCode + '</td>' + // 품목 코드
+            '<td class="productImformationTable-data">' + setList.departmentName + '</td>' + // 조달 업체명
+            '<td class="productImformationTable-data">' + setList.outPutNum * setList.productCodeCount + '</td>' + // 조달 필요 수량
+            '<td class="productImformationTable-data">' + '<input type="text" style = "width:50.67px; height:"29px"; font-size:15px;" class = get_num value =' + setList.outPutNum * setList.productCodeCount + '>' + '</td>' + // 조달 수량 (입력, 기본값)
+            '<td class="productImformationTable-data">' + setList.leadTime + '</td>' + // L/T
+            '<td class="productImformationTable-data">' + setList.projectOutputDate + '</td>' + // 제품 생산 날짜
+            '<td class="productImformationTable-data"><input type="date" style = "width:150.67px; height:"29px"; font-size:15px;" class = get_date></td>' + // 발주일 (날짜 선택, 기본값)
+            '<td class="productImformationTable-data">' + // 계획 처리
                 '<div class="actions">' +
                      '<button class="action-button action-button-registration" onclick="procurement_registration(this); td_delete(this);">등록</button>' +
                 '</div>' +
@@ -132,15 +132,15 @@ $.each(plan_list, function(index, plan) {
 
     $('#plan_table_info tbody').append(
         '<tr>' +
-            '<td>' + plan.projectPlan.project.projectName + '</td>' + // 제품 생산 계획의 제품명(?)
-            '<td>' + plan.contract.productInformationRegistration.product_name + '</td>' + // 제품 품목 수량의 품목 이름
-            '<td>' + plan.contract.productInformationRegistration.product_code + '</td>' + // 제품 품목 수량의 품목 코드
-            '<td>' + plan.supportProductAmount  + '</td>' + // 조달 계획의 조달 수량
-            '<td>' + plan.contract.lead_time  + '</td>' + // 계약의 L/T
-            '<td>' + plan.contract.company.departName  + '</td>' + // 계약의 회사명
-            '<td>' + plan.projectPlan.projectOutputDate  + '</td>' + // 제품 생산 계획의 제품 생산 날짜
-            '<td>' + plan.order_date  + '</td>' + // 조달 계획의 발주일
-            '<td>' +
+            '<td class="productImformationTable-data">' + plan.projectPlan.project.projectName + '</td>' + // 제품 생산 계획의 제품명(?)
+            '<td class="productImformationTable-data">' + plan.contract.productInformationRegistration.product_name + '</td>' + // 제품 품목 수량의 품목 이름
+            '<td class="productImformationTable-data">' + plan.contract.productInformationRegistration.product_code + '</td>' + // 제품 품목 수량의 품목 코드
+            '<td class="productImformationTable-data">' + plan.supportProductAmount  + '</td>' + // 조달 계획의 조달 수량
+            '<td class="productImformationTable-data">' + plan.contract.lead_time  + '</td>' + // 계약의 L/T
+            '<td class="productImformationTable-data">' + plan.contract.company.departName  + '</td>' + // 계약의 회사명
+            '<td class="productImformationTable-data">' + plan.projectPlan.projectOutputDate  + '</td>' + // 제품 생산 계획의 제품 생산 날짜
+            '<td class="productImformationTable-data">' + plan.order_date  + '</td>' + // 조달 계획의 발주일
+            '<td class="productImformationTable-data">' +
                 '<div class="actions">' + // 계획 관리 칸
                      '<button class="action-button action-button-edit" onclick="td_regOrder('+ plan.procurementplan_code +'); td_delete(this)">발주등록</button>' +
                      '<button class="action-button action-button-edit" onclick="plan_delete('+ plan.procurementplan_code +'); td_delete(this)">삭제</button>' +

@@ -98,14 +98,14 @@ function contract_All() {
                 $('#contract_info tbody')
                     .append(
                     '<tr>' +
-                        '<td height="25">' + con.productInformationRegistration.product_name  + '</td>' + // 품목명
-                        '<td height="25">' + con.productInformationRegistration.product_code  +'</td>' + // 품목 코드
-                        '<td height="25">' + con.company.departName  + '</td>' + // 회사명
-                        '<td height="25">' + con.company.businessNumber + '</td>' + // 사업자 번호
-                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
-                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
-                        '<td height="25">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
-                        '<td height="25">' +
+                        '<td class="productImformationTable-data">' + con.productInformationRegistration.product_name  + '</td>' + // 품목명
+                        '<td class="productImformationTable-data">' + con.productInformationRegistration.product_code  +'</td>' + // 품목 코드
+                        '<td class="productImformationTable-data">' + con.company.departName  + '</td>' + // 회사명
+                        '<td class="productImformationTable-data">' + con.company.businessNumber + '</td>' + // 사업자 번호
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
+                        '<td class="productImformationTable-data">' +
                             '<div class="actions">' +
                                 '<button class="action-button action-button-edit" onclick="contract_modify('+ con.contract_code +')">수정</button>' +
                                 '<button class="action-button action-button-edit" onclick="contract_to_contractPage('+ con.contract_code +'); contract_row_delete(this);">계약서에 추가</button>' +

@@ -21,7 +21,6 @@ function searchOrderListWithDate() {
             url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
             method:'get',
         success:function (info){
-                console.log(info.oList[0],"info 정보 확인하기")
                 drawHTMl(info)
                 console.log("성공");
         },
@@ -120,11 +119,9 @@ function openOrder(procurementPlanCode) {
         url:"open-order/"+procurementPlanCode,
         method: "get",
         success:function (order){
-            console.log(order)
             html.style.display = "block";
             orderHtml.style.display="block";
             orderHtml.innerHTML = order;
-            console.log("성공")
         },
         error:function (){
             console.log("실패")

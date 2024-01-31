@@ -25,7 +25,7 @@ function orderRegisterIn(index, planCode,orderIndex) {
         method: 'get',
         success: function (inspector) {
             console.log("받아온 데이터 확인 : ", inspector)
-            addInspects(inspector,orderIndex)
+            addInspects(inspector,index,orderIndex)
         },
         error: function (data) {
             console.error(data)
@@ -35,7 +35,7 @@ function orderRegisterIn(index, planCode,orderIndex) {
     })
 }
 
-function addInspects(inspector, orderIndex) {
+function addInspects(inspector,index,orderIndex) {
     var inspectorInfo = inspector.progressInspectionList;
     var classTbodyContainerTr = document.getElementById("progressInspection");
 
@@ -53,7 +53,7 @@ function addInspects(inspector, orderIndex) {
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td>${note}</td>
-                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${i},${orderIndex})">진척검수실행</button><button class="orderInspectButton" onclick="updateProgressInspection(this,${i}${orderIndex})">수정</button><button class="orderInspectButton" onclick="cancel()">삭제</button></td>`
+                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderIndex})">진척검수실행</button><button class="orderInspectButton" onclick="updateProgressInspection(this,${index}${orderIndex})">수정</button><button class="orderInspectButton" onclick="cancel()">삭제</button></td>`
         } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="발주중"||inspectorInfo[i].orderState==="발주전"||inspectorInfo[i].orderState==="") {
             classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
@@ -82,14 +82,14 @@ function addInspects(inspector, orderIndex) {
 const inspectorCheck = {
     receiveIndexData: function (index,orderIndex) {
         progressInspectorIndex = index;
-        this.progressInspectorCheck
+
     },
 
-    progressInspectorCheck: function (orderIndex) {
+    progressInspectorCheck: function (index,orderIndex) {
         var checkListCnt = 0;
         var progressInspectorResult = false;
         var classTbodyContainerTr = document.getElementById("progressInspection");
-        var tData = classTbodyContainerTr.children[progressInspectorIndex];
+        var tData = classTbodyContainerTr.children[index];
         var checkBoxes = document.getElementsByClassName("checkbox");
         var note = document.getElementById("note").value;
 
@@ -101,49 +101,59 @@ const inspectorCheck = {
         var buttonColumn = document.getElementById("buttonState");
         var date  = document.getElementById("setInspectDate");
 
-        console.log(resultTable);
-        for (let i = 0; i < checkBoxes.length; i++) {
-            if (checkBoxes[i].checked === true) {
-                ++checkListCnt;
-            }
-        }
+        console.log(index,"인덱스 번호 찍어보기")
 
-        progressInspectorResult = checkListCnt >= 4;
+        var inspector = document.getElementById("addProgressInspection");
+        inspector.addEventListener('click',function (e) {
 
-        var formData = {
-            "progressInspectionId" : progressInspectionId, "progressInspectorResult" :  progressInspectorResult, "note":note
-        }
+            e.preventDefault();
 
-        $.ajax({
-                url: 'inspectorResult',
-                data: JSON.stringify(formData),
-                contentType:'application/json',
-                method: 'put',
-                success: function (result) {
-                    if(result.result[0]==="재검수 요망"){
-                        noteTable.innerHTML = `<td>${result.result[1]}<td>`
-                        resultTable.innerHTML = `
-                                                        <input type="hidden" value="${progressInspectionId}">
-                                                        <td><font color="red">[${result.result[0]}]</font></td>`;
-                    } else {
-                        console.log(date,"버튼 데이터 정보 확인")
-                        date.innerHTML = ``;
-                        noteTable.innerHTML = `<td>${result.result[1]}<td>`
-                        resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
-                                                        <td><font color="green">[${result.result[0]}]</font></td>`;
-                        buttonColumn.innerHTML = `<td></td>`;
-                        orderListTable[orderIndex].children[3].innerHTML = `<td>마감</td>`
-                        orderListTable[orderIndex].children[4].innerHTML = `<td><font color="green">[${result.result[0]}]</font></td>`
-                    }
-                },
-                error: function () {
-                    console.log("검수 요청 실패")
+            console.log(resultTable);
+            console.log(progressInspectionId);
+
+            /*체크 박스 카운트*/
+            for (let i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked === true) {
+                    ++checkListCnt;
                 }
             }
-        )
-        closeInspect();
-    }
 
+            progressInspectorResult = checkListCnt >= 4;
+
+            var formData = {
+                "progressInspectionId" : progressInspectionId, "progressInspectorResult" :  progressInspectorResult, "note":note
+            }
+
+            $.ajax({
+                    url: 'inspectorResult',
+                    data: JSON.stringify(formData),
+                    contentType:'application/json',
+                    method: 'put',
+                    success: function (result) {
+                        if(result.result[0]==="재검수 요망"){
+                            noteTable.innerHTML = `<td>${result.result[1]}<td>`
+                            resultTable.innerHTML = `
+                                                        <input type="hidden" value="${progressInspectionId}">
+                                                        <td><font color="red">[${result.result[0]}]</font></td>`;
+                        } else {
+                            console.log(date,"버튼 데이터 정보 확인")
+                            date.innerHTML = ``;
+                            noteTable.innerHTML = `<td>${result.result[1]}<td>`
+                            resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
+                                                        <td><font color="green">[${result.result[0]}]</font></td>`;
+                            buttonColumn.innerHTML = `<td></td>`;
+                            orderListTable[orderIndex].children[3].innerHTML = `<td>마감</td>`
+                            orderListTable[orderIndex].children[4].innerHTML = `<td><font color="green">[${result.result[0]}]</font></td>`
+                        }
+                    },
+                    error: function () {
+                        console.log("검수 요청 실패")
+                    }
+                }
+            )
+            closeInspect();
+        })
+    }
 }
 
 
@@ -182,9 +192,9 @@ function cancel(progressInspectorId, index) {
 }
 
 const popup ={
-    openPopup: function (orderIndex){
+    openPopup: function (index,orderIndex){
         var progressInspection = document.getElementById("progressInspection");
-        var index =  progressInspection.children.length-1;
+        // var index =  progressInspection.children.length-1;
         var progressInspectorPopup = document.getElementById('popup');
         progressInspectorPopup.style.display = "block";
         inspectorCheck.receiveIndexData(index,orderIndex);
@@ -261,6 +271,7 @@ function addInspectorOne(data, index,orderIndex) {
                                                             <td>${orderDate}</td>
                                                             <td class="inspectDate">${progressInspectorDate}</td>
                                                             <input type="hidden" value="${inspector.progressInspectionId}"/>
+                                                            <td></td>
                                                             <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderIndex})">진척검수실행</button><button onclick="updateProgressInspection(this,${index},${orderIndex})">수정</button><button onclick="cancel()">삭제</button></td>`
 }
 

@@ -14,9 +14,9 @@
         <div id="TSSearch"> <!--거래명세서의 검색창 보여주는 테이블 시작-->
             <table border="1">
                 <tr>
-                    <td><input id="inputData" type="text" name="inputData"></td>
+                    <td><input id="trinputData" type="text" name="trinputData"></td>
                     <td>
-                        <select id="searchData" name="searchData">
+                        <select id="trsearchData" name="trsearchData">
                             <option value="productname">품목명</option>
                             <option value="departname">업체명</option>
                         </select>
@@ -29,8 +29,8 @@
         <table class="table-style"> <!--거래명세서 보여주는 테이블 시작-->
             <thead style="position: sticky;  top: 0;  background-color: #f2f2f2;">
                 <tr >
-                    <th class="table-header">발주서코드</th>
-                    <th class="table-header">사업자번호</th>
+                    <th class="table-header" style="width:350px;">발주서코드</th>
+                    <th class="table-header" style="width:140px;">사업자번호</th>
                     <th class="table-header">업체명</th>
                     <th class="table-header">입고품목명</th>
                     <th class="table-header">입고수량</th>
@@ -38,12 +38,11 @@
                     <th class="table-header">업체전화번호</th>
                     <th class="table-header">업체이메일</th>
                     <th class="table-header">팩스</th>
-
                     <th class="table-header">전송 및 인쇄</th>
                 </tr>
             </thead>
             
-            <tbody id="tableBody">
+            <tbody id="tradingStatementTableBody">
 <!--                <tr th:each="list : ${tSDList} ">-->
 <!--                    <td class="table-data" hidden="hidden" th:text="${list.orderCode}">발주서코드</td>-->
 <!--                    <td class="table-data" th:text="${list.businessNumber}">사업자번호</td>-->

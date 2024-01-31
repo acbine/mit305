@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/total.css">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <title>프로세스</title>
 
 </head>
@@ -32,7 +33,7 @@
     <div class="innerGround"></div>
     <div class="innerGroundShadow">
         <div class="tab_menu">
-            <div class="list">
+            <div class="tap_list">
             </div>
             <div class="cont_area">
             </div>
@@ -46,8 +47,8 @@
             <u onclick='sendDateToChild("procurementPlan")' id="procurementPlan">조달계획등록</u>
         </div>
         <div class="order-management" id="order" style="display: none">
-            <u onclick='sendDateToChild("orderList")' id="orderList">발주서목록</u><br>
             <u onclick='sendDateToChild("orderPublish")' id="orderPublish">발주서발행</u><br>
+            <u onclick='sendDateToChild("orderList")' id="orderList">발주서목록</u><br>
             <u onclick='sendDateToChild("current")' id="current">현황관리</u>
         </div>
         <div class="materials-management" id="materials" style="display: none">

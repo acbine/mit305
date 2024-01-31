@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 @Builder
@@ -19,7 +20,7 @@ public class ProductInformationRegistrationDTO {
 
     private String product_name;
 
-    private char product_abbreviation;
+    private String product_abbreviation;
 
     private String texture;
 
@@ -28,5 +29,5 @@ public class ProductInformationRegistrationDTO {
     private int height;
     private int weight;
 
-    private String product_imageURL;
+    private MultipartFile image_name;
 }

@@ -5,11 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <script src="/js/ContractRegistration.js"></script>
+    <link href="/css/Registration.css" rel="stylesheet"/>
     <style>
-
-        .contract_container {
-
-        }
 
         td {
             text-align: center;
@@ -26,7 +23,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.7);
+            background-color: rgba(0, 0, 0, 0.7);
         }
 
         .ContractModal-content { /* 계약서 모달내용 창 */
@@ -41,40 +38,53 @@
             /*max-height: 80vh;*/ /* 모달의 최대 세로 크기 (화면 높이의 80%) */
             overflow-y: auto;
 
-            width: 750px;  /*모달의 가로 크기 */
-            height: 925px;  /*모달의 세로 크기 */
+            width: 750px; /*모달의 가로 크기 */
+            height: 925px; /*모달의 세로 크기 */
         }
 
     </style>
     <title>Your HTML Example</title>
 </head>
 <body>
-<!-- Your HTML content here -->
-<div class="contract_container">
-
-    <div class="data-card">
+    <div class="data-card" style="width:1480px;">
         <h2 class="title">계약 등록</h2>
 
         <div class="table-container">
-            <table class="table" id="contract" border="1">
+            <table class="productImformationTable-style" id="contract" >
+
                 <thead>
-                <tr>
-                    <th width="124.67" height="25">품목명</th>
-                    <th width="80.63" height="25">품목 코드</th>
-                    <th width="188.67" height="25">거래처 기업명</th>
-                    <th width="128.25" height="25">사업자 등록 번호</th>
-                    <th width="65.25" height="25">L/T</th>
-                    <th width="65.25" height="25">단가</th>
-                    <th width="111.25" height="25">대금 지급 수단</th>
-                    <th width="90.63" height="25">등록 처리</th>
-                </tr>
+                    <tr>
+                        <th class="productImformationTable-header">품목명</th>
+                        <th class="productImformationTable-header">품목 코드</th>
+                        <th class="productImformationTable-header">거래처 기업명</th>
+                        <th class="productImformationTable-header">사업자 등록 번호</th>
+                        <th class="productImformationTable-header">L/T</th>
+                        <th class="productImformationTable-header">단가</th>
+                        <th class="productImformationTable-header">대금 지급 수단</th>
+                        <th class="productImformationTable-header">등록 처리</th>
+                    </tr>
                 </thead>
 
                 <tbody>
+                    <tr th:each="product : ${nonContractProducts}">
+                        <th:block th:if="${product.contract_code==0}">
+                            <td class="p_input productImformationTable-data" th:text="${product.product_name}"></td>
+                            <td class="productImformationTable-data" th:text="${product.product_code}"></td>
+                            <td class="productImformationTable-data">
+                                <input type="text" class = "c_input" style="width:115px; font-size:15px; text-align:center;">
+                                <button onclick="get_cname(this)">확인</button>
+                            </td>
+                            <td class="productImformationTable-data"><input type="text" class = "search_c" style="width:115px;  font-size:15px; text-align:center;" readonly></td>
+                            <td class="productImformationTable-data"><input type="text" class = "l_time" style="width:115px; font-size:15px; text-align:center;"></td>
+                            <td class="productImformationTable-data"><input type="text" class = "price" style="width:115px; font-size:15px; text-align:center;"></td>
+                            <td class="productImformationTable-data"><input type="text" class = "payment" style="width:115px;  font-size:15px; text-align:center;"></td>
+                            <td class="productImformationTable-data"><button class="action-button action-button-delete" onclick="contract_registration(this); contract_row_delete(this);" width = "74px;" >등록</button></td>
+                        </th:block>
+                    </tr>
                 </tbody>
             </table>
 
-            <button onclick='contract_addRow()'> ( + ) </button>
+<!--            <button onclick='contract_addRow()'> ( + )</button>-->
         </div>
     </div>
 
@@ -83,21 +93,22 @@
 
         <button onclick="contract_All()">계약 불러오기</button>
         <button onclick="OpenContract()">계약서 생성</button>
+        <button onclick="SendContract()">계약서 전송</button>
 
         <div class="table-container">
-            <table class="table" id="contract_info" border="1">
+            <table class="table productImformationTable-style" id="contract_info">
                 <thead>
-                <tr>
-                    <th width="124.67" height="25">품목명</th>
-                    <th width="80.63" height="25">품목 코드</th>
-                    <th width="188.67" height="25">거래처 기업명</th>
-                    <th width="128.25" height="25">사업자 등록 번호</th>
-                    <th width="65.25" height="25">L/T</th>
-                    <th width="65.25" height="25">단가</th>
-                    <th width="111.25" height="25">대금 지급 수단</th>
-                    <th width="200.63" height="25">계약 처리</th>
+                    <tr>
+                        <th class="productImformationTable-header" >품목명</th>
+                        <th class="productImformationTable-header">품목 코드</th>
+                        <th class="productImformationTable-header" >거래처 기업명</th>
+                        <th class="productImformationTable-header">사업자 등록 번호</th>
+                        <th class="productImformationTable-header">L/T</th>
+                        <th class="productImformationTable-header">단가</th>
+                        <th class="productImformationTable-header">대금 지급 수단</th>
+                        <th class="productImformationTable-header">계약 처리</th>
 
-                </tr>
+                    </tr>
                 </thead>
 
                 <tbody>
@@ -114,6 +125,6 @@
 
         </div>
     </div>
-</div>
+
 </body>
 </html>

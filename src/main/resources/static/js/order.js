@@ -1,8 +1,8 @@
 /*--------------------발주 목록(orderList)--------------------*/
 
-function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
+function openOrderInspectPopup(productCode,procurementPlanCode,orderListIndex){
     var html = document.getElementById("orderInspectPopup");
-console.log(procurementPlanCode)
+    console.log(html);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -10,120 +10,142 @@ console.log(procurementPlanCode)
                 html.innerHTML = this.responseText;
             }
         };
-        xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode, true);
+        xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode+'&orderIndex='+orderListIndex, true);
         xhttp.send();
 
 }
+function searchOrderListWithDate() {
+    var date1 = document.getElementsByName("startDate")[0].value;
+    var date2 = document.getElementsByName("endDate")[0].value;
+    $.ajax({
+            url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
+            method:'get',
+        success:function (info){
+                console.log(info.oList[0],"info 정보 확인하기")
+                drawHTMl(info)
+                console.log("성공");
+        },
+        error:function (){
+            console.log("실패");
+        }
 
-function closePopup() {
-    document.getElementById("orderInspectPopup").style.display = "none";
-}
-function closeInspect(){
-    console.log("일단 닫기 버튼")
+    }
+        )
 }
 
+
+function drawHTMl(info) {
+    var orderBoxInfo = document.getElementsByClassName("orderList")
+
+    for(var i = 0 ; i<orderBoxInfo.length; i++) {
+        var data = info.oList[i].orderDate;
+        if(info.oList[i].progressInspectionStatus===false) {
+            orderBoxInfo[i].innerHTML = `<td>${info.oList[i].productName}</td>
+                                    <td>${ formDate(data)}</td>
+                                    <td>${info.oList[i].departName}</td>
+                                    <td>${info.oList[i].orderState}</td>
+                                    <td onclick="openOrderInspectPopup(${info.oList[i].productCode, info.oList[i].procurementPlanCode})" ></td>
+                                    <td onclick="openOrder(${info.oList[i].procurementPlanCode})">🔍️</td>`
+        } else {
+            orderBoxInfo[i].innerHTML = `<td>${info.oList[i].productName}</td>
+                                    <td>${ formDate(data)}</td>
+                                    <td>${info.oList[i].departName}</td>
+                                    <td>${info.oList[i].orderState}</td>
+                                    <td onclick="openOrder(${info.oList[i].procurementPlanCode})">🔍️</td>`
+        }
+    }
+
+}
+function putOrderAmount(productCode, planCode, index) {
+    var putOrderTableInfo = document.getElementsByClassName("planNum");
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+    var changeToInput = putOrderTableInfo[index];
+    var num =putOrderTableInfo[index].innerHTML;
+    console.log(planCode);
+    changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
+    btnList[0].innerHTML = `<button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>`
+    btnList[1].innerHTML =  `<button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>`
+    btnList[2].innerHTML = ``;
+}
+
+function putPlanNum(productCode,planCode,index) {
+    var input = document.getElementsByClassName("inputPlanNum");
+    var changeToInput = input[index];
+
+    console.log(changeToInput.innerHTML)
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+
+
+    var inputData = input[index].value;//받아온 데이터 값
+    changeToInput.outerHTML=`<td class="planNum">${inputData}</td>`
+
+    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
+    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
+    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+
+    var formData = { "procurementPlanCode" : planCode, "num" : inputData};
+
+    console.log(planCode);
+    $.ajax({
+        url: "putOrderNum",
+        method: "put",
+        contentType: 'application/json',
+        data : JSON.stringify(formData),
+        success:function () {
+            console.log("성공")
+        },
+        error : function (error) {
+            alert(error.responseJSON.msg)
+        }
+    })
+
+}
+function cancelPlanPut(productCode,planCode,index,num) {
+    var putOrderTableInfo = document.getElementsByClassName("planNum");
+    var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
+    var changeToInput = putOrderTableInfo[index];
+
+    changeToInput.innerHTML=`<td>${num}</td>`
+
+    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
+    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
+    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+
+}
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/
-function downloadImage(){
-    /*html2canvas(document.getElementById('screen_area'),{scale:2}).then((canvas) => {
-        const imageDataURL = canvas.toDataURL("image/jpg");
+function openOrder(procurementPlanCode) {
+    var html = document.getElementById("orderPopup");
+    var orderHtml = document.getElementById("order-popup-content")
+    $.ajax({
+        url:"open-order/"+procurementPlanCode,
+        method: "get",
+        success:function (order){
+            console.log(order)
+            html.style.display = "block";
+            orderHtml.style.display="block";
+            orderHtml.innerHTML = order;
+            console.log("성공")
+        },
+        error:function (){
+            console.log("실패")
+        }
+    })
+    console.log("버튼 동작 확인")
+}
 
-        const a = document.createElement("a");
-        a.href = imageDataURL;
-        a.download = "발주서.jpg";
-    }*/
+function closeOrder() {
+    document.getElementById("orderPopup").style.display = "none";
 }
 
 /*-------------------진척 검수 관리-------------------------------------------*/
 
+function formDate(data) {
 
-var ProgressInspectionState = 0;
+    var date = new Date(data)
 
-function ProgressInspection() {
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    if (ProgressInspectionState === 0) {
-        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
-            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
-                                                <td>2023-12-13</td>
-                                                <td>입력된날짜</td>
-                                                <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
-        }
-    } else if (ProgressInspectionState === 1) {
-        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
-            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
-                                                <td>2023-12-13</td>
-                                                <td>입력된날짜</td>
-                                                <td><button onclick="openPopup('popup')">진척검수실행</button></td>`
-        }
-    } else if (ProgressInspectionState === 2) {
-        for (var i = 0; i < classTbodyContainerTr.innerHTML.length; i++) {
-            classTbodyContainerTr.innerHTML[i] = `<td>나사</td>
-                                                <td>2023-12-13</td>
-                                                <td>입력된날짜</td>
-                                                <td>진척 검수 완료</td>`
-        }
-    }
+    var formattedDate = date.getFullYear() + '-' +
+        ('0' + (date.getMonth() + 1)).slice(-2) + '-' +
+        ('0' + date.getDate()).slice(-2);
+
+    return formattedDate;
 }
-
-function addProgressInspection(productName, planId) {
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
-
-    if(dateValue) {
-        var formData = {
-            "inspectDate" : dateValue,
-            "planId" : planId
-        }
-        $.ajax({
-            url : "orderInspect",
-            contentType : 'application/json',
-            data : JSON.stringify(formData),
-            method : "post",
-            success : function () {
-                console.log("성공")
-            },
-            error : function () {
-                console.log("보내는 데이터 형태 확인 : ", formData)
-                console.error("잘못된 응답");
-            }
-        })
-        classTbodyContainerTr.insertRow(0).innerHTML = `<td>나사</td>
-                                                            <td>2023-12-13</td>
-                                                            <td Class="inspectDate">입력된날짜</td>
-                                                            <td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`
-    } else {
-        alert("진척 검수 계획일을 입력해주세요")
-    }
-
-}
-
-function updateProgressInspection(info) {
-    var updateDate = info.closest("tr");
-
-    var date = updateDate.children[2];
-    var updateButton = updateDate.children[3];
-    updateButton.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateConfirm(this)">등록</button><button>삭제</button></td>`;
-    date.innerHTML = `<input type="date">`;
-    console.log(updateDate);
-}
-
-function updateConfirm(info) {
-    var update = info.closest("tr");
-
-    var updateDateConfirm = update.children[2];
-    updateDateConfirm.innerHTML = `<td>입력된날짜</td>`;
-    var updateConfirm = update.children[3];
-    updateConfirm.innerHTML = `<td><button onclick="openPopup('popup')">진척검수실행</button><button onclick="updateProgressInspection(this)">수정</button><button>삭제</button></td>`;
-}
-
-
-function toggleTables() {
-    var selectedOption = document.getElementById("companyDropdown").value;
-
-    document.getElementById("table1").classList.add("hidden");
-    document.getElementById("table2").classList.add("hidden");
-    document.getElementById("table3").classList.add("hidden");
-
-    document.getElementById(selectedOption).classList.remove("hidden");
-}
-
-

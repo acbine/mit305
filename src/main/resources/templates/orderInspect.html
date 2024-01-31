@@ -3,32 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     <link rel="stylesheet" href="/css/order.css">
 
     <title>진척 검수</title>
+
+    <style>
+        .orderInspectButton {  /* 검색버튼 */
+            background-color: #f2f2f2;
+        }
+        .orderInspect_head {
+            padding: 1rem;
+            text-align: center;
+            vertical-align: middle;
+            font-weight: 500;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .orderInspect-table-style{
+            width: 90%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+        textarea {
+            display: block;
+            vertical-align: middle;
+            resize: none;
+        }
+    </style>
 </head>
 <body>
 <h2 class="title">진척 검수 등록</h2>
 <div class="container">
-    <table class="tableContainer">
-        <thead class="theadContainer">
-        <tr>
-            <th class="thContainer">품목명</th>
-            <th class="thContainer">품목코드</th>
-            <th class="thContainer">수량</th>
-            <th class="thContainer">재고량</th>
-            <th class="thContainer">생산 예정일</th>
-            <th class="thContainer">L/T</th>
-            <th class="thContainer">발주일</th>
-            <th class="thContainer">가로</th>
-            <th class="thContainer">세로</th>
-            <th class="thContainer">높이</th>
-            <th class="thContainer">재질</th>
-            <th class="thContainer">진척검수 확인</th>
+    <table class="theadContainer orderInspect-table-style" id ="ta">
+        <thead class="theadContainer orderInspect_head">
+        <tr class="trClass orderInspect_head" style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+            <th class="thContainer orderInspect_head">품목명</th>
+            <th class="thContainer orderInspect_head">품목코드</th>
+            <th class="thContainer orderInspect_head">수량</th>
+            <th class="thContainer orderInspect_head">재고량</th>
+            <th class="thContainer orderInspect_head">생산 예정일</th>
+            <th class="thContainer orderInspect_head">L/T</th>
+            <th class="thContainer orderInspect_head">발주일</th>
+            <th class="thContainer orderInspect_head">가로</th>
+            <th class="thContainer orderInspect_head">세로</th>
+            <th class="thContainer orderInspect_head">높이</th>
+            <th class="thContainer orderInspect_head">재질</th>
+            <th class="thContainer orderInspect_head">진척검수 확인</th>
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="tbody" th:each="info :  ${orderInspect}">
-        <tr>
+        <tr class="trClass">
             <td th:text="${info.productName}"></td>
             <td th:text="${info.productCode}"></td>
             <td th:text="${info.num}"></td>
@@ -42,33 +66,35 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\')'">확인</button>
+                <button class="orderInspectButton" th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\',\'' + ${info.orderIndex} + '\')'">진척 검수<br/>불러오기</button>
             </td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td colspan="11" th:text="${#calendars.format(#calendars.createNow(), 'yyyy-MM-dd')}"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td colspan="11" th:text="${info.departName}"></td>
         </tr>
         </tbody>
     </table>
     <table class="hidden" id="hidden">
         <thead class="theadContainer">
-        <tr>
-            <th class="thContainer">품목명</th>
-            <th class="thContainer">발주일</th>
-            <th class="thContainer">진척 검수 계획일</th>
-            <th class="thContainer"></th>
+        <tr class="trClass" style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+            <th class="thContainer orderInspect_head">품목명</th>
+            <th class="thContainer orderInspect_head">발주일</th>
+            <th class="thContainer orderInspect_head">진척 검수 계획일</th>
+            <th class="thContainer orderInspect_head">비 고</th>
+            <th class="thContainer orderInspect_head"></th>
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="progressInspection">
-        <tr th:each="info : ${orderInspect}">
+        <tr class="trClass" th:each="info : ${orderInspect}" >
             <td th:text="${info.productName}"></td>
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
+            <td></td>
             <td id="buttonState">
-                <button id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\')'">진척검수 일정 등록</button>
+                <button class="orderInspectButton" id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>
@@ -76,41 +102,43 @@
     <button onclick="closePopup()">닫기</button>
 </div>
 <div class="popup" id="popup">
-    <table style="width: 190px;">
+    <table style="width: 190px;" class="testBox">
         <thead>
-        <tr>
-            <th colspan="2">품목수준평가</th>
+        <tr class="trClass">
+            <th colspan="2" >품목수준평가</th>
         </tr>
         </thead>
         <tbody>
-        <tr>
+        <tr class="trClass">
             <td>규격</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>중량</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>재질</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
+        <tr class="trClass">
             <td>입고가능여부</td>
-            <td><input type="checkbox"></td>
+            <td><input class="checkbox" type="checkbox"></td>
         </tr>
-        <tr>
-            <td colspan="2">
-                <textarea placeholder="규격에 문제가 있으므로 체크처리를 보류하겠습니다."></textarea>
-            </td>
+        <tr class="trClass">
+            <td>비 고</td>
         </tr>
+        <tr><td><textarea rows="3" cols="20" id="note"></textarea></td></tr>
         </tbody>
     </table>
     <div style="text-align: center;">
-        <button class="inspect">등록</button>
-        <button class="exit" onclick="closeInspect('popup')">닫기</button>
+        <th:block th:each="info : ${orderInspect}">
+            <button class="inspect" th:attr="onclick='inspectorCheck.progressInspectorCheck(\'' + ${info.orderIndex} + '\')'">진척 검수</button>
+            <button class="exit" onclick="closeInspect()">닫기</button>
+        </th:block>
     </div>
 </div>
 <script src="/js/order.js"></script>
+<script src="/js/orderRegister.js"></script>
 </body>
 </html>

@@ -4,9 +4,6 @@ import com.example.tae.entity.DummyData.Product.Project;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.context.annotation.Lazy;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Builder

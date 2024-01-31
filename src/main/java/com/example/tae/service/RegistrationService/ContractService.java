@@ -9,4 +9,7 @@ import java.util.List;
 public interface ContractService {
 
     List<Contract> getAllContracts();
+
+//    void sendEmail();
+
 }

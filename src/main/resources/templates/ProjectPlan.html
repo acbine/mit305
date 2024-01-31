@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>생산계획 입력 되는돗</title>
+    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</head>
+<body>
+    <h2>생산계획 등록하는창 </h2>
+    <form method="post" action="ProjectPlanRegister">
+        생산제품
+        <select id="sendProjcetPlanValue" name="projectName">
+            <option th:each="list : ${projectnameList}" th:value="${list}" th:text="${list}"></option>
+        </select>
+        생산수량:
+        <input type="number" name="setouputNum" required>
+        생산예정일:
+        <input type="date" name="setProjectPlanDate" required> <br>
+
+        <input type="submit" value="생산계획 등록">
+    </form>
+
+    <h2>등록된 생산계획</h2>
+    생산계획 코드 생산제품 생산수량 생산날짜 <br>
+    <div id="showProjectPlan" th:each="projectplanlist : ${projectplanList}">
+        <span th:text="${projectplanlist.projectCode}"></span>
+        <span th:text="${projectplanlist.projectName}"></span>
+        <span th:text="${projectplanlist.setouputNum}"></span>
+        <span th:text="${projectplanlist.setProjectPlanDate}"></span>
+        <button th:id="delete+${projectplanlist.projectCode}" type="button" onclick="Delete()" >삭제</button>
+<!--        <button th:id="update+${projectplanlist.projectCode}" type="button" onclick="Update()">수정칸 생성</button>-->
+<!--        <span th:id="updateZone+${projectplanlist.projectCode}"></span>-->
+        <br>
+    </div>
+
+
+
+    <script>
+    function Delete(){
+        console.log("삭제버버튼 클릭됨");
+
+        var targetId=event.target;
+        var id=targetId.getAttribute('id');
+
+        var spilt = id.substring(6,7)
+        console.log(spilt);
+
+        $.ajax({
+
+            url:'ProjectPlanDelete?deleteProjectCode='+spilt,
+            type : 'post',
+            success: function(result) {
+                console.log("전송잘된");
+                location.reload();
+            },
+
+            error: function(error) {
+                console.log("오류발생 0");
+                alert("조달계획에 등록되어있습니다 조달계획을 먼저 삭제해주세요")
+            }
+        });
+
+    }
+
+    function Update(){
+
+        console.log("업데이트 버튼 클릭됨");
+
+        var updatetargetId=event.target;
+        var updatetargetId2=updatetargetId.getAttribute('id');
+
+        var spilt2 = updatetargetId2.substring(6,7)
+//        console.log(spilt2);
+
+        var formElement = document.createElement("form");
+
+        formElement.method = "post"; // 전송 방식 설정 (GET 또는 POST)
+        formElement.action = "ProjectPlanUpdate"; // 전송될 URL 설정
+        formElement.id="myForm"+spilt2;
+
+        var inputElement1 = document.createElement("input");
+        inputElement1.type = "hidden";
+        inputElement1.name = "updateprojectCode";
+        inputElement1.value = spilt2;
+        formElement.appendChild(inputElement1);
+
+        var inputElement1 = document.createElement("input");
+        inputElement1.type = "number";
+        inputElement1.name = "updateNumber";
+        inputElement1.placeholder = "수정수량";
+        formElement.appendChild(inputElement1);
+
+        var inputElement2 = document.createElement("input");
+        inputElement2.type = "Date";
+        inputElement2.name = "upDateDate";
+        inputElement2.placeholder = "수정날짜";
+        formElement.appendChild(inputElement2);
+
+        var submitButton  = document.createElement("input");
+        submitButton.type = "submit";
+        submitButton.value = "수정완료";
+        formElement.appendChild(submitButton);
+
+        var buttoncancle  = document.createElement("button");
+        buttoncancle.type = "button";
+        buttoncancle.innerText = "취소";
+        buttoncancle.addEventListener("click", function() {
+                var form = document.getElementById("myForm"+spilt2);
+                form.remove();
+            });
+        formElement.appendChild(buttoncancle)
+
+
+        document.getElementById("updateZone"+spilt2).appendChild(formElement);
+
+
+
+    }
+
+
+    </script>
+
+</body>
+</html>

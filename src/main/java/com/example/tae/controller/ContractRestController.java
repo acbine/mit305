@@ -1,13 +1,14 @@
 package com.example.tae.controller;
 
 import com.example.tae.entity.Contract.Contract;
+import com.example.tae.entity.Contract.ContractPage;
 import com.example.tae.entity.Contract.dto.ContractDTO;
 import com.example.tae.entity.DummyData.Company;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.DummyRepository.CompanyRepository;
+import com.example.tae.repository.RegistrationRepository.ContractPageRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
-import com.example.tae.service.RegistrationService.ContractServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,20 +25,26 @@ public class ContractRestController {
     @Autowired
     CompanyRepository companyRepository;
 
+    @Autowired
+    ContractPageRepository contractPageRepository;
+
+    @Autowired
+    ContractRepository contractRepository;
+
     @PostMapping("/search/pro") // 품목 코드 검색
     @ResponseBody
-    public int searchProductId(@RequestParam String name) {
+    public int searchProductId(@RequestParam(name = "name") String name) {
 
         System.out.println(name);
 
-
+        List<Contract> contractList = contractRepository.findAll();
+        contractList.forEach(contract ->
+                {if(contract.getProductInformationRegistration().getProduct_name().equals(name)) {
+                        throw new IllegalArgumentException("해당 품목에 대한 계약이 존재하고 있습니다.");
+                    }});
 
         List<ProductInformationRegistration> NameSearch
                 = productInformationRegistrationRepository.findByProductInformationName(name);
-
-        NameSearch.forEach(System.out::println);
-
-//        System.out.println(NameSearch.get(0));
 
         if(!NameSearch.isEmpty()) {
 
@@ -50,9 +57,9 @@ public class ContractRestController {
 
     @PostMapping("/search/com") // 사업자 번호 검색
     @ResponseBody
-    public String searchCompanyId(@RequestParam String name) {
+    public String searchCompanyId(@RequestParam(name = "comName") String comName) {
 
-        List<Company> NameSearch2 = companyRepository.findBydepartName(name);
+        List<Company> NameSearch2 = companyRepository.findBydepartName(comName);
 
 //        System.out.println("리스트의 0번째 : " + NameSearch2.get(0));
 
@@ -65,9 +72,6 @@ public class ContractRestController {
         }
     }
 
-    @Autowired
-    ContractRepository contractRepository;
-
     @PostMapping("/register") // 입력한 데이터를 db에 저장
     public void ContractRegister(@RequestBody List<ContractDTO>  contractDTOList) {
 
@@ -78,9 +82,6 @@ public class ContractRestController {
 
             Company company = companyRepository.findById(data.getBusinessNumber()).orElse(null);
 
-//            System.out.println("입력 받은 품목 코드 : "+ productInformationRegistration);
-//            System.out.println("입력 받은 사업자 번호 : "+ company);
-
             if(productInformationRegistration != null && company != null) {
                 Contract contract = new Contract();
 
@@ -89,8 +90,6 @@ public class ContractRestController {
                 contract.setCompany(company); // 사업자 번호
                 contract.setProduct_price(data.getProduct_price()); // 단가
                 contract.setPayment_method(data.getPayment_method()); // 지불 방법
-                contract.setStart_date(data.getStart_date()); // 계약 시작일
-                contract.setEnd_date(data.getEnd_date()); // 계약 종료일
 
                 contractRepository.save(contract);
             }
@@ -98,8 +97,31 @@ public class ContractRestController {
         }
     }
 
-    @Autowired
-    ContractServiceImpl contractService;
+    @PostMapping("/registration_page/{contract_code}")
+    public String RegisterPage(@PathVariable(value = "contract_code") int contract_code) {
+
+        ContractPage contractPage = new ContractPage();
+
+        Contract contract = contractRepository.findById(contract_code).orElse(null);
+        log.info("찾은 계약 코드 값: " + contract);
+
+        contractPage.setContract(contract);
+
+        contractPageRepository.save(contractPage);
+
+        return "계약서에 등록된 계약 코드: " + contract_code;
+    }
+
+    // 사업자 번호에 맞는 계약서에 등록된 계약 코드 검색
+    @PostMapping("/search/codes/{businessNumber}")
+    public List<ContractPage> getContract_code(@PathVariable(value = "businessNumber") String businessNumber) {
+
+
+         return contractPageRepository.findContractCodes_of_businessNumber(businessNumber);
+
+    }
+
+    // 계약코드에 맞는 계약서 작성일 업데이트
 
 
 

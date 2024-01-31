@@ -1,7 +1,5 @@
 package com.example.tae.entity.Order.dto;
 
-import com.example.tae.entity.Contract.Contract;
-import com.example.tae.entity.Order.Purchase;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,10 +13,10 @@ import java.util.Date;
 public class OrderDTO {
     private String departName;
     private String productName;
+    private String businessNum;
     private int procurementPlanCode;
     private int productCode;
     private int num;
-    private int LT;
     private int contractCode;
     private Date orderDate;
     private String tel;
@@ -33,6 +31,11 @@ public class OrderDTO {
     private String text;
     private String orderState;
     private boolean progressInspectionStatus;
+    private String businessName;
+    private int supportProductAmount;
+    private int LT;
+    private LocalDateTime registerOrderDate;
+    private int orderIndex;
 
     public void setProgressInspectionStatus() {
         switch (this.orderState) {

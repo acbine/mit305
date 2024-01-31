@@ -11,7 +11,7 @@
     margin-top: 30px;
     width: 1480px;
     height: 1000px;
-    border-radius: 100px;
+    border-radius: 30px;
     z-index: 2;
     position: absolute;
 }
@@ -72,39 +72,28 @@
     position: relative;
 }
 
-.tab_menu .list {
+.tab_menu .tap_list {
     overflow: hidden;
 }
 
-.tab_menu .list div {
-    float: left;
-}
-
-#tap1 {
-    border-radius: 10px;
-    height: 40px;
-    width: 100px;
-    margin-left: 80px;
-    z-index: 2;
-    display: flex;
+.tab_menu .tap_list div {
     float: left;
 }
 
 .tabClass {
+    background-color: #D3E3FD;
     font-weight: bold;
+    display: flex;
 }
 
-.tab_menu .list div.tabClass .btn {
-    background-color: #2ecc71;
-    border-radius: 10px;
+.tab_menu .tap_list div.tabClass .btn {
     height: 40px;
     width: 100px;
-    z-index: 3;
     display: flex;
-    float: left;
+    float: right;
 }
 
-.tab_menu .list .btn {
+.tab_menu .tap_list .btn {
     font-size: 13px;
 }
 
@@ -123,4 +112,8 @@
 
 #closeBTN {
     color: red;
+}
+
+#first {
+   margin-left: 0px;
 }

@@ -27,13 +27,13 @@ public class ReceivingProcessingDTO {
 
     String businessNumber; // 사업자번호
 
-    LocalDateTime DateOfOrder; //발주서발행일
+    LocalDateTime dateOfOrder; //발주서발행일
 
-    Date OrderDate; //발주일
+    Date orderDate; //발주일
 
-    LocalDateTime Arrival; //입고처리된 날자
+    LocalDateTime arrival; //입고처리된 날자
 
-    int SupportProductAmount; //조달계획수량
+    int supportProductAmount; //조달계획수량
 
     int store; //입고수량
 

@@ -97,7 +97,7 @@ public class receivecingTest {
                 } else {
                     changedEndDate = sdf.parse(endDate);
                 }
-            List<ProcurementPlan> procurementPlanList = receivingProcessingRepository.StatMentRepostSearch(changedStartDate,changedEndDate); //모든 품목에대한 조달계획 불러와서  리스트 에넣어주고<엔티티>
+            List<Object[]> procurementPlanList = receivingProcessingRepository.StatMentRepostSearch(changedStartDate,changedEndDate); //모든 품목에대한 조달계획 불러와서  리스트 에넣어주고<엔티티>
             List<ReceivingProcessingDTO> receivingProcessingDTOList = new ArrayList<>(); //반환해줄 DTO 리스트
             System.out.println("for문이 바로 아래에 있음");
             System.out.println("dlllllllllllllllllllll 왜 비었을까????llllllllllllllllll"+procurementPlanList.size());

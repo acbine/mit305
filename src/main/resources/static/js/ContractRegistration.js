@@ -8,98 +8,7 @@ function CloseContract() {
     $(".ContractModal").css('display', 'none');
 }
 
-function contract_addRow() {
 
-    const table = document.getElementById('contract');
-    const new_row = table.insertRow();
-
-    const cell_length = table.rows[0].cells.length;
-
-    for (let i = 0; i < cell_length; i++) {
-        const new_cell = new_row.insertCell(i);
-        let temp_html = '';
-
-        if (i == 0) {
-
-            temp_html =
-                '<input type="text" class = "p_input" style="width:73px; height:25px; font-size:15px; text-align:center;">' +
-
-                '<button onclick="get_pname(this)">확인</button>';
-        }
-
-        if (i == 1) {
-
-            temp_html = '<input type="text" class = "search_p" style="width:84px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if (i == 2) {
-
-            temp_html =
-                '<input type="text" class = "c_input" style="width:131px; height:25px; font-size:15px; text-align:center;">' +
-
-                '<button onclick="get_cname(this)">확인</button>';
-
-        }
-
-        if (i == 3) {
-
-            temp_html = '<input type="text" class = "search_c" style="width:132px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if (i == 4) {
-
-            temp_html = '<input type="text" class = "l_time" style="width:69px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if (i == 5) {
-
-            temp_html = '<input type="text" class = "price" style="width:69px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if (i == 6) {
-
-            temp_html = '<input type="text" class = "payment" style="width:115px; height:25px; font-size:15px; text-align:center;">';
-        }
-
-        if (i == 7) {
-
-            temp_html =
-                '<td>' +
-                    '<div class="actions">' +
-                        '<button class="action-button action-button-delete" onclick="contract_registration(this); contract_row_delete(this);" width = "74px" height = "35px">등록</button>' +
-                        '<button class="action-button action-button-delete" onclick="contract_row_delete(this);" width = "74px" height = "35px">삭제</button>' +
-                    '</div>' +
-                '</td>';
-        }
-
-        new_cell.insertAdjacentHTML('afterbegin', temp_html);
-
-    }
-}
-
-// 확인 클릭시 서버에 품목명으로 요청하는 함수
-function get_pname(button) {
-
-var productName = $(button).closest("tr").find(".p_input").val();
-var resultCell = $(button).closest("tr").find(".search_p");
-
-//console.log("입력받은 값: " + productName);
-
-$.ajax({
-    type : "POST",
-    url : "/search/pro",
-    data : {"name" : productName},
-    success : function(data) {
-          console.log("품목 코드" + data);
-          resultCell.val(data);
-    },
-    error : function() {
-        console.log("검색 실패함");
-    }
-
-});
-
-}
 
 // 확인 클릭시 서버에 회사명으로 요청하는 함수
 function get_cname(button) {
@@ -110,13 +19,13 @@ var resultCell2 = $(button).closest("tr").find(".search_c");
 $.ajax({
     type : "POST",
     url : "/search/com",
-    data : {"name" : companyName},
+    data : {"comName" : companyName},
     success : function(data) {
           console.log(data);
           resultCell2.val(data);
     },
     error : function() {
-        console.log("검색 실패함");
+        console.log("사업자 번호 검색 실패함");
     }
 
 });
@@ -136,16 +45,7 @@ var data = {
 
     product_price : $(button).closest("tr").find(".price").val(), // 단가
 
-    start_date : $(button).closest("tr").find(".cs_date").val(), // 계약 시작일 : yyyy-mm-dd
-
-    end_date : $(button).closest("tr").find(".ce_date").val(), // 계약 종료일
-
     payment_method : $(button).closest("tr").find(".payment").val(), // 지급 수단
-
-    // 계약 등록일 (빈값)
-
-    // 계약 등록여부 (False)
-    true_false : false
 
 };
 
@@ -178,7 +78,7 @@ function contract_row_delete(tag) {
 
 var dataFromServer; // 전역 변수 (데이터 비교용)
 
-// 계약 검색
+// 계약 검색 결과
 function contract_All() {
 
     $.ajax({
@@ -198,17 +98,17 @@ function contract_All() {
                 $('#contract_info tbody')
                     .append(
                     '<tr>' +
-                        '<td height="25">' + con.productInformationRegistration.product_name  + '</td>' + // 품목명
-                        '<td height="25">' + con.productInformationRegistration.product_code  +'</td>' + // 품목 코드
-                        '<td height="25">' + con.company.departName  + '</td>' + // 회사명
-                        '<td height="25">' + con.company.businessNumber + '</td>' + // 사업자 번호
-                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
-                        '<td height="25">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
-                        '<td height="25">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
-                        '<td height="25">' +
+                        '<td class="productImformationTable-data">' + con.productInformationRegistration.product_name  + '</td>' + // 품목명
+                        '<td class="productImformationTable-data">' + con.productInformationRegistration.product_code  +'</td>' + // 품목 코드
+                        '<td class="productImformationTable-data">' + con.company.departName  + '</td>' + // 회사명
+                        '<td class="productImformationTable-data">' + con.company.businessNumber + '</td>' + // 사업자 번호
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_lead_time value =' + con.lead_time + '>' + '</td>' + // L/T
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"29px"; font-size:15px;" class = now_product_price value =' + con.product_price + '>' + '</td>' + // 단가
+                        '<td class="productImformationTable-data">' + '<input type="text" style = "width:115.67; height:"29"; font-size:15px;" class = now_payment value =' + con.payment_method + '>' + '</td>' + // 지급 수단
+                        '<td class="productImformationTable-data">' +
                             '<div class="actions">' +
                                 '<button class="action-button action-button-edit" onclick="contract_modify('+ con.contract_code +')">수정</button>' +
-                                '<button class="action-button action-button-edit" onclick="contract_delete('+ con.contract_code +')">계약서에 추가</button>' +
+                                '<button class="action-button action-button-edit" onclick="contract_to_contractPage('+ con.contract_code +'); contract_row_delete(this);">계약서에 추가</button>' +
                                 '<button class="action-button action-button-delete" onclick="contract_delete('+ con.contract_code +') contract_row_delete(this)">삭제</button>' +
                             '</div>' +
                         '</td>' + // 계약 처리
@@ -224,13 +124,28 @@ function contract_All() {
 
 }
 
+
+// 계약서 db에 계약 등록
+function contract_to_contractPage(contract_code) {
+
+    $.ajax({
+        type : "POST",
+        url : "/registration_page/" + contract_code,
+        success : function(response) {
+            console.log("계약서에 등록된 계약 코드: " + contract_code);
+        },
+        error : function(error) {
+            console.error(contract_code, error)
+        }
+    });
+
+}
+
 // 등록된 계약 수정
 function contract_modify(contract_code) {
 
 var lead_time = $(".now_lead_time").eq(contract_code-1); // LeadTime
 var product_price = $(".now_product_price").eq(contract_code-1);// 단가
-var start_date = $(".now_start_date").eq(contract_code-1);// 계약 시작일 : yyyy-mm-dd
-var end_date = $(".now_end_date").eq(contract_code-1); // 계약 종료일
 var payment_method = $(".now_payment").eq(contract_code-1); // 지급 수단
 
 var updatedFields = {};
@@ -238,25 +153,13 @@ var updatedFields = {};
 if (lead_time.val() !== dataFromServer[contract_code - 1].lead_time) { // 수정된 lead_time이 있을 경우 추가
     updatedFields.lead_time = lead_time.val();
 } else {
-    updatedFields.lead_time = ataFromServer[contract_code - 1].lead_time;
+    updatedFields.lead_time = dataFromServer[contract_code - 1].lead_time;
 }
 
 if (product_price.val() !== dataFromServer[contract_code - 1].product_price) {
     updatedFields.product_price = product_price.val();
 } else {
     updatedFields.product_price = dataFromServer[contract_code - 1].product_price;
-}
-
-if (start_date.val() !== dataFromServer[contract_code - 1].start_date) {
-    updatedFields.start_date = start_date.val();
-} else {
-    updatedFields.start_date = dataFromServer[contract_code - 1].start_date;
-}
-
-if (end_date.val() !== dataFromServer[contract_code - 1].end_date) {
-    updatedFields.end_date = end_date.val();
-} else {
-    updatedFields.end_date = dataFromServer[contract_code - 1].end_date;
 }
 
 if (payment_method.val() !== dataFromServer[contract_code - 1].payment_method) {
@@ -296,3 +199,9 @@ function contract_delete(contract_code) {
     });
 }
 
+// 계약서 전송 팝업창 열기
+function SendContract() {
+
+    var popup = window.open("/ContractSend", "ContractSend", "width=500,height=200");
+
+}

@@ -28,8 +28,8 @@ public interface ReleaseRepository extends JpaRepository<ReleaseProcess, Integer
     List<ReleaseProcess> findByReleaseProcessWithDateAndProductName(@Param("productName") String productName, @Param("date1") LocalDateTime date1, @Param("date2") LocalDateTime date2);
 
 
-    @Query(value = "select * from tae.release_process " +
-            " where procurement_plan_procurementplan_code = :pcmPlanCode " +
+    @Query(value = "select * from release_process as rp, procurement_plan as pl " +
+            " where rp.procurement_plan_procurementplan_code = :pcmPlanCode and pl.order_state = '마감' "+
             " order by mod_date desc limit 1", nativeQuery = true)
     Optional<ReleaseProcess> findTop1ByOrderByModDateDesc(@Param("pcmPlanCode") int pcmPlanCode);
 }

@@ -24,7 +24,7 @@ public class ProductInformationRegistration {
 
     private String product_name; //품목명
 
-    private char product_abbreviation; //약칭
+    private String product_abbreviation; //약칭
 
     private String texture; //재질
 
@@ -33,5 +33,5 @@ public class ProductInformationRegistration {
     private int height;
     private int weight;
 
-//    private String product_imageURL;
+    private String image_name;
 }

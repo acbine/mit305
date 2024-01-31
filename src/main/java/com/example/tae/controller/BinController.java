@@ -36,7 +36,6 @@ public class BinController {
     }
 
     @GetMapping("rPSearch")
-    @ResponseBody
     public ResponseEntity<?> ReceivingProcessSearch(@RequestParam("inputData") String inputData,@RequestParam("searchData") String searchData ,@RequestParam("state") String state) {
         System.out.println("입고처리의 검색요청들어옴");
         System.out.println("=======> 검색내용"+inputData +"========>검색종류"+searchData);
@@ -50,19 +49,21 @@ public class BinController {
     
     @GetMapping("ReceivingProcessStore")
     @ResponseBody
-    public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code,@RequestParam("store")String store,@RequestParam("state") String state){
-        System.out.println("-------- 입고처리요청들어옴---------------");
-        System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store+"---------->페이지 상태값"+state);
-        List<ReceivingProcessingDTO> receivingProcessingDTOList = null;
+    public ResponseEntity<?> ReceivingProcessStore (@RequestParam("procurementplan_code")String procurementplan_code,@RequestParam("store")String store,@RequestParam("state") String state , @RequestParam("formInputData") String formInputData){
+//        System.out.println("-------- 입고처리요청들어옴---------------");
+//        System.out.println("-------------------------------조달계획번호:"+procurementplan_code+"-------------------------입고수량:"+store+"---------->페이지 상태값"+state);
+        List<ReceivingProcessingDTO> rProcessList = null;
         if(procurementplan_code.isEmpty() || store.isEmpty()  ){
-            System.out.println("뭔가 비었음");
+//            System.out.println("뭔가 비었음");
         }else{
-            binService.ReceivingProcessStore(Integer.parseInt(procurementplan_code),Integer.parseInt(store));
-            receivingProcessingDTOList = binService.procurementPlanList();
+//            System.out.println("페이지 상태값"+state+"0은 전체 1은 품목 2는 업체");
+//            System.out.println("입고처리 요청시 받은 "+formInputData);
+            rProcessList = binService.ReceivingProcessStore(Integer.parseInt(procurementplan_code),Integer.parseInt(store),Integer.parseInt(state),formInputData);
+//            rProcessList.forEach(x-> System.out.println("컨트롤에서의 X 의값은 행으-->"+x));
         }
 
 
-        return ResponseEntity.status(HttpStatus.OK).body(Map.of("receivingProcessingDTOList", receivingProcessingDTOList));
+        return ResponseEntity.status(HttpStatus.OK).body(Map.of("rProcessList", rProcessList));
     }
     /*------------------------ --------------------현황관리 -----------------------------------*/
     @GetMapping("StatusManagementReport")

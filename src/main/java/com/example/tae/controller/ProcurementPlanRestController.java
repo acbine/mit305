@@ -7,22 +7,13 @@ import com.example.tae.entity.Order.Purchase;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.ProcurementPlan.dto.ProcurementPlanDto;
 import com.example.tae.entity.ProcurementPlan.dto.ProcurementPlanJoinDTO;
-import com.example.tae.entity.ProductForProject.ProductForProject;
-import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.repository.OrderRepository;
-import com.example.tae.repository.ProductForProjectRepository;
 import com.example.tae.repository.ProjectRepository.ProjectPlanRepository;
 import com.example.tae.repository.ProjectRepository.ProjectRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import com.example.tae.service.RegistrationService.ProcurementPlanService;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-import org.antlr.v4.runtime.misc.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -80,7 +71,7 @@ public class ProcurementPlanRestController  {
 //
 //            // 제품명 검사
             Project project_Name = projectRepository.findById(data.getProject_name()).orElse(null);
-//            System.out.println("등록한 제품명: " + project_Name);
+            System.out.println("등록한 제품명: " + project_Name);
 //
 //            // 발주서 코드
             Purchase purchase_code = purchaseRepository.findById(data.getOrdercode()).orElse(null);
@@ -91,20 +82,17 @@ public class ProcurementPlanRestController  {
 
             System.out.println( "조달 총 수량 : " + data.getSupportProductAmount());
 
-            // 발주 상태
-            System.out.println("등록한 발주 상태 : " + data.getOrder_state());
-
             // 등록
             if(project != null && contract != null) {
 
                 ProcurementPlan procurementPlan = new ProcurementPlan();
 
-                procurementPlan.setProjectPlan(project);// 생산 계획 코드
-                procurementPlan.setContract(contract);// 계약 코드
-                procurementPlan.setProject(project_Name);// 조달 제품명
+                procurementPlan.setProjectPlan(project); // 생산 계획 코드
+                procurementPlan.setOrder_state("조달계획등록");
+                procurementPlan.setContract(contract); // 계약 코드
+                procurementPlan.setProject(project_Name); // 조달 제품명
                 procurementPlan.setSupportProductAmount(data.getSupportProductAmount());// 조달 수량
-                procurementPlan.setOrder_state("발주전");
-                procurementPlan.setOrder_date(data.getOrder_date());// 발주일
+                procurementPlan.setOrder_date(data.getOrder_date()); // 발주일
 
                 procurementPlanRepository.save(procurementPlan);
             }

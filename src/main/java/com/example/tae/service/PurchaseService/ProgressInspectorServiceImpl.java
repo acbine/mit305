@@ -17,10 +17,7 @@ import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -43,9 +40,9 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
         Date date = inspection.getInspectDate();
         List<ProgressInspection> progressInspections = progressInspectionRepository.findByOrderCode(purchase);
         progressInspections.forEach(progressInspection -> {
-            if(!progressInspection.isProgressInspectionStatus()) {
-                throw new IllegalArgumentException("진척 검수 등록 오류 : 완료가 되지 않은 진척 검수가 있어 해당 진척 검수를 등록 할 수 없습니다. ");
-            }
+//            if(!progressInspection.isProgressInspectionStatus()) {
+//                throw new IllegalArgumentException("진척 검수 등록 오류 : 완료가 되지 않은 진척 검수가 있어 해당 진척 검수를 등록 할 수 없습니다. ");
+//            }
         });
 
         ProgressInspection progressInspection = ProgressInspection.builder()
@@ -75,6 +72,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
                     .progressInspectonDate(progressInspectionInfo.getProgressInspectionPlan())
                     .orderDate(progressInspectionInfo.getOrderCode().getModDate())
                     .productName(procurementPlan.get().getContract().getProductInformationRegistration().getProduct_name())
+                    .note(progressInspectionInfo.getNote())
                     .build();
             progressInspectionDTOList.add(progressInspectionDTO);
         });
@@ -86,9 +84,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
         List<ProgressInspection> progressInspections = progressInspectionRepository.findByProgressInspectionIdAndCheckToStatus(progressInspectionId);
 
         progressInspections.forEach(progressInspection -> {
-            if(!progressInspection.isProgressInspectionStatus()) {
-                throw new IllegalArgumentException("진적검수 업데이트 오류 :  완료가 되지 않은 진척 검수가 있어 해당 진척 검수를 수정 할 수 없습니다. ");
-            }
+
         });
 
         Optional<ProgressInspection> progressInspectionOptional = Optional.of(progressInspectionRepository.findById(progressInspectionId).orElseThrow(
@@ -105,7 +101,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
     }
 
     @Override
-    public String inspectorResult(int inspectorId, boolean progressInspectorResult) {
+    public List<String> inspectorResult(int inspectorId, boolean progressInspectorResult, String note) {
         Optional<ProgressInspection> progressInspectionOptional =  Optional.of(progressInspectionRepository.findById(inspectorId).orElseThrow(
                 () -> new NullPointerException("진척 검수 결과 확인 오류 : 해당 진척검수는 존재하지 않습니다. 요청을 다시 보내주세요.")
         ));
@@ -118,6 +114,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
                 .progressInspectionPlan(progressInspection.getProgressInspectionPlan())
                 .progressInspectionNum(progressInspection.getProgressInspectionNum())
                 .orderCode(progressInspection.getOrderCode())
+                .note(note)
                 .build();
         progressInspectionRepository.save(resultProgressInspector);
 
@@ -133,9 +130,11 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
                    .order_date(procurementPlan.getOrder_date())
                    .build();
            procurementPlanRepository.save(progressInspectorResultUpdate);
-           return "검수 완료";
+           String[] result = {"진척검수 완료", note};
+           return List.of(result);
        } else {
-           return "재검수 요망";
+           String[] result = {"재검수 요망", note};
+           return List.of(result);
        }
     }
 

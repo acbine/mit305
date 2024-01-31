@@ -116,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
 
     /*발주서 목록 가져오기*/
     @Override
-    public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode) {
+    public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode,int orderIndex) {
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
         ProductInformationRegistration productInformation = productInformationRegistration.get();
         List<ProcurementPlan> procurementPlanList = contractRepository.findByproductInformationId(productCode);
@@ -148,6 +148,7 @@ public class OrderServiceImpl implements OrderService {
                         .procurementPlanCode(procurementPlan.getProcurementplan_code())
                         .orderState(procurementPlan.getOrder_state())
                         .departName(procurementPlan.getContract().getCompany().getDepartName())
+                        .orderIndex(orderIndex)
                         .build();
                 orderDTOList.add(orderDTO);
             }

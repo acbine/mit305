@@ -32,8 +32,8 @@ public class OrderController {
 
     /*발주서 목록 불러오기*/
     @GetMapping("orderInspect")
-    public String orderInspect(@RequestParam("productCode") int productCode, @RequestParam("procurementPlanCode") int procurementPlanCode,Model model) {
-        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode));
+    public String orderInspect(@RequestParam("productCode") int productCode, @RequestParam("procurementPlanCode") int procurementPlanCode,@RequestParam("orderIndex") int orderIndex,Model model) {
+        model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode,orderIndex));
         return "orderInspect";
     }
 

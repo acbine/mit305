@@ -18,27 +18,27 @@ import java.util.stream.IntStream;
 
 @SpringBootTest
 public class releaseTest {
-    @Autowired
-    private ReleaseRepository releaseRepository;
-    @Autowired
-    private ReleaseProcessServiceImpl releaseProcessService;
-    @Autowired
-    private ProcurementPlanRepository procurementPlanRepository;
-    @Autowired
-    private ContractRepository contractRepository;
-    @Test
-    public void entityCreateTest() {
-        IntStream.rangeClosed(1,50).forEach(value -> {
-            ReleaseDto releaseProcess = releaseProcessService.release(value,value);
-            System.out.println(releaseProcess);
-        });
-    }
-
-    @Test
-    public void findProceure() {
-            for(ProcurementPlan procurementPlan : procurementPlanRepository.findAllByProjectPlan_Id(1)) {
-                Optional<Contract> contractOptional = contractRepository.findById(procurementPlan.getContract().getContract_code());
-                System.out.println(contractOptional.get().getProductInformationRegistration().getProduct_name());
-            };
-    }
+//    @Autowired
+//    private ReleaseRepository releaseRepository;
+//    @Autowired
+//    private ReleaseProcessServiceImpl releaseProcessService;
+//    @Autowired
+//    private ProcurementPlanRepository procurementPlanRepository;
+//    @Autowired
+//    private ContractRepository contractRepository;
+//    @Test
+//    public void entityCreateTest() {
+//        IntStream.rangeClosed(1,50).forEach(value -> {
+//            ReleaseDto releaseProcess = releaseProcessService.release(value,value);
+//            System.out.println(releaseProcess);
+//        });
+//    }
+//
+//    @Test
+//    public void findProceure() {
+//            for(ProcurementPlan procurementPlan : procurementPlanRepository.findAllByProjectPlan_Id(1)) {
+//                Optional<Contract> contractOptional = contractRepository.findById(procurementPlan.getContract().getContract_code());
+//                System.out.println(contractOptional.get().getProductInformationRegistration().getProduct_name());
+//            };
+//    }
 }

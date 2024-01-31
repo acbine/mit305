@@ -54,9 +54,9 @@
                     <td th:text="${order.LT}"></td>
                     <td th:text="${order.departName}"></td>
                     <td th:text="${order.email}"></td>
-                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='putOrderAmount(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">수정</button></td>
-                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
-                    <td class="orderRegisterBtnContainer"><button class="orderRGSearchButton" th:attr="onclick='cancel(\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">취소</button></td>
+                    <td><button class="orderRGSearchButton" th:attr="onclick='putOrderAmount(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">수정</button></td>
+                    <td><button class="orderRGSearchButton" th:attr="onclick='orderRegister(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">등록</button></td>
+                    <td><button class="orderRGSearchButton" th:attr="onclick='cancel(\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">취소</button></td>
                 </tr>
             </tbody>
         </table>

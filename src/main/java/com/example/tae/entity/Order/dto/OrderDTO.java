@@ -35,6 +35,7 @@ public class OrderDTO {
     private int supportProductAmount;
     private int LT;
     private LocalDateTime registerOrderDate;
+    private int orderIndex;
 
     public void setProgressInspectionStatus() {
         switch (this.orderState) {

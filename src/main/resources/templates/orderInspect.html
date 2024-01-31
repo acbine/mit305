@@ -24,6 +24,11 @@
             border-collapse: collapse;
             font-size: 0.875rem;
         }
+        textarea {
+            display: block;
+            vertical-align: middle;
+            resize: none;
+        }
     </style>
 </head>
 <body>
@@ -61,7 +66,7 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button class="orderInspectButton" th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\')'">진척 검수<br/>불러오기</button>
+                <button class="orderInspectButton" th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\',\'' + ${info.orderIndex} + '\')'">진척 검수<br/>불러오기</button>
             </td>
         </tr>
         <tr class="trClass">
@@ -78,6 +83,7 @@
             <th class="thContainer orderInspect_head">품목명</th>
             <th class="thContainer orderInspect_head">발주일</th>
             <th class="thContainer orderInspect_head">진척 검수 계획일</th>
+            <th class="thContainer orderInspect_head">비 고</th>
             <th class="thContainer orderInspect_head"></th>
         </tr>
         </thead>
@@ -86,6 +92,7 @@
             <td th:text="${info.productName}"></td>
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
+            <td></td>
             <td id="buttonState">
                 <button class="orderInspectButton" id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\')'">진척검수 일정 등록</button>
             </td>
@@ -118,11 +125,17 @@
             <td>입고가능여부</td>
             <td><input class="checkbox" type="checkbox"></td>
         </tr>
+        <tr class="trClass">
+            <td>비 고</td>
+        </tr>
+        <tr><td><textarea rows="3" cols="20" id="note"></textarea></td></tr>
         </tbody>
     </table>
     <div style="text-align: center;">
-        <button class="inspect" onclick="inspectorCheck.progressInspectorCheck()">진척 검수</button>
-        <button class="exit" onclick="closeInspect()">닫기</button>
+        <th:block th:each="info : ${orderInspect}">
+            <button class="inspect" th:attr="onclick='inspectorCheck.progressInspectorCheck(\'' + ${info.orderIndex} + '\')'">진척 검수</button>
+            <button class="exit" onclick="closeInspect()">닫기</button>
+        </th:block>
     </div>
 </div>
 <script src="/js/order.js"></script>

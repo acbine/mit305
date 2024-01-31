@@ -22,5 +22,6 @@ public class ProgressInspection extends TimeStamp {
     private Date progressInspectionPlan;        // 진척 검수 계획
     @Column(nullable = true)
     private boolean progressInspectionStatus;   // 진척 검수 상태
+    private String note;
 
 }

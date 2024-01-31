@@ -18,6 +18,7 @@ public class ProgressInspectionDTO {
     private LocalDateTime orderDate;
     private boolean progressInspectorResult;
     private String orderState;
+    private String note;
 
     public static ProgressInspectionDTO makeDt(ProgressInspection progressInspection, String productName, LocalDateTime orderDate,String orderState) {
         return ProgressInspectionDTO.builder()
@@ -27,6 +28,7 @@ public class ProgressInspectionDTO {
                 .progressInspectionId(progressInspection.getProgressInspectionNum())
                 .progressInspectorResult(progressInspection.isProgressInspectionStatus())
                 .orderDate(orderDate)
+                .note(progressInspection.getNote())
                 .build();
     }
 

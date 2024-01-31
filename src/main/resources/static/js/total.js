@@ -414,7 +414,7 @@ function loadJS(includePath) {
         "ContractRegistration": ["/js/ContractRegistration.js", "/js/ContractRegistrationModal.js", "/js/Registration.js"],
         "ProcurementPlanRegistration": ["/js/ProcurementPlanRegistration.js"],
         "orderRegister": ["/js/orderRegister.js", "/js/order.js"],
-        "orderList": ["/js/orderListPopup.js", "/js/order.js"],
+        "orderList": ["/js/orderListPopup.js", "/js/order.js","/js/orderRegister.js"],
         "StatusManagementReport": ["/js/StatusManagementReport.js"],
         "stockDelivery": ["/js/stockDelivery.js"],
         "existence": ["/js/existence.js"],

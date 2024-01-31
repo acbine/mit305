@@ -3,6 +3,7 @@ package com.example.tae.controller;
 import com.example.tae.entity.Contract.Contract;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ProductInformation.dto.ProductInformationJoinContractDTO;
+import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.RegistrationRepository.ContractPageRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
@@ -23,6 +24,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Base64;
 import java.util.List;
 import java.util.Properties;
 import java.util.stream.Collectors;
@@ -121,6 +123,7 @@ public class ContractController {
         File file = new File("D:/mit305-master/src/main/resources/static/images/Contract", contractMultipartFile.getOriginalFilename());
         contractMultipartFile.transferTo(file);
 
+
         final String user_email= "ghostjaewoongp@gmail.com"; // 구글 이메일
         final String user_pw = "rxks poyq biif qcfq"; //구글 앱 비밀번호
         final String smtp_host = "smtp.gmail.com"; //구글에서 제공하는 smtp
@@ -189,5 +192,23 @@ public class ContractController {
 
     }
 
+
+    private static void createFolderAndDownloadBase64Image(String folderPath , ImageDTO dto) throws IOException {
+        // Base64 문자열에서 이미지 데이터 부분 추출
+        String imageData = dto.imageDataURL.split(",")[1];
+        // Base64 디코딩
+        byte[] imageBytes = Base64.getDecoder().decode(imageData);
+        // 지정한 위치에 폴더 미존재시 폴더생성
+        Path path = Paths.get(folderPath);
+        if(!Files.exists(path)){
+            Files.createDirectories(path);
+        }
+        //이미지파일의 저장폴더위치와 이름을 정하고
+        String destinationPath = folderPath+"발주서.jpg";
+
+        //폴더에 파일저장
+        Path destination = Path.of(destinationPath);
+        Files.write(destination, imageBytes);
+    }
 
 }

@@ -37,7 +37,7 @@ function contract_registration(button) {
 
 var data = {
 
-    product_code : $(button).closest("tr").find(".search_p").val(), // 품목 코드
+    product_code : $(button).closest("tr").find("td:eq(1)").text(), // 품목 코드
 
     businessNumber : $(button).closest("tr").find(".search_c").val(), // 사업자 번호
 
@@ -48,7 +48,7 @@ var data = {
     payment_method : $(button).closest("tr").find(".payment").val(), // 지급 수단
 
 };
-
+    console.log("함수 작동 확인",$(button).closest("tr").find(".search_p").val(),"      ",$(button).closest("tr").find(".price").val(),"      ",$(button).closest("tr").find(".payment").val());
 $.ajax({
 
     type : "POST",

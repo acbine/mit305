@@ -116,7 +116,7 @@ public class OrderServiceImpl implements OrderService {
 
     /*발주서 목록 가져오기*/
     @Override
-    public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode) {
+    public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode,int orderIndex) {
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
         ProductInformationRegistration productInformation = productInformationRegistration.get();
         List<ProcurementPlan> procurementPlanList = contractRepository.findByproductInformationId(productCode);
@@ -148,6 +148,7 @@ public class OrderServiceImpl implements OrderService {
                         .procurementPlanCode(procurementPlan.getProcurementplan_code())
                         .orderState(procurementPlan.getOrder_state())
                         .departName(procurementPlan.getContract().getCompany().getDepartName())
+                        .orderIndex(orderIndex)
                         .build();
                 orderDTOList.add(orderDTO);
             }
@@ -312,7 +313,7 @@ public class OrderServiceImpl implements OrderService {
             multipart.addBodyPart(textPart);
 
             // 이미지 파일 경로
-            String imageurl = folderPath+"발주서.jpg";
+            String imageurl = folderPath+imageDTO.departName+"발주서.jpg";
 
             //이미지 첨부 부분
             MimeBodyPart imagePart = new MimeBodyPart();
@@ -347,7 +348,7 @@ public class OrderServiceImpl implements OrderService {
             Files.createDirectories(path);
         }
         //이미지파일의 저장폴더위치와 이름을 정하고
-        String destinationPath = folderPath+"발주서.jpg";
+        String destinationPath = folderPath+dto.departName+"발주서.jpg";
 
         //폴더에 파일저장
         Path destination = Path.of(destinationPath);

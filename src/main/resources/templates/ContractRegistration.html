@@ -69,7 +69,7 @@
                     <tr th:each="product : ${nonContractProducts}">
                         <th:block th:if="${product.contract_code==0}">
                             <td class="p_input productImformationTable-data" th:text="${product.product_name}"></td>
-                            <td class="productImformationTable-data" th:text="${product.product_code}"></td>
+                            <td class="search_p productImformationTable-data" th:text="${product.product_code}"></td>
                             <td class="productImformationTable-data">
                                 <input type="text" class = "c_input" style="width:115px; font-size:15px; text-align:center;">
                                 <button onclick="get_cname(this)">확인</button>

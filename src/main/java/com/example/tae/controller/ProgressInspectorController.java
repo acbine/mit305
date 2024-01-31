@@ -48,7 +48,7 @@ public class ProgressInspectorController {
 
     @PutMapping("inspectorResult")
     public ResponseEntity<?> inspectorResult(@RequestBody ProgressInspectionDTO progressInspectionDTO) {
-        String result = progressInspectorService.inspectorResult(progressInspectionDTO.getProgressInspectionId(), progressInspectionDTO.isProgressInspectorResult());
+        List<String> result = progressInspectorService.inspectorResult(progressInspectionDTO.getProgressInspectionId(), progressInspectionDTO.isProgressInspectorResult(), progressInspectionDTO.getNote());
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("result",result));
     }
 

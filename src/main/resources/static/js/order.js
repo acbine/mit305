@@ -1,16 +1,16 @@
 /*--------------------발주 목록(orderList)--------------------*/
 
-function openOrderInspectPopup(productCode,procurementPlanCode){  //모달창열기
-    var html = document.getElementById("popup-inspector-content");
+function openOrderInspectPopup(productCode,procurementPlanCode,orderListIndex){
+    var html = document.getElementById("orderInspectPopup");
+    console.log(html);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                window.open('./orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode,this.responseText,'width=1200, height=600, left=400, top=3')
-                // html.style.display = "block";
-                // html.innerHTML = this.responseText;
+                html.style.display = "block";
+                html.innerHTML = this.responseText;
             }
         };
-        xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode, true);
+        xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode+'&orderIndex='+orderListIndex, true);
         xhttp.send();
 
 }
@@ -21,7 +21,6 @@ function searchOrderListWithDate() {
             url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
             method:'get',
         success:function (info){
-                console.log(info.oList[0],"info 정보 확인하기")
                 drawHTMl(info)
                 console.log("성공");
         },
@@ -120,11 +119,9 @@ function openOrder(procurementPlanCode) {
         url:"open-order/"+procurementPlanCode,
         method: "get",
         success:function (order){
-            console.log(order)
             html.style.display = "block";
             orderHtml.style.display="block";
             orderHtml.innerHTML = order;
-            console.log("성공")
         },
         error:function (){
             console.log("실패")

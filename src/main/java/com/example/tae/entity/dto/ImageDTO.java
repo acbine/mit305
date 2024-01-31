@@ -14,4 +14,5 @@ public class ImageDTO {
     public String ordercode;
     public String imageDataURL;
     public String emailadress;
+    public String departName;
 }

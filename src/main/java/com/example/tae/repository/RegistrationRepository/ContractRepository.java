@@ -14,7 +14,7 @@ public interface ContractRepository extends JpaRepository<Contract, Integer> {
     @Query("select pl  from ProcurementPlan pl, Contract  c " +
             "where c.productInformationRegistration.product_code = :productId" +
             " and pl.contract.contract_code = c.contract_code" +
-            " and pl.order_state ='마감'")
+            " and pl.order_state <>'발주전'")
     List<ProcurementPlan> findByproductInformationId(@Param("productId") int productId);
 
     @Query("select c from Contract  c " +

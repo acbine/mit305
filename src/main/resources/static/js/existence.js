@@ -28,7 +28,11 @@ function searchProduct() {
 function htmlLoad(data, value) {
     var table = document.getElementsByClassName("existence_body");
     var title = document.getElementsByClassName("t-header");
-    var existence = data.existenceList;
+    var existence;
+    if(data.existenceList) {
+        existence = data.existenceList;
+    }
+
     var classification = [];
 
     for (var ex in existence) {
@@ -44,9 +48,11 @@ function htmlLoad(data, value) {
         inputHTML.length = 0;
         totalEx = 0;
         title[0].innerHTML = `<thead class="t-header">
-                            <td>대분류</td>
-                            <td>재고</td>
-                            <td>총 재고 금액</td>
+                            <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+                                <td class="existence_head">대분류</td>
+                                <td class="existence_head">재고</td>
+                                <td class="existence_head">총 재고 금액</td>
+                           </tr>
                            </thead>`
 
         for (var i = 0; i < existence.length; i++) {
@@ -76,9 +82,11 @@ function htmlLoad(data, value) {
         totalEx = 0;
         inputHTML.length = 0;
         title[0].innerHTML = `<thead class="t-header">
-                            <td>중분류</td>
-                            <td>재고</td>
-                            <td>총 재고 금액</td>
+                            <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
+                                <td class="existence_head">중분류</td>
+                                <td class="existence_head">재고</td>
+                                <td class="existence_head">총 재고 금액</td>
+                            </tr>
                            </thead>`
 
         for (var i = 0; i < existence.length; i++) {
@@ -95,10 +103,12 @@ function htmlLoad(data, value) {
                 }
             }
             inputHTML.push(
-                `<tbody class="existence_body"> 
+                `<tbody>  class="existence_body" 
+                        <tr>
                             <td id="body">${productClassification}</td>
                             <td id="body">${totalEx}</td>
                             <td id="body">${totalAmount}</td>
+                        </tr>
                         <tbody>`
             );
         }
@@ -110,9 +120,11 @@ function htmlLoad(data, value) {
         inputHTML.length = 0;
 
         title[0].innerHTML = `<thead class="t-header">
-                            <td>소분류</td>
-                            <td>재고</td>
-                            <td>총 재고 금액</td>
+                                <tr>
+                                    <td class="existence_head">소분류</td>
+                                    <td class="existence_head">재고</td>
+                                    <td class="existence_head">총 재고 금액</td>
+                                </tr>
                            </thead>`
 
         for (var i = 0; i < existence.length; i++) {
@@ -204,7 +216,7 @@ function columnChart(data) {
 
     data1 = [['분류', '기간 별 재고 금액 합산']];
     var groupedData = {};
-
+if(data.existenceList) {
     data.existenceList.forEach(x => {
         var key;
 
@@ -240,4 +252,6 @@ function columnChart(data) {
 
     var chart1 = new google.visualization.ColumnChart(document.getElementById('chart_div1'));
     chart1.draw(charData, options1);
+}
+
 }

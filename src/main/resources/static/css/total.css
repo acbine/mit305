@@ -1,3 +1,8 @@
+.loginConsole {
+    display: flex;
+    flex-direction: column;
+}
+
 .back {
     background-color: #D3E3FD;
     width: 1730px;

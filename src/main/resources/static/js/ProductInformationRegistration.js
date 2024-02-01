@@ -119,7 +119,10 @@ var weight = $(button).closest("tr").find(".get_weight").val();
 //이미지 이름
 var imageName = $(button).closest("tr").find(".image")[0];
 
+if(product_name) {
 
+
+}
 
 
 
@@ -188,7 +191,12 @@ function select_test() {
 
 function resultTable2(data_info) {
 
+var input_product_name = document.getElementById('input_name').value;
+
+
 $('#product_info tbody').empty();
+
+if(!input_product_name) {
 
     $.each(data_info, function(index, info) {
 
@@ -223,6 +231,46 @@ $('#product_info tbody').empty();
                 '</tr>'
             )
     });
+} else {
+
+    console.log(input_product_name);
+
+        $.each(data_info, function(index, info) {
+
+            if(info.product_name == input_product_name) {
+
+                        $('#product_info tbody')
+                            .append(
+                                '<tr>' +
+                                    '<td class="productImformationTable-data">' + info.product_name + '</td>' + // 품목명
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_product_abbreviation value =' + info.product_abbreviation + '>' + '</td>' + // 약칭
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_texture value =' + info.texture + '>' + '</td>' + // 재질
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_width value =' + info.width + '>' + '</td>' + // 가로
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_length value =' + info.length + '>' + '</td>' + // 세로
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_height value =' + info.height + '>' + '</td>' + // 높이
+                                    '<td class="productImformationTable-data">' + '<input type="text" style = "width:69.67px; height:"46px"; font-size:15px;" class = now_weight value =' + info.weight + '>' + '</td>' + // 중량
+                                    '<td class="productImformationTable-data">' + info.unit + '</td>' + // 대분류
+                                    '<td class="productImformationTable-data">' + info.assy + '</td>' + // 중분류
+                                    '<td class="productImformationTable-data">' + info.part + '</td>' + // 소분류
+                                    '<td class="productImformationTable-data">' +
+                                        '<img src="/images/Product/' + name + '" alt="'+ info.image_name +'" style="max-width: 100px; max-height: 100px;">' +
+                                    '</td>' + // 사진 이름
+
+                                    '<td class="productImformationTable-data">' +
+                                        (info.contract_code == 0 ? "계약 안됨" : "계약 됨") +
+                                    '</td>' +
+                                    '<td class="productImformationTable-data">' +
+                                         '<div class="actions">' +
+                                             '<button class="action-button action-button-edit" onclick="product_modify('+ info.product_code +')">수정</button>' +
+                                             '<button class="action-button action-button-delete" onclick="product_delete('+ info.product_code +'); info_delete(this)">삭제</button>' +
+                                         '</div>' +
+                                    '</td>' +
+                                '</tr>'
+                            )
+            }
+
+        });
+}
 
 }
 

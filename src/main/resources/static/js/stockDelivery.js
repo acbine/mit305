@@ -41,10 +41,10 @@ function findRelease() {
     }
 }
 
-function submitToRelease(clickNum,procurementPlan_code) {
+function submitToRelease(clickNum,product_code) {
     var tableData = document.getElementById("release_table").getElementsByTagName("tr");
     var releaseData = tableData[clickNum].getElementsByTagName("td")[8].childNodes[0].value;
-    var formData = {"release": releaseData, "procurementPlan_code":procurementPlan_code}
+    var formData = {"release": releaseData, "product_code":product_code}
 
     $.ajax({
     url:'/total/stockDelivery',

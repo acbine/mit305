@@ -41,4 +41,8 @@ public interface ProcurementPlanRepository extends JpaRepository<ProcurementPlan
 
     ProcurementPlan findByPurchase_OrderCode(String orderCode);
 
+    @Query(" select pl from ProcurementPlan pl " +
+            " where pl.contract.productInformationRegistration.product_code = :productCode ")
+    List<ProcurementPlan> findByProductCode(@Param("productCode") int productCode);
+
 }

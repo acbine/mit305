@@ -72,10 +72,9 @@
             <td class="table-body"><input style="width:80px" type="number" id="release"></td>
             <td class="table-body" th:text="${release.existence}"></td>
             <td class="table-body" th:text="${release.existence_price}"></td>
-            <input type="hidden" th:value="${release.procurementPlan_code}">
             <td class="table-body">
                 <button class="action-button-stock action-button-registration-stock stockDeliverySearchButton"
-                        th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.procurementPlan_code} + '\')'">확인</button>
+                        th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.product_code} + '\')'">확인</button>
             </td>
         </tr>
         </tbody>

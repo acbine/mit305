@@ -84,8 +84,9 @@ function htmlLoad(data, value) {
         title[0].innerHTML = `<thead class="t-header">
                             <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
                                 <td class="existence_head">중분류</td>
-                                <td class="existence_head">재고</td>
-                                <td class="existence_head">총 재고 금액</td>
+                                <td class="existence_head">현재고</td>
+                                <td class="existence_head">공급가</td>
+                                <td class="existence_head">재고 금액</td>
                             </tr>
                            </thead>`
 
@@ -106,8 +107,8 @@ function htmlLoad(data, value) {
                 `<tbody>  class="existence_body" 
                         <tr>
                             <td id="body">${productClassification}</td>
-                            <td id="body">${totalEx}</td>
-                            <td id="body">${totalAmount}</td>
+                            <td id="body">${existence[j].existence_price}</td>
+                            <td id="body">${existence[j].existence_price*existence[j].existence}</td>
                         </tr>
                         <tbody>`
             );
@@ -121,9 +122,10 @@ function htmlLoad(data, value) {
 
         title[0].innerHTML = `<thead class="t-header">
                                 <tr>
-                                    <td class="existence_head">소분류</td>
-                                    <td class="existence_head">재고</td>
-                                    <td class="existence_head">총 재고 금액</td>
+                                     <td class="existence_head">중분류</td>
+                                     <td class="existence_head">현재고</td>
+                                     <td class="existence_head">공급가</td>
+                                     <td class="existence_head">재고 금액</td>
                                 </tr>
                            </thead>`
 
@@ -142,9 +144,9 @@ function htmlLoad(data, value) {
             }
             inputHTML.push(
                 `<tbody class="existence_body"> 
-                            <td id="body">${productClassification}</td>
-                            <td id="body">${totalEx}</td>
-                            <td id="body">${totalAmount}</td>
+                             <td id="body">${productClassification}</td>
+                            <td id="body">${existence[j].existence_price}</td>
+                            <td id="body">${existence[j].existence_price*existence[j].existence}</td>
                         <tbody>`
             );
         }
@@ -167,10 +169,8 @@ function htmlLoad(data, value) {
                                     <th class="existence_head">중분류</th>
                                     <th class="existence_head">소분류</th>
                                     <th class="existence_head">재고</th>
-                                    <th class="existence_head">총 출고</th>
                                     <th class="existence_head">공급 가격</th>
-                                    <th class="existence_head">기간 별 출고 금액</th>
-                                    <th class="existence_head">마지막 출고 일</th>
+                                    <th class="existence_head">재고금액</th>
                                   </tr>
                                 </thead>`;
 
@@ -200,9 +200,7 @@ function htmlLoad(data, value) {
                   <td id="body">${firstItem.part.part}</td>
                   <td id="body">${firstItem.existence}</td>
                   <td id="body">${firstItem.contract_pay}</td>
-                  <td id="body">${firstItem.contract_pay}</td>
-                  <td id="body">${totalAmount}</td>
-                  <td id="body">${firstItem.releaseDate}</td>
+                    <td id="body">${firstItem.existence_price}</td>
                 </tbody>`
             );
         }
@@ -220,7 +218,7 @@ function columnChart(data) {
     var value = select.options[select.selectedIndex].value;
     var charData;
 
-    data1 = [['분류', '기간 별 재고 금액 합산']];
+    data1 = [['분류', '재고']];
     var groupedData = {};
 if(data.existenceList) {
     data.existenceList.forEach(x => {
@@ -240,7 +238,7 @@ if(data.existenceList) {
             groupedData[key] = 0;
         }
 
-        groupedData[key] += x.existence_price;
+        groupedData[key] = x.existence;
     });
 
     for (var key in groupedData) {

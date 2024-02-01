@@ -36,6 +36,7 @@ public class OrderDTO {
     private int LT;
     private LocalDateTime registerOrderDate;
     private int orderIndex;
+    private int progressInspectionId;
 
     public void setProgressInspectionStatus() {
         switch (this.orderState) {

@@ -2,7 +2,6 @@
 
 function openOrderInspectPopup(productCode,procurementPlanCode,orderListIndex){
     var html = document.getElementById("orderInspectPopup");
-    console.log(html);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
@@ -60,7 +59,7 @@ function putOrderAmount(productCode, planCode, index) {
     var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
     var changeToInput = putOrderTableInfo[index];
     var num =putOrderTableInfo[index].innerHTML;
-    console.log(planCode);
+
     changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
     btnList[0].innerHTML = `<button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>`
     btnList[1].innerHTML =  `<button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>`

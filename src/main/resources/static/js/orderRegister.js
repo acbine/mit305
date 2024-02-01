@@ -1,9 +1,7 @@
-/*발주서 발행*/
-var progressInspectorIndex;
-
 
 function orderRegister(productCode, procurementPlanCode, index) {
     var tbody = document.getElementsByClassName("orderRegisterTable");
+    console.log(index,"인덱스 번호 확인")
     tbody[index].style.display = "none";
     var formData = {"productCode": productCode, "procurementPlanCode": procurementPlanCode};
     $.ajax({
@@ -20,6 +18,7 @@ function orderRegister(productCode, procurementPlanCode, index) {
 }
 
 function orderRegisterIn(index, planCode,orderIndex) {
+    console.log("planCode정보 받아옵기, "+ planCode)
     $.ajax({
         url: 'inspectorData?planCode=' + planCode,
         method: 'get',
@@ -78,22 +77,17 @@ function addInspects(inspector,index,orderIndex) {
 
 
 
+    function progressInspectorCheck (index,orderListIndex) {
+        var progressInspection = document.getElementById("progressInspection");
+        index =  progressInspection.children.length-1;
 
-const inspectorCheck = {
-    receiveIndexData: function (index,orderIndex) {
-        progressInspectorIndex = index;
-
-    },
-
-    progressInspectorCheck: function (index,orderIndex) {
         var checkListCnt = 0;
         var progressInspectorResult = false;
         var classTbodyContainerTr = document.getElementById("progressInspection");
         var tData = classTbodyContainerTr.children[index];
+
         var checkBoxes = document.getElementsByClassName("checkbox");
         var note = document.getElementById("note").value;
-
-        var orderListTable = document.getElementsByClassName("orderList");
 
         var progressInspectionId = tData.children[3].value;
         var noteTable = tData.children[4];
@@ -101,15 +95,11 @@ const inspectorCheck = {
         var buttonColumn = document.getElementById("buttonState");
         var date  = document.getElementById("setInspectDate");
 
-        console.log(index,"인덱스 번호 찍어보기")
+        var orderListTable= document.getElementsByClassName("orderList");
 
-        var inspector = document.getElementById("addProgressInspection");
-        inspector.addEventListener('click',function (e) {
+        // inspector.addEventListener('click',function (e) {
 
-            e.preventDefault();
-
-            console.log(resultTable);
-            console.log(progressInspectionId);
+            // e.preventDefault();
 
             /*체크 박스 카운트*/
             for (let i = 0; i < checkBoxes.length; i++) {
@@ -142,8 +132,7 @@ const inspectorCheck = {
                             resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
                                                         <td><font color="green">[${result.result[0]}]</font></td>`;
                             buttonColumn.innerHTML = `<td></td>`;
-                            orderListTable[orderIndex].children[3].innerHTML = `<td>마감</td>`
-                            orderListTable[orderIndex].children[4].innerHTML = `<td><font color="green">[${result.result[0]}]</font></td>`
+                            orderListTable[orderListIndex].children[3].innerHTML = `<td>검수처리완료</td>`
                         }
                     },
                     error: function () {
@@ -152,8 +141,8 @@ const inspectorCheck = {
                 }
             )
             closeInspect();
-        })
-    }
+        // })
+
 }
 
 
@@ -192,17 +181,17 @@ function cancel(progressInspectorId, index) {
 }
 
 const popup ={
-    openPopup: function (index,orderIndex){
+    openPopup: function (index,orderListIndex){
+
         var progressInspection = document.getElementById("progressInspection");
         // var index =  progressInspection.children.length-1;
         var progressInspectorPopup = document.getElementById('popup');
         progressInspectorPopup.style.display = "block";
-        inspectorCheck.receiveIndexData(index,orderIndex);
     }
 
 }
 
-function updateConfirm(html, index,orderIndex) {
+function updateConfirm(html, index,orderListIndex) {
     var updateData = html.closest("tr");
     var dateHtml = updateData.children[2];
     var updateButton = updateData.children[5];
@@ -223,7 +212,7 @@ function updateConfirm(html, index,orderIndex) {
         data: JSON.stringify(formData),
         success: function () {
             dateHtml.innerHTML = `<td class="inspectDate">${transDate}</td>`
-            updateButton.innerHTML = `<td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderIndex})">진척검수실행</button><button onclick="updateProgressInspection(this, ${index},${orderIndex}})">수정</button><button onclick="cancel()">삭제</button></td>`;
+            updateButton.innerHTML = `<td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderListIndex})">진척검수실행</button><button onclick="updateProgressInspection(this, ${index},${orderListIndex}})">수정</button><button onclick="cancel()">삭제</button></td>`;
         },
         error: function () {
             console.log("실패")
@@ -231,7 +220,7 @@ function updateConfirm(html, index,orderIndex) {
     })
 }
 
-function addProgressInspection(productName, planId, info) {
+function addProgressInspection(productName, planId, info,orderListIndex) {
     var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
     var index = info.target;
     if (dateValue) {
@@ -245,7 +234,7 @@ function addProgressInspection(productName, planId, info) {
             data: JSON.stringify(formData),
             method: "post",
             success: function (data) {
-                addInspectorOne(data, index);
+                addInspectorOne(data, index,orderListIndex);
                 console.log("성공")
             },
             error: function (data) {
@@ -260,7 +249,7 @@ function addProgressInspection(productName, planId, info) {
 
 }
 
-function addInspectorOne(data, index,orderIndex) {
+function addInspectorOne(data, index, orderListIndex) {
     var inspector = data.progressInspection;
 
     var orderDate = formDate(inspector.orderDate)
@@ -272,7 +261,7 @@ function addInspectorOne(data, index,orderIndex) {
                                                             <td class="inspectDate">${progressInspectorDate}</td>
                                                             <input type="hidden" value="${inspector.progressInspectionId}"/>
                                                             <td></td>
-                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderIndex})">진척검수실행</button><button onclick="updateProgressInspection(this,${index},${orderIndex})">수정</button><button onclick="cancel()">삭제</button></td>`
+                                                            <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderListIndex})">진척검수실행</button><button onclick="updateProgressInspection(this,${index},${orderListIndex})">수정</button><button onclick="cancel()">삭제</button></td>`
 }
 
 function toggleTables() {

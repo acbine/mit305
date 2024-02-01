@@ -66,7 +66,7 @@
             <td th:text="${info.text}"></td>
             <td th:text="${info.orderState}"></td>
             <td>
-                <button class="orderInspectButton" th:onclick="'orderRegisterIn(\'' + ${info.procurementPlanCode} + '\',\'' + ${info.orderIndex} + '\')'">진척 검수<br/>불러오기</button>
+                <button class="orderInspectButton" th:onclick="'orderRegisterIn(\'' + ${infoStat.index} + '\',\'' + ${info.procurementPlanCode} + '\',\'' + ${info.orderIndex} + '\')'">진척 검수<br/>불러오기</button>
             </td>
         </tr>
         <tr class="trClass">
@@ -132,7 +132,7 @@
         </tbody>
     </table>
     <div style="text-align: center;">
-        <button class="inspect" th:attr="onclick='inspectorCheck.progressInspectorCheck(\'' + ${infoStat.index}+ '\',\'' + ${info.orderIndex} + '\')'">진척 검수</button>
+        <button class="inspect" th:attr="onclick='progressInspectorCheck(\'' + ${infoStat.index}+ '\',\'' + ${info.orderIndex} + '\')'">진척 검수</button>
         <button class="exit"  onclick="closeInspect()">닫기</button>
     </div>
 </div>

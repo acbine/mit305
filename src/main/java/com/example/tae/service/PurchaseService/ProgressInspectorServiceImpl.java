@@ -7,7 +7,7 @@ import com.example.tae.entity.Order.dto.OrderInspectDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
 import com.example.tae.repository.ExistenceRepository;
-import com.example.tae.repository.OrderRepository;
+import com.example.tae.repository.PurchaseRepository.OrderRepository;
 import com.example.tae.repository.ProgressInspectionRepository;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;

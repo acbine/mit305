@@ -7,7 +7,7 @@ import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.ReleaseProcess.Existence;
 import com.example.tae.entity.dto.ImageDTO;
 import com.example.tae.repository.ExistenceRepository;
-import com.example.tae.repository.OrderRepository;
+import com.example.tae.repository.PurchaseRepository.OrderRepository;
 import org.springframework.beans.factory.annotation.Value;
 import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;

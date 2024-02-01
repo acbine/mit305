@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .signup {
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
+    <title>회원추가</title>
+</head>
+<body>
+    <form class="signup" action="/joinProcess" method="post">
+        <input type="text" name="id" placeholder="ID">
+        <input type="text" name="email" placeholder="이메일">
+        <input type="password" name="password" placeholder="비밀번호">
+        <input type="password" name="password2" placeholder="비밀번호 확인">
+        <button type="submit">가입시키기</button>
+    </form>
+    <p th:if="${error == 'idExists'}" style="color: red;">이미 존재하는 ID입니다.</p>
+    <p th:if="${error == 'passwordMismatch'}" style="color: red;">비밀번호가 일치하지 않습니다.</p>
+    <a href="/admin"><button type="button">이전</button></a>
+</body>
+</html>

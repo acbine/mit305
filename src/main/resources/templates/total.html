@@ -30,6 +30,7 @@
         <form class="logoutConsole" action="/logout" method="post">
             <strong sec:authentication="name"></strong>님
             <button type="submit">로그아웃</button>
+            <a href="admin" sec:authorize="hasRole('ADMIN')"><button type="button">관리자 페이지로 이동</button></a>
         </form>
     </div>
     <div class="innerGround"></div>
@@ -38,19 +39,19 @@
             <div class="tap_list">
             </div>
             <div class="cont_area">
-                <div sec:authorize="isAnonymous()">
-                    <form class="loginConsole" action="/login" method="post">
-                        <input type="text" name="username" placeholder="ID">
-                        <input type="password" name="password" placeholder="비밀번호">
-                        <label>
-                            해당 ID를 저장합니다.<input type="checkbox" name="remember-me">
-                        </label>
-                        <label>
-                            <button type="submit">로그인</button>
-                        </label>
-                    </form>
-                </div>
             </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <form class="loginConsole" action="/login" method="post">
+                <input type="text" name="username" placeholder="ID">
+                <input type="password" name="password" placeholder="비밀번호">
+                <label>
+                    해당 ID를 저장합니다.<input type="checkbox" name="remember-me">
+                </label>
+                <label>
+                    <button type="submit">로그인</button>
+                </label>
+            </form>
         </div>
     </div>
 

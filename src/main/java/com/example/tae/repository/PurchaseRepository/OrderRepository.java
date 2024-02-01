@@ -1,4 +1,4 @@
-package com.example.tae.repository;
+package com.example.tae.repository.PurchaseRepository;
 
 import com.example.tae.entity.Order.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,8 +1,17 @@
+.loginConsole {
+    display: flex;
+    flex-direction: column;
+}
+
 .back {
     background-color: #D3E3FD;
     width: 1730px;
     height: 1130px;
     border-radius: 100px;
+}
+
+.logoutConsole {
+    margin-left: 20px;
 }
 
 .innerGroundShadow {

@@ -119,8 +119,24 @@ public class ContractController {
 
         System.out.println("아래부터는 메일 전송 하기위한 코드");
 
+        // 사용자의 홈 디렉터리를 결정합니다.
+        String userHome = System.getProperty("user.home");
+
+        // 다운로드 폴더 경로를 정의합니다.
+        String downloadFolderPath = userHome + File.separator + "Desktop";
+
+        // 검증을 위해 다운로드 폴더 경로를 출력합니다.
+        System.out.println("다운로드 폴더 경로: " + downloadFolderPath);
+
+        // 다운로드 폴더가 존재하지 않으면 생성합니다.
+        File downloadFolder = new File(downloadFolderPath);
+        if (!downloadFolder.exists()) {
+            downloadFolder.mkdirs();
+        }
+
+
         // 해당 저장 경로는 본인에게 맞는 곳으로 위치 수정해야함
-        File file = new File("D:/mit305-master/src/main/resources/static/images/Contract", contractMultipartFile.getOriginalFilename());
+        File file = new File(downloadFolderPath, contractMultipartFile.getOriginalFilename());
         contractMultipartFile.transferTo(file);
 
 
@@ -173,23 +189,8 @@ public class ContractController {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
 
         return "ContractSend";
-
-
-
     }
 
 

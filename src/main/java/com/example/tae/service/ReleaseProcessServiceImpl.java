@@ -35,79 +35,84 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
 
 
     @Override
-    public ReleaseDto release(int release, int procurementPlan_code) {
-        Optional<ProcurementPlan> procurementPlan = Optional.of(procurementPlanRepository.findById(procurementPlan_code).orElseThrow(
-                () -> new IllegalArgumentException("해당 조달 계획이 존재하지 않습니다.")
+    public ReleaseDto release(int release, int product_code) {
+        Optional<ProductInformationRegistration> productInformationRegistration = Optional.of(productInformationRepository.findById(product_code).orElseThrow(
+                () -> new IllegalArgumentException("출고 오류 : 존재하지 않는 품목입니다")
         ));
-        ProductInformationRegistration productInformationRegistration = procurementPlan.get().getContract().getProductInformationRegistration();
 
-        Optional<Existence> ex = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
-                ()-> {
+        List<Contract> contracts = contractRepository.findByProductInformationRegistrationCode(productInformationRegistration.get());
+
+        Optional<Existence> ex = Optional.of(existenceRepository.findByProductCode(productInformationRegistration.get()).orElseGet(
+                () -> {
                     Existence e = Existence.builder()
                             .releaseCNT(0)
-                            .productCode(productInformationRegistration)
+                            .productCode(productInformationRegistration.get())
                             .build();
                     return e;
                 }
         ));
+        existenceRepository.save(ex.get().updateRelease(release * -1));
+        List<ProcurementPlan> procurementPlanList = procurementPlanRepository.findByProductCode(product_code);
 
-        existenceRepository.save(ex.get().updateRelease(release*-1));
-        ReleaseProcess releaseProcess = ReleaseProcess.builder()
-                .procurementPlan(procurementPlan.get())
-                .releaseCNT(release)
-                .build();
-        releaseRepository.save(releaseProcess);
+        Existence existence = ex.get();
+
+        for (ProcurementPlan procurementPlan : procurementPlanList) {
+            ReleaseProcess releaseProcess = ReleaseProcess.builder()
+                    .procurementPlan(procurementPlan)
+                    .releaseCNT(release)
+                    .build();
+            releaseRepository.save(releaseProcess);
+        }
 
         return ReleaseDto.builder()
-                .productName(productInformationRegistration.getProduct_name())
-                .product_code(procurementPlan_code)
-                .departureDate(releaseProcess.getModDate())
-                .texture(productInformationRegistration.getTexture())
-                .height(productInformationRegistration.getHeight())
-                .length(productInformationRegistration.getLength())
-                .weight(productInformationRegistration.getWeight())
+                .productName(existence.getProductCode().getProduct_name())
+                .departureDate(existence.getModDate())
+                .texture(existence.getProductCode().getTexture())
+                .height(existence.getProductCode().getHeight())
+                .length(existence.getProductCode().getLength())
+                .weight(existence.getProductCode().getWeight())
                 .release(0)
-                .existence(ex.get().getReleaseCNT())
-                .existence_price(ex.get().getReleaseCNT()*procurementPlan.get().getContract().getProduct_price())
+                .existence(existence.getReleaseCNT())
+                .existence_price(existence.getReleaseCNT() * contracts.get(0).getProduct_price())
                 .build();
     }
 
 
     @Override
     public List<ReleaseDto> getStockDeliver() {
-       List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findAll();
-       List<ReleaseDto> releaseDtoList = new ArrayList<>();
+        List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findAll();
+        List<ReleaseDto> releaseDtoList = new ArrayList<>();
 
-       for(ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
-           List<ProcurementPlan> procurementPlanList = contractRepository.findByproductInformationId(productInformationRegistration.getProduct_code());
-           for( ProcurementPlan procurementPlan : procurementPlanList) {
-               Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
-                       ()-> {
-                           Existence e = Existence.builder()
-                                   .productCode(productInformationRegistration)
-                                   .releaseCNT(0)
-                                   .build();
-                           existenceRepository.save(e);
-                           return e;
-                       }
-               ));
+        for (ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
+            List<Contract> contract = contractRepository.findByProductInformationRegistrationCode(productInformationRegistration);
 
+            Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
+                    () -> {
+                        Existence e = Existence.builder()
+                                .productCode(productInformationRegistration)
+                                .releaseCNT(0)
+                                .build();
+                        existenceRepository.save(e);
+                        return e;
+                    }
+            ));
 
-               ReleaseDto releaseDto = ReleaseDto.builder()
-                       .procurementPlan_code(procurementPlan.getProcurementplan_code())
-                       .existence(existence.get().getReleaseCNT())
-                       .height(productInformationRegistration.getHeight())
-                       .weight(productInformationRegistration.getWeight())
-                       .length(productInformationRegistration.getLength())
-                       .productName(productInformationRegistration.getProduct_name())
-                       .texture(productInformationRegistration.getTexture())
-                       .existence_price(existence.get().getReleaseCNT()*procurementPlan.getContract().getProduct_price())
-                       .product_code(productInformationRegistration.getProduct_code())
-                       .contract_pay(procurementPlan.getContract().getProduct_price())
-                       .build();
-               releaseDtoList.add(releaseDto);
-               }
-           }
+        for(Contract contract1 : contract) {
+            ReleaseDto releaseDto = ReleaseDto.builder()
+                    .existence(existence.get().getReleaseCNT())
+                    .height(existence.get().getProductCode().getHeight())
+                    .weight(existence.get().getProductCode().getWeight())
+                    .length(existence.get().getProductCode().getLength())
+                    .productName(existence.get().getProductCode().getProduct_name())
+                    .texture(existence.get().getProductCode().getTexture())
+                    .existence_price(existence.get().getReleaseCNT() * contract1.getProduct_price())
+                    .product_code(existence.get().getProductCode().getProduct_code())
+                    .contract_pay(contract1.getProduct_price())
+                    .build();
+            releaseDtoList.add(releaseDto);
+        }
+
+        }
         return releaseDtoList;
     }
 
@@ -123,7 +128,6 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
             return releaseDtoList;
         } else if (state == 1) {/*품목 코드 검색*/
             List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
-            productInformationRegistrationList.forEach(x-> log.info(x.toString()));
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         }
@@ -134,10 +138,10 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
         for (ProcurementPlan procurementPlan : procurementPlanList) {
             int planId = procurementPlan.getProcurementplan_code();
             Optional<ReleaseProcess> mostRecentShippingData = releaseRepository.findTop1ByOrderByModDateDesc(planId);
-            for(ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
-                if(productInformationRegistration.getProduct_code()==planId) {
+            for (ProductInformationRegistration productInformationRegistration : productInformationRegistrationList) {
+                if (productInformationRegistration.getProduct_code() == planId) {
                     Optional<Existence> existence = Optional.of(existenceRepository.findByProductCode(productInformationRegistration).orElseGet(
-                            ()->{
+                            () -> {
                                 Existence existence1 = Existence.builder()
                                         .productCode(productInformationRegistration)
                                         .releaseCNT(0)

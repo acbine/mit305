@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-compatible" content="chrome=1,IE=edge">
@@ -8,11 +8,10 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <title>프로세스</title>
-
 </head>
 <body>
 <div class="back">
-    <div class="custom-container">
+    <div class="custom-container" sec:authorize="isAuthenticated()">
         <button class="custom-button" id="total">
             Total
         </button>
@@ -28,8 +27,12 @@
             <span class="icon3">&#9650;</span>
             자재관리
         </button>
+        <form class="logoutConsole" action="/logout" method="post">
+            <strong sec:authentication="name"></strong>님
+            <button type="submit">로그아웃</button>
+            <a href="admin" sec:authorize="hasRole('ADMIN')"><button type="button">관리자 페이지로 이동</button></a>
+        </form>
     </div>
-
     <div class="innerGround"></div>
     <div class="innerGroundShadow">
         <div class="tab_menu">
@@ -37,6 +40,18 @@
             </div>
             <div class="cont_area">
             </div>
+        </div>
+        <div sec:authorize="isAnonymous()">
+            <form class="loginConsole" action="/login" method="post">
+                <input type="text" name="username" placeholder="ID">
+                <input type="password" name="password" placeholder="비밀번호">
+                <label>
+                    해당 ID를 저장합니다.<input type="checkbox" name="remember-me">
+                </label>
+                <label>
+                    <button type="submit">로그인</button>
+                </label>
+            </form>
         </div>
     </div>
 

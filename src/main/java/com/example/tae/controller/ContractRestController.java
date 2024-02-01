@@ -58,7 +58,7 @@ public class ContractRestController {
     public String searchCompanyId(@RequestParam(name = "comName") String comName) {
 
         List<Company> NameSearch2 = companyRepository.findBydepartName(comName);
-
+        NameSearch2.forEach(x-> System.out.println(x));
 //        System.out.println("리스트의 0번째 : " + NameSearch2.get(0));
 
         if(!NameSearch2.isEmpty()) {
@@ -115,8 +115,14 @@ public class ContractRestController {
     @PostMapping("/search/codes/{businessNumber}")
     public List<ContractPage> getContract_code(@PathVariable(value = "businessNumber") String businessNumber) {
 
+        System.out.println("/search/codes 역기서 받은 사업자 번호"+businessNumber);
+        List<ContractPage> contractPageList = contractPageRepository.findContractCodes_of_businessNumber(businessNumber);
 
-         return contractPageRepository.findContractCodes_of_businessNumber(businessNumber);
+
+        contractPageList.forEach(x -> System.out.println(x));
+
+
+        return contractPageList;
 
     }
 

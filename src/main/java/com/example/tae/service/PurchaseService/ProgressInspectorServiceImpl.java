@@ -2,18 +2,13 @@ package com.example.tae.service.PurchaseService;
 
 import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.Purchase;
-import com.example.tae.entity.Order.PurchaseRepository;
 import com.example.tae.entity.Order.dto.OrderInspectDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
-import com.example.tae.repository.ExistenceRepository;
-import com.example.tae.repository.OrderRepository;
+import com.example.tae.repository.PurchaseRepository.OrderRepository;
 import com.example.tae.repository.ProgressInspectionRepository;
-import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +35,9 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
         Date date = inspection.getInspectDate();
         List<ProgressInspection> progressInspections = progressInspectionRepository.findByOrderCode(purchase);
         progressInspections.forEach(progressInspection -> {
-//            if(!progressInspection.isProgressInspectionStatus()) {
-//                throw new IllegalArgumentException("진척 검수 등록 오류 : 완료가 되지 않은 진척 검수가 있어 해당 진척 검수를 등록 할 수 없습니다. ");
-//            }
+            if(!progressInspection.isProgressInspectionStatus()) {
+                throw new IllegalArgumentException("진척 검수 등록 오류 : 완료가 되지 않은 진척 검수가 있어 해당 진척 검수를 등록 할 수 없습니다. ");
+            }
         });
 
         ProgressInspection progressInspection = ProgressInspection.builder()
@@ -84,7 +79,9 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
         List<ProgressInspection> progressInspections = progressInspectionRepository.findByProgressInspectionIdAndCheckToStatus(progressInspectionId);
 
         progressInspections.forEach(progressInspection -> {
-
+                            if(!progressInspection.isProgressInspectionStatus()) {
+                                throw new IllegalArgumentException("진적검수 업데이트 오류 : 실행하지 않은 진척검수가 있습니다. 다시 확인하세요.");
+                            }
         });
 
         Optional<ProgressInspection> progressInspectionOptional = Optional.of(progressInspectionRepository.findById(progressInspectionId).orElseThrow(

@@ -15,7 +15,7 @@
             padding: 1rem;
             text-align: center;
             vertical-align: middle;
-            font-weight: 500;
+            font-weight: bold;
             border-bottom: 1px solid #e2e8f0;
         }
         .stockDelivery-table-style{
@@ -72,10 +72,9 @@
             <td class="table-body"><input style="width:80px" type="number" id="release"></td>
             <td class="table-body" th:text="${release.existence}"></td>
             <td class="table-body" th:text="${release.existence_price}"></td>
-            <input type="hidden" th:value="${release.procurementPlan_code}">
             <td class="table-body">
                 <button class="action-button-stock action-button-registration-stock stockDeliverySearchButton"
-                        th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.procurementPlan_code} + '\')'">확인</button>
+                        th:onclick="'submitToRelease(\'' + ${releaseStat.index} + '\', \'' + ${release.product_code} + '\')'">확인</button>
             </td>
         </tr>
         </tbody>

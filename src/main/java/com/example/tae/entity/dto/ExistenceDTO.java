@@ -52,7 +52,6 @@ public class ExistenceDTO {
                     .weight(productInformationRegistration.getWeight())
                     .height(productInformationRegistration.getHeight())
                     .length(productInformationRegistration.getLength())
-                    .releaseDate(releaseProcess.getModDate())
                     .contract_pay(contract_pay)
                     .release(releaseProcess.getReleaseCNT())
                     .existence(existence)

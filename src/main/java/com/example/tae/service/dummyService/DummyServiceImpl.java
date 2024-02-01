@@ -20,7 +20,7 @@ import java.util.Arrays;
 public class DummyServiceImpl implements DummyService {
 
     private CompanyRepository companyRepository;
-    private ProjectRepository projectRepository;
+//    private ProjectRepository projectRepository;
     private UnitRepository unitRepository;
     private PartRepository partRepository;
     private AssyRepository assyRepository;

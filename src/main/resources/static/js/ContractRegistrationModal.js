@@ -23,6 +23,8 @@ console.log("검색한 회사명: " + get_name);
             document.getElementById("year").textContent = Contrac_year + '년';
             document.getElementById("month").innerHTML = Contrac_month + '월';
             document.getElementById("day").innerHTML = Contrac_day + '일';
+
+            console.log(data);
         },
         error : function() {
             console.log("사업자 번호 검색 실패함");
@@ -39,7 +41,10 @@ function find_contract_code(businessNumber) {
         type : "POST",
         url : "/search/codes/" + businessNumber,
         success : function(c_codes) {
-            console.log(c_codes);
+
+            console.log("사업자 번호초찾은 계약 코드들이 리턴"+c_codes);
+            console.log();
+
             contract_select(c_codes);
         },
         error : function() {

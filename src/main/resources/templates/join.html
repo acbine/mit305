@@ -3,9 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .signup {
             display: flex;
             flex-direction: column;
+        }
+
+        input {
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        p {
+            color: red;
+            margin-top: 10px;
         }
     </style>
     <title>회원추가</title>
@@ -20,6 +56,5 @@
     </form>
     <p th:if="${error == 'idExists'}" style="color: red;">이미 존재하는 ID입니다.</p>
     <p th:if="${error == 'passwordMismatch'}" style="color: red;">비밀번호가 일치하지 않습니다.</p>
-    <a href="/admin"><button type="button">이전</button></a>
 </body>
 </html>

@@ -1,14 +1,6 @@
 package com.example.tae.OrderServiceTests;
 
-import com.example.tae.entity.Order.ProgressInspection;
-import com.example.tae.entity.Order.Purchase;
-import com.example.tae.repository.PurchaseRepository.OrderRepository;
-import com.example.tae.repository.ProgressInspectionRepository;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
 
 @SpringBootTest
 public class OrderRepositoryTests {

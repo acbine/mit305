@@ -2,18 +2,13 @@ package com.example.tae.service.PurchaseService;
 
 import com.example.tae.entity.Order.ProgressInspection;
 import com.example.tae.entity.Order.Purchase;
-import com.example.tae.entity.Order.PurchaseRepository;
 import com.example.tae.entity.Order.dto.OrderInspectDTO;
 import com.example.tae.entity.ProcurementPlan.ProcurementPlan;
 import com.example.tae.entity.Order.dto.ProgressInspectionDTO;
-import com.example.tae.repository.ExistenceRepository;
 import com.example.tae.repository.PurchaseRepository.OrderRepository;
 import com.example.tae.repository.ProgressInspectionRepository;
-import com.example.tae.repository.RegistrationRepository.ContractRepository;
 import com.example.tae.repository.RegistrationRepository.ProcurementPlanRepository;
-import com.example.tae.repository.RegistrationRepository.ProductInformationRegistrationRepository;
 import lombok.AllArgsConstructor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

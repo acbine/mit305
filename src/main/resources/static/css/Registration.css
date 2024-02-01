@@ -50,7 +50,7 @@ body {
 .ContractModal-content { /* 계약서 모달내용 창 */
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 45%;
     transform: translate(-50%, -50%);
     background-color: white;
     padding: 20px;

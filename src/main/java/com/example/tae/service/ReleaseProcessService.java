@@ -7,7 +7,7 @@ import com.example.tae.entity.ReleaseProcess.dto.ReleaseDto;
 import java.util.List;
 
 public interface ReleaseProcessService {
-        ReleaseDto release(int release,int procurementPlan_code);
+        ReleaseDto release(int release,int product_code);
 
         List<ReleaseDto> getStockDeliver() throws Exception;
 

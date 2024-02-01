@@ -114,7 +114,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    /*발주서 목록 가져오기*/
+    /*발주서 진척검수 목록 가져오기*/
     @Override
     public List<OrderDTO> getOrderInspectData(int productCode, int procurementPlanCode,int orderIndex) {
         Optional<ProductInformationRegistration> productInformationRegistration = productInformationRegistrationRepository.findById(productCode);
@@ -152,6 +152,7 @@ public class OrderServiceImpl implements OrderService {
                         .build();
                 orderDTOList.add(orderDTO);
             }
+            orderDTOList.forEach(System.out::println);
         });
         return orderDTOList;
     }

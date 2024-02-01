@@ -5,6 +5,10 @@
     border-radius: 100px;
 }
 
+.logoutConsole {
+    margin-left: 20px;
+}
+
 .innerGroundShadow {
     background-color: #ffffff;
     margin-left: 160px;

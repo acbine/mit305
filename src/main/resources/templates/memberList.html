@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원관리</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>이메일</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="member : ${members}">
+                <td th:text="${member.id}"></td>
+                <td th:text="${member.email}"></td>
+                <td>
+                    <form th:action="@{'/del/' + ${member.id}}" method="post">
+                        <input type="hidden" name="id" th:value="${member.id}" />
+                        <button type="submit">삭제</button>
+                    </form>
+                </td>
+                <td>
+                    <form th:action="@{/resetPassword}" method="post">
+                        <input type="hidden" name="id" th:value="${member.id}" />
+                        <input type="hidden" name="email" th:value="${member.email}" />
+                        <button type="submit">비밀번호 초기화</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="/admin"><button type="button">이전</button></a>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:if="${resetPasswordAlert}" th:inline="javascript">
+        $(document).ready(function(){
+            alert("[[${resetPasswordMessage}]]");
+        });
+    </script>
+</body>
+</html>

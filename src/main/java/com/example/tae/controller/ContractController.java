@@ -121,7 +121,7 @@ public class ContractController {
         String userHome = System.getProperty("user.home");
 
         // 다운로드 폴더 경로를 정의합니다.
-        String downloadFolderPath = userHome + File.separator + "Downloads";
+        String downloadFolderPath = userHome + File.separator + "Desktop";
 
         // 검증을 위해 다운로드 폴더 경로를 출력합니다.
         System.out.println("다운로드 폴더 경로: " + downloadFolderPath);

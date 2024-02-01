@@ -49,7 +49,7 @@ $.each(join_List, function(index, setList) {
             '<td class="productImformationTable-data"><input type="date" style = "width:150.67px; height:"29px"; font-size:15px;" class = get_date></td>' + // 발주일 (날짜 선택, 기본값)
             '<td class="productImformationTable-data">' + // 계획 처리
                 '<div class="actions">' +
-                     '<button class="action-button action-button-registration" onclick="procurement_registration(this); td_delete(this);">등록</button>' +
+                     '<button class="action-button action-button-registration" onclick="procurement_registration(this);">등록</button>' +
                 '</div>' +
             '</td>'+
         '</tr>'
@@ -63,26 +63,49 @@ function procurement_registration(button) {
 
 var now_row = $(button).closest("tr");
 
-var plan_data = {
+var check_amount = now_row.find(".get_num").val();
+var check_date = now_row.find(".get_date").val();
 
-    id : now_row.find("td:eq(0)").text(), // 생산 계획 코드
-    contract_code : now_row.find("td:eq(1)").text(), // 계약 코드
-    project_name : now_row.find("td:eq(2)").text(), // 조달 제품명
-    supportProductAmount : now_row.find(".get_num").val(), // 조달 수량
-    order_date : now_row.find(".get_date").val(), // 발주일
-    order_state : "발주 전", // 발주 상태
-    ordercode : "None" // 발주 코드
+if(!check_amount && !check_date) {
 
-};
+    alert("입력 안된 값 존재");
+}
 
-console.log("생산 계획 코드 : " + plan_data.id);
-console.log("계약 코드 : " + plan_data.contract_code);
-console.log("제품명 : " + plan_data.project_name);
-console.log("조달 수량 : " + plan_data.supportProductAmount);
-console.log("발주일 : " + plan_data.order_date);
-console.log("발주 상태 : " + plan_data.order_state);
-console.log("발주 코드 : " + plan_data.ordercode);
+else if(!check_amount) {
 
+    alert("조달 예정 수량 입력 필요");
+}
+
+else if(check_amount <= 0) {
+
+    alert("조달 예정 수량은 0개 이상 입력");
+}
+
+else if(!check_date) {
+
+    alert("날짜 입력 안됨");
+}
+
+else {
+
+    var plan_data = {
+
+        id : now_row.find("td:eq(0)").text(), // 생산 계획 코드
+        contract_code : now_row.find("td:eq(1)").text(), // 계약 코드
+        project_name : now_row.find("td:eq(2)").text(), // 조달 제품명
+        supportProductAmount : now_row.find(".get_num").val(), // 조달 수량
+        order_date : now_row.find(".get_date").val(), // 발주일
+        order_state : "발주 전", // 발주 상태
+        ordercode : "None" // 발주 코드
+    };
+
+//console.log("생산 계획 코드 : " + plan_data.id);
+//console.log("계약 코드 : " + plan_data.contract_code);
+//console.log("제품명 : " + plan_data.project_name);
+//console.log("조달 수량 : " + plan_data.supportProductAmount);
+//console.log("발주일 : " + plan_data.order_date);
+//console.log("발주 상태 : " + plan_data.order_state);
+//console.log("발주 코드 : " + plan_data.ordercode);
 
 
     $.ajax({
@@ -100,6 +123,9 @@ console.log("발주 코드 : " + plan_data.ordercode);
             alert("등록 실패");
         }
     });
+
+    td_delete(button);
+}
 }
 
 // 조달 계획 전체 검색
@@ -127,6 +153,13 @@ function ProcurementPlan_list() {
 function set_table(plan_list) {
 
 $('#plan_table_info tbody').empty();
+
+
+if(plan_list.length == 0) {
+
+    alert("새로 등록된 조달 계획 없음");
+}
+
 
 $.each(plan_list, function(index, plan) {
 

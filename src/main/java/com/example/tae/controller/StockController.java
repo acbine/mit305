@@ -41,11 +41,12 @@ public class StockController {
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("releaseInfo", releaseDtoList));
     }
 
-    @PostMapping("total/stockDelivery")
+    @PostMapping("toStockDelivery")
     @ResponseBody
     public ResponseEntity<?> release(@RequestBody ReleaseDto releaseDto) {
         int product_code = releaseDto.getProduct_code();
         int release = releaseDto.getRelease();
+        System.out.println(release+"                 "+product_code);
         ReleaseDto releaseDto1 = releaseProcessService.release(release,product_code);
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("ReleaseInfo", releaseDto1));
     }

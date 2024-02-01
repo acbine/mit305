@@ -3,16 +3,14 @@ package com.example.tae.entity.ReleaseProcess;
 import com.example.tae.entity.ProductInformation.ProductInformationRegistration;
 import com.example.tae.entity.TimeStamp;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
 @Builder
+@ToString
 public class Existence extends TimeStamp {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

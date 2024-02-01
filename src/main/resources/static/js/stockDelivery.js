@@ -42,7 +42,6 @@ function findRelease() {
 }
 
 function submitToRelease(clickNum,product_code) {
-    console.log("보내는 데이터 정보" , clickNum , "                    ", product_code);
     var tableData = document.getElementById("release_table").getElementsByTagName("tr");
     var releaseData = tableData[clickNum].getElementsByTagName("td")[8].childNodes[0].value;
     var formData = {"release": releaseData, "product_code":product_code}
@@ -67,7 +66,6 @@ function submitToRelease(clickNum,product_code) {
 function addTable(clickNum,data) {
     var tableData = document.getElementById("release_table").getElementsByTagName("tr");
     var inputHTML = tableData[clickNum].getElementsByTagName("td")
-    console.log("받아온 데이터 정보 제대로 확인하기 ( data : ", data+", clickNum : "+ clickNum +")");
 
     var releaseProcess = data.ReleaseInfo;
     var existence = releaseProcess.existence;
@@ -102,7 +100,7 @@ function uploadHtml(data) {
             <input type="hidden" value="${releaseInfo[i].procurementPlan_code}">
             <td class="table-body">
                <button class="action-button action-button-registration"
-                        onclick="submitToRelease(${releaseInfo[i].release},${releaseInfo[i].procurementPlan_code})">확인</button>
+                        onclick="submitToRelease(${i},${releaseInfo[i].procurementPlan_code})">확인</button>
             </td>
         </tr>`);
     }

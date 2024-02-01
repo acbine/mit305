@@ -128,7 +128,6 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
             return releaseDtoList;
         } else if (state == 1) {/*품목 코드 검색*/
             List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
-            productInformationRegistrationList.forEach(x -> log.info(x.toString()));
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         }

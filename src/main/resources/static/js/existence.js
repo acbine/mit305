@@ -167,8 +167,9 @@ function htmlLoad(data, value) {
                                     <th class="existence_head">중분류</th>
                                     <th class="existence_head">소분류</th>
                                     <th class="existence_head">재고</th>
+                                    <th class="existence_head">총 출고</th>
                                     <th class="existence_head">공급 가격</th>
-                                    <th class="existence_head">기간 별 재고 금액 합산</th>
+                                    <th class="existence_head">기간 별 출고 금액</th>
                                     <th class="existence_head">마지막 출고 일</th>
                                   </tr>
                                 </thead>`;
@@ -179,12 +180,16 @@ function htmlLoad(data, value) {
 
         const set = new Set(classification);
 
+        var totalRelease = 0;
+
         for (const productClassification of set) {
             var groupedInfo = existence.filter(item => item.productName === productClassification);
             var firstItem = groupedInfo[0];
 
             totalAmount += firstItem.existence_price;
             totalEx += firstItem.existence;
+            totalRelease += firstItem.release
+
 
             inputHTML.push(
                 `<tbody class="existence_body"> 
@@ -194,6 +199,7 @@ function htmlLoad(data, value) {
                   <td id="body">${firstItem.assy.assy}</td>
                   <td id="body">${firstItem.part.part}</td>
                   <td id="body">${firstItem.existence}</td>
+                  <td id="body">${firstItem.contract_pay}</td>
                   <td id="body">${firstItem.contract_pay}</td>
                   <td id="body">${totalAmount}</td>
                   <td id="body">${firstItem.releaseDate}</td>

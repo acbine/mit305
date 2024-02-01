@@ -84,9 +84,7 @@ public class ExistenceController {
             return ResponseEntity.status(HttpStatus.OK).body(Map.of("existenceList", existenceDTOList));
         } else {
             List<ReleaseProcess> releaseProcessCollect = releaseRepository.findByReleaseProcessWithDateAndProductName(product, date1, date2);
-for(ReleaseProcess releaseProcess : releaseProcessCollect) {
-    System.out.println(releaseProcess.getProcurementPlan().getContract().getProductInformationRegistration().getProduct_name());
-}
+
             for(ReleaseProcess releaseProcess : releaseProcessCollect) {
 
                 ProcurementPlan procurementPlan = releaseProcess.getProcurementPlan();

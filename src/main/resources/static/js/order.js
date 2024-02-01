@@ -6,10 +6,8 @@ function openOrderInspectPopup(productCode,procurementPlanCode,orderListIndex){
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText,"응답 찍어보기")
                 html.style.display = "block";
                 html.innerHTML = this.responseText;
-                console.log(html.innerHTML,"html내용찍어보기 응답 찍어보기")
             }
         };
         xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode+'&orderIndex='+orderListIndex, true);

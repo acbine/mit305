@@ -67,7 +67,7 @@ function info_addRow(partList) {
             '</td>' + // 파일 업로드
 
             '<td class="productImformationTable-data" style="width:118.97px;" >' +
-                '<button onclick="Product_registration(this); info_delete(this);">등록</button>' +
+                '<button onclick="Product_registration(this);">등록</button>' +
                 '<button class="action-button action-button-delete" onclick="info_delete(this)">삭제</button>'+
             '</td>'+
         '</tr>';
@@ -84,7 +84,7 @@ function fileCheck(file_obj) {
     if(file_type == 'jpg' || file_type == 'png') {
 
     } else {
-        alert("이미지 파일 선택 요청");
+        alert("이미지 파일만 선택");
     }
 
 }
@@ -92,55 +92,61 @@ function fileCheck(file_obj) {
 
 function Product_registration(button) {
 
-// 품목명
-var product_name = $(button).closest("tr").find(".get_name").val();
+var product_name = $(button).closest("tr").find(".get_name").val(); // 품목명
+var id = $(button).closest("tr").find(".selectParts").val(); // 소분류
+var product_abbreviation = $(button).closest("tr").find(".get_abbreviation").val(); // 약칭
+var texture = $(button).closest("tr").find(".get_texture").val(); // 재질
+var width = $(button).closest("tr").find(".get_width").val(); // 가로
+var length = $(button).closest("tr").find(".get_length").val(); // 세로
+var height = $(button).closest("tr").find(".get_height").val(); // 높이
+var weight = $(button).closest("tr").find(".get_weight").val(); // 중량
+var imageName = $(button).closest("tr").find(".image")[0]; //이미지 이름
 
-// 소분류
-var id = $(button).closest("tr").find(".selectParts").val();
+if(!product_name && !id && !product_abbreviation && !texture && !width && !length && !height && !weight && !imageName) { alert("입력 안된 값 존재");}
 
-// 약칭
-var product_abbreviation = $(button).closest("tr").find(".get_abbreviation").val();
+else if(!product_name) {alert ("품목명 입력 필요");}
+else if(isNaN(product_name) == false) {alert ("숫자를 제외한 문자만 입력");}
 
-// 재질
-var texture = $(button).closest("tr").find(".get_texture").val();
+else if(!product_abbreviation) {alert ("약칭 입력 필요");}
+else if(isNaN(product_abbreviation) == false) {alert("숫자를 제외한 문자만 입력");}
 
-// 가로
-var width = $(button).closest("tr").find(".get_width").val();
+else if(!texture) {alert ("재질 입력 필요");}
+else if(isNaN(texture) == false) {alert("숫자를 제외한 문자만 입력");}
 
-// 세로
-var length = $(button).closest("tr").find(".get_length").val();
+else if(!width) {alert ("가로 입력 필요");}
+else if(isNaN(width) == true) {alert ("숫자만 입력");}
+else if(width <= 0) {alert ("0 이상 입력");}
 
-// 높이
-var height = $(button).closest("tr").find(".get_height").val();
+else if(!length) {alert ("세로 입력 필요");}
+else if(isNaN(length) == true) {alert ("숫자만 입력");}
+else if(length <= 0) {alert ("0 이상 입력");}
 
-// 중량
-var weight = $(button).closest("tr").find(".get_weight").val();
+else if(!height) {alert ("높이 입력 필요");}
+else if(isNaN(height) == true) {alert ("숫자만 입력");}
+else if(height <= 0) {alert ("0 이상 입력");}
 
-//이미지 이름
-var imageName = $(button).closest("tr").find(".image")[0];
-
-if(product_name) {
-
-
-}
+else if(!weight) {alert ("중량 입력 필요");}
+else if(isNaN(weight) == true) {alert ("숫자만 입력");}
+else if(weight <= 0) {alert ("0 이상 입력");}
 
 
 
-var formData = new FormData();
+else {
+    var formData = new FormData();
 
-formData.append("product_name", product_name);
-formData.append("id", id);
-formData.append("product_abbreviation", product_abbreviation);
-formData.append("texture", texture);
-formData.append("width", width);
-formData.append("length", length);
-formData.append("height", height);
-formData.append("weight", weight);
-formData.append("image_name", imageName.files[0]);
+    formData.append("product_name", product_name);
+    formData.append("id", id);
+    formData.append("product_abbreviation", product_abbreviation);
+    formData.append("texture", texture);
+    formData.append("width", width);
+    formData.append("length", length);
+    formData.append("height", height);
+    formData.append("weight", weight);
+    formData.append("image_name", imageName.files[0]);
 
-for(var fom of formData.entries()) {
-    console.log(fom[0] + ":" + fom[1]);
-}
+    for(var fom of formData.entries()) {
+        console.log(fom[0] + ":" + fom[1]);
+    }
 
 
     $.ajax({
@@ -160,6 +166,10 @@ for(var fom of formData.entries()) {
         }
 
     });
+
+
+    info_delete(button);
+}
 }
 
 var infoFromServer; // 전역 변수
@@ -284,6 +294,24 @@ var length = $(".now_length").eq(product_code-1);
 var height = $(".now_height").eq(product_code-1);
 var weight = $(".now_weight").eq(product_code-1);
 
+
+if(!product_abbreviation && !texture && !width && !length && !height && !weight) { alert("빈 값 존재");}
+else if(isNaN(product_abbreviation) == false) {alert("숫자를 제외한 문자만 입력");}
+else if(isNaN(texture) == false) {alert("숫자를 제외한 문자만 입력");}
+
+else if(isNaN(width) == true) {alert("가로는 숫자만 입력");}
+else if(width <= 0) {alert ("0 이상 입력");}
+
+else if(isNaN(length) == true) {alert("세로는 숫자만 입력");}
+else if(length <= 0) {alert ("0 이상 입력");}
+
+else if(isNaN(height) == true) {alert("높이는 숫자만 입력");}
+else if(height <= 0) {alert ("0 이상 입력");}
+
+else if(isNaN(weight) == true) {alert("중량은 숫자만 입력");}
+else if(weight <= 0) {alert ("0 이상 입력");}
+
+else {
 var updateInfo = {};
 
     // 약칭
@@ -345,6 +373,7 @@ var updateInfo = {};
 
     });
 
+}
 }
 
 // 품목 정보 삭제

@@ -35,37 +35,69 @@ $.ajax({
 // 계약 등록
 function contract_registration(button) {
 
-var data = {
+var check_businessNumber = $(button).closest("tr").find(".search_c").val(); // 사업자 번호
 
-    product_code : $(button).closest("tr").find(".search_p").val(), // 품목 코드
+var check_lead_time = $(button).closest("tr").find(".l_time").val(); // LeadTime
 
-    businessNumber : $(button).closest("tr").find(".search_c").val(), // 사업자 번호
+var check_product_price = $(button).closest("tr").find(".price").val(); // 단가
 
-    lead_time : $(button).closest("tr").find(".l_time").val(), // LeadTime
+var check_payment_method = $(button).closest("tr").find(".payment").val(); // 지급 수단
 
-    product_price : $(button).closest("tr").find(".price").val(), // 단가
 
-    payment_method : $(button).closest("tr").find(".payment").val(), // 지급 수단
+if(!check_businessNumber && !check_lead_time && !check_product_price && !check_payment_method) {alert("입력 안된 값 존재");}
 
-};
+else if(!check_businessNumber) { alert("사업자 번호 없음"); }
 
-$.ajax({
+else if(!check_lead_time) { alert("리드 타임 없음"); }
 
-    type : "POST",
-    url : "/register",
-    contentType: "application/json;charset=UTF-8",
-    data : JSON.stringify ([data]),
+else if(isNaN(check_lead_time) == true) { alert("리드 타임은 숫자 입력"); }
 
-    success : function(data) {
-        alert("등록 성공");
+else if(!check_product_price) { alert("단가 없음"); }
 
-    },
+else if(isNaN(check_lead_time) == true) { alert("단가는 숫자 입력"); }
 
-    error : function(error) {
-        alert("등록 실패");
-    }
+else if(!check_payment_method) { alert("지급 수단 없음")}
 
-});
+else if(isNaN(check_payment_method) == false) { alert("지급 수단은 숫자를 제외한 문자로 입력"); }
+
+else {
+
+    var data = {
+
+        product_code : $(button).closest("tr").find("td:eq(1)").text(), // 품목 코드
+
+        businessNumber : $(button).closest("tr").find(".search_c").val(), // 사업자 번호
+
+        lead_time : $(button).closest("tr").find(".l_time").val(), // LeadTime
+
+        product_price : $(button).closest("tr").find(".price").val(), // 단가
+
+        payment_method : $(button).closest("tr").find(".payment").val(), // 지급 수단
+
+    };
+
+    $.ajax({
+
+        type : "POST",
+        url : "/register",
+        contentType: "application/json;charset=UTF-8",
+        data : JSON.stringify ([data]),
+
+        success : function(data) {
+            alert("등록 성공");
+
+        },
+
+        error : function(error) {
+            alert("등록 실패");
+        }
+
+    });
+
+
+    contract_row_delete(button);
+
+}
 
 }
 

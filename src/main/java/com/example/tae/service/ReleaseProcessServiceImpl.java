@@ -36,7 +36,6 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
 
     @Override
     public ReleaseDto release(int release, int product_code) {
-
         Optional<ProductInformationRegistration> productInformationRegistration = Optional.of(productInformationRepository.findById(product_code).orElseThrow(
                 () -> new IllegalArgumentException("출고 오류 : 존재하지 않는 품목입니다")
         ));
@@ -65,21 +64,17 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
             releaseRepository.save(releaseProcess);
         }
 
-        for(Contract contract : contracts) {
-            return ReleaseDto.builder()
-                    .productName(existence.getProductCode().getProduct_name())
-                    .departureDate(existence.getModDate())
-                    .texture(existence.getProductCode().getTexture())
-                    .height(existence.getProductCode().getHeight())
-                    .length(existence.getProductCode().getLength())
-                    .weight(existence.getProductCode().getWeight())
-                    .release(0)
-                    .existence(existence.getReleaseCNT())
-                    .existence_price(existence.getReleaseCNT() * contract.getProduct_price())
-                    .build();
-        }
-
-        return null;
+        return ReleaseDto.builder()
+                .productName(existence.getProductCode().getProduct_name())
+                .departureDate(existence.getModDate())
+                .texture(existence.getProductCode().getTexture())
+                .height(existence.getProductCode().getHeight())
+                .length(existence.getProductCode().getLength())
+                .weight(existence.getProductCode().getWeight())
+                .release(0)
+                .existence(existence.getReleaseCNT())
+                .existence_price(existence.getReleaseCNT() * contracts.get(0).getProduct_price())
+                .build();
     }
 
 
@@ -102,21 +97,20 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
                     }
             ));
 
-            for (Contract contract1 : contract) {
-                ReleaseDto releaseDto = ReleaseDto.builder()
-                        .existence(existence.get().getReleaseCNT())
-                        .height(existence.get().getProductCode().getHeight())
-                        .weight(existence.get().getProductCode().getWeight())
-                        .length(existence.get().getProductCode().getLength())
-                        .productName(existence.get().getProductCode().getProduct_name())
-                        .texture(existence.get().getProductCode().getTexture())
-                        .existence_price(existence.get().getReleaseCNT() * contract1.getProduct_price())
-                        .product_code(existence.get().getProductCode().getProduct_code())
-                        .contract_pay(contract1.getProduct_price())
-                        .build();
-                releaseDtoList.add(releaseDto);
-            }
-
+        for(Contract contract1 : contract) {
+            ReleaseDto releaseDto = ReleaseDto.builder()
+                    .existence(existence.get().getReleaseCNT())
+                    .height(existence.get().getProductCode().getHeight())
+                    .weight(existence.get().getProductCode().getWeight())
+                    .length(existence.get().getProductCode().getLength())
+                    .productName(existence.get().getProductCode().getProduct_name())
+                    .texture(existence.get().getProductCode().getTexture())
+                    .existence_price(existence.get().getReleaseCNT() * contract1.getProduct_price())
+                    .product_code(existence.get().getProductCode().getProduct_code())
+                    .contract_pay(contract1.getProduct_price())
+                    .build();
+            releaseDtoList.add(releaseDto);
+        }
 
         }
         return releaseDtoList;

@@ -42,12 +42,13 @@ function findRelease() {
 }
 
 function submitToRelease(clickNum,product_code) {
+    console.log("보내는 데이터 정보" , clickNum , "                    ", product_code);
     var tableData = document.getElementById("release_table").getElementsByTagName("tr");
     var releaseData = tableData[clickNum].getElementsByTagName("td")[8].childNodes[0].value;
     var formData = {"release": releaseData, "product_code":product_code}
 
     $.ajax({
-    url:'/total/stockDelivery',
+    url:'/toStockDelivery',
         type : 'post',
         contentType : 'application/json',
         data:JSON.stringify(formData),
@@ -56,7 +57,8 @@ function submitToRelease(clickNum,product_code) {
         addTable(clickNum,data)
         console.log("성공");
         },
-        error:function () {
+        error:function (data) {
+            console.log(data.responseJSON.message)
             console.log("실패");
         }
     });

@@ -195,7 +195,7 @@ function htmlLoad(data, value) {
                   <td id="body">${firstItem.part.part}</td>
                   <td id="body">${firstItem.existence}</td>
                   <td id="body">${firstItem.contract_pay}</td>
-                  <td id="body">${firstItem.existence_price}</td>
+                  <td id="body">${totalAmount}</td>
                   <td id="body">${firstItem.releaseDate}</td>
                 </tbody>`
             );

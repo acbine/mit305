@@ -80,7 +80,7 @@ public class ProgressInspectorServiceImpl implements ProgressInspectorService{
 
         progressInspections.forEach(progressInspection -> {
                             if(!progressInspection.isProgressInspectionStatus()) {
-                                throw new IllegalArgumentException("진적검수 업데이트 오류 : 실행하지 않은 진척검수가 있습니다. 다시 확인하세요.");
+//                                throw new IllegalArgumentException("진적검수 업데이트 오류 : 실행하지 않은 진척검수가 있습니다. 다시 확인하세요.");
                             }
         });
 

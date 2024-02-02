@@ -63,7 +63,7 @@ function putOrderAmount(productCode, planCode, index) {
 
     console.log(btnList)
     changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
-    btnList[0].innerHTML = `<td>
+    btnList[index].innerHTML = `<td>
                        <button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>
                        <button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>
                  </td>`
@@ -81,7 +81,7 @@ function putPlanNum(productCode,planCode,index) {
     var inputData = input[index].value;//받아온 데이터 값
     changeToInput.outerHTML=`<td class="planNum">${inputData}</td>`
 
-    btnList[0].innerHTML =`<td>
+    btnList[index].innerHTML =`<td>
                     <button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button>
                     <button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button>
                     <button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button>
@@ -111,7 +111,7 @@ function cancelPlanPut(productCode,planCode,index,num) {
 
     changeToInput.innerHTML=`<td>${num}</td>`
 
-    btnList[0].innerHTML =`<td>
+    btnList[index].innerHTML =`<td>
                     <button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button>
                     <button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button>
                     <button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button>

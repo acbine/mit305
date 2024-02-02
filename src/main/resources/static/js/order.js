@@ -62,7 +62,7 @@ function putOrderAmount(productCode, planCode, index) {
 
 
     console.log(btnList)
-    changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
+    changeToInput.innerHTML=`<input id='${planCode}' style="width: 40px" class="inputPlanNum" type="number">`
     btnList[index].innerHTML = `<td>
                        <button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>
                        <button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>
@@ -71,15 +71,15 @@ function putOrderAmount(productCode, planCode, index) {
 }
 
 function putPlanNum(productCode,planCode,index) {
-    var input = document.getElementsByClassName("inputPlanNum");
-    var changeToInput = input[index];
-
-    console.log(changeToInput.innerHTML)
+    var input = document.getElementById(planCode);
+//    var changeToInput = input;
+    console.log(input);
     var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
 
+    var inputData = input.value;//받아온 데이터 값
+    input.outerHTML=`<td class="planNum">${inputData}</td>`
 
-    var inputData = input[index].value;//받아온 데이터 값
-    changeToInput.outerHTML=`<td class="planNum">${inputData}</td>`
+    console.log(inputData);
 
     btnList[index].innerHTML =`<td>
                     <button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button>

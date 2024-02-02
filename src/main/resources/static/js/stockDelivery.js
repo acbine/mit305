@@ -7,6 +7,9 @@ function findRelease() {
     var constraints = searchData.value;
     var state;
 
+    console.log("==================",select);
+
+
     if(select==="ProductName") {
         state = 0;
         var formData = {"state": state,"constraints" : constraints}

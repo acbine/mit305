@@ -31,7 +31,7 @@
         }
     </style>
 </head>
-<body>
+<body th:each="info : ${orderInspect}">
 <h2 class="title">진척 검수 등록</h2>
 <div class="container">
     <table class="theadContainer orderInspect-table-style" id ="ta">
@@ -88,13 +88,13 @@
         </tr>
         </thead>
         <tbody class="tbodyContainer" id="progressInspection">
-        <tr class="trClass" th:each="info : ${orderInspect}" >
+        <tr class="trClass">
             <td th:text="${info.productName}"></td>
             <td th:text="${info.orderDate}"></td>
             <td id="setInspectDate"><input type="date"></td>
             <td></td>
             <td id="buttonState">
-                <button class="orderInspectButton" id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\')'">진척검수 일정 등록</button>
+                <button class="orderInspectButton" id="addProgressInspection" th:attr="onclick='addProgressInspection(\'' + ${info.productName}+ '\',\'' + ${info.procurementPlanCode}+ '\',\'' + ${infoStat.index} + '\',\'' + ${info.orderIndex} + '\')'">진척검수 일정 등록</button>
             </td>
         </tr>
         </tbody>
@@ -132,10 +132,8 @@
         </tbody>
     </table>
     <div style="text-align: center;">
-        <th:block th:each="info : ${orderInspect}">
-            <button class="inspect" th:attr="onclick='inspectorCheck.progressInspectorCheck(\'' + ${info.orderIndex} + '\')'">진척 검수</button>
-            <button class="exit" onclick="closeInspect()">닫기</button>
-        </th:block>
+        <button class="inspect" th:attr="onclick='progressInspectorCheck(\'' + ${infoStat.index}+ '\',\'' + ${info.orderIndex} + '\')'">진척 검수</button>
+        <button class="exit"  onclick="closeInspect()">닫기</button>
     </div>
 </div>
 <script src="/js/order.js"></script>

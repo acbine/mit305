@@ -32,7 +32,6 @@ public class ContractRestController {
     ContractRepository contractRepository;
 
     @PostMapping("/search/pro") // 품목 코드 검색
-    @ResponseBody
     public int searchProductId(@RequestParam(name = "name") String name) {
 
         System.out.println(name);
@@ -56,7 +55,6 @@ public class ContractRestController {
     }
 
     @PostMapping("/search/com") // 사업자 번호 검색
-    @ResponseBody
     public String searchCompanyId(@RequestParam(name = "comName") String comName) {
 
         List<Company> NameSearch2 = companyRepository.findBydepartName(comName);
@@ -75,8 +73,9 @@ public class ContractRestController {
     @PostMapping("/register") // 입력한 데이터를 db에 저장
     public void ContractRegister(@RequestBody List<ContractDTO>  contractDTOList) {
 
-        for(ContractDTO data : contractDTOList) {
 
+        for(ContractDTO data : contractDTOList) {
+            log.info(data.toString());
             ProductInformationRegistration productInformationRegistration
                     = productInformationRegistrationRepository.findById(data.getProduct_code()).orElse(null);
 

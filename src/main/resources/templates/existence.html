@@ -59,25 +59,9 @@
           <th class="existence_head">중분류</th>
           <th class="existence_head">소분류</th>
           <th class="existence_head">재고</th>
-          <th class="existence_head">공급 가격</th>
-          <th class="existence_head">재고 금액</th>
-          <th class="existence_head">재고 금액</th>
         </tr>
         </thead>
         <tbody class="existence_body">
-        <tr th:each="existence: ${existenceList}">
-          <td th:text="${existence.productName}"></td>
-          <td th:text="${existence.product_code}"></td>
-          <td th:text="${existence.unit.unit}"></td>
-          <td th:text="${existence.assy.assy}"></td>
-          <td th:text="${existence.unit.unit}"></td>
-          <td th:text="${existence.assy.assy}"></td>
-          <td th:text="${existence.part.part}"></td>
-          <td th:text="${existence.release}"></td>
-          <td th:text="${existence.existence}"></td>
-          <td th:text="${existence.existence_price}"></td>
-          <td th:text="${existence.releaseDate}"></td>
-        </tr>
         </tbody>
       </table>
       </div>

@@ -41,7 +41,7 @@ public class ExistenceDTO {
 
     public ExistenceDTO existence(Existence existenceInfo,ReleaseProcess releaseProcess, ProductInformationRegistration productInformationRegistration, int contract_pay) {
         if(productInformationRegistration.getPart()==null || productInformationRegistration.getPart().getAssy()==null || productInformationRegistration.getPart().getAssy().getUnit()==null) {
-            int existence = releaseProcess.getReleaseCNT();
+            int existence = existenceInfo.getReleaseCNT();
             int existence_price = existence * contract_pay;
             Part part1 = Part.builder().part(null).assy(null).build();
             return ExistenceDTO.builder()
@@ -52,7 +52,6 @@ public class ExistenceDTO {
                     .weight(productInformationRegistration.getWeight())
                     .height(productInformationRegistration.getHeight())
                     .length(productInformationRegistration.getLength())
-                    .releaseDate(releaseProcess.getModDate())
                     .contract_pay(contract_pay)
                     .release(releaseProcess.getReleaseCNT())
                     .existence(existence)
@@ -63,7 +62,7 @@ public class ExistenceDTO {
                     .part(part1)
                     .build();
         }
-        int existence = releaseProcess.getReleaseCNT();
+        int existence = existenceInfo.getReleaseCNT();
         int existence_price = existence * contract_pay;
         return ExistenceDTO.builder()
                 .releaseDate(releaseProcess.getModDate())

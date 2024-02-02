@@ -48,6 +48,7 @@
             <th class="orderList_head">발주서 발행일</th>
             <th class="orderList_head">업체명</th>
             <th class="orderList_head">진척 검수 상태</th>
+            <th class="orderList_head"></th>
         </tr>
         </thead>
         <tbody id="tbody">
@@ -57,7 +58,9 @@
             <td th:text="${order.departName}"></td>
             <td th:text="${order.orderState}"></td>
             <td>
-                <div th:if="${order.progressInspectionStatus == true}"></div>
+                <button class="orderListSearchButton" th:if="${order.progressInspectionStatus == true}" th:id="${order.productCode}"
+                        th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">진척검수확인
+                </button>
                 <button class="orderListSearchButton" th:if="${order.progressInspectionStatus == false}" th:id="${order.productCode}"
                         th:attr="onclick='openOrderInspectPopup(\'' + ${order.productCode} + '\',\'' + ${order.procurementPlanCode} + '\',\'' + ${orderStat.index} + '\')'">진척검수등록
                 </button>

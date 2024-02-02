@@ -33,7 +33,6 @@ public class OrderController {
 
     @GetMapping("orderInspect")
     public String orderInspect(@RequestParam("productCode") int productCode, @RequestParam("procurementPlanCode") int procurementPlanCode,@RequestParam("orderIndex") int orderIndex,Model model) {
-        orderService.getOrderInspectData(productCode, procurementPlanCode,orderIndex).forEach(System.out::println);
         model.addAttribute("orderInspect", orderService.getOrderInspectData(productCode, procurementPlanCode,orderIndex));
         return "orderInspect";
     }

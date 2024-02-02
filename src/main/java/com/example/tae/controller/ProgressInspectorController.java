@@ -37,6 +37,7 @@ public class ProgressInspectorController {
     @GetMapping("inspectorData")
     public ResponseEntity<?> getProgressInspectorList(@RequestParam("planCode") int planCode) {
         List<ProgressInspectionDTO> progressInspectionList = progressInspectorService.getProgressInspectorList(planCode);
+        progressInspectionList.forEach(x-> log.info(x.toString()));
         return ResponseEntity.status(HttpStatus.OK).body(Map.of("progressInspectionList",progressInspectionList));
     }
 

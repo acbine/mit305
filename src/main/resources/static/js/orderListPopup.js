@@ -1,8 +1,8 @@
 function orderImage(){
     html2canvas(document.getElementById('forSendEmail')).then((canvas) => {
         const imageDataURL = canvas.toDataURL("image/jpg");
-
-        const imageJson = {imageDataURL : imageDataURL}
+        const departName = document.getElementById("departName").innerText;
+        const imageJson = {imageDataURL : imageDataURL,"departName":departName}
 
         fetch('/order-imageURl', {
             method: 'post',
@@ -13,5 +13,6 @@ function orderImage(){
         })
 
     });
+
 
 }

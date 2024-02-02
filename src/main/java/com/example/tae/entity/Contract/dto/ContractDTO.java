@@ -9,6 +9,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class ContractDTO {
 
     private int contract_code;
@@ -18,7 +19,6 @@ public class ContractDTO {
     private String payment_method;
     private int product_price;
     private int lead_time;
-    private Date start_date;
 
     private Date contract_date;
 

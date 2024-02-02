@@ -2,14 +2,11 @@
 
 function openOrderInspectPopup(productCode,procurementPlanCode,orderListIndex){
     var html = document.getElementById("orderInspectPopup");
-    console.log(html);
         var xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             if (this.readyState === 4 && this.status === 200) {
-                console.log(this.responseText,"응답 찍어보기")
                 html.style.display = "block";
                 html.innerHTML = this.responseText;
-                console.log(html.innerHTML,"html내용찍어보기 응답 찍어보기")
             }
         };
         xhttp.open('GET','orderInspect?productCode='+productCode+'&procurementPlanCode='+procurementPlanCode+'&orderIndex='+orderListIndex, true);
@@ -23,7 +20,6 @@ function searchOrderListWithDate() {
             url: 'order-list-with-date?&date1=' + date1 +'&date2='+date2,
             method:'get',
         success:function (info){
-                console.log(info.oList[0],"info 정보 확인하기")
                 drawHTMl(info)
                 console.log("성공");
         },
@@ -63,7 +59,7 @@ function putOrderAmount(productCode, planCode, index) {
     var btnList = document.getElementsByClassName("orderRegisterBtnContainer");
     var changeToInput = putOrderTableInfo[index];
     var num =putOrderTableInfo[index].innerHTML;
-    console.log(planCode);
+
     changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
     btnList[0].innerHTML = `<button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>`
     btnList[1].innerHTML =  `<button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>`
@@ -122,11 +118,9 @@ function openOrder(procurementPlanCode) {
         url:"open-order/"+procurementPlanCode,
         method: "get",
         success:function (order){
-            console.log(order)
             html.style.display = "block";
             orderHtml.style.display="block";
             orderHtml.innerHTML = order;
-            console.log("성공")
         },
         error:function (){
             console.log("실패")

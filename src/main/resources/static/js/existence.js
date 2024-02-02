@@ -29,7 +29,8 @@ function htmlLoad(data, value) {
     var table = document.getElementsByClassName("existence_body");
     var title = document.getElementsByClassName("t-header");
     var existence;
-    if(data.existenceList) {
+
+    if (data.existenceList) {
         existence = data.existenceList;
     }
 
@@ -44,116 +45,65 @@ function htmlLoad(data, value) {
     var totalAmount = 0;
     var totalEx = 0;
 
-    if (value === "대분류") {
-        inputHTML.length = 0;
+    if (value === "대분류" || value === "중분류" || value === "소분류") {
+        table[table.length - 1].length = 0;
+        inputHTML = [];
         totalEx = 0;
-        title[0].innerHTML = `<thead class="t-header">
+        classification.length = 0;
+
+        var headerHTML = `<thead class="t-header">
                             <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
-                                <td class="existence_head">대분류</td>
-                                <td class="existence_head">재고</td>
-                                <td class="existence_head">총 재고 금액</td>
-                           </tr>
-                           </thead>`
-
-        for (var i = 0; i < existence.length; i++) {
-            classification.push(existence[i].unit.unit);
-        }
-
-        const set = new Set(classification);
-
-        for (const productClassification of set) {
-            for (var j = 0; j < existence.length; j++) {
-                if (productClassification === existence[j].unit.unit) {
-                    totalAmount = totalAmount + existence[j].existence_price;
-                    totalEx = totalEx + existence[j].existence;
-                }
-            }
-            inputHTML.push(
-                `<tbody class="existence_body"> 
-                            <td id="body">${productClassification}</td>
-                            <td id="body">${totalEx}</td>
-                            <td id="body">${totalAmount}</td>
-                        <tbody>`
-            );
-        }
-
-        table[table.length - 1].innerHTML = inputHTML.join('')
-    } else if (value === "중분류") {
-        totalEx = 0;
-        inputHTML.length = 0;
-        title[0].innerHTML = `<thead class="t-header">
-                            <tr style="position: sticky;  top: 0;  background-color: #f2f2f2;">
-                                <td class="existence_head">중분류</td>
+                                <td class="existence_head">${value}</td>
                                 <td class="existence_head">현재고</td>
                                 <td class="existence_head">공급가</td>
                                 <td class="existence_head">재고 금액</td>
                             </tr>
-                           </thead>`
+                           </thead>`;
+
+        title[0].innerHTML = headerHTML;
 
         for (var i = 0; i < existence.length; i++) {
-            classification.push(existence[i].assy.assy);
-        }
+            var classificationValue;
 
-        const set = new Set(classification);
-
-        for (const productClassification of set) {
-            for (var j = 0; j < existence.length; j++) {
-                if (productClassification === existence[j].assy.assy) {
-                    totalAmount = totalAmount + existence[j].existence_price;
-                    totalEx = totalEx + existence[j].existence;
-                }
+            if (value === "대분류") {
+                classificationValue = existence[i].unit.unit;
+            } else if (value === "중분류") {
+                classificationValue = existence[i].assy.assy;
+            } else if (value === "소분류") {
+                classificationValue = existence[i].part.part;
             }
-            inputHTML.push(
-                `<tbody>  class="existence_body" 
-                        <tr>
-                            <td id="body">${productClassification}</td>
-                            <td id="body">${existence[j].existence_price}</td>
-                            <td id="body">${existence[j].existence_price*existence[j].existence}</td>
-                        </tr>
-                        <tbody>`
-            );
-        }
 
+            if (!classification.includes(classificationValue)) {
+                classification.push(classificationValue);
 
-        table[table.length - 1].innerHTML = inputHTML.join('')
-    } else if (value === "소분류") {
-        totalEx = 0;
-        inputHTML.length = 0;
+                var totalAmountPerClassification = 0;
+                var totalExPerClassification = 0;
 
-        title[0].innerHTML = `<thead class="t-header">
-                                <tr>
-                                     <td class="existence_head">중분류</td>
-                                     <td class="existence_head">현재고</td>
-                                     <td class="existence_head">공급가</td>
-                                     <td class="existence_head">재고 금액</td>
-                                </tr>
-                           </thead>`
-
-        for (var i = 0; i < existence.length; i++) {
-            classification.push(existence[i].part.part);
-        }
-
-        const set = new Set(classification);
-
-        for (const productClassification of set) {
-            for (var j = 0; j < existence.length; j++) {
-                if (productClassification === existence[j].part.part) {
-                    totalAmount = totalAmount + existence[j].existence_price;
-                    totalEx = totalEx + existence[j].existence;
+                for (var j = 0; j < existence.length; j++) {
+                    if (
+                        (value === "대분류" && classificationValue === existence[j].unit.unit) ||
+                        (value === "중분류" && classificationValue === existence[j].assy.assy) ||
+                        (value === "소분류" && classificationValue === existence[j].part.part)
+                    ) {
+                        totalAmountPerClassification = existence[j].existence_price;
+                        totalExPerClassification = existence[j].existence;
+                    }
                 }
+
+                inputHTML.push(
+                    `<tbody class="existence_body"> 
+                        <td id="body">${classificationValue}</td>
+                        <td id="body">${totalExPerClassification}</td>
+                        <td id="body">${totalAmountPerClassification}</td>
+                        <td id="body">${totalAmountPerClassification * totalExPerClassification}</td>
+                    <tbody>`
+                );
             }
-            inputHTML.push(
-                `<tbody class="existence_body"> 
-                             <td id="body">${productClassification}</td>
-                            <td id="body">${existence[j].existence_price}</td>
-                            <td id="body">${existence[j].existence_price*existence[j].existence}</td>
-                        <tbody>`
-            );
         }
 
-
-        table[table.length - 1].innerHTML = inputHTML.join('')
+        table[table.length - 1].innerHTML = inputHTML.join('');
     } else {
+        table[table.length - 1].length = 0;
         var inputHTML = [];
         var classification = [];
         var totalAmount = 0;

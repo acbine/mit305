@@ -127,7 +127,9 @@ public class ReleaseProcessServiceImpl implements ReleaseProcessService {
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         } else if (state == 1) {/*품목 코드 검색*/
+            log.info(state+"          state 정보 확인하기");
             List<ProductInformationRegistration> productInformationRegistrationList = productInformationRepository.findByProductInformationCode(constraints);
+            productInformationRegistrationList.forEach(System.out::println);
             releaseDtoList = changeReleaseDataToReleaseDTOFormat(releaseDtoList, releaseDto, procurementPlanList, productInformationRegistrationList);
             return releaseDtoList;
         }

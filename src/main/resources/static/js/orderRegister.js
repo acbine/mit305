@@ -1,6 +1,7 @@
+
 function orderRegister(productCode, procurementPlanCode, index) {
     var tbody = document.getElementsByClassName("orderRegisterTable");
-    console.log(index, "인덱스 번호 확인")
+    console.log(index,"인덱스 번호 확인")
     tbody[index].style.display = "none";
     var formData = {"productCode": productCode, "procurementPlanCode": procurementPlanCode};
     $.ajax({
@@ -16,14 +17,14 @@ function orderRegister(productCode, procurementPlanCode, index) {
 
 }
 
-function orderRegisterIn(index, planCode, orderIndex) {
-    console.log("planCode정보 받아옵기, " + planCode)
+function orderRegisterIn(index, planCode,orderIndex) {
+    console.log("planCode정보 받아옵기, "+ planCode)
     $.ajax({
         url: 'inspectorData?planCode=' + planCode,
         method: 'get',
         success: function (inspector) {
             console.log("받아온 데이터 확인 : ", inspector)
-            addInspects(inspector, index, orderIndex)
+            addInspects(inspector,index,orderIndex)
         },
         error: function (data) {
             console.error(data)
@@ -33,7 +34,7 @@ function orderRegisterIn(index, planCode, orderIndex) {
     })
 }
 
-function addInspects(inspector, index, orderIndex) {
+function addInspects(inspector,index,orderIndex) {
     var inspectorInfo = inspector.progressInspectionList;
     var classTbodyContainerTr = document.getElementById("progressInspection");
 
@@ -41,27 +42,27 @@ function addInspects(inspector, index, orderIndex) {
     for (let i = 0; i < inspectorInfo.length; i++) {
         var note = inspectorInfo[i].note;
 
-        if (inspectorInfo[i].note === null) {
-            note = "";
+        if(inspectorInfo[i].note===null) {
+                note = "";
         }
 
-        if (i === inspectorInfo.length - 1 && inspectorInfo[i].progressInspectorResult === false) {
+        if(i===inspectorInfo.length-1&&inspectorInfo[i].progressInspectorResult===false) {
             classTbodyContainerTr.insertRow().innerHTML = `<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td>${note}</td>
                                                             <td id="buttonState"><button class="orderInspectButton" onclick="popup.openPopup(${index},${orderIndex})">진척검수실행</button><button class="orderInspectButton" onclick="updateProgressInspection(this,${index}${orderIndex})">수정</button><button class="orderInspectButton" onclick="cancel()">삭제</button></td>`
-        } else if (inspectorInfo[i].progressInspectorResult === true && inspectorInfo[i].orderState === "발주중" || inspectorInfo[i].orderState === "발주전" || inspectorInfo[i].orderState === "") {
-            classTbodyContainerTr.insertRow().innerHTML = `<td>${inspectorInfo[i].productName}</td>
+        } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="발주중"||inspectorInfo[i].orderState==="발주전"||inspectorInfo[i].orderState==="") {
+            classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
                                                             <td>${note}</td>
                                                             <td><font color="red">[재검수 요망]</font></td>`;
-        } else if (inspectorInfo[i].progressInspectorResult === true && inspectorInfo[i].orderState === "마감" || inspectorInfo[i].orderState === "검수처리완료") {
-            classTbodyContainerTr.innerHTML = ``;
-            classTbodyContainerTr.insertRow().innerHTML = `<td>${inspectorInfo[i].productName}</td>
+        } else if(inspectorInfo[i].progressInspectorResult===true&&inspectorInfo[i].orderState==="마감"||inspectorInfo[i].orderState==="검수처리완료"){
+            classTbodyContainerTr.innerHTML =``;
+            classTbodyContainerTr.insertRow().innerHTML =`<td>${inspectorInfo[i].productName}</td>
                                                             <td>${formDate(inspectorInfo[i].orderDate)}</td>
                                                             <td Class="inspectDate">${formDate(inspectorInfo[i].progressInspectonDate)}</td>
                                                             <input type="hidden" value="${inspectorInfo[i].progressInspectionId}"/> 
@@ -75,76 +76,78 @@ function addInspects(inspector, index, orderIndex) {
 }
 
 
-function progressInspectorCheck(index, orderListIndex) {
-    var progressInspection = document.getElementById("progressInspection");
-    index = progressInspection.children.length - 1;
 
-    var checkListCnt = 0;
-    var progressInspectorResult = false;
-    var classTbodyContainerTr = document.getElementById("progressInspection");
-    var tData = classTbodyContainerTr.children[index];
+    function progressInspectorCheck (index,orderListIndex) {
+        var progressInspection = document.getElementById("progressInspection");
+        index =  progressInspection.children.length-1;
 
-    var checkBoxes = document.getElementsByClassName("checkbox");
-    var note = document.getElementById("note").value;
+        var checkListCnt = 0;
+        var progressInspectorResult = false;
+        var classTbodyContainerTr = document.getElementById("progressInspection");
+        var tData = classTbodyContainerTr.children[index];
 
-    var progressInspectionId = tData.children[3].value;
-    var noteTable = tData.children[4];
-    var resultTable = tData.children[5];
-    var buttonColumn = document.getElementById("buttonState");
-    var date = document.getElementById("setInspectDate");
+        var checkBoxes = document.getElementsByClassName("checkbox");
+        var note = document.getElementById("note").value;
 
-    var orderListTable = document.getElementsByClassName("orderList");
+        var progressInspectionId = tData.children[3].value;
+        var noteTable = tData.children[4];
+        var resultTable = tData.children[5];
+        var buttonColumn = document.getElementById("buttonState");
+        var date  = document.getElementById("setInspectDate");
 
-    // inspector.addEventListener('click',function (e) {
+        var orderListTable= document.getElementsByClassName("orderList");
 
-    // e.preventDefault();
+        // inspector.addEventListener('click',function (e) {
 
-    /*체크 박스 카운트*/
-    for (let i = 0; i < checkBoxes.length; i++) {
-        if (checkBoxes[i].checked === true) {
-            ++checkListCnt;
-        }
-    }
+            // e.preventDefault();
 
-    progressInspectorResult = checkListCnt >= 4;
+            /*체크 박스 카운트*/
+            for (let i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked === true) {
+                    ++checkListCnt;
+                }
+            }
 
-    var formData = {
-        "progressInspectionId": progressInspectionId, "progressInspectorResult": progressInspectorResult, "note": note
-    }
+            progressInspectorResult = checkListCnt >= 4;
 
-    $.ajax({
-            url: 'inspectorResult',
-            data: JSON.stringify(formData),
-            contentType: 'application/json',
-            method: 'put',
-            success: function (result) {
-                if (result.result[0] === "재검수 요망") {
-                    noteTable.innerHTML = `<td>${result.result[1]}<td>`
-                    resultTable.innerHTML = `
+            var formData = {
+                "progressInspectionId" : progressInspectionId, "progressInspectorResult" :  progressInspectorResult, "note":note
+            }
+
+            $.ajax({
+                    url: 'inspectorResult',
+                    data: JSON.stringify(formData),
+                    contentType:'application/json',
+                    method: 'put',
+                    success: function (result) {
+                        if(result.result[0]==="재검수 요망"){
+                            noteTable.innerHTML = `<td>${result.result[1]}<td>`
+                            resultTable.innerHTML = `
                                                         <input type="hidden" value="${progressInspectionId}">
                                                         <td><font color="red">[${result.result[0]}]</font></td>`;
-                } else {
-                    console.log(date, "버튼 데이터 정보 확인")
-                    date.innerHTML = ``;
-                    noteTable.innerHTML = `<td>${result.result[1]}<td>`
-                    resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
+                        } else {
+                            console.log(date,"버튼 데이터 정보 확인")
+                            date.innerHTML = ``;
+                            noteTable.innerHTML = `<td>${result.result[1]}<td>`
+                            resultTable.innerHTML = ` <input type="hidden" value="${progressInspectionId}">
                                                         <td><font color="green">[${result.result[0]}]</font></td>`;
-                    buttonColumn.innerHTML = `<td></td>`;
-                    orderListTable[orderListIndex].children[3].innerHTML = `<td>검수처리완료</td>`
+                            buttonColumn.innerHTML = `<td></td>`;
+                            orderListTable[orderListIndex].children[3].innerHTML = `<td>검수처리완료</td>`
+                        }
+                    },
+                    error: function () {
+                        console.log("검수 요청 실패")
+                    }
                 }
-            },
-            error: function () {
-                console.log("검수 요청 실패")
-            }
-        }
-    )
-    closeInspect();
-    // })
+            )
+            closeInspect();
+        // })
 
 }
 
 
-function updateProgressInspection(info, index, orderIndex) {
+
+function updateProgressInspection(info, index,orderIndex) {
     var updateData = info.closest("tr");
     console.log(updateData);
     var date = updateData.children[2];
@@ -157,7 +160,7 @@ function updateProgressInspection(info, index, orderIndex) {
 
 function cancel(progressInspectorId, index) {
     var classTbodyContainerTr = document.getElementById("progressInspection");
-    var tData = classTbodyContainerTr.children[classTbodyContainerTr.children.length - 1];
+    var tData = classTbodyContainerTr.children[classTbodyContainerTr.children.length-1];
     var progressInspectionId = tData.children[3].value;
     console.log(tData)
 
@@ -165,8 +168,8 @@ function cancel(progressInspectorId, index) {
         url: 'inspectorData/' + progressInspectionId,
         method: 'delete',
         success: function () {
-            tData.style.display = "none";
-            tData.innerHTML = "";
+            tData.style.display="none";
+            tData.innerHTML="";
             console.log("성공")
         },
         error: function () {
@@ -177,8 +180,8 @@ function cancel(progressInspectorId, index) {
 
 }
 
-const popup = {
-    openPopup: function (index, orderListIndex) {
+const popup ={
+    openPopup: function (index,orderListIndex){
 
         var progressInspection = document.getElementById("progressInspection");
         // var index =  progressInspection.children.length-1;
@@ -188,7 +191,7 @@ const popup = {
 
 }
 
-function updateConfirm(html, index, orderListIndex) {
+function updateConfirm(html, index,orderListIndex) {
     var updateData = html.closest("tr");
     var dateHtml = updateData.children[2];
     var updateButton = updateData.children[5];
@@ -217,7 +220,7 @@ function updateConfirm(html, index, orderListIndex) {
     })
 }
 
-function addProgressInspection(productName, planId, info, orderListIndex) {
+function addProgressInspection(productName, planId, info,orderListIndex) {
     var dateValue = document.getElementById("setInspectDate").childNodes[0].value;
     var index = info.target;
     if (dateValue) {
@@ -231,7 +234,7 @@ function addProgressInspection(productName, planId, info, orderListIndex) {
             data: JSON.stringify(formData),
             method: "post",
             success: function (data) {
-                addInspectorOne(data, index, orderListIndex);
+                addInspectorOne(data, index,orderListIndex);
                 console.log("성공")
             },
             error: function (data) {

@@ -60,10 +60,14 @@ function putOrderAmount(productCode, planCode, index) {
     var changeToInput = putOrderTableInfo[index];
     var num =putOrderTableInfo[index].innerHTML;
 
+
+    console.log(btnList)
     changeToInput.innerHTML=`<input style="width: 40px" class="inputPlanNum" type="number">`
-    btnList[0].innerHTML = `<button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>`
-    btnList[1].innerHTML =  `<button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>`
-    btnList[2].innerHTML = ``;
+    btnList[0].innerHTML = `<td>
+                       <button class="orderRGSearchButton" onclick="putPlanNum(${productCode},${planCode},${index})">수정 완료</button>
+                       <button class="orderRGSearchButton" onclick="cancelPlanPut(${productCode},${planCode},${index},${num})"> 취소 </button>
+                 </td>`
+
 }
 
 function putPlanNum(productCode,planCode,index) {
@@ -77,9 +81,11 @@ function putPlanNum(productCode,planCode,index) {
     var inputData = input[index].value;//받아온 데이터 값
     changeToInput.outerHTML=`<td class="planNum">${inputData}</td>`
 
-    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
-    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
-    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+    btnList[0].innerHTML =`<td>
+                    <button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button>
+                    <button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button>
+                    <button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button>
+                </td>`
 
     var formData = { "procurementPlanCode" : planCode, "num" : inputData};
 
@@ -105,9 +111,13 @@ function cancelPlanPut(productCode,planCode,index,num) {
 
     changeToInput.innerHTML=`<td>${num}</td>`
 
-    btnList[0].innerHTML = ` <td><button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button></td>`
-    btnList[1].innerHTML = `<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
-    btnList[2].innerHTML = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
+    btnList[0].innerHTML =`<td>
+                    <button class="orderRGSearchButton" onclick="putOrderAmount(${productCode},${planCode},${index})">수정</button>
+                    <button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button>
+                    <button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button>
+                </td>`
+    // btnList[1] =`<td><button class="orderRGSearchButton" onclick="orderRegister(${productCode},${planCode},${index})">등록</button></td>`
+    // btnList[2] = `<td><button class="orderRGSearchButton" onclick="cancel(${productCode},${planCode},${index})">취소</button></td>`
 
 }
 /*--------------------발주 목록 팝업창(orderListPopup)--------------------*/

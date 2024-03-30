@@ -40,7 +40,7 @@
   ![스크린샷 2024-02-27 205057](https://github.com/acbine/mit305/assets/145634613/f43f78e1-a14c-49bd-9b4c-48ed23e55660)
 
 
-  <a href="https://github.com/acbine/mit305/wiki" >2.1 입고된 자재의 수량정보를 입력,저장 - WIKI 이동</a><br>
+  <a href="[https://github.com/acbine/mit305/wiki](https://github.com/acbine/mit305/wiki)" >2.1 입고된 자재의 수량정보를 입력,저장 - WIKI 이동</a><br>
   
   
   2.2 입고된 품목 조달 완료 처리

@@ -30,7 +30,7 @@
 
   [1.1 리포트 기간을 선택후 해당 기간 동안 발주서 목록을 보여주기](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5) 
   
-  [1.2 항목별로 발주상태 그래프 표시하](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
+  [1.2 항목별로 발주상태 그래프 표시하기](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
 
 </details>
   
@@ -42,10 +42,10 @@
   
   ![스크린샷 2024-02-27 205057](https://github.com/acbine/mit305/assets/145634613/f43f78e1-a14c-49bd-9b4c-48ed23e55660)
 
-  [2.1 입고처리 할 품목의 정보를 불러오](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
+  [2.1 입고처리 할 품목의 정보를 불러오기](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
   
   
-  [ 2.2 입고처리 시 품목의 수량을 불러온 후 조달 완료 처리하](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
+  [ 2.2 입고처리 시 품목의 수량을 불러온 후 조달 완료 처리하기](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
 
 
 </details>

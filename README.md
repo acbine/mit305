@@ -49,7 +49,8 @@
 </details>
 
 <details>
-  <summary>3.거래명세서발행</summary>
+  <summary>3.거래명세서발행</summary>![스크린샷 2024-02-27 204208](https://github.com/acbine/mit305/assets/145634613/b9fef61e-9cd1-4876-9cae-9dae4ca7328e)
+
 
   <details>
     <summary>3.1 거래명세서 미리보기</summary>

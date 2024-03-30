@@ -30,7 +30,7 @@
   [1.1 리포트 기간을 선택후 해당 기간 동안 진행 or 완료된 발주서 상태를 보여줌](https://github.com/acbine/mit305/wiki)
 
   
-  [1.2 구문 항목별로 발주진행 그래프 표시]([https://github.com/acbine/mit305/wiki](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5))   
+  [1.2 구문 항목별로 발주진행 그래프 표시](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
 
 </details>
   

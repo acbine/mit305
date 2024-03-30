@@ -19,23 +19,16 @@
 
 
 
-### 담당한 주요 기능
+## 담당한 주요 기능
 
 <details>
   <summary>1.현황관리 리포트</summary>
 
   ![스크린샷 2024-02-27 204208](https://github.com/acbine/mit305/assets/145634613/52a32c42-2a2d-4fd6-948e-48b756ba9aa8)
   
-  <details>
-    <summary>1.1 리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
-    안녕하세용 코드 줄꺼에용2
-  </details>
 
-  
-
-  <details>
-    <summary>1.2 구문 항목별로 발주진행 그래프 표시</summary>
-    안녕하세용 코드 줄꺼에용23
+   1.1 리포트 기간을 선택후 해당 기간 동안 진행 or 완료된 발주서 상태를 보여줌줌
+   1.2 구문 항목별로 발주진행 그래프 표시
   </details>
   
   
@@ -46,15 +39,10 @@
   
   ![스크린샷 2024-02-27 205057](https://github.com/acbine/mit305/assets/145634613/f43f78e1-a14c-49bd-9b4c-48ed23e55660)
 
-  <details>
-    <summary>2.1 입고된 자재의 수량정보를 입력,저장</summary>
 
-    
-  </details>
-
-  <details>
-    <summary>2.2 입고된 품목 조달 완료 처리</summary>
-  </details>
+  2.1 입고된 자재의 수량정보를 입력,저장
+  
+  2.2 입고된 품목 조달 완료 처리
   
 </details>
 

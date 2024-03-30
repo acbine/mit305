@@ -28,28 +28,14 @@
   
   <details>
     <summary>1.1 리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
-    
-  
-  <details>
-    <summary>코드2</summary>
-    [소스 코드 보기](/example.java)
-  </detail>
-  
-  
-  <details>
-    <summary>코드2</summary>
-  </details>
-
-    
-  <details>
-    <summary>코드2</summary>
+    안녕하세용 코드 줄꺼에용2
   </details>
 
   
-  </details>
 
   <details>
     <summary>1.2 구문 항목별로 발주진행 그래프 표시</summary>
+    안녕하세용 코드 줄꺼에용23
   </details>
   
   

@@ -22,9 +22,11 @@
 
 <details>
   <summary>현황관리 리포트</summary>
+  ![image](https://github.com/acbine/mit305/assets/145634613/2410e7bb-cdad-483a-94d1-29e796f0724c)
+
 
   <details>
-    <summary>리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
+    <summary>1.리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
   </details>
 
   <details>

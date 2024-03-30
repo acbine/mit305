@@ -22,47 +22,45 @@
 ### 담당한 주요 기능
 
 <details>
-  <summary>현황관리 리포트</summary>
+  <summary>1.현황관리 리포트</summary>
   
-
-
   <details>
-    <summary>1.리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
+    <summary>1.1 리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
   </details>
 
   <details>
-    <summary>구문 항목별로 발주진행 그래프 표시</summary>
+    <summary>1.2 구문 항목별로 발주진행 그래프 표시</summary>
   </details>
   
   
 </details>
 
 <details>
-  <summary>입고처리</summary>
+  <summary>2.입고처리</summary>
 
   <details>
-    <summary>임고된 자재의 수량정보를 입력,저장</summary>
+    <summary>2.1 입고된 자재의 수량정보를 입력,저장</summary>
   </details>
 
   <details>
-    <summary>입고된 품목 조달 완료 처리</summary>
+    <summary>2.2 입고된 품목 조달 완료 처리</summary>
   </details>
   
 </details>
 
 <details>
-  <summary>거래명세서발행</summary>
+  <summary>3.거래명세서발행</summary>
 
   <details>
-    <summary>거래명세서 미리보기</summary>
+    <summary>3.1 거래명세서 미리보기</summary>
   </details>
 
   <details>
-    <summary>거래명세서 양식을 출력</summary>
+    <summary>3.2 거래명세서 양식을 출력</summary>
   </details>
 
   <details>
-    <summary>거래명세서 양식을 해당 회사에 전송</summary>
+    <summary>3.3 거래명세서 양식을 해당 회사에 전송</summary>
   </details>
 
   

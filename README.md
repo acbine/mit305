@@ -28,6 +28,24 @@
   
   <details>
     <summary>1.1 리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
+    
+  
+  <details>
+    <summary>코드2</summary>
+    [소스 코드 보기](/example.java)
+  </detail>
+  
+  
+  <details>
+    <summary>코드2</summary>
+  </details>
+
+    
+  <details>
+    <summary>코드2</summary>
+  </details>
+
+  
   </details>
 
   <details>
@@ -56,24 +74,30 @@
 
 <details>
   <summary>3.거래명세서발행</summary>
+  <br>
   
   <details>
     <summary>3.1 거래명세서 미리보기</summary>
     
   ![스크린샷 2024-02-27 210147](https://github.com/acbine/mit305/assets/145634613/9a21af17-9897-4540-993c-4fe06e3ed7ee)
+  <br>
+  작성된코드1
   </details>
 
   <details>
     <summary>3.2 거래명세서 양식을 출력</summary>
-
+    
   ![스크린샷 2024-02-27 210557](https://github.com/acbine/mit305/assets/145634613/3a823cf9-e7ab-4c85-a06c-088b2445fef3)
-
+  <br>
+  작성된 코드2
   </details>
 
   <details>
     <summary>3.3 거래명세서 양식을 해당 회사에 전송</summary>
     
-![스크린샷 2024-02-27 211946](https://github.com/acbine/mit305/assets/145634613/3b604d8a-5d8a-46d5-9706-528928c0ac12)   
+  ![스크린샷 2024-02-27 211946](https://github.com/acbine/mit305/assets/145634613/3b604d8a-5d8a-46d5-9706-528928c0ac12)
+  <br>
+  작성된코드3
   </details>
 
   

@@ -47,7 +47,7 @@
 </details>
 
 <details>
-  <summary>3.거래명세서발행</summary>
+  <summary>3.거래명세서</summary>
   <br>
   
   <details>

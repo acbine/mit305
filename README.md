@@ -23,6 +23,8 @@
 
 <details>
   <summary>1.현황관리 리포트</summary>
+
+  ![스크린샷 2024-02-27 204208](https://github.com/acbine/mit305/assets/145634613/52a32c42-2a2d-4fd6-948e-48b756ba9aa8)
   
   <details>
     <summary>1.1 리포트 기간을 선택후 해상 기간에 진행 or 완료된발주서확인</summary>
@@ -37,9 +39,13 @@
 
 <details>
   <summary>2.입고처리</summary>
+  
+  ![스크린샷 2024-02-27 205057](https://github.com/acbine/mit305/assets/145634613/f43f78e1-a14c-49bd-9b4c-48ed23e55660)
 
   <details>
     <summary>2.1 입고된 자재의 수량정보를 입력,저장</summary>
+
+    
   </details>
 
   <details>
@@ -49,22 +55,27 @@
 </details>
 
 <details>
-  <summary>3.거래명세서발행</summary>![스크린샷 2024-02-27 204208](https://github.com/acbine/mit305/assets/145634613/b9fef61e-9cd1-4876-9cae-9dae4ca7328e)
-
-
+  <summary>3.거래명세서발행</summary>
+  
   <details>
     <summary>3.1 거래명세서 미리보기</summary>
+    
+  ![스크린샷 2024-02-27 210147](https://github.com/acbine/mit305/assets/145634613/9a21af17-9897-4540-993c-4fe06e3ed7ee)
   </details>
 
   <details>
     <summary>3.2 거래명세서 양식을 출력</summary>
+
+  ![스크린샷 2024-02-27 210557](https://github.com/acbine/mit305/assets/145634613/3a823cf9-e7ab-4c85-a06c-088b2445fef3)
+
   </details>
 
   <details>
     <summary>3.3 거래명세서 양식을 해당 회사에 전송</summary>
+    
+![스크린샷 2024-02-27 211946](https://github.com/acbine/mit305/assets/145634613/3b604d8a-5d8a-46d5-9706-528928c0ac12)   
   </details>
 
   
 </details>
-
 

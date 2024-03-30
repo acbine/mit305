@@ -1,3 +1,4 @@
+
 # Team project 생산관리
 
 ## 프로젝트 소개
@@ -12,7 +13,7 @@
 
 - Java17
 - IDE:Intellij
-- FramWork:SpringBoot
+- FrameWork:SpringBoot
 - DB : MySQL
 - ORM : JPA
 
@@ -22,7 +23,7 @@
 
 <details>
   <summary>현황관리 리포트</summary>
-  ![image](https://github.com/acbine/mit305/assets/145634613/2410e7bb-cdad-483a-94d1-29e796f0724c)
+  
 
 
   <details>

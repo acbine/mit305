@@ -25,9 +25,8 @@
   <summary>1.현황관리 리포트</summary>
 
   ![스크린샷 2024-02-27 204208](https://github.com/acbine/mit305/assets/145634613/52a32c42-2a2d-4fd6-948e-48b756ba9aa8)
-  
 
-   1.1 리포트 기간을 선택후 해당 기간 동안 진행 or 완료된 발주서 상태를 보여줌<br>
+  <a href="[https://github.com/acbine/mit305/wiki](https://github.com/acbine/mit305/wiki)" > 1.1 리포트 기간을 선택후 해당 기간 동안 진행 or 완료된 발주서 상태를 보여줌</a><br>
    1.2 구문 항목별로 발주진행 그래프 표시
   </details>
   

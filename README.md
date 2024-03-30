@@ -53,6 +53,19 @@
 <details>
   <summary>3.거래명세서</summary>
   <br>
+
+  <details>
+    <summary>3.0 거래명세서 목록 불러오기</summary>
+    
+  ![스크린샷 2024-02-27 205656](https://github.com/acbine/mit305/assets/145634613/f9726e58-83eb-4ad3-85bd-63eb4dbf82f0)
+  <br>
+
+   [3.0 거래명세서 목록 불러오기](https://github.com/acbine/mit305/wiki/%EB%8B%B4%EB%8B%B9%ED%95%9C-%EC%A3%BC%EC%9A%94-%EA%B8%B0%EB%8A%A5)   
+  
+ 
+  </details>
+
+  
   
   <details>
     <summary>3.1 거래명세서 미리보기</summary>
@@ -77,7 +90,7 @@
   </details>
 
   <details>
-    <summary>3.3 거래명세서 양식을 해당 회사에 전송</summary>
+    <summary>3.3 거래명세서를 이미지로 변환 후 해당 회사에 전송</summary>
     
   ![스크린샷 2024-02-27 211946](https://github.com/acbine/mit305/assets/145634613/3b604d8a-5d8a-46d5-9706-528928c0ac12)
   <br>
